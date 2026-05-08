@@ -1,0 +1,9 @@
+{
+	"extends": "../tsconfig",
+	"include": ["./src"],
+	"compilerOptions": {
+		"inlineSourceMap": true,
+		"sourceMap": false,
+		"outDir": "./lib"
+	}
+}

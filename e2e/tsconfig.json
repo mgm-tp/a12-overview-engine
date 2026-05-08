@@ -1,0 +1,16 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "ESNext",
+		"module": "NodeNext",
+		"lib": ["es2020", "dom"],
+		"types": ["@playwright/test", "node"],
+		"sourceMap": false,
+		"declaration": false,
+		"declarationMap": false,
+		"allowJs": true,
+		"resolveJsonModule": true
+	},
+	"include": ["tests/**/*.ts", "global-setup.ts"]
+}

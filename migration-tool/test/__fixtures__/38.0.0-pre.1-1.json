@@ -1,0 +1,227 @@
+{
+	"header": {
+		"id": "38.0.0-pre.1",
+		"modelType": "overview",
+		"modelVersion": "38.0.0-pre.1",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Employee"
+			},
+			{
+				"locale": "de",
+				"text": "Employee"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "EmployeeDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_with_meta",
+				"sectionData": [
+					{
+						"id": "employee-section",
+						"label": [
+							{
+								"locale": "en",
+								"text": "Employee info"
+							},
+							{
+								"locale": "de",
+								"text": "Employee info"
+							}
+						],
+						"fieldIDs": ["F3", "F4", "F5", "F6", "abc6a6767a60488754aace2accb73824_field_cdaf9"]
+					}
+				]
+			},
+			"multiSelection": {
+				"collapseOption": "non_collapsible",
+				"counterOption": "none",
+				"buttons": [],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"labelHidden": true,
+			"enableColumnsResize": true
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-51003",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Salary (pinned to the left)"
+					},
+					{
+						"locale": "de",
+						"text": "Gehalt (pinned to the left)"
+					}
+				],
+				"width": 1.4,
+				"pinDirection": "LEFT",
+				"elementRef": "F4",
+				"sortable": false,
+				"suffix": [
+					{
+						"locale": "en",
+						"text": "USD"
+					},
+					{
+						"locale": "de",
+						"text": "EUR"
+					}
+				],
+				"summary": [
+					{
+						"operation": "sum"
+					}
+				]
+			},
+			{
+				"id": "column-63750",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Full Name"
+					},
+					{
+						"locale": "de",
+						"text": "Vollständiger Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": false
+			},
+			{
+				"id": "column-a4715",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Date of birth"
+					},
+					{
+						"locale": "de",
+						"text": "Geburtsdatum"
+					}
+				],
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false
+			},
+			{
+				"id": "column-0fde3",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Actual currency"
+					},
+					{
+						"locale": "de",
+						"text": "Actual currency"
+					}
+				],
+				"width": 1.2,
+				"pinDirection": "RIGHT",
+				"alignment": {
+					"header": {
+						"horizontal": "center"
+					},
+					"content": {
+						"horizontal": "right"
+					}
+				},
+				"elementRef": "F7",
+				"sortable": false
+			},
+			{
+				"id": "column-01563",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Actual Salary"
+					},
+					{
+						"locale": "de",
+						"text": "Actual Gehalt"
+					}
+				],
+				"width": 1.4,
+				"pinDirection": "RIGHT",
+				"elementRef": "F6",
+				"sortable": false,
+				"suffixRef": "F7"
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		}
+	}
+}

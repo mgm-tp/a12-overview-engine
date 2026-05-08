@@ -1,0 +1,54 @@
+{
+	"header": {
+		"id": "showcaseAM",
+		"modelType": "application",
+		"modelVersion": "6.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		]
+	},
+	"content": {
+		"region": {
+			"name": "APP",
+			"layout": {
+				"name": "ApplicationFrame"
+			},
+			"subRegions": [
+				{
+					"name": "CONTENT",
+					"layout": {
+						"name": "MasterDetail"
+					}
+				},
+				{
+					"name": "SIDEBAR",
+					"layout": {
+						"name": "Null"
+					}
+				},
+				{
+					"name": "MODAL",
+					"layout": {
+						"name": "Stack"
+					}
+				}
+			]
+		},
+		"defaultRegion": ["CONTENT"],
+		"modules": [],
+		"initialActivity": {
+			"descriptor": {
+				"showcase": "product",
+				"feature": "pagination"
+			}
+		}
+	}
+}

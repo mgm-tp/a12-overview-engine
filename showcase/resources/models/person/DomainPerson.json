@@ -1,0 +1,1057 @@
+{
+	"header": {
+		"id": "DomainPerson",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "DomainPerson",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "Europe/Berlin",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G11",
+					"name": "Person",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "G2",
+								"name": "PersonalData",
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"id": "F2",
+											"type": "Field",
+											"name": "ID",
+											"Field": {
+												"label": [
+													{
+														"locale": "en",
+														"text": "ID"
+													},
+													{
+														"locale": "de",
+														"text": "ID"
+													}
+												],
+												"fieldType": {
+													"type": "NumberType",
+													"NumberType": {
+														"leadingZerosAllowed": true,
+														"maxFractionalDigits": 4
+													}
+												},
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F3",
+											"name": "FirstName",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "First Name"
+													},
+													{
+														"locale": "de",
+														"text": "Vorname"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F4",
+											"name": "LastName",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Nachname"
+													},
+													{
+														"locale": "en",
+														"text": "Last Name"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F6",
+											"name": "Gender",
+											"Field": {
+												"fieldType": {
+													"type": "EnumerationType",
+													"EnumerationType": {
+														"values": [
+															{
+																"value": "MALE",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Male"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Männlich"
+																	}
+																]
+															},
+															{
+																"value": "FEMALE",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Female"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Weiblich"
+																	}
+																]
+															}
+														]
+													}
+												},
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F7",
+											"name": "DateOfBirth",
+											"Field": {
+												"fieldType": {
+													"type": "DateType",
+													"DateType": {
+														"format": "yyyy-MM-dd"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Geburtstag"
+													},
+													{
+														"locale": "en",
+														"text": "Date of birth"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F8",
+											"name": "PlaceOfBirth",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Place of birth"
+													},
+													{
+														"locale": "de",
+														"text": "Geburtsort"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F9",
+											"name": "Nationality",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Nationality"
+													},
+													{
+														"locale": "de",
+														"text": "Nationalität"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Group",
+											"id": "group_5f666",
+											"name": "TravelHistory",
+											"Group": {
+												"repeatability": 5,
+												"usageType": "multi-select",
+												"elements": [
+													{
+														"type": "Field",
+														"id": "field_4d133",
+														"name": "value",
+														"Field": {
+															"fieldType": {
+																"type": "EnumerationType",
+																"EnumerationType": {
+																	"values": [
+																		{
+																			"value": "canada",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Canada"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Kanada"
+																				}
+																			]
+																		},
+																		{
+																			"value": "france",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "France"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Frankreich"
+																				}
+																			]
+																		},
+																		{
+																			"value": "germany",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Germany"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Deutschland"
+																				}
+																			]
+																		},
+																		{
+																			"value": "romania",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Romania"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Rumänien"
+																				}
+																			]
+																		},
+																		{
+																			"value": "norwa",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Norway"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Norwegen"
+																				}
+																			]
+																		},
+																		{
+																			"value": "zimbabwe",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Zimbabwe"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Simbabwe"
+																				}
+																			]
+																		},
+																		{
+																			"value": "qatar",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Qatar"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Katar"
+																				}
+																			]
+																		},
+																		{
+																			"value": "egypt",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Egypt"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Ägypten"
+																				}
+																			]
+																		},
+																		{
+																			"value": "austria",
+																			"label": [
+																				{
+																					"locale": "en",
+																					"text": "Austria"
+																				},
+																				{
+																					"locale": "de",
+																					"text": "Österreich"
+																				}
+																			]
+																		}
+																	]
+																}
+															},
+															"label": [
+																{
+																	"locale": "en",
+																	"text": "Travel History"
+																},
+																{
+																	"locale": "de",
+																	"text": "Reisegeschichte"
+																}
+															],
+															"requirednessConfig": {
+																"mode": "absoluteOrRelativeToNextRepAncestor"
+															}
+														}
+													}
+												]
+											}
+										},
+										{
+											"type": "Group",
+											"id": "group_be11b",
+											"name": "Attachment",
+											"Group": {
+												"repeatability": 1,
+												"usageType": "attachment",
+												"elements": [
+													{
+														"type": "Field",
+														"id": "field_f52e3",
+														"name": "original_filename",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_56f07",
+														"name": "internal_filename",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_f6364",
+														"name": "content",
+														"Field": {
+															"fieldType": {
+																"type": "StringType",
+																"StringType": {
+																	"lineBreaksPermitted": true,
+																	"noValueValidation": true
+																}
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_88408",
+														"name": "attachment_id",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_fabf0",
+														"name": "size",
+														"Field": {
+															"fieldType": {
+																"type": "NumberType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_6e89b",
+														"name": "mime_type",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_bee10",
+														"name": "category",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_cb291",
+														"name": "description",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_ae721",
+														"name": "AttachmentInternalFilenameRequired",
+														"Rule": {
+															"errorEntityRelPath": "../internal_filename",
+															"errorCode": "Errorrule_ae721",
+															"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_ca5f4",
+														"name": "AttachmentMimeTypeRequired",
+														"Rule": {
+															"errorEntityRelPath": "../mime_type",
+															"errorCode": "Errorrule_ca5f4",
+															"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_1bc07",
+														"name": "AttachmentIdOrContentFilled",
+														"Rule": {
+															"errorEntityRelPath": "../content",
+															"errorCode": "Errorrule_1bc07",
+															"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_1ef1f",
+														"name": "SizeOfContentFilled",
+														"Rule": {
+															"errorEntityRelPath": "../content",
+															"errorCode": "Errorrule_1ef1f",
+															"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: If the content is filled, the size must be also filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: If the content is filled, the size must be also filled."
+																}
+															]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "G10",
+								"name": "Addresses",
+								"Group": {
+									"repeatability": 5,
+									"elements": [
+										{
+											"type": "Field",
+											"id": "F12",
+											"name": "Street",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Street"
+													},
+													{
+														"locale": "de",
+														"text": "Straße"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F13",
+											"name": "City",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Stadt"
+													},
+													{
+														"locale": "en",
+														"text": "City"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F14",
+											"name": "Country",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Country"
+													},
+													{
+														"locale": "de",
+														"text": "Land"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F15",
+											"name": "PostCode",
+											"Field": {
+												"fieldType": {
+													"type": "StringType",
+													"StringType": {
+														"maxLength": 5
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Postleitzahl"
+													},
+													{
+														"locale": "en",
+														"text": "Post code"
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "G16",
+								"name": "Phones",
+								"Group": {
+									"repeatability": 5,
+									"elements": [
+										{
+											"type": "Field",
+											"id": "F17",
+											"name": "PhoneNumber",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Telefonnummer"
+													},
+													{
+														"locale": "en",
+														"text": "Phone number"
+													}
+												]
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F18",
+											"name": "Type",
+											"Field": {
+												"fieldType": {
+													"type": "EnumerationType",
+													"EnumerationType": {
+														"values": [
+															{
+																"value": "MOBILE",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Mobil"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Mobile"
+																	}
+																]
+															},
+															{
+																"value": "WORK",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Arbeit"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Work"
+																	}
+																]
+															}
+														]
+													}
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Type"
+													},
+													{
+														"locale": "de",
+														"text": "Art"
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "G19",
+								"name": "Education",
+								"Group": {
+									"repeatability": 5,
+									"elements": [
+										{
+											"type": "Field",
+											"id": "F20",
+											"name": "SchoolName",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "School Name"
+													},
+													{
+														"locale": "de",
+														"text": "Schulname"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F21",
+											"name": "Degree",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Degree"
+													},
+													{
+														"locale": "de",
+														"text": "Abschluss"
+													}
+												]
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F22",
+											"name": "Major",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Major"
+													},
+													{
+														"locale": "de",
+														"text": "Hauptfach"
+													}
+												]
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23",
+											"name": "StartDate",
+											"Field": {
+												"fieldType": {
+													"type": "DateType",
+													"DateType": {
+														"format": "yyyy-MM-dd"
+													}
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Start date"
+													},
+													{
+														"locale": "de",
+														"text": "Anfangsdatum"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F24",
+											"name": "EndDate",
+											"Field": {
+												"fieldType": {
+													"type": "DateType",
+													"DateType": {
+														"format": "yyyy-MM-dd"
+													}
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "End date"
+													},
+													{
+														"locale": "de",
+														"text": "Abschlussdatum"
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "G20",
+								"name": "Work",
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Field",
+											"id": "F23_UAL",
+											"name": "DateRangeDate",
+											"Field": {
+												"fieldType": {
+													"type": "DateRangeType",
+													"DateRangeType": {
+														"format": "yyyy-MM-dd",
+														"rangeSeparator": "/"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "DateRange Date [de]"
+													},
+													{
+														"locale": "en",
+														"text": "DateRange Date"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23_UAL2",
+											"name": "DateRangeYear",
+											"Field": {
+												"fieldType": {
+													"type": "DateRangeType",
+													"DateRangeType": {
+														"format": "yyyy",
+														"rangeSeparator": "/"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "DateRange Year [de]"
+													},
+													{
+														"locale": "en",
+														"text": "DateRange Year"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23_UAL3",
+											"name": "DateRangeMonth",
+											"Field": {
+												"fieldType": {
+													"type": "DateRangeType",
+													"DateRangeType": {
+														"format": "MM",
+														"rangeSeparator": "/"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "DateRange Month [de]"
+													},
+													{
+														"locale": "en",
+														"text": "DateRange Month"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23_UAL4",
+											"name": "DateRangeYearMonth",
+											"Field": {
+												"fieldType": {
+													"type": "DateRangeType",
+													"DateRangeType": {
+														"format": "yyyy-MM",
+														"rangeSeparator": "/"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "DateRange Year & Month [de]"
+													},
+													{
+														"locale": "en",
+														"text": "DateRange Year & Month"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23_UAL5",
+											"name": "DateRangeMonthDay",
+											"Field": {
+												"fieldType": {
+													"type": "DateRangeType",
+													"DateRangeType": {
+														"format": "MM-dd",
+														"rangeSeparator": "/"
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "DateRange Month & Day [de]"
+													},
+													{
+														"locale": "en",
+														"text": "DateRange Month & Day"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "F23_UAL6",
+											"name": "DateTime",
+											"Field": {
+												"label": [
+													{
+														"locale": "en",
+														"text": "DateTime"
+													},
+													{
+														"locale": "de",
+														"text": "DateTime [de]"
+													}
+												],
+												"fieldType": {
+													"type": "DateTimeType",
+													"DateTimeType": {
+														"format": "yyyy-MM-dd'T'HH:mm:ss"
+													}
+												},
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

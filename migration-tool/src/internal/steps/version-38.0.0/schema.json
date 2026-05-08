@@ -1,0 +1,994 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/OverviewModel",
+  "definitions": {
+    "OverviewModel": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Header"
+        },
+        "content": {
+          "$ref": "#/definitions/Content"
+        }
+      },
+      "required": [
+        "header",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Header": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the model"
+        },
+        "modelType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "application",
+                "document",
+                "form",
+                "overview",
+                "relationship",
+                "tree"
+              ]
+            }
+          ],
+          "description": "The name of the meta model, e.g. application, document, form, overview, relationship, tree"
+        },
+        "modelVersion": {
+          "type": "string",
+          "description": "The version of the meta model"
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "additionalProperties": false
+          },
+          "description": "All supported locales of the model"
+        },
+        "labels": {
+          "$ref": "#/definitions/LocalizedModelText",
+          "description": "All labels of the model\n\nA label of a model is a text that can be used to display the model to users for a given locale"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional human-readable description of the model\n\nCan be used to provide additional information about the model, e.g. its usage, content, purpose, change history, etc."
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          },
+          "description": "All annotations of the model\n\nAn annotation is a key value pair of strings which can contain any project specific extension."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModelReference"
+          },
+          "description": "All references to other models"
+        }
+      },
+      "required": [
+        "id",
+        "modelType",
+        "modelVersion"
+      ],
+      "additionalProperties": false,
+      "description": "Contains common header information for all types of A12 models."
+    },
+    "LocalizedModelText": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LocalizedText"
+      },
+      "description": "An array containing the translations for a given model element (property), e.g. a label.\n\nEach array item contains the translation for a single (partial) locale."
+    },
+    "LocalizedText": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string",
+          "description": "The serialized representation of the (partial) locale.\n\nExpected format: \\<language\\>[_\\<COUNTRY\\>]\n\nValid examples: en_US, de_DE, fr\n\nInvalid examples: en-US, en_us, enUS, FR"
+        },
+        "text": {
+          "type": "string",
+          "description": "The localized text for the given locale."
+        }
+      },
+      "required": [
+        "locale",
+        "text"
+      ],
+      "additionalProperties": false,
+      "description": "An object representing a key-value mapping of locale -> localized text for a specific model property"
+    },
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The identifier of the annotation"
+        },
+        "value": {
+          "type": "string",
+          "description": "Optional value of the annotation"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "Additional (project-specific) information attached to a model for customization purposes"
+    },
+    "ModelReference": {
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "type": "string",
+          "description": "A string containing what the references is used for"
+        },
+        "modelType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "application",
+                "document",
+                "form",
+                "overview",
+                "relationship",
+                "tree"
+              ]
+            }
+          ],
+          "description": "A string containing what (meta) model type is referenced e.g. document, form, overview, application, tree, relationship"
+        },
+        "alias": {
+          "type": "string",
+          "description": "A string which can be used inside of the model to refer to this model reference"
+        },
+        "reference": {
+          "type": "string",
+          "description": "The actual reference to the other model"
+        }
+      },
+      "required": [
+        "modelType",
+        "reference"
+      ],
+      "additionalProperties": false,
+      "description": "A model reference contains information about references of a model to other models."
+    },
+    "Content": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "$ref": "#/definitions/Configuration"
+        },
+        "subHeaderBox": {
+          "$ref": "#/definitions/SubHeaderBox"
+        },
+        "footerBox": {
+          "$ref": "#/definitions/FooterBox"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Column"
+          }
+        },
+        "rowActionGroup": {
+          "$ref": "#/definitions/RowActionGroup"
+        },
+        "defaultRowAction": {
+          "$ref": "#/definitions/DefaultRowAction"
+        },
+        "contextMenu": {
+          "$ref": "#/definitions/ContextMenu"
+        },
+        "styles": {
+          "$ref": "#/definitions/Styles"
+        }
+      },
+      "required": [
+        "configuration",
+        "columns",
+        "rowActionGroup"
+      ],
+      "additionalProperties": false
+    },
+    "Configuration": {
+      "type": "object",
+      "properties": {
+        "pagingSize": {
+          "type": "number"
+        },
+        "initialSorting": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnRef"
+          }
+        },
+        "showFullTextSearch": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "showRowCount": {
+          "type": "boolean",
+          "const": true
+        },
+        "enableColumnsResize": {
+          "type": "boolean",
+          "const": true
+        },
+        "enableFilter": {
+          "type": "boolean"
+        },
+        "filterConfiguration": {
+          "$ref": "#/definitions/FilterConfiguration"
+        },
+        "multiSelection": {
+          "$ref": "#/definitions/MultiSelection"
+        },
+        "rowHeight": {
+          "type": "number"
+        },
+        "actionColumnWidth": {
+          "$ref": "#/definitions/Width"
+        },
+        "enableInfiniteScroll": {
+          "type": "boolean",
+          "const": true
+        },
+        "subtitle": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "rowTitle": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "required": [
+        "enableFilter"
+      ],
+      "additionalProperties": false
+    },
+    "ColumnRef": {
+      "type": "object",
+      "properties": {
+        "idref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "idref"
+      ],
+      "additionalProperties": false
+    },
+    "FilterConfiguration": {
+      "type": "object",
+      "properties": {
+        "showFilterButton": {
+          "type": "boolean"
+        },
+        "showFilterBar": {
+          "type": "boolean"
+        },
+        "filterMode": {
+          "$ref": "#/definitions/FilterMode"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldConfiguration"
+          }
+        },
+        "sectionData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SectionItem"
+          }
+        },
+        "enumeratedStringFilter": {
+          "$ref": "#/definitions/EnumeratedStringFilterConfiguration"
+        }
+      },
+      "required": [
+        "showFilterButton",
+        "showFilterBar",
+        "filterMode"
+      ],
+      "additionalProperties": false
+    },
+    "FilterMode": {
+      "type": "string",
+      "enum": [
+        "all",
+        "all_with_meta",
+        "all_columns",
+        "custom_list"
+      ]
+    },
+    "FieldConfiguration": {
+      "type": "object",
+      "properties": {
+        "fieldId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fieldId"
+      ],
+      "additionalProperties": false
+    },
+    "SectionItem": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldConfiguration"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "EnumeratedStringFilterConfiguration": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldConfiguration"
+          }
+        },
+        "pagingSize": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "MultiSelection": {
+      "type": "object",
+      "properties": {
+        "collapseOption": {
+          "$ref": "#/definitions/MultiSelection.CollapseOption"
+        },
+        "counterOption": {
+          "$ref": "#/definitions/MultiSelection.CounterOption"
+        },
+        "buttons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Button"
+          }
+        },
+        "clearConfirmation": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": true
+            },
+            "confirmation": {
+              "$ref": "#/definitions/ConfirmationText"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "collapseOption",
+        "counterOption"
+      ],
+      "additionalProperties": false
+    },
+    "MultiSelection.CollapseOption": {
+      "type": "string",
+      "enum": [
+        "collapsible_collapsed",
+        "collapsible_expanded",
+        "non_collapsible"
+      ]
+    },
+    "MultiSelection.CounterOption": {
+      "type": "string",
+      "enum": [
+        "simple",
+        "none"
+      ]
+    },
+    "Button": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/Styles"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "event"
+      ]
+    },
+    "ConfirmationText": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "message": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Icon": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "theme": {
+          "$ref": "#/definitions/IconTheme"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "IconTheme": {
+      "type": "string",
+      "enum": [
+        "filled",
+        "outlined",
+        "rounded",
+        "custom"
+      ]
+    },
+    "Styles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Width": {
+      "type": "number"
+    },
+    "SubHeaderBox": {
+      "type": "object",
+      "properties": {
+        "minorElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Element"
+          }
+        },
+        "majorElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Element"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Element": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ButtonElement"
+        },
+        {
+          "$ref": "#/definitions/MultiSelectionElement"
+        },
+        {
+          "$ref": "#/definitions/SearchElement"
+        },
+        {
+          "$ref": "#/definitions/FilterElement"
+        }
+      ]
+    },
+    "ButtonElement": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/Styles"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "type": {
+          "type": "string",
+          "const": "button"
+        }
+      },
+      "required": [
+        "event",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "MultiSelectionElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "multi_selection"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "SearchElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "search"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "FilterElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "filter"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "FooterBox": {
+      "type": "object",
+      "properties": {
+        "minorElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ButtonElement"
+          }
+        },
+        "majorElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ButtonElement"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Column": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ReferenceColumn"
+        },
+        {
+          "$ref": "#/definitions/ExpressionColumn"
+        }
+      ]
+    },
+    "ReferenceColumn": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/ColumnStyles"
+        },
+        "elementRef": {
+          "type": "string"
+        },
+        "sortable": {
+          "type": "boolean",
+          "default": false
+        },
+        "preferredSorting": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "default": "ASC"
+        },
+        "attachmentDisplayMode": {
+          "$ref": "#/definitions/AttachmentDisplayMode",
+          "default": "{@link AttachmentDisplayMode.PREVIEW }"
+        },
+        "multiSelectDisplayMode": {
+          "$ref": "#/definitions/MultiSelectDisplayMode"
+        },
+        "suffix": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "suffixRef": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Summary"
+          }
+        }
+      },
+      "required": [
+        "elementRef",
+        "id",
+        "width"
+      ],
+      "additionalProperties": false
+    },
+    "PinDirection": {
+      "type": "string",
+      "enum": [
+        "RIGHT",
+        "LEFT"
+      ]
+    },
+    "ColumnAlignment": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Alignment"
+        },
+        "content": {
+          "$ref": "#/definitions/Alignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Alignment": {
+      "type": "object",
+      "properties": {
+        "horizontal": {
+          "$ref": "#/definitions/HorizontalAlignment"
+        },
+        "vertical": {
+          "$ref": "#/definitions/VerticalAlignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HorizontalAlignment": {
+      "type": "string",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "VerticalAlignment": {
+      "type": "string",
+      "enum": [
+        "top",
+        "middle",
+        "bottom"
+      ]
+    },
+    "ColumnStyles": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Styles"
+        },
+        "content": {
+          "$ref": "#/definitions/Styles"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AttachmentDisplayMode": {
+      "type": "string",
+      "enum": [
+        "preview",
+        "icon",
+        "file_name",
+        "icon_with_file_name"
+      ]
+    },
+    "MultiSelectDisplayMode": {
+      "type": "string",
+      "enum": [
+        "comma_separated",
+        "default"
+      ]
+    },
+    "Summary": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "$ref": "#/definitions/Summary.Operation"
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "Summary.Operation": {
+      "type": "string",
+      "const": "sum"
+    },
+    "ExpressionColumn": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/ColumnStyles"
+        },
+        "name": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expression",
+        "id",
+        "name",
+        "width"
+      ],
+      "additionalProperties": false
+    },
+    "RowActionGroup": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Button"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "DefaultRowAction": {
+      "type": "object",
+      "properties": {
+        "custom": {
+          "type": "boolean",
+          "const": true
+        },
+        "event": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "custom",
+        "event"
+      ],
+      "additionalProperties": false
+    },
+    "ContextMenu": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionGroup"
+          }
+        }
+      },
+      "required": [
+        "groups"
+      ],
+      "additionalProperties": false
+    },
+    "ActionGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContextMenuItem"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "actions"
+      ],
+      "additionalProperties": false
+    },
+    "ContextMenuItem": {
+      "$ref": "#/definitions/Triggerable"
+    },
+    "Triggerable": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/Styles"
+        }
+      },
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

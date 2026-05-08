@@ -1,0 +1,208 @@
+{
+	"header": {
+		"id": "DomainAttachment",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "DM"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_01d65",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "G3",
+								"name": "attachment",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_7e8fa",
+											"name": "original_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_c6ab0",
+											"name": "internal_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_bb1b3",
+											"name": "content",
+											"Field": {
+												"fieldType": {
+													"type": "StringType",
+													"StringType": {
+														"lineBreaksPermitted": true,
+														"noValueValidation": true
+													}
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_91756",
+											"name": "attachment_id",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_463d4",
+											"name": "size",
+											"Field": {
+												"fieldType": {
+													"type": "NumberType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_cc8d6",
+											"name": "mime_type",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_28943",
+											"name": "category",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_9363b",
+											"name": "description",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_4318a",
+											"name": "AttachmentInternalFilenameRequired",
+											"Rule": {
+												"errorEntityRelPath": "../internal_filename",
+												"errorCode": "Error rule_4318a",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_c0ca0",
+											"name": "AttachmentMimeTypeRequired",
+											"Rule": {
+												"errorEntityRelPath": "../mime_type",
+												"errorCode": "Error rule_c0ca0",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field mime_type of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_6a921",
+											"name": "AttachmentIdOrContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_6a921",
+												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_c258c",
+											"name": "SizeOfContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_c258c",
+												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

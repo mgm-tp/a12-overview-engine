@@ -1,0 +1,88 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#re-rendering-optimization]
+= Re-rendering Optimization
+
+Re-rendering is part of any React component lifecycle, most of the time, it is good because your component will always "react" to any change that happens in your application. However, when rendering a big list, re-rendering can easily cause a bottleneck due to the constantly re-rendering of every component. Therefore, it is important to detect the bottleneck when performance is top of project's priority.
+
+There are multiple approaches to figure out the re-rendering:
+
+1. React devtools: out of the box integration, install the extension then enable highlighting updates or profiling yourself. However, the tools is lacking of hooks supports nor details comparison on why the component is rendered, this sometimes lead to confusion on figuring out which component should be improved.
+
+2. https://github.com/welldone-software/why-did-you-render[@welldone-software/why-did-you-render]: is a library which requires some knowledge about the build tools. Once integrated properly, the tools can show a lot of useful information on which props is changed on which hooks... which can help a lot with decision-making on what to be improved one by one.
+
+== What Are the Usual Causes of Re-Rendering in Overview Engine
+
+=== Customized Component
+
+1. Most if not all Overview Engine component are memoized via `React.memo`. Your custom component should also have it.
+
+2. Avoid re-creating component passed into the component map.
+
+[source,typescript,options="nowrap",title="BadCustomOverviewEngine.tsx"]
+--
+/// Bad practice, this can lead to lots of mount/unmount with any change on the Redux store
+
+function CustomOverviewEngine(props) {
+    const myState = useSelector(mySelector)
+
+    return (
+        <OverviewEngineFactories.ViewComponent
+            {...props}
+            componentMap={{
+                TableBody: function CustomBody() {
+                    if(myState === true) {
+                        return <MyCustomBody />
+                    }
+                    return <DefaultComponentMap.TableBody />;
+                }
+            }}
+        />
+    );
+}
+--
+[source,typescript,options="nowrap",title="CustomOverviewEngine.tsx"]
+--
+/// Best practice:
+///  - Preventing CustomBody function from re-initialized
+///  - Cherry pick only the needed state
+///  - React.memo
+
+function CustomOverviewEngine(props) {
+    const componentMap = React.useMemo(() => ({ TableBody: CustomBody }), [])
+    return <OverviewEngineFactories.ViewComponent {...props} componentMap={componentMap} />;
+}
+
+const CustomBody = React.memo(function CustomBody(props) {
+    const myState = useSelector(mySelector)
+    if(myState === true) {
+        return <MyCustomBody />
+    }
+    return <DefaultComponentMap.TableBody {...props} />;
+})
+--
+
+NOTE: The above examples is a blueprint which mean it can be applied to any generic React component that share the same component overriding pattern, this includes Overview Engine's `ComponentMap`/`WidgetsMap` or Table Widget's `componentRenderers`.
+
+=== Selectors
+
+Selector can be a bottleneck for application when not implemented properly. A non-optimized one will always be triggered when an action is dispatched which will lead to the selector to be executed again. Refer to https://reselect.js.org/introduction/how-does-reselect-work[`reselect` documentation] if interested.
+
+=== Others
+
+Reference type a.k.a. `objects` and `functions` recreation usually does not tax on the performance. However, when those are passed as a property into a component, changing/re-creating the reference will always lead to re-rendering. This can be solved with `React.useMemo` and `React.useCallback`.

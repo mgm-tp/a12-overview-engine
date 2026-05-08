@@ -1,0 +1,54 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#scroll-to-row]
+= Scroll to Row
+
+Overview Engine provides the `Events.onScrollToRow` event to scroll the table to a specific row programmatically. This is useful for flows like "scroll to top", "jump to last edited item", or focusing a row after navigation.
+
+The event accepts either a document reference or a row index. Optionally, `autoFocus` can be set to move keyboard focus to the target row after scrolling.
+
+NOTE: When virtual scrolling is enabled, scrolling by `docRef` is not supported. Use `rowIndex` instead.
+
+== Payload
+
+`Events.onScrollToRow` accepts one of the following payloads:
+
+* `{ rowIndex?: number, autoFocus?: boolean }`
+* `{ docRef?: string, autoFocus?: boolean }`
+
+== Example
+
+The following example adds a "Scroll to top" button that scrolls to the first row:
+
+[source,typescript,options="nowrap",title="Dispatch scroll-to-row event"]
+----
+include::./assets/typescript/features/scroll-to-row.tsx[]
+----
+
+The event is handled by the engine and stored in `uiState.scrollToRow` until the view processes it. The view then acknowledges it internally so the request is cleared.
+
+== Pagination Behavior
+
+When using pagination, `Events.onScrollToRow` with a `rowIndex` only operates on the currently visible page. It does not change the active page. This is by design — pagination state and scroll position are independent concerns.
+
+If you need to scroll to a row on a different page, dispatch two actions sequentially:
+
+1. A page-change action (e.g., `Events.onPageClicked`) to navigate to the target page.
+2. `Events.onScrollToRow` with the desired `rowIndex` within that page.
+
+NOTE: When using `docRef`, the engine resolves the row from the current page data. If the referenced document is not on the current page, the scroll request has no effect.

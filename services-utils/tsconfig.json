@@ -1,0 +1,9 @@
+{
+	"extends": "../tsconfig",
+	"exclude": ["./node_modules", "./target", "./lib"],
+	"include": ["src/**/*.ts", "src/**/*.json"],
+	"compilerOptions": {
+		"outDir": "lib",
+		"declarationMap": false
+	}
+}

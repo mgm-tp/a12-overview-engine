@@ -1,0 +1,8 @@
+{
+	"extends": "@com.mgmtp.a12.devtools/tsconfig",
+	"compilerOptions": {
+		"incremental": true,
+		"noEmitOnError": false,
+		"preserveWatchOutput": true
+	}
+}

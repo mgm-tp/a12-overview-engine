@@ -1,0 +1,143 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#data-loader]
+= Overview Engine Data Loader
+
+Overview Engine comes with a default A12 Server Connector that provides the data fetching/modifying logic based on
+the A12 standard setup. However, in some cases, where A12 standard setup does not provide sufficient features or
+extension points, developers would want to adapt either server-side or client-side code to fulfill their needs.
+
+Generally, it would be simpler to adapt the server-side implementation.
+However, in case adaption cannot be done on the server-side,
+Overview Engine also offers a possibility to do it on the client-side.
+
+== Use Cases
+
+There are several use cases that customizing the default Overview Engine Data Loader can come in handy:
+
+- Have a connection to the Data Services instance but some minor adjustments are needed.
+For example: Applying custom filters conditions, custom sorting, modify fields projection, etc.
+- Have no connection to Data Services instance. For example: In SME (Simple Model Editor) integration,
+most connections and data storage are done on the client-side.
+- Have a connection to the backend server, but it is a completely different instance of Data Services.
+
+== Default Data Loader
+
+Overview Engine comes with a default data loader that is used to query data from the A12 Data Services.
+Any network request coming from the Overview Engine will have to go through this data loader, unless overridden.
+
+When Overview Engine request for the data, the data loader will be called with the following parameters:
+
+- `activityId`: The ID of the Overview Engine activity.
+- `documentService`: The document service instance, used for processing documents after being fetched (e.g.: parsing dates).
+- `documentModel` & `overviewModel` used by the engine.
+- `queries`: A list of `DataOperation.Query` which will be transformed into a Data Services Query API request.
+
+[#data-loader/query]
+== Query
+
+`DataOperation.Query` represents a query operation in Overview Engine. It includes the following types:
+
+- link:./assets/generated/typedoc/interfaces/client-extensions_internal_data-loader_data-loader.DataOperation.ListDocuments.Query.html[DataOperation.ListDocuments.Query]: Lists all documents for the overview table.
+- link:./assets/generated/typedoc/interfaces/client-extensions_internal_data-loader_data-loader.DataOperation.ListStringFilterOptions.Query.html[DataOperation.ListStringFilterOptions.Query]: Lists candidates for enumerated string filter options.
+- link:./assets/generated/typedoc/interfaces/client-extensions_internal_data-loader_data-loader.DataOperation.Export.Query.html[DataOperation.Export.Query]: Exports the overview table.
+
+Each query type may have different required/optional properties. Common properties include:
+
+- `id`: Identifier for the query operation.
+- `fields`: Optional list of fields to be projected in the query result.
+- `constraint`: Optional constraint operator for the query.
+- `sorting`: Optional sorting criteria for the result.
+- `paging`: Pagination details, including page size and page numbers. Might request for multiple pages in one go.
+- `aggregation`: Optional aggregation details, such as group-by and aggregate functions. Aggregation queries use the `entries` list as the result. With Query API, to avoid conflicts, split aggregation into a separate request while keeping common properties (e.g., constraint).
+
+WARNING: The `DataOperation.Query` is specific to Overview Engine. While it aims to align with the Data Services Query API, they are not 100% identical.
+
+Below are several examples of how a query is created by Overview Engine:
+
+[source,typescript,title="List documents query"]
+----
+include::./assets/typescript/features/data-loader-examples.ts[tags="ListDocuments"]
+----
+
+[source,typescript,title="List String Filter Options query"]
+----
+include::./assets/typescript/features/data-loader-examples.ts[tags="ListStringFilterOptions"]
+----
+
+[source,typescript,title="Export query"]
+----
+include::./assets/typescript/features/data-loader-examples.ts[tags="Export"]
+----
+
+When a query is triggered by the Overview Engine, it is transformed into a link:/docs/DATA_SERVICES/dataservices-documentation-src/index.html#_query_api[Data Services Query API] request.
+This transformation maps Overview Engine's `DataOperation.Query` types and properties to the structure expected by the Data Services.
+
+[#data-loader/query-result]
+== Query Result
+
+After the request is sent and a response is received, the data loader maps the response back into the Overview Engine's expected data structure,
+link:./assets/generated/typedoc/types/client-extensions_internal_data-loader_data-loader.DataOperation.QueryResult.html[DataOperation.QueryResult]. This includes:
+
+* Matching the response ID to the original query.
+* Extracting the response's `entries` into a `documents` list, processing the documents as needed (e.g., parsing dates).
+* Extracting the `aggregationResult`, which is usually coming from a separate aggregation Query API request.
+* Extracting `thumbnails` records as well as other information like `fullSize`.
+* Handling the "Export" query result, which requires returning the `location` of the exported file instead of a list.
+
+This transformation layer allows Overview Engine to remain decoupled from backend specifics, enabling extensibility and customization of query handling logic.
+
+== Customize Data Loader
+
+Query API offers the power to control how the user receives the data, but the engine might not yet be able to cover all possibilities.
+Therefore, it is crucial to allow developers to customize the default data loader behavior to fit their needs,
+the OverviewEngineDataLoader is delivered to solve this exact problem.
+Below are a few instances of how to modify the queries, created by the Overview Engine, with added customizations on top...
+Then process to re-use the default data loader implementation to avoid unnecessary code duplication.
+
+[#data-loader/use-case/add-extra-filters]
+=== Add Extra Filters
+
+[source,typescript,title="Add extra filter"]
+----
+include::./assets/typescript/features/custom-data-loader.ts[tags="filter"]
+----
+
+[#data-loader/use-case/add-extra-constraints]
+=== Apply default constraints to enumerated string filter
+
+[source,typescript,title="Apply default constraints to enumerated string filter"]
+----
+include::./assets/typescript/features/custom-data-loader.ts[tags="EnumeratedStringFilter"]
+----
+
+[#data-loader/use-case/sorting]
+=== Enforce Default Sorting
+
+[source,typescript,title="Enforce default sorting"]
+----
+include::./assets/typescript/features/custom-data-loader.ts[tags="sorting"]
+----
+
+[#data-loader/use-case/fields-projection]
+=== Modify Fields Projection
+
+[source,typescript,title="Modify fields projection"]
+----
+include::./assets/typescript/features/custom-data-loader.ts[tags="fields_projection"]
+----

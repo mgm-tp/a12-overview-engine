@@ -1,0 +1,194 @@
+{
+	"header": {
+		"id": "EmployeeDM",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "subTypes",
+				"value": "DepartmentDM"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "EmployeeDM",
+			"immutable": false
+		},
+		"modelConfig": {
+			"timeZone": "Europe/Berlin",
+			"decimalSeparator": ".",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "Group",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F3",
+								"name": "StringField",
+								"annotations": [
+									{
+										"name": "enable_approximate_match_search",
+										"value": "true"
+									}
+								],
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F4",
+								"name": "NumberField",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F5",
+								"name": "DateField",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F6",
+								"name": "ActualSalary",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F7",
+								"name": "ActualSalaryUnit",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "EnumerationType",
+										"EnumerationType": {
+											"values": [
+												{
+													"value": "VND",
+													"label": [
+														{
+															"locale": "en",
+															"text": "VND"
+														},
+														{
+															"locale": "de",
+															"text": "VN Dong"
+														}
+													]
+												},
+												{
+													"value": "EUR",
+													"label": [
+														{
+															"locale": "en",
+															"text": "EUR"
+														},
+														{
+															"locale": "de",
+															"text": "Euro"
+														}
+													]
+												},
+												{
+													"value": "USD",
+													"label": [
+														{
+															"locale": "en",
+															"text": "USD"
+														},
+														{
+															"locale": "de",
+															"text": "US Dollar"
+														}
+													]
+												}
+											],
+											"alphabeticalSorting": true
+										}
+									}
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_ea8a7",
+								"name": "MultiSelectWithString",
+								"Group": {
+									"repeatability": 999999,
+									"usageType": "multi-select",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_a9b0a",
+											"name": "value",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "MultiSelect With String"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

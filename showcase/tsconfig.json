@@ -1,0 +1,10 @@
+{
+	"extends": "../tsconfig",
+	"exclude": ["./target"],
+	"include": ["src", "rsbuild.config.ts"],
+	"compilerOptions": {
+		"noEmit": true,
+		"allowJs": true,
+		"skipLibCheck": true
+	}
+}

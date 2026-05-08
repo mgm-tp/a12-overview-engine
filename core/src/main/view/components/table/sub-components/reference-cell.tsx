@@ -1,0 +1,218 @@
+/*
+ * SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+ *
+ * Copyright (c) 2012-2026 mgm technology partners GmbH
+ *
+ * Dual License
+ * ------------
+ * This source file is part of the mgm A12 Platform and available under
+ * a choice of two different licenses:
+ *
+ * 1. Open-Source License - EUPL v1.2
+ *    You may redistribute and/or modify this file under the terms of the
+ *    European Union Public License, version 1.2 - see https://eupl.eu/.
+ *
+ * 2. Commercial License
+ *    Alternatively, you may obtain a commercial license from
+ *    mgm technology partners GmbH, that permits use of this software
+ *    under different terms (including support and maintenance services).
+ *
+ *    Please contact a12-license@mgm-tp.com for more information.
+ *
+ * You must select and comply with exactly one of the above license options.
+ *
+ * Warranty Disclaimer (applies to either option)
+ * ----------------------------------------------
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND,
+ * WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
+ * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+ */
+
+import * as React from "react";
+
+import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import {
+	type DocumentModel,
+	type GroupInstance,
+	type FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
+
+import { OverviewModel } from "../../../../overview-model.js";
+import { LocalizerHooks } from "../../../../services/localization/index.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import {
+	DocumentUtils,
+	MultiSelectUtils,
+	DocumentModelUtils,
+	MultiSelectModelUtils
+} from "../../../../models/internal/shared.js";
+
+import { type TableBodyCell } from "./table-body-cell.js";
+
+export namespace ReferenceCell {
+	export interface Props extends TableBodyCell.Props {
+		columnModel: OverviewModel.ReferenceColumn;
+		fieldFormatter?: (params: FieldFormatterParams) => string;
+	}
+}
+
+/** @internal */
+export const ReferenceCell: React.FC<ReferenceCell.Props> = React.memo(function ReferenceCell(props) {
+	const { row, columnModel } = props;
+
+	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
+
+	const AttachmentCell = useOverviewEngineContext((context) => context.componentMap.AttachmentCell);
+	const MultiSelectCell = useOverviewEngineContext((context) => context.componentMap.MultiSelectCell);
+
+	const { modelPath, element, value } = React.useMemo(() => {
+		const modelPath = documentModelService.getPathById(columnModel.elementRef);
+		const element = documentModelService.getByPath(modelPath);
+		const value = DocumentUtils.getValue(row, DocumentModelUtils.toEntityInstancePath(element, modelPath));
+
+		return { modelPath, element, value };
+	}, [columnModel.elementRef, documentModelService, row]);
+
+	const alignment = columnModel.alignment?.content?.horizontal;
+
+	if (element.type === "Field") {
+		return <FieldReferenceCell {...props} field={element} modelPath={modelPath} value={value} />;
+	}
+
+	if (DocumentModelUtils.isAttachment(element)) {
+		const attachment = value ?? {};
+
+		if (Attachment.isInstance(attachment)) {
+			return <AttachmentCell documentId={row.id} attachment={attachment} columnModel={columnModel} />;
+		}
+
+		return null;
+	}
+
+	if (MultiSelectModelUtils.isInstance(element)) {
+		if (DocumentUtils.isGroupInstanceArray(value)) {
+			return (
+				<MultiSelectCell
+					elementPath={modelPath}
+					data={MultiSelectUtils.from(value)}
+					alignment={alignment}
+					displayMode={columnModel.multiSelectDisplayMode}
+				/>
+			);
+		}
+
+		return null;
+	}
+
+	throw new Error("Unsupported element in cell content" + element);
+});
+
+namespace FieldReferenceCell {
+	export interface Props extends ReferenceCell.Props {
+		field: DocumentModel.Field;
+		modelPath: ModelPath;
+		value: ReturnType<typeof DocumentUtils.getValue>;
+		fieldFormatter?: (params: FieldFormatterParams) => string;
+	}
+}
+
+const FieldReferenceCell: React.FC<FieldReferenceCell.Props> = React.memo(function FieldReferenceBodyCell(props) {
+	const { columnModel, field, modelPath, value, row } = props;
+
+	const StringTypeCell = useOverviewEngineContext((context) => context.componentMap.StringTypeCell);
+	const CustomFieldTypeCell = useOverviewEngineContext((context) => context.componentMap.CustomFieldTypeCell);
+	const BodyCellContent = useOverviewEngineContext((context) => context.componentMap.TableBodyCellContent);
+
+	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
+
+	const defaultFieldFormatter = useFieldFormatter();
+	const fieldFormatter = props.fieldFormatter ?? defaultFieldFormatter;
+
+	const suffix = React.useMemo(() => {
+		if (!columnModel.suffixRef) {
+			return undefined;
+		}
+
+		const modelPath = documentModelService.getPathById(columnModel.suffixRef);
+		const element = documentModelService.getByPath(modelPath);
+		const value = DocumentUtils.getValue(row, DocumentModelUtils.toEntityInstancePath(element, modelPath));
+
+		if (!DocumentUtils.isFieldInstanceValue(value) || element.type !== "Field") {
+			return undefined;
+		}
+
+		return fieldFormatter({ field: element, modelPath, value });
+	}, [columnModel.suffixRef, documentModelService, fieldFormatter, row]);
+
+	const content = React.useMemo(() => {
+		const { fieldType } = field;
+		const uiValue = fieldFormatter({ field, modelPath, value, referenceColumn: columnModel, suffix });
+
+		if (fieldType.type === "StringType") {
+			return <StringTypeCell uiValue={uiValue} dataType={fieldType} />;
+		}
+
+		if (fieldType.type === "CustomFieldType") {
+			return <CustomFieldTypeCell uiValue={uiValue} dataType={fieldType} />;
+		}
+
+		return uiValue;
+	}, [field, fieldFormatter, modelPath, value, columnModel, suffix, StringTypeCell, CustomFieldTypeCell]);
+
+	const alignment = React.useMemo(() => {
+		return (
+			columnModel.alignment?.content?.horizontal ??
+			(field.fieldType.type === "NumberType"
+				? OverviewModel.HorizontalAlignment.RIGHT
+				: OverviewModel.HorizontalAlignment.LEFT)
+		);
+	}, [columnModel.alignment?.content?.horizontal, field.fieldType.type]);
+
+	return <BodyCellContent alignment={alignment}>{content}</BodyCellContent>;
+});
+
+/** @public */
+export interface FieldFormatterParams {
+	field: DocumentModel.Field;
+	modelPath: ModelPath;
+	value: GroupInstance[] | GroupInstance | FieldInstanceValue;
+	suffix?: FieldInstanceValue;
+	referenceColumn?: OverviewModel.ReferenceColumn;
+}
+
+/** @public */
+export function useFieldFormatter() {
+	const converter = useOverviewEngineInternalContext((context) => context.converter);
+	const localizedFieldValue = LocalizerHooks.useLocalizedFieldValue();
+	const localizedNumberSuffix = LocalizerHooks.useLocalizedNumberSuffix();
+	const referenceColumns = useOverviewEngineContext((context) =>
+		context.overviewModel.content.columns.filter(OverviewModel.ReferenceColumn.isAssignableFrom)
+	);
+
+	const selectReferenceColumn = React.useCallback(
+		(field: DocumentModel.Field) => referenceColumns.find((column) => column.elementRef === field.id),
+		[referenceColumns]
+	);
+
+	return React.useCallback(
+		(params: FieldFormatterParams) => {
+			const { field, modelPath, value, suffix } = params;
+			const referenceColumn = params.referenceColumn ?? selectReferenceColumn(field);
+
+			const formattedValue = DocumentModelUtils.isLocalizableFieldType(field.fieldType.type)
+				? localizedFieldValue(modelPath, value)
+				: converter.formatValue(modelPath, value);
+
+			if (field.fieldType.type === "NumberType") {
+				return formattedValue + localizedNumberSuffix(referenceColumn, suffix, { withSpace: true });
+			}
+
+			return formattedValue;
+		},
+		[converter, localizedFieldValue, localizedNumberSuffix, selectReferenceColumn]
+	);
+}

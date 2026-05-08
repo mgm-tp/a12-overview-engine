@@ -1,0 +1,180 @@
+{
+	"header": {
+		"id": "ProductAM",
+		"modelType": "application",
+		"modelVersion": "6.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"region": {
+			"name": "APP",
+			"layout": {
+				"name": "ApplicationFrame"
+			},
+			"subRegions": [
+				{
+					"name": "CONTENT",
+					"layout": {
+						"name": "MasterDetail"
+					}
+				},
+				{
+					"name": "MODAL",
+					"layout": {
+						"name": "Stack"
+					}
+				}
+			]
+		},
+		"defaultRegion": ["CONTENT"],
+		"modules": [
+			{
+				"name": "Product",
+				"menu": {
+					"name": "Product",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Product"
+						},
+						{
+							"locale": "de",
+							"text": "Product"
+						}
+					],
+					"children": [
+						{
+							"name": "Pagination",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Pagination"
+								},
+								{
+									"locale": "de",
+									"text": "Seitennummerierung"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"showcase": "product",
+									"feature": "pagination"
+								}
+							}
+						},
+						{
+							"name": "PresetFilter",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Preset Filter"
+								},
+								{
+									"locale": "de",
+									"text": "Voreingestellter Filter"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"showcase": "product",
+									"feature": "preset-filter"
+								}
+							}
+						}
+					]
+				},
+				"flows": [
+					{
+						"name": "Flow",
+						"scenes": [
+							{
+								"name": "Pagination",
+								"description": "Product Pagination",
+								"matchConditions": [
+									{
+										"key": "showcase",
+										"mustEqual": "product"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "pagination"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ProductOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "ProductOM"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "PresetFilter",
+								"description": "Product Preset Filter",
+								"matchConditions": [
+									{
+										"key": "showcase",
+										"mustEqual": "product"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "preset-filter"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "ProductPresetFilterOM"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

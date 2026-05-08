@@ -1,0 +1,790 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 38.0.0-pre.1-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F4",
+            "id": "column-51003",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Salary (pinned to the left)",
+              },
+              {
+                "locale": "de",
+                "text": "Gehalt (pinned to the left)",
+              },
+            ],
+            "pinDirection": "LEFT",
+            "sortable": false,
+            "suffix": [
+              {
+                "locale": "en",
+                "text": "USD",
+              },
+              {
+                "locale": "de",
+                "text": "EUR",
+              },
+            ],
+            "summary": [
+              {
+                "operation": "sum",
+              },
+            ],
+            "width": 1.4,
+          },
+          {
+            "elementRef": "F3",
+            "id": "column-63750",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Full Name",
+              },
+              {
+                "locale": "de",
+                "text": "Vollständiger Name",
+              },
+            ],
+            "sortable": false,
+            "width": 1,
+          },
+          {
+            "elementRef": "F5",
+            "id": "column-a4715",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Date of birth",
+              },
+              {
+                "locale": "de",
+                "text": "Geburtsdatum",
+              },
+            ],
+            "sortable": false,
+            "width": 1,
+          },
+          {
+            "alignment": {
+              "content": {
+                "horizontal": "right",
+              },
+              "header": {
+                "horizontal": "center",
+              },
+            },
+            "elementRef": "F7",
+            "id": "column-0fde3",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Actual currency",
+              },
+              {
+                "locale": "de",
+                "text": "Actual currency",
+              },
+            ],
+            "pinDirection": "RIGHT",
+            "sortable": false,
+            "width": 1.2,
+          },
+          {
+            "elementRef": "F6",
+            "id": "column-01563",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Actual Salary",
+              },
+              {
+                "locale": "de",
+                "text": "Actual Gehalt",
+              },
+            ],
+            "pinDirection": "RIGHT",
+            "sortable": false,
+            "suffixRef": "F7",
+            "width": 1.4,
+          },
+        ],
+        "configuration": {
+          "enableColumnsResize": true,
+          "enableFilter": true,
+          "filterConfiguration": {
+            "enumeratedStringFilter": undefined,
+            "fields": undefined,
+            "filterMode": "all_with_meta",
+            "sectionData": [
+              {
+                "fields": [
+                  {
+                    "fieldId": "F3",
+                  },
+                  {
+                    "fieldId": "F4",
+                  },
+                  {
+                    "fieldId": "F5",
+                  },
+                  {
+                    "fieldId": "F6",
+                  },
+                  {
+                    "fieldId": "abc6a6767a60488754aace2accb73824_field_cdaf9",
+                  },
+                ],
+                "id": "employee-section",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Employee info",
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Employee info",
+                  },
+                ],
+              },
+            ],
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "labelHidden": true,
+          "multiSelection": {
+            "buttons": [],
+            "clearConfirmation": {
+              "enabled": true,
+            },
+            "collapseOption": "non_collapsible",
+            "counterOption": "none",
+          },
+          "pagingSize": 10,
+          "showFullTextSearch": true,
+        },
+        "footerBox": {
+          "majorElements": [],
+          "minorElements": [],
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "subHeaderBox": {
+          "majorElements": [
+            {
+              "type": "search",
+            },
+            {
+              "type": "filter",
+            },
+          ],
+          "minorElements": [
+            {
+              "type": "multi_selection",
+            },
+            {
+              "destructive": false,
+              "event": "add",
+              "icon": {
+                "name": "add",
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Add",
+                },
+                {
+                  "locale": "de",
+                  "text": "Hinzufügen",
+                },
+              ],
+              "primary": false,
+              "type": "button",
+            },
+          ],
+        },
+      },
+      "header": {
+        "annotations": [
+          {
+            "name": "roles",
+            "value": "anonymous",
+          },
+        ],
+        "id": "38.0.0-pre.1",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Employee",
+          },
+          {
+            "locale": "de",
+            "text": "Employee",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+          {
+            "code": "de",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "EmployeeDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "38.0.0-pre.2",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 38.0.0-pre.1-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F4",
+            "id": "column-51003",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Salary (pinned to the left)",
+              },
+              {
+                "locale": "de",
+                "text": "Gehalt (pinned to the left)",
+              },
+            ],
+            "pinDirection": "LEFT",
+            "sortable": false,
+            "suffix": [
+              {
+                "locale": "en",
+                "text": "USD",
+              },
+              {
+                "locale": "de",
+                "text": "EUR",
+              },
+            ],
+            "summary": [
+              {
+                "operation": "sum",
+              },
+            ],
+            "width": 1.4,
+          },
+          {
+            "elementRef": "F3",
+            "id": "column-63750",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Full Name",
+              },
+              {
+                "locale": "de",
+                "text": "Vollständiger Name",
+              },
+            ],
+            "sortable": false,
+            "width": 1,
+          },
+          {
+            "elementRef": "F5",
+            "id": "column-a4715",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Date of birth",
+              },
+              {
+                "locale": "de",
+                "text": "Geburtsdatum",
+              },
+            ],
+            "sortable": false,
+            "width": 1,
+          },
+          {
+            "alignment": {
+              "content": {
+                "horizontal": "right",
+              },
+              "header": {
+                "horizontal": "center",
+              },
+            },
+            "elementRef": "F7",
+            "id": "column-0fde3",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Actual currency",
+              },
+              {
+                "locale": "de",
+                "text": "Actual currency",
+              },
+            ],
+            "pinDirection": "RIGHT",
+            "sortable": false,
+            "width": 1.2,
+          },
+          {
+            "elementRef": "F6",
+            "id": "column-01563",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Actual Salary",
+              },
+              {
+                "locale": "de",
+                "text": "Actual Gehalt",
+              },
+            ],
+            "pinDirection": "RIGHT",
+            "sortable": false,
+            "suffixRef": "F7",
+            "width": 1.4,
+          },
+        ],
+        "configuration": {
+          "enableColumnsResize": true,
+          "enableFilter": true,
+          "labelHidden": true,
+          "multiSelection": {
+            "buttons": [],
+            "clearConfirmation": {
+              "enabled": true,
+            },
+            "collapseOption": "non_collapsible",
+            "counterOption": "none",
+          },
+          "pagingSize": 10,
+          "showFullTextSearch": true,
+        },
+        "footerBox": {
+          "majorElements": [],
+          "minorElements": [],
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "subHeaderBox": {
+          "majorElements": [
+            {
+              "type": "search",
+            },
+            {
+              "type": "filter",
+            },
+          ],
+          "minorElements": [
+            {
+              "type": "multi_selection",
+            },
+            {
+              "destructive": false,
+              "event": "add",
+              "icon": {
+                "name": "add",
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Add",
+                },
+                {
+                  "locale": "de",
+                  "text": "Hinzufügen",
+                },
+              ],
+              "primary": false,
+              "type": "button",
+            },
+          ],
+        },
+      },
+      "header": {
+        "annotations": [
+          {
+            "name": "roles",
+            "value": "anonymous",
+          },
+        ],
+        "id": "38.0.0-pre.1-2",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Employee",
+          },
+          {
+            "locale": "de",
+            "text": "Employee",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+          {
+            "code": "de",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "EmployeeDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "38.0.0-pre.2",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 38.0.0-pre.1-3.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F3",
+            "icon": {
+              "name": "person",
+              "theme": "outlined",
+            },
+            "id": "column-5bd25",
+            "label": [
+              {
+                "locale": "en",
+                "text": "First Name",
+              },
+              {
+                "locale": "de",
+                "text": "Vorname",
+              },
+            ],
+            "preferredSorting": "DESC",
+            "sortable": true,
+            "width": 1,
+          },
+          {
+            "alignment": {
+              "content": {
+                "horizontal": "left",
+                "vertical": "top",
+              },
+              "header": {
+                "horizontal": "left",
+                "vertical": "bottom",
+              },
+            },
+            "elementRef": "F4",
+            "id": "column-5847d",
+            "preferredSorting": "ASC",
+            "sortable": true,
+            "width": 1,
+          },
+          {
+            "alignment": {
+              "content": {
+                "horizontal": "left",
+                "vertical": "middle",
+              },
+              "header": {
+                "horizontal": "left",
+                "vertical": "middle",
+              },
+            },
+            "elementRef": "F8",
+            "icon": {
+              "name": "date_range",
+              "theme": "outlined",
+            },
+            "id": "column-3eb14",
+            "preferredSorting": "ASC",
+            "sortable": true,
+            "width": 1,
+          },
+          {
+            "elementRef": "F9",
+            "id": "column-95cd5",
+            "sortable": false,
+            "styles": {},
+            "width": 1,
+          },
+          {
+            "elementRef": "field_971d5",
+            "id": "column-01563",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Salary",
+              },
+              {
+                "locale": "de",
+                "text": "Gehalt",
+              },
+            ],
+            "pinDirection": "RIGHT",
+            "preferredSorting": "ASC",
+            "sortable": false,
+            "suffix": [
+              {
+                "locale": "en",
+                "text": "USD",
+              },
+              {
+                "locale": "de",
+                "text": "EUR",
+              },
+            ],
+            "summary": [
+              {
+                "operation": "sum",
+              },
+            ],
+            "width": 1.4,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "enumeratedStringFilter": {
+              "fields": [
+                {
+                  "fieldId": "F3",
+                },
+                {
+                  "fieldId": "F8",
+                },
+              ],
+              "pagingSize": 2,
+            },
+            "fields": [
+              {
+                "fieldId": "F3",
+              },
+              {
+                "fieldId": "F4",
+              },
+              {
+                "fieldId": "F8",
+              },
+              {
+                "fieldId": "F9",
+              },
+            ],
+            "filterMode": "custom_list",
+            "sectionData": undefined,
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "initialSorting": [
+            {
+              "idref": "column-3eb14",
+            },
+            {
+              "idref": "column-5bd25",
+            },
+          ],
+          "multiSelection": {
+            "buttons": [
+              {
+                "description": [
+                  {
+                    "locale": "en",
+                    "text": "Show selected persons",
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Ausgewählte Personen anzeigen",
+                  },
+                ],
+                "destructive": false,
+                "event": "selection-overview",
+                "icon": {
+                  "name": "info",
+                  "theme": "outlined",
+                },
+                "primary": false,
+              },
+              {
+                "description": [
+                  {
+                    "locale": "en",
+                    "text": "Compare selected persons",
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Vergleiche selektierte Personen",
+                  },
+                ],
+                "destructive": false,
+                "event": "compare",
+                "icon": {
+                  "name": "compare_arrows",
+                },
+                "primary": false,
+              },
+            ],
+            "clearConfirmation": {
+              "enabled": true,
+            },
+            "collapseOption": "collapsible_collapsed",
+            "counterOption": "simple",
+          },
+          "pagingSize": 10,
+          "showFullTextSearch": true,
+          "showRowCount": true,
+        },
+        "footerBox": {
+          "majorElements": [],
+          "minorElements": [],
+        },
+        "rowActionGroup": {
+          "actions": [
+            {
+              "confirmation": {
+                "message": [
+                  {
+                    "locale": "en",
+                    "text": "Do you really want to delete this person?",
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Wollen Sie diesen Eintrag wirklich löschen?",
+                  },
+                ],
+                "title": [
+                  {
+                    "locale": "en",
+                    "text": "Confirmation",
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Bestätigung",
+                  },
+                ],
+              },
+              "description": [
+                {
+                  "locale": "en",
+                  "text": "Delete",
+                },
+                {
+                  "locale": "de",
+                  "text": "Löschen",
+                },
+              ],
+              "event": "delete",
+              "icon": {
+                "name": "delete",
+              },
+              "primary": false,
+            },
+          ],
+        },
+        "subHeaderBox": {
+          "majorElements": [
+            {
+              "type": "search",
+            },
+            {
+              "type": "filter",
+            },
+          ],
+          "minorElements": [
+            {
+              "type": "multi_selection",
+            },
+            {
+              "description": [
+                {
+                  "locale": "en",
+                  "text": "Add a person",
+                },
+                {
+                  "locale": "de",
+                  "text": "Fügen Sie eine Person hinzu",
+                },
+              ],
+              "destructive": false,
+              "event": "add",
+              "icon": {
+                "name": "add",
+              },
+              "primary": false,
+              "type": "button",
+            },
+          ],
+        },
+      },
+      "header": {
+        "annotations": [
+          {
+            "name": "roles",
+            "value": "anonymous",
+          },
+        ],
+        "id": "38.0.0-pre.1-3",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Person",
+          },
+          {
+            "locale": "de",
+            "text": "Person",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+          {
+            "code": "de",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "PersonDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "38.0.0-pre.2",
+      },
+    },
+    "status": "success",
+  },
+]
+`;

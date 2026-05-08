@@ -1,0 +1,8 @@
+{
+	"extends": "../tsconfig",
+	"include": ["./src", "./scripts"],
+	"exclude": ["./src/assets/generated/typescript"],
+	"compilerOptions": {
+		"noEmit": true
+	}
+}

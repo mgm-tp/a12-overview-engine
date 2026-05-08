@@ -1,0 +1,50 @@
+{
+	"name": "@com.mgmtp.a12.overviewengine/overviewengine-model-migration",
+	"version": "38.3.0",
+	"type": "module",
+	"description": "Overview Model Migration Tool",
+	"author": "mgm technology partners",
+	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
+	"scripts": {
+		"clean": "rimraf lib/**",
+		"compile": "tsc",
+		"start": "tsc --watch",
+		"test": "pnpm \"/test:/\"",
+		"test:consistency": "migration-tool-utils validate-consistency",
+		"test:unit": "vitest run",
+		"update": "pnpm test:unit --update",
+		"generate-step": "migration-tool-utils generate-step",
+		"generate-schema": "migration-tool-utils compile",
+		"migrate": "./bin/overview-model-migration .."
+	},
+	"dependencies": {
+		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12Libs"
+	},
+	"devDependencies": {
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
+		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12Libs",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@types/node": "catalog:devLibs",
+		"@vitest/coverage-v8": "^3.2.4",
+		"@types/semver": "^7.7.1",
+		"rimraf": "catalog:devLibs",
+		"semver": "^7.7.3",
+		"typescript": "catalog:libs",
+		"vitest": "3.2.4"
+	},
+	"bin": {
+		"overview-model-migration": "bin/overview-model-migration"
+	},
+	"files": [
+		"bin",
+		"lib",
+		"src",
+		"cyclonedx.json",
+		"LICENSE",
+		"NOTICE",
+		"THIRD_PARTY_NOTICES",
+		"licenses"
+	],
+	"main": "lib/api.js",
+	"types": "lib/api.d.ts"
+}

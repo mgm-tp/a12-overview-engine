@@ -1,0 +1,34 @@
+{
+	"name": "@com.mgmtp.a12.overviewengine/overviewengine-codemod",
+	"version": "38.3.0",
+	"description": "Codemod for Overview Engine",
+	"author": "mgm technology partners",
+	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
+	"bin": "lib/cli.js",
+	"type": "module",
+	"scripts": {
+		"clean": "rimraf ./lib",
+		"compile": "tsc",
+		"start": "tsc --watch",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@com.mgmtp.a12.devtools/codemod": "catalog:a12Libs"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:devLibs",
+		"rimraf": "catalog:devLibs",
+		"typescript": "catalog:libs",
+		"vitest": "^4.0.16"
+	},
+	"files": [
+		"lib",
+		"src",
+		"cyclonedx.json",
+		"LICENSE",
+		"NOTICE",
+		"THIRD_PARTY_NOTICES",
+		"licenses",
+		"!**/__tests__"
+	]
+}

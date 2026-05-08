@@ -1,0 +1,54 @@
+/*
+ * SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+ *
+ * Copyright (c) 2012-2026 mgm technology partners GmbH
+ *
+ * Dual License
+ * ------------
+ * This source file is part of the mgm A12 Platform and available under
+ * a choice of two different licenses:
+ *
+ * 1. Open-Source License - EUPL v1.2
+ *    You may redistribute and/or modify this file under the terms of the
+ *    European Union Public License, version 1.2 - see https://eupl.eu/.
+ *
+ * 2. Commercial License
+ *    Alternatively, you may obtain a commercial license from
+ *    mgm technology partners GmbH, that permits use of this software
+ *    under different terms (including support and maintenance services).
+ *
+ *    Please contact a12-license@mgm-tp.com for more information.
+ *
+ * You must select and comply with exactly one of the above license options.
+ *
+ * Warranty Disclaimer (applies to either option)
+ * ----------------------------------------------
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND,
+ * WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
+ * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+ */
+
+import { test, expect } from "vitest";
+import semverSatisfies from "semver/functions/satisfies.js";
+
+import { SUPPORTED_MODEL_VERSIONS } from "../../core/src/main/supported-model-version.js";
+
+import { MIGRATION_PARAMETERS } from "../src/internal/config.js";
+import corePackageJson from "../../core/package.json" with { type: "json" };
+
+test("model version compatibility", async () => {
+	const compatibleRange = corePackageJson.modelVersion;
+	const latestVersion = MIGRATION_PARAMETERS.migrationSteps.at(-1)?.version as string;
+
+	expect(semverSatisfies(latestVersion, compatibleRange)).to.be.eq(
+		true,
+		`compatible range '${compatibleRange}' defined in 'modelVersion' field in package.json should be satisfied by the latest version ${latestVersion}`
+	);
+
+	expect(compatibleRange === SUPPORTED_MODEL_VERSIONS).to.be.eq(
+		true,
+		`compatible range '${compatibleRange}' defined in 'modelVersion' field in package.json should be in sync with SUPPORTED_MODEL_VERSIONS '${SUPPORTED_MODEL_VERSIONS}' defined in applicationFactory.ts`
+	);
+});

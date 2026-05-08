@@ -1,0 +1,599 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+= 2025.06-ext4
+
+== Data Services configuration properties
+
+Overview Engine now reads Data Services configuration properties from the Data Services slice (for example
+`mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize`). In case the slice is missing, some UI
+features (such as search and enumerated string filter options) may behave incorrectly and a warning is logged.
+
+To enable the configuration lookup:
+
+1. Add the Data Services configuration reducer during app setup.
+2. Load the configuration once after the application is initialized.
+
+[source,typescript, title="Reducer map + configuration load"]
+----
+import { DataServicesReducerMap, loadDataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+const { store } = ApplicationFactories.createApplicationSetup({
+	// ...
+	reducerMap: { ...DataServicesReducerMap }
+});
+
+await loadDataServicesConfiguration(store);
+----
+
+If you are using the new composable setup, simply include the `withDataServicesConfigurationSlice` feature as a prerequisite of the `withOverviewEngine` feature:
+
+[source,typescript, title="Composable setup"]
+----
+import { withDataServicesConfigurationSlice } from "@com.mgmtp.a12.client/client-core/dataServicesAdapter";
+import { withOverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const { store, initialActions } = createA12ApplicationSetup(
+	combineFeatures(
+		withDataServicesConfigurationSlice,
+		withOverviewEngine,
+		// ...
+	)(initialConfig)
+);
+----
+
+== Deprecation of nested imports
+
+Nested imports are deprecated in favor of top-level imports to avoid unnecessary breaking changes caused by moving or renaming internal files.
+This makes the code more resilient to internal refactoring, provides a single consistent import path, and reduces ongoing maintenance effort.
+
+Run the <<codemod,codemod>> command below to migrate automatically:
+[source,bash]
+----
+npx @com.mgmtp.a12.overviewengine/overviewengine-codemod prefer-top-level-imports ./client/tsconfig.json
+----
+
+== Deprecation of top level OverviewModel entities
+
+All top-level type exports from `overview-model.ts` are deprecated in favor of namespace-scoped exports under `OverviewModel`.
+The following types and enums should now be accessed via the `OverviewModel` namespace:
+
+|===
+|Deprecated export |New export
+
+|`Content`
+|`OverviewModel.Content`
+
+|`Configuration`
+|`OverviewModel.Configuration`
+
+|`ContextMenu`
+|`OverviewModel.ContextMenu`
+
+|`ActionGroup`
+|`OverviewModel.ActionGroup`
+
+|`ColumnRef`
+|`OverviewModel.ColumnRef`
+
+|`Styles`
+|`OverviewModel.Styles`
+
+|`Width`
+|`OverviewModel.Width`
+
+|`PinDirection`
+|`OverviewModel.PinDirection`
+
+|`Column`
+|`OverviewModel.Column`
+
+|`ReferenceColumn`
+|`OverviewModel.ReferenceColumn`
+
+|`Summary`
+|`OverviewModel.Summary`
+
+|`ExpressionColumn`
+|`OverviewModel.ExpressionColumn`
+
+|`BaseColumn`
+|`OverviewModel.BaseColumn`
+
+|`SubHeaderBox`
+|`OverviewModel.SubHeaderBox`
+
+|`FooterBox`
+|`OverviewModel.FooterBox`
+
+|`Element`
+|`OverviewModel.Element`
+
+|`BaseElement`
+|`OverviewModel.BaseElement`
+
+|`ButtonElement`
+|`OverviewModel.ButtonElement`
+
+|`MultiSelectionElement`
+|`OverviewModel.MultiSelectionElement`
+
+|`SearchElement`
+|`OverviewModel.SearchElement`
+
+|`FilterElement`
+|`OverviewModel.FilterElement`
+
+|`ElementType`
+|`OverviewModel.ElementType`
+
+|`SectionItem`
+|`OverviewModel.SectionItem`
+
+|`FilterConfiguration`
+|`OverviewModel.FilterConfiguration`
+
+|`FilterMode`
+|`OverviewModel.FilterMode`
+
+|`EnumeratedStringFilterConfiguration`
+|`OverviewModel.EnumeratedStringFilterConfiguration`
+
+|`FieldConfiguration`
+|`OverviewModel.FieldConfiguration`
+
+|`RowActionGroup`
+|`OverviewModel.RowActionGroup`
+
+|`ConfirmationText`
+|`OverviewModel.ConfirmationText`
+
+|`DefaultRowAction`
+|`OverviewModel.DefaultRowAction`
+
+|`Triggerable`
+|`OverviewModel.Triggerable`
+
+|`ContextMenuItem`
+|`OverviewModel.ContextMenuItem`
+
+|`Button`
+|`OverviewModel.Button`
+
+|`Annotated`
+|`OverviewModel.Annotated`
+
+|`Icon`
+|`OverviewModel.Icon`
+
+|`ColumnAlignment`
+|`OverviewModel.ColumnAlignment`
+
+|`ColumnStyles`
+|`OverviewModel.ColumnStyles`
+
+|`Alignment`
+|`OverviewModel.Alignment`
+
+|`HorizontalAlignment`
+|`OverviewModel.HorizontalAlignment`
+
+|`VerticalAlignment`
+|`OverviewModel.VerticalAlignment`
+
+|`MultiSelection`
+|`OverviewModel.MultiSelection`
+
+|`AttachmentDisplayMode`
+|`OverviewModel.AttachmentDisplayMode`
+
+|`MultiSelectDisplayMode`
+|`OverviewModel.MultiSelectDisplayMode`
+
+|`IconTheme`
+|`OverviewModel.IconTheme`
+
+|===
+
+*Migration example:*
+
+[source,typescript, title="Before"]
+----
+import { Content, Column, FilterMode, Button } from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/overview-model.js";
+
+const content: Content = { /* ... */ };
+const column: Column = { /* ... */ };
+const mode: FilterMode = FilterMode.ALL;
+----
+
+[source,typescript, title="After"]
+----
+import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const content: OverviewModel.Content = { /* ... */ };
+const column: OverviewModel.Column = { /* ... */ };
+const mode: OverviewModel.FilterMode = OverviewModel.FilterMode.ALL;
+----
+
+== Deprecation of Pagination type
+
+The `Pagination` type is deprecated in favor of `PaginationState` for better naming clarity and consistency.
+
+|===
+|Deprecated export |New export
+
+|`Pagination`
+|`PaginationState`
+
+|===
+
+*Migration example:*
+
+[source,typescript, title="Before"]
+----
+import { Pagination } from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/store/index.js";
+
+const pagination: Pagination = { pageNumber: 0, pageSize: 10 };
+----
+
+[source,typescript, title="After"]
+----
+import { PaginationState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const pagination: PaginationState = { pageNumber: 0, pageSize: 10 };
+----
+
+= 2025.06
+
+CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
+for an explanation of general steps.
+
+== Migration to ESM
+
+The npm artifacts `@com.mgmtp.a12.overviewengine/overviewengine-core` and `@com.mgmtp.a12.overviewengine/overviewengine-model-migration` were migrated
+from CommonJS to link:https://nodejs.org/api/esm.html#modules-ecmascript-modules[ESM].
+When using Node `22.12+` and modern build tools, there should be no changes necessary to your bundler setup.
+
+[NOTE]
+====
+If your tests depend on mocking/stubbing Overview Engine API, consult the documentation of your test runner on how to work with ES modules.
+====
+
+Migrating your own application to ESM is not required, but recommended. Consult the documentation of your bundler for specifics.
+
+== Updating to ES2024
+
+The javascript output of the npm artifacts was updated from `ES2020` to `ES2024` to be able to use latest language features.
+When using supported browsers, there is no change necessary. If support for older browsers is required, make sure to include necessary polyfills.
+
+== React 19 upgrade
+
+We dropped the support for React 18 and older and now require React 19 as our peerDependency.
+This means you have to perform the React 19 migration, which is described in great detail in the official
+link:https://react.dev/blog/2024/04/25/react-19-upgrade-guide[React 19 Upgrade Guide]. They have codemods that should make the transition straightforward.
+
+Additionally, we have decided to not also include a Redux update, to minimize the migration effort.
+The "react-redux" library does not have React 19 as a peerDependency, but still works fine with it.
+One solution is to override the dependency in your package.json. You also have to update the corresponding "@types/react-redux" typings to at least 7.1.34.
+
+[source,json]
+----
+{
+	"overrides": {
+		"react-redux": {
+			"react": "^19"
+		}
+	},
+	"devDependencies": {
+		"@types/react-redux": 7.1.34
+	}
+}
+----
+
+== Styled-components v6 upgrade
+
+We dropped the support for `styled-components` v5 and now require v6 as our peerDependency.
+Please refer to the link:https://styled-components.com/docs/faqs#what-do-i-need-to-do-to-migrate-to-v6[styled-components guide] and Widgets migration notes for more information.
+
+== Breaking Changes
+
+=== Change Infinity Scroll APIs
+
+The interface of `UiState.scrolling` property of the `OverviewEngineState` has been changed in this release.
+
+[source,typescript, title="Old Scrolling"]
+----
+export interface Scrolling {
+	readonly start: number;
+	readonly numberOfRows: number;
+	readonly visibleStart: number; // Range of visible rows - start point
+	readonly visibleEnd: number; // Range of visible rows - end point
+}
+----
+
+It has been changed to support the new Query API paging feature.
+
+[source,typescript, title="New Scrolling"]
+----
+export interface Scrolling {
+	readonly pageSize: number;
+	readonly pageNumbers: number[];
+	readonly visibleStart: number; // Range of visible rows - start point
+	readonly visibleEnd: number; // Range of visible rows - end point
+}
+----
+
+*Change in `InfiniteScrollOptions`*
+
+The `loadData` callback of the `infiniteScrollOptions` prop in the `OverviewEngine` component now receives
+a new object parameter which contains these following fields: `startPage` and `endPage`.
+
+The new behavior is to load data for a specific range of pages, instead of loading data for a specific range of rows.
+
+[source,typescript, title="Old loadData callback"]
+----
+export interface InfiniteScrollOptions {
+    // ... other properties
+    loadData(start: number, numberOfRows: number): Promise<void>;
+}
+----
+
+[source,typescript, title="New loadData callback"]
+----
+export interface InfiniteScrollOptions {
+    // ... other properties
+    loadData(params: { startPage: number; endPage: number; }): Promise<void>;
+}
+----
+
+Overview Engine will calculate the total number of items to load `pageSize * (endPage - startPage + 1)`.
+More information can be found in the <<infinite-scroll, Infinite Scroll>>.
+
+=== Query API integration
+
+This version only ships Query API support; interfaces and functions that allow the non-Query API usage have been removed or replaced, including:
+
+|===
+|Removed functions |Alternative
+
+|`OverviewEngineFactories.createModule({[.line-through]#queryAPI: true#})`
+|`OverviewEngineFactories.createModule({})`
+
+|[.line-through]#`OverviewEngineFactories.createQueryAPIDataProviders`#
+|`OverviewEngineFactories.createDataProviders`
+
+|[.line-through]#`QueryAPIFieldBasedFiltering.toOperators`#
+|`FieldBasedFiltering.toOperators`
+
+|[.line-through]#`QueryAPIAggregation.AggregationResolver`#
+|`AggregationResolver`
+
+|[.line-through]#`QueryAPIAggregation.createSumAggregation`#
+|`AggregationResolver.create`
+
+|===
+
+=== Fields projection
+
+Follow the Query API integration, fields projection is now enabled by default, allow the engine to only load the relevant fields.
+In case of needing additional fields, follow a look at the OverviewEngineDataLoader and its customization section to add more fields to the default list.
+
+=== Remove OverviewEngineActions.updateEnumeratedStringDataHolder
+
+The action `OverviewEngineActions.updateEnumeratedStringDataHolder` is no longer used and removed in this release as a consequence.
+
+=== Use slash instead of dot for FilterMap fieldPath
+
+The `fieldPath` in `FilterMap` used dot (`.`) as the separator, which is not compatible with ModelPath and Query API.
+Now the separator is changed to slash (`/`).
+
+FilterMap is used to define the <<preset-filters, Preset Filter>> for the Overview Engine.
+
+[source,typescript, title="Old FilterMap"]
+----
+const presetFilter: OverviewEngineApi.FilterMap = {
+	"product.name": {
+		filterType: "String",
+		criteria: {
+			value: "board"
+		},
+		nonRemovable: true
+	},
+	"product.logistics.weight.weightValue": {
+		filterType: "Number"
+	}
+};
+----
+
+It has to be transformed to use slash (`/`) to adapt with this change.
+
+[source,typescript, title="New FilterMap"]
+----
+const presetFilter: OverviewEngineApi.FilterMap = {
+	"/product/name": {
+		filterType: "String",
+		criteria: {
+			value: "board"
+		},
+		nonRemovable: true
+	},
+	"/product/logistics/weight/weightValue": {
+		filterType: "Number"
+	}
+};
+----
+
+=== Embedded Attachments API removed
+
+The embedded attachments related API has been removed, the engine now solely relies on the thumbnails slice to render the thumbnail.
+Unless embedded attachment is used, it is expected to have no impact to the current setup. However, it case embedded attachment is used,
+to restore functionality, the newly introduced <</selector-map,`selectorMap`>> will be used to remap the new default thumbnail accessing logic.
+
+[source,typescript]
+----
+
+import {
+	DefaultSelectorMap,
+	type SelectorMap
+} from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/view/configuration/selector-map.js";
+
+const CustomSelectorMap: SelectorMap = {
+	...DefaultSelectorMap,
+	attachmentThumbnail: (attachment) => {
+		return (state) =>
+			attachment.content?.startsWith("data:image/")
+				? attachment.content
+				: DefaultSelectorMap.attachmentThumbnail(attachment)(state);
+	}
+}
+
+----
+
+By default, the thumbnail selector assumes that thumbnails for attachments can be queried from the thumbnails slice by their id.
+However, for embedded attachment implementation, the image source can be simply accessed by directly read the `content` prop.
+
+The `selectorMap` can then be passed into any OverviewEngine view component to override the default behavior.
+
+=== Sorting behavior
+
+From 2025.06 version, sorting behavior is changed.
+
+* Case is ignored during sorting (`ignoreCase` is set to true).
+* If no default sorting is specified, results are sorted by `__meta/createdAt` in descending order.
+
+=== Drop deprecated APIs
+
+==== OverviewEngineViewViews
+
+The namespace `OverviewEngineViewViews` is no longer used and has been removed.
+This change includes the removal of the following:
+
+- `OverviewEngineViewViews.OverviewEngineView`
+- `OverviewEngineViewViews.OverviewEngineViewProps`
+- `ConnectedOverviewWrapperProps.onDocumentButtonClick`
+- `ConnectedOverviewWrapperProps.onDocumentButtonDoubleClick`
+
+More information can be found in the 2024.06's deprecation section.
+
+[[overviewengine_state_migration_38]]
+==== OverviewEngineState
+
+The `OverviewEngineState` has been changed in this release. The following properties have been removed:
+
+- `sorting`
+- `filter`
+- `rowState`
+
+More information can be found in the 2024.06's deprecation section.
+
+[[overviewengine_props_migration_38]]
+==== OverviewEngine Props
+
+Several properties of the OverviewEngine have been changed in this release. The following props have been removed:
+
+- `rowState`
+- `disabled`
+- `searchString`
+- `sorting`
+- `pagination`
+- `fieldBasedFiltering.activeFilters`
+- `fieldBasedFiltering.enumeratedStringFilterMap`
+- `fieldBasedFiltering.timeMode`
+
+More information can be found in the 2024.06's deprecation section.
+
+NOTE: For `fieldBasedFiltering.timeMode`, the time mode customization can be done via the `timeMode` property of the *OverviewEngine* component.
+For more details, refer to <<_custom_time_format, custom time format>>.
+
+[[_overviewengineactions_migration_38]]
+==== OverviewEngineActions
+
+The `OverviewEngineActions` have been changed in this release. The following actions have been removed:
+
+- `OverviewEngineActions.queryParametersChanged`
+- `OverviewEngineActions.documentsSelectionChanged`
+- `OverviewEngineActions.documentMultiSelectionClear`
+
+More information can be found in the 2024.06's deprecation section.
+
+[[_overviewengineselectors_migration_38]]
+==== OverviewEngineSelectors
+
+The `OverviewEngineSelectors` have been changed in this release. The following selectors have been removed:
+
+- `OverviewEngineSelectors.getState`
+- `OverviewEngineSelectors.getStateWithoutDefaults`
+
+More information can be found in the 2024.06's deprecation section.
+
+=== Model Changes
+
+==== Drop migration support for models before version 36.0.0
+
+The migration tool no longer supports migration of Overview models before version 36.0.0.
+If you need to migrate models from an older version, you need to migrate to version 36.0.0 first using the migration tool of that version.
+
+==== Make `showFullTextSearch` optional
+
+The field `showFullTextSearch` of the Overview Model `Configuration` interface has been changed from
+a required boolean to an optional boolean.
+
+Since `undefined` and `false` are both falsy, existing checks should continue to work without modification.
+If more explicit handling is needed, use the nullish coalescing operator:
+
+[source,typescript]
+----
+const showFullTextSearch = overviewModel.content.configuration.showFullTextSearch ?? false;
+if (showFullTextSearch) {
+    // Logic when full text search is enabled
+}
+----
+
+==== Rename `fieldIDs` within `FilterConfiguration` to `fields` and change its type from an array of string to an array of object
+
+This change applies to all `fieldIDs` within `FilterConfiguration`, including:
+
+* `link:./assets/generated/typedoc/interfaces/overview-model.OverviewModel.FilterConfiguration.html[FilterConfiguration]["fieldIDs"]`
+* `link:./assets/generated/typedoc/interfaces/overview-model.OverviewModel.SectionItem.html[SectionItem]["fieldIDs"]`
+* `link:./assets/generated/typedoc/interfaces/overview-model.OverviewModel.EnumeratedStringFilterConfiguration.html[EnumeratedStringFilterConfiguration]["fieldIDs"]`
+
+
+[source,typescript,title="New Model Interface"]
+----
+
+export interface SectionItem {
+	// other properties
+	readonly fields: ReadonlyArray<FieldConfiguration>;
+}
+
+export interface FilterConfiguration {
+	// other properties
+	readonly fields?: ReadonlyArray<FieldConfiguration>;
+}
+
+export interface EnumeratedStringFilterConfiguration {
+	// other properties
+	readonly fields: ReadonlyArray<FieldConfiguration>;
+}
+
+export interface FieldConfiguration {
+	readonly fieldID: string;
+}
+
+----
+
+

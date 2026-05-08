@@ -1,0 +1,385 @@
+{
+	"header": {
+		"id": "ProductCardViewOM",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "List of all products"
+			},
+			{
+				"locale": "de",
+				"text": "Liste aller Produkte"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_expanded",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Add to cart"
+							},
+							{
+								"locale": "de",
+								"text": "In den Warenkorb legen"
+							}
+						],
+						"destructive": false,
+						"icon": {
+							"name": "shopping_cart"
+						},
+						"event": "add_to_cart_event",
+						"labelHidden": true,
+						"primary": false
+					},
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Delete"
+							},
+							{
+								"locale": "de",
+								"text": "Löschen"
+							}
+						],
+						"destructive": false,
+						"icon": {
+							"name": "delete",
+							"theme": "filled"
+						},
+						"event": "event_delete_rows",
+						"labelHidden": true,
+						"confirmation": {
+							"title": [
+								{
+									"locale": "en",
+									"text": "Rows Deletion"
+								},
+								{
+									"locale": "de",
+									"text": "Löschen von Zeilen"
+								}
+							],
+							"message": [
+								{
+									"locale": "en",
+									"text": "\bDo you want to delete selected rows?"
+								},
+								{
+									"locale": "de",
+									"text": "Möchten Sie ausgewählte Zeilen löschen?"
+								}
+							]
+						},
+						"primary": false
+					}
+				]
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"subtitle": [
+				{
+					"locale": "en",
+					"text": "Sports accessories"
+				},
+				{
+					"locale": "de",
+					"text": "Sportzubehör"
+				}
+			],
+			"rowTitle": [
+				{
+					"locale": "en",
+					"text": "Click to select this product"
+				},
+				{
+					"locale": "de",
+					"text": "Klicken Sie, um dieses Produkt auszuwählen"
+				}
+			],
+			"initialSorting": [
+				{
+					"idref": "column-752d8"
+				}
+			],
+			"actionColumnWidth": 1,
+			"labelHidden": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all",
+				"sectionData": [
+					{
+						"id": "section-number",
+						"label": [
+							{
+								"locale": "en",
+								"text": "Number"
+							},
+							{
+								"locale": "de",
+								"text": "Nummer"
+							}
+						],
+						"fields": [
+							{
+								"fieldId": "F3"
+							},
+							{
+								"fieldId": "F5"
+							},
+							{
+								"fieldId": "F6"
+							}
+						]
+					}
+				]
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-752d11",
+				"width": 1,
+				"elementRef": "F50",
+				"sortable": true,
+				"preferredSorting": "DESC"
+			},
+			{
+				"id": "column-752d8",
+				"width": 2.2,
+				"elementRef": "F7",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-72323",
+				"label": [
+					{
+						"locale": "en",
+						"text": "[D] Description"
+					},
+					{
+						"locale": "de",
+						"text": "[D] Description"
+					}
+				],
+				"width": 2.5,
+				"styles": {
+					"header": ["s1111", "s2222"],
+					"content": ["s3333", "s4444"]
+				},
+				"elementRef": "F8",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "bug",
+					"icon": {
+						"name": "bug_report"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Report"
+						},
+						{
+							"locale": "de",
+							"text": "Dieses"
+						}
+					],
+					"labelHidden": true,
+					"description": [
+						{
+							"locale": "en",
+							"text": "Report this product"
+						},
+						{
+							"locale": "de",
+							"text": "Dieses Produkt melden"
+						}
+					],
+					"styles": ["s3"],
+					"primary": false
+				},
+				{
+					"event": "delete",
+					"confirmation": {
+						"title": [
+							{
+								"locale": "en",
+								"text": "Row Deletion"
+							},
+							{
+								"locale": "de",
+								"text": "Zeilenlöschung"
+							}
+						],
+						"message": [
+							{
+								"locale": "en",
+								"text": "Really delete row?"
+							},
+							{
+								"locale": "de",
+								"text": "Zeile wirklich löschen?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "en",
+							"text": "Delete this product"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen Sie dieses Produkt"
+						}
+					],
+					"styles": ["s4"],
+					"primary": false
+				}
+			]
+		},
+		"contextMenu": {
+			"groups": [
+				{
+					"name": "testgroup",
+					"actions": [
+						{
+							"event": "edit",
+							"icon": {
+								"name": "edit"
+							},
+							"label": [
+								{
+									"locale": "en",
+									"text": "Edit Row"
+								},
+								{
+									"locale": "de",
+									"text": "Bearbeiten"
+								}
+							]
+						},
+						{
+							"event": "copy",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Copy Row"
+								},
+								{
+									"locale": "de",
+									"text": "Kopieren"
+								}
+							],
+							"icon": {
+								"name": "content_copy"
+							},
+							"styles": ["s4"]
+						}
+					]
+				},
+				{
+					"name": "testgroup2",
+					"actions": [
+						{
+							"event": "print",
+							"icon": {
+								"name": "print"
+							},
+							"confirmation": {
+								"title": [
+									{
+										"locale": "en",
+										"text": "Print"
+									},
+									{
+										"locale": "de",
+										"text": "Drucken"
+									}
+								],
+								"message": [
+									{
+										"locale": "en",
+										"text": "Really print row?"
+									},
+									{
+										"locale": "de",
+										"text": "Zeile wirklich drucken?"
+									}
+								]
+							},
+							"description": [
+								{
+									"locale": "en",
+									"text": "Print"
+								},
+								{
+									"locale": "de",
+									"text": "Drucken"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"]
+	}
+}

@@ -1,0 +1,137 @@
+{
+	"header": {
+		"id": "PersonAM",
+		"modelType": "application",
+		"modelVersion": "6.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"region": {
+			"name": "APP",
+			"layout": {
+				"name": "ApplicationFrame"
+			},
+			"subRegions": [
+				{
+					"name": "CONTENT",
+					"layout": {
+						"name": "MasterDetail"
+					}
+				},
+				{
+					"name": "SIDEBAR",
+					"layout": {
+						"name": "Null"
+					}
+				}
+			]
+		},
+		"defaultRegion": ["CONTENT"],
+		"modules": [
+			{
+				"name": "Person",
+				"menu": {
+					"name": "Person",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Person"
+						},
+						{
+							"locale": "de",
+							"text": "Person"
+						}
+					],
+					"initialActivity": {
+						"descriptor": {
+							"showcase": "person"
+						},
+						"withoutData": true
+					}
+				},
+				"flows": [
+					{
+						"name": "OE with pagination",
+						"scenes": [
+							{
+								"name": "PersonOverview",
+								"description": "Overview of Overview Engine (Pagination)",
+								"matchConditions": [
+									{
+										"key": "showcase",
+										"mustEqual": "person"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "PersonOverview",
+											"constraints": {
+												"type": "MasterDetail"
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "PersonOM"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "PersonForm",
+								"matchConditions": [
+									{
+										"key": "model",
+										"mustEqual": "PersonDM"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "PersonForm",
+											"models": [
+												{
+													"modelType": "document",
+													"name": "PersonDM"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}
