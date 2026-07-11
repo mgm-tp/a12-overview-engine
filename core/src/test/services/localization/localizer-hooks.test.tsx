@@ -30,10 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { Provider } from "react-redux";
 import { it, expect, describe } from "vitest";
 import { renderHook } from "@testing-library/react";
 
-import { type Container } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
 	type Locale,
@@ -46,9 +47,11 @@ import {
 } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../main/services/localization/index.js";
+import { RESOURCE_KEYS } from "../../../main/services/localization/index.js";
+import { LocalizerHooks } from "../../../main/view/hooks/localizer-hooks.js";
 
 import { PATHS } from "../shared.js";
+import { createTestStore } from "../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.services.localization.internal.localizer-hooks", () => {
@@ -62,22 +65,25 @@ describe("com.mgmtp.a12.overview-engine.services.localization.internal.localizer
 		translationSource?: TranslationFinder | LocalizationTreeMap
 	): ReturnType<Hook> {
 		const currentLocale = locale ?? enLocale;
+		const testStore = createTestStore();
 		const { result } = renderHook(() => hook(...args), {
 			wrapper: ({ children }: Container) => (
-				<LocalizerContext.Provider
-					value={{
-						locale: currentLocale,
-						conversion: defaultValueConversion(defaultDataFormats(currentLocale)),
-						dataFormats: defaultDataFormats(currentLocale),
-						localizer: defaultLocalizerFactory({
+				<Provider store={testStore}>
+					<LocalizerContext.Provider
+						value={{
 							locale: currentLocale,
-							translationSource
-						})
-					}}>
-					<OverviewEngine {...basicEngineProps} {...engineProps}>
-						{children}
-					</OverviewEngine>
-				</LocalizerContext.Provider>
+							conversion: defaultValueConversion(defaultDataFormats(currentLocale)),
+							dataFormats: defaultDataFormats(currentLocale),
+							localizer: defaultLocalizerFactory({
+								locale: currentLocale,
+								translationSource
+							})
+						}}>
+						<OverviewEngine {...basicEngineProps} {...engineProps}>
+							{children}
+						</OverviewEngine>
+					</LocalizerContext.Provider>
+				</Provider>
 			)
 		});
 

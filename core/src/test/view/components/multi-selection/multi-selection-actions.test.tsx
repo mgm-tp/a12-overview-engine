@@ -35,11 +35,12 @@ import "../../../setup/jsdom.js";
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../../../main/overview-model.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
 import { de } from "../../../../main/services/localization/internal/languages/de.js";
 
-import { DataRoles } from "../../../test-utils.js";
 import { deLocale, enLocale } from "../../../basic.spec.js";
 
 import { setupMultiSelection } from "./utils.js";
@@ -285,7 +286,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.multi-selection.multi-se
 			it("should not be rendered", () => {
 				const wrapper = setupMultiSelection({ ...basicMultiSelection, buttons: [] });
 
-				expect(wrapper.queryByDataRole(DataRoles.Contentbox.ActionBarGroupDivider).element).not.toBeInTheDocument();
+				expect(wrapper.queryByDataRole(DataRoles.Contentbox.ActionBarGroup.Divider).element).not.toBeInTheDocument();
 			});
 		});
 
@@ -298,14 +299,14 @@ describe("com.mgmtp.a12.overview-engine.view.components.multi-selection.multi-se
 					buttons: [buttonA]
 				});
 
-				expect(wrapper.queryByDataRole(DataRoles.Contentbox.ActionBarGroupDivider).element).not.toBeInTheDocument();
+				expect(wrapper.queryByDataRole(DataRoles.Contentbox.ActionBarGroup.Divider).element).not.toBeInTheDocument();
 			});
 
 			describe("when actions is not empty and has counter", () => {
 				it("should be rendered", () => {
 					const wrapper = setupMultiSelection({ ...basicMultiSelection, buttons: [buttonA] });
 
-					expect(wrapper.getByDataRole(DataRoles.Contentbox.ActionBarGroupDivider).element).toBeInTheDocument();
+					expect(wrapper.getByDataRole(DataRoles.Contentbox.ActionBarGroup.Divider).element).toBeInTheDocument();
 				});
 			});
 
@@ -317,7 +318,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.multi-selection.multi-se
 						buttons: [buttonA]
 					});
 
-					expect(wrapper.getByDataRole(DataRoles.Contentbox.ActionBarGroupDivider).element).toBeInTheDocument();
+					expect(wrapper.getByDataRole(DataRoles.Contentbox.ActionBarGroup.Divider).element).toBeInTheDocument();
 				});
 			});
 		});

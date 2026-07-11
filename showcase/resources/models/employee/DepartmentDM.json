@@ -2,7 +2,7 @@
 	"header": {
 		"id": "DepartmentDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,21 +12,14 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
-				"alias": "EmployeeDM",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "EmployeeDM"
 			},
 			{
-				"alias": "DocumentModelWithAllDataTypes",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "DocumentModelWithAllDataTypes"
@@ -53,7 +46,9 @@
 					"name": "Group",
 					"Group": {
 						"repeatability": 1,
-						"modelAlias": "EmployeeDM"
+						"includeConfig": {
+							"reference": "EmployeeDM"
+						}
 					}
 				},
 				{
@@ -160,7 +155,9 @@
 										}
 									],
 									"repeatability": 1,
-									"modelAlias": "DocumentModelWithAllDataTypes"
+									"includeConfig": {
+										"reference": "DocumentModelWithAllDataTypes"
+									}
 								}
 							}
 						]

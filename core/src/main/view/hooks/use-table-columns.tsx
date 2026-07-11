@@ -35,12 +35,15 @@ import * as React from "react";
 import { type A11yDefinition, type BaseColumnType, A11YLanguageContext } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../overview-model.js";
-import { type JSONDocument } from "../../models/index.js";
-import { LocalizerHooks } from "../../services/localization/index.js";
+import type { JSONDocument } from "../../models/index.js";
 import { MultiSelectModelUtils } from "../../models/internal/shared.js";
 import { UiStateSelector, type ColumnWidths } from "../../store/index.js";
+import { getModelIdFromColumn } from "../../services/relationship/index.js";
 import { useOverviewEngineInternalContext } from "../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+
+import { LocalizerHooks } from "./localizer-hooks.js";
+import { useRelationshipModels } from "./use-relationship.js";
 
 export interface OverviewColumn extends BaseColumnType<JSONDocument> {
 	columnModel?: OverviewModel.Column;
@@ -67,6 +70,7 @@ function useModelColumns(columnWidths: ColumnWidths) {
 	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
 	const disabled = useOverviewEngineState(UiStateSelector.disabled());
 	const localizedColumnLabel = LocalizerHooks.useLocalizedColumnLabel();
+	const relationshipModels = useRelationshipModels();
 
 	return React.useMemo(
 		(): OverviewColumn[] =>
@@ -88,23 +92,33 @@ function useModelColumns(columnWidths: ColumnWidths) {
 					columnModel: column
 				};
 
-				if (OverviewModel.ReferenceColumn.isAssignableFrom(column)) {
-					const element = documentModelService.getByPath(documentModelService.getPathById(column.elementRef));
-					const htmlAttributes: React.HTMLAttributes<HTMLElement> | undefined =
-						column.sortable && column.labelHidden ? { title: localizedColumnLabel(column) } : undefined;
+				const isDataColumn =
+					OverviewModel.ReferenceColumn.isAssignableFrom(column) ||
+					OverviewModel.LinkColumn.Reference.isAssignableFrom(column);
 
-					return {
-						...baseColumnConfig,
-						htmlAttributes,
-						sortable: !!onColumnClick && !!column.sortable && !MultiSelectModelUtils.isInstance(element) && !disabled,
-						horizontalAlignment:
-							element.type === "Field" && element.fieldType.type === "NumberType"
-								? OverviewModel.HorizontalAlignment.RIGHT
-								: OverviewModel.HorizontalAlignment.LEFT
-					};
+				if (!isDataColumn) {
+					return baseColumnConfig;
 				}
 
-				return baseColumnConfig;
+				const modelId = OverviewModel.LinkColumn.Reference.isAssignableFrom(column)
+					? getModelIdFromColumn(column, relationshipModels)
+					: undefined;
+				const element = documentModelService.getByPath(
+					documentModelService.getPathById(column.elementRef, modelId),
+					modelId
+				);
+				const htmlAttributes: React.HTMLAttributes<HTMLElement> | undefined =
+					column.sortable && column.labelHidden ? { title: localizedColumnLabel(column) } : undefined;
+
+				return {
+					...baseColumnConfig,
+					htmlAttributes,
+					sortable: !!onColumnClick && !!column.sortable && !MultiSelectModelUtils.isInstance(element) && !disabled,
+					horizontalAlignment:
+						element.type === "Field" && element.fieldType.type === "NumberType"
+							? OverviewModel.HorizontalAlignment.RIGHT
+							: OverviewModel.HorizontalAlignment.LEFT
+				};
 			}),
 		[
 			TableBodyCell,
@@ -114,7 +128,8 @@ function useModelColumns(columnWidths: ColumnWidths) {
 			documentModelService,
 			localizedColumnLabel,
 			modelColumns,
-			onColumnClick
+			onColumnClick,
+			relationshipModels
 		]
 	);
 }

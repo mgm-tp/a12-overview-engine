@@ -32,8 +32,13 @@
 
 import * as React from "react";
 
+import { Message, addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import { Links } from "../../../../models/index.js";
 import { OverviewModel } from "../../../../overview-model.js";
-import { type JSONDocument } from "../../../../models/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export namespace TableBodyCell {
@@ -50,6 +55,10 @@ export const TableBodyCell: React.ComponentType<TableBodyCell.Props> = React.mem
 	const ExpressionCell = useOverviewEngineContext((context) => context.componentMap.ExpressionCell);
 	const ReferenceCell = useOverviewEngineContext((context) => context.componentMap.ReferenceCell);
 
+	if (OverviewModel.BaseLinkedColumn.isAssignableFrom(columnModel)) {
+		return <LinkCell {...props} columnModel={columnModel} sourceDocRef={props.row.id} />;
+	}
+
 	if (OverviewModel.ExpressionColumn.isAssignableFrom(columnModel)) {
 		return <ExpressionCell {...props} columnModel={columnModel} />;
 	}
@@ -59,4 +68,38 @@ export const TableBodyCell: React.ComponentType<TableBodyCell.Props> = React.mem
 	}
 
 	throw new Error("Unsupported overview column. Got:" + JSON.stringify(columnModel));
+});
+
+const LinkCell = React.memo(function LinkCellAdapter(
+	props: TableBodyCell.Props & {
+		sourceDocRef: string;
+		columnModel: OverviewModel.LinkColumn.Reference | OverviewModel.LinkColumn.Expression;
+	}
+) {
+	const { columnModel, sourceDocRef, ...rest } = props;
+
+	const LinkedReferenceCell = useOverviewEngineContext((context) => context.componentMap.LinkedReferenceCell);
+	const LinkedExpressionCell = useOverviewEngineContext((context) => context.componentMap.LinkedExpressionCell);
+	const links = useOverviewEngineContext((context) => context.links);
+	const localizedResource = LocalizerHooks.useLocalizedResource();
+
+	const linkId = props.row.linkId;
+	const link = React.useMemo(
+		() => (links ? Links.resolvePath(sourceDocRef, columnModel.linkReferences, linkId)(links) : undefined),
+		[links, columnModel.linkReferences, sourceDocRef, linkId]
+	);
+
+	if (!link) {
+		return (
+			<Message className={addPrefix("h_lightFontWeight", "-u-padding-0")}>
+				{localizedResource(RESOURCE_KEYS.overviewEngine.table.linkNotFound)}
+			</Message>
+		);
+	}
+
+	if (OverviewModel.LinkColumn.Reference.isAssignableFrom(columnModel)) {
+		return <LinkedReferenceCell {...rest} columnModel={columnModel} link={link} />;
+	}
+
+	return <LinkedExpressionCell {...rest} columnModel={columnModel} link={link} />;
 });

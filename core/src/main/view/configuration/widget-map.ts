@@ -33,10 +33,6 @@
 import * as React from "react";
 
 import {
-	Header as DateTimePickerHeader,
-	type HeaderProps as DateTimePickerHeaderProps
-} from "@com.mgmtp.a12.widgets/widgets-core/lib/date-time-picker/main/date-time-picker.internal.js";
-import {
 	Icon,
 	List,
 	Table,
@@ -45,12 +41,14 @@ import {
 	Button,
 	Select,
 	Filter,
+	Switch,
 	Message,
 	Counter,
 	Checkbox,
 	PopUpMenu,
 	DateInput,
 	FilterBar,
+	TextField,
 	HiddenText,
 	Pagination,
 	TextOutput,
@@ -58,11 +56,13 @@ import {
 	MessageBox,
 	TimePicker,
 	ContentBox,
+	Typography,
 	ButtonGroup,
 	CssEllipsis,
 	ModalOverlay,
 	YearSelector,
 	MonthSelector,
+	CheckboxGroup,
 	type IconProps,
 	type ListProps,
 	AttachedPortal,
@@ -76,6 +76,7 @@ import {
 	type ButtonProps,
 	type SelectProps,
 	type FilterProps,
+	GlobalMessageBox,
 	type MessageProps,
 	type CounterProps,
 	ModalNotification,
@@ -88,6 +89,7 @@ import {
 	type DateInputProps,
 	type FilterBarProps,
 	DateTimePickerInput,
+	type TextFieldProps,
 	type HiddenTextProps,
 	type PaginationProps,
 	type TextOutputProps,
@@ -97,29 +99,35 @@ import {
 	type ContentBoxProps,
 	ButtonGroupContainer,
 	FilterSelectorMobile,
+	DateTimePickerHeader,
 	type ButtonGroupProps,
 	type CssEllipsisProps,
 	type ModalOverlayProps,
 	FilterSelectorTemplate,
+	type CheckboxItemProps,
 	type ListSubHeaderProps,
 	PickerHeaderCloseButton,
+	type CheckboxGroupProps,
 	type AttachedPortalProps,
 	type DateTimePickerProps,
 	type FilterSelectorProps,
 	ResponsiveImageContainer,
 	type SubActionBarTplProps,
 	type FilterBarMobileProps,
+	type GlobalMessageBoxProps,
 	type ModalNotificationProps,
 	type YearMonthSelectorProps,
 	type DateTimePickerInputProps,
 	type ButtonGroupContainerProps,
 	type FilterSelectorMobileProps,
+	type DateTimePickerHeaderProps,
 	type IndeterminateCheckboxProps,
 	type FilterSelectorTemplateProps,
+	type FilterSelectorListModeProps,
 	type ResponsiveImageContainerProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../models/index.js";
+import type { JSONDocument } from "../../models/index.js";
 
 export interface WidgetMap {
 	readonly Pagination: React.ComponentType<PaginationProps>;
@@ -130,6 +138,7 @@ export interface WidgetMap {
 	readonly ContentBox: React.ComponentType<ContentBoxProps>;
 	readonly Message: React.ComponentType<MessageProps>;
 	readonly MessageBox: React.ComponentType<MessageBoxProps>;
+	readonly GlobalMessageBox: React.ComponentType<GlobalMessageBoxProps>;
 	readonly TextOutput: React.ComponentType<TextOutputProps>;
 	readonly CssEllipsis: React.ComponentType<CssEllipsisProps>;
 	readonly ModalNotification: React.ComponentType<ModalNotificationProps>;
@@ -167,6 +176,8 @@ export interface WidgetMap {
 
 	readonly Checkbox: React.ComponentType<CheckboxProps>;
 	readonly CheckboxIndeterminate: React.ComponentType<IndeterminateCheckboxProps>;
+	readonly CheckboxGroup: React.ComponentType<CheckboxGroupProps>;
+	readonly CheckboxGroupItem: React.ComponentType<CheckboxItemProps>;
 
 	readonly Radio: React.ComponentType<RadioProps>;
 	readonly RadioItem: React.ComponentType<RadioItemProps>;
@@ -175,6 +186,7 @@ export interface WidgetMap {
 	readonly FilterBar: React.ComponentType<FilterBarProps>;
 	readonly FilterBarMobile: React.ComponentType<FilterBarMobileProps>;
 	readonly FilterSelector: React.ComponentType<FilterSelectorProps>;
+	readonly FilterSelectorListMode: React.ComponentType<FilterSelectorListModeProps>;
 	readonly FilterSelectorMobile: React.ComponentType<FilterSelectorMobileProps>;
 	readonly FilterSelectorTemplate: React.ComponentType<FilterSelectorTemplateProps>;
 	readonly FilterSelectorTemplateContent: React.ComponentType<FilterSelectorTemplateProps.ContentProps>;
@@ -193,6 +205,10 @@ export interface WidgetMap {
 	readonly TimePicker: React.ComponentType<TimePickerProps>;
 	readonly DateInput: React.ComponentType<DateInputProps>;
 	readonly PickerHeaderCloseButton: React.ComponentType<ButtonProps>;
+
+	readonly Typography: typeof Typography;
+	readonly TextField: React.ComponentType<TextFieldProps>;
+	readonly Switch: typeof Switch;
 }
 
 export const DefaultWidgetMap: WidgetMap = {
@@ -203,6 +219,7 @@ export const DefaultWidgetMap: WidgetMap = {
 	ContentBox: React.memo(ContentBox),
 	Message: React.memo(Message),
 	MessageBox: React.memo(MessageBox),
+	GlobalMessageBox,
 	TextOutput: React.memo(TextOutput),
 	CssEllipsis: React.memo(CssEllipsis),
 	ModalNotification: React.memo(ModalNotification),
@@ -235,12 +252,14 @@ export const DefaultWidgetMap: WidgetMap = {
 	BulletListUnordered: React.memo(BulletList.Unordered),
 	BulletListItem: React.memo(BulletList.Item),
 
-	List, // Do not use memo here since PopupMenu component is checking whether its children is a pure List component
+	List,
 	ListItem: React.memo(List.Item),
 	ListSubHeader: React.memo(List.SubHeader),
 
 	Checkbox: React.memo(Checkbox),
 	CheckboxIndeterminate: React.memo(Checkbox.Indeterminate),
+	CheckboxGroup: React.memo(CheckboxGroup),
+	CheckboxGroupItem: React.memo(CheckboxGroup.Item),
 
 	Radio: React.memo(Radio),
 	RadioItem: React.memo(Radio.Item),
@@ -249,6 +268,7 @@ export const DefaultWidgetMap: WidgetMap = {
 	FilterBar: React.memo(FilterBar),
 	FilterBarMobile: React.memo(FilterBarMobile),
 	FilterSelector,
+	FilterSelectorListMode: FilterSelector,
 	FilterSelectorMobile: React.memo(FilterSelectorMobile),
 	FilterSelectorTemplate: React.memo(FilterSelectorTemplate),
 	FilterSelectorTemplateContent: React.memo(FilterSelectorTemplate.Content),
@@ -266,5 +286,9 @@ export const DefaultWidgetMap: WidgetMap = {
 	DateTimePickerInput: React.memo(DateTimePickerInput(DateTimePicker)),
 	DateInput: React.memo(DateInput),
 	TimePicker: React.memo(TimePicker),
-	PickerHeaderCloseButton: React.memo(PickerHeaderCloseButton)
+	PickerHeaderCloseButton: React.memo(PickerHeaderCloseButton),
+
+	Typography,
+	TextField: React.memo(TextField),
+	Switch
 };

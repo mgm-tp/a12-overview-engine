@@ -58,7 +58,16 @@
 				"size": 12969,
 				"original_filename": "basketball.jpeg"
 			},
-			"sellerEmail": "mglee@optonline.net"
+			"sellerEmail": "mglee@optonline.net",
+			"releaseYear": "2018",
+			"releaseMonth": "01",
+			"releaseMonthYear": "2018-01",
+			"releaseMonthDay": "01-01",
+			"saleYearRange": "2020/2021",
+			"saleMonthRange": "01/02",
+			"saleYearMonthRange": "2020-01/2021-02",
+			"saleDateRange": "2020-01-01/2021-02-02",
+			"saleMonthDayRange": "01-01/02-02"
 		}
 	},
 	{
@@ -116,7 +125,16 @@
 				"content": "data:image/jpeg;base64,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",
 				"size": 5410
 			},
-			"sellerEmail": "aracne@icloud.com"
+			"sellerEmail": "aracne@icloud.com",
+			"releaseYear": "2019",
+			"releaseMonth": "02",
+			"releaseMonthYear": "2019-02",
+			"releaseMonthDay": "02-08",
+			"saleYearRange": "2019/2021",
+			"saleMonthRange": "02/04",
+			"saleYearMonthRange": "2019-02/2021-04",
+			"saleDateRange": "2019-02-02/2021-04-04",
+			"saleMonthDayRange": "02-02/04-04"
 		}
 	},
 	{
@@ -170,7 +188,16 @@
 				"description": null,
 				"content": "data:image/jpeg;base64,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",
 				"size": 5410
-			}
+			},
+			"releaseYear": "2020",
+			"releaseMonth": "03",
+			"releaseMonthYear": "2020-03",
+			"releaseMonthDay": "03-15",
+			"saleYearRange": "2018/2021",
+			"saleMonthRange": "03/06",
+			"saleYearMonthRange": "2018-03/2021-06",
+			"saleDateRange": "2018-03-03/2021-06-06",
+			"saleMonthDayRange": "03-03/06-06"
 		}
 	},
 	{
@@ -227,7 +254,16 @@
 				"description": null,
 				"content": "data:image/jpeg;base64,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",
 				"size": 3100
-			}
+			},
+			"releaseYear": "2021",
+			"releaseMonth": "04",
+			"releaseMonthYear": "2021-04",
+			"releaseMonthDay": "04-22",
+			"saleYearRange": "2017/2021",
+			"saleMonthRange": "04/05",
+			"saleYearMonthRange": "2017-04/2021-05",
+			"saleDateRange": "2017-04-04/2021-05-05",
+			"saleMonthDayRange": "04-04/05-05"
 		}
 	},
 	{
@@ -275,7 +311,16 @@
 			},
 			"targetGroup": "women",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2022",
+			"releaseMonth": "05",
+			"releaseMonthYear": "2022-05",
+			"releaseMonthDay": "05-01",
+			"saleYearRange": "2021/2026",
+			"saleMonthRange": "05/07",
+			"saleYearMonthRange": "2021-05/2026-07",
+			"saleDateRange": "2021-05-05/2026-07-07",
+			"saleMonthDayRange": "05-05/07-07"
 		}
 	},
 	{
@@ -320,7 +365,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2023",
+			"releaseMonth": "06",
+			"releaseMonthYear": "2023-06",
+			"releaseMonthDay": "06-08",
+			"saleYearRange": "2022/2023",
+			"saleMonthRange": "06/09",
+			"saleYearMonthRange": "2022-06/2023-09",
+			"saleDateRange": "2022-06-06/2023-09-09",
+			"saleMonthDayRange": "06-06/09-09"
 		}
 	},
 	{
@@ -358,7 +412,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2024",
+			"releaseMonth": "07",
+			"releaseMonthYear": "2024-07",
+			"releaseMonthDay": "07-15",
+			"saleYearRange": "2023/2025",
+			"saleMonthRange": "07/08",
+			"saleYearMonthRange": "2023-07/2025-08",
+			"saleDateRange": "2023-07-07/2025-08-08",
+			"saleMonthDayRange": "07-07/08-08"
 		}
 	},
 	{
@@ -406,7 +469,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2025",
+			"releaseMonth": "08",
+			"releaseMonthYear": "2025-08",
+			"releaseMonthDay": "08-22",
+			"saleYearRange": "2016/2019",
+			"saleMonthRange": "08/10",
+			"saleYearMonthRange": "2016-08/2019-10",
+			"saleDateRange": "2016-08-08/2019-10-10",
+			"saleMonthDayRange": "08-08/10-10"
 		}
 	},
 	{
@@ -460,7 +532,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2018",
+			"releaseMonth": "09",
+			"releaseMonthYear": "2018-09",
+			"releaseMonthDay": "09-01",
+			"saleYearRange": "2015/2019",
+			"saleMonthRange": "09/12",
+			"saleYearMonthRange": "2015-09/2019-12",
+			"saleDateRange": "2015-09-09/2019-12-12",
+			"saleMonthDayRange": "09-09/12-12"
 		}
 	},
 	{
@@ -508,7 +589,16 @@
 			},
 			"targetGroup": "women",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2019",
+			"releaseMonth": "10",
+			"releaseMonthYear": "2019-10",
+			"releaseMonthDay": "10-08",
+			"saleYearRange": "2024/2029",
+			"saleMonthRange": "01/02",
+			"saleYearMonthRange": "2024-01/2029-02",
+			"saleDateRange": "2024-01-10/2029-02-11",
+			"saleMonthDayRange": "01-10/02-11"
 		}
 	},
 	{
@@ -556,7 +646,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2020",
+			"releaseMonth": "11",
+			"releaseMonthYear": "2020-11",
+			"releaseMonthDay": "11-15",
+			"saleYearRange": "2020/2021",
+			"saleMonthRange": "02/04",
+			"saleYearMonthRange": "2020-02/2021-04",
+			"saleDateRange": "2020-02-11/2021-04-13",
+			"saleMonthDayRange": "02-11/04-13"
 		}
 	},
 	{
@@ -604,7 +703,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2021",
+			"releaseMonth": "12",
+			"releaseMonthYear": "2021-12",
+			"releaseMonthDay": "12-22",
+			"saleYearRange": "2019/2021",
+			"saleMonthRange": "03/06",
+			"saleYearMonthRange": "2019-03/2021-06",
+			"saleDateRange": "2019-03-12/2021-06-15",
+			"saleMonthDayRange": "03-12/06-15"
 		}
 	},
 	{
@@ -649,7 +757,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2022",
+			"releaseMonth": "01",
+			"releaseMonthYear": "2022-01",
+			"releaseMonthDay": "01-01",
+			"saleYearRange": "2018/2021",
+			"saleMonthRange": "04/05",
+			"saleYearMonthRange": "2018-04/2021-05",
+			"saleDateRange": "2018-04-13/2021-05-14",
+			"saleMonthDayRange": "04-13/05-14"
 		}
 	},
 	{
@@ -697,7 +814,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2023",
+			"releaseMonth": "02",
+			"releaseMonthYear": "2023-02",
+			"releaseMonthDay": "02-08",
+			"saleYearRange": "2017/2021",
+			"saleMonthRange": "05/07",
+			"saleYearMonthRange": "2017-05/2021-07",
+			"saleDateRange": "2017-05-14/2021-07-16",
+			"saleMonthDayRange": "05-14/07-16"
 		}
 	},
 	{
@@ -745,7 +871,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2024",
+			"releaseMonth": "03",
+			"releaseMonthYear": "2024-03",
+			"releaseMonthDay": "03-15",
+			"saleYearRange": "2021/2026",
+			"saleMonthRange": "06/09",
+			"saleYearMonthRange": "2021-06/2026-09",
+			"saleDateRange": "2021-06-15/2026-09-18",
+			"saleMonthDayRange": "06-15/09-18"
 		}
 	},
 	{
@@ -793,7 +928,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2025",
+			"releaseMonth": "04",
+			"releaseMonthYear": "2025-04",
+			"releaseMonthDay": "04-22",
+			"saleYearRange": "2022/2023",
+			"saleMonthRange": "07/08",
+			"saleYearMonthRange": "2022-07/2023-08",
+			"saleDateRange": "2022-07-16/2023-08-17",
+			"saleMonthDayRange": "07-16/08-17"
 		}
 	},
 	{
@@ -841,7 +985,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2018",
+			"releaseMonth": "05",
+			"releaseMonthYear": "2018-05",
+			"releaseMonthDay": "05-01",
+			"saleYearRange": "2023/2025",
+			"saleMonthRange": "08/10",
+			"saleYearMonthRange": "2023-08/2025-10",
+			"saleDateRange": "2023-08-17/2025-10-19",
+			"saleMonthDayRange": "08-17/10-19"
 		}
 	},
 	{
@@ -883,7 +1036,16 @@
 			},
 			"targetGroup": "women",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2019",
+			"releaseMonth": "06",
+			"releaseMonthYear": "2019-06",
+			"releaseMonthDay": "06-08",
+			"saleYearRange": "2016/2019",
+			"saleMonthRange": "09/12",
+			"saleYearMonthRange": "2016-09/2019-12",
+			"saleDateRange": "2016-09-18/2019-12-21",
+			"saleMonthDayRange": "09-18/12-21"
 		}
 	},
 	{
@@ -931,7 +1093,16 @@
 			},
 			"targetGroup": "women",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2020",
+			"releaseMonth": "07",
+			"releaseMonthYear": "2020-07",
+			"releaseMonthDay": "07-15",
+			"saleYearRange": "2015/2019",
+			"saleMonthRange": "01/02",
+			"saleYearMonthRange": "2015-01/2019-02",
+			"saleDateRange": "2015-01-19/2019-02-20",
+			"saleMonthDayRange": "01-19/02-20"
 		}
 	},
 	{
@@ -979,7 +1150,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2021",
+			"releaseMonth": "08",
+			"releaseMonthYear": "2021-08",
+			"releaseMonthDay": "08-22",
+			"saleYearRange": "2024/2029",
+			"saleMonthRange": "02/04",
+			"saleYearMonthRange": "2024-02/2029-04",
+			"saleDateRange": "2024-02-20/2029-04-22",
+			"saleMonthDayRange": "02-20/04-22"
 		}
 	},
 	{
@@ -1021,7 +1201,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2022",
+			"releaseMonth": "09",
+			"releaseMonthYear": "2022-09",
+			"releaseMonthDay": "09-01",
+			"saleYearRange": "2020/2021",
+			"saleMonthRange": "03/06",
+			"saleYearMonthRange": "2020-03/2021-06",
+			"saleDateRange": "2020-03-21/2021-06-24",
+			"saleMonthDayRange": "03-21/06-24"
 		}
 	},
 	{
@@ -1063,7 +1252,16 @@
 			},
 			"inStock": false,
 			"limitedOffer": true,
-			"sellerEmail": "carcus@hotmail.com"
+			"sellerEmail": "carcus@hotmail.com",
+			"releaseYear": "2023",
+			"releaseMonth": "10",
+			"releaseMonthYear": "2023-10",
+			"releaseMonthDay": "10-08",
+			"saleYearRange": "2019/2021",
+			"saleMonthRange": "04/05",
+			"saleYearMonthRange": "2019-04/2021-05",
+			"saleDateRange": "2019-04-22/2021-05-23",
+			"saleMonthDayRange": "04-22/05-23"
 		}
 	},
 	{
@@ -1108,7 +1306,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2024",
+			"releaseMonth": "11",
+			"releaseMonthYear": "2024-11",
+			"releaseMonthDay": "11-15",
+			"saleYearRange": "2018/2021",
+			"saleMonthRange": "05/07",
+			"saleYearMonthRange": "2018-05/2021-07",
+			"saleDateRange": "2018-05-23/2021-07-25",
+			"saleMonthDayRange": "05-23/07-25"
 		}
 	},
 	{
@@ -1153,7 +1360,16 @@
 			},
 			"targetGroup": "children",
 			"inStock": false,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2025",
+			"releaseMonth": "12",
+			"releaseMonthYear": "2025-12",
+			"releaseMonthDay": "12-22",
+			"saleYearRange": "2017/2021",
+			"saleMonthRange": "06/09",
+			"saleYearMonthRange": "2017-06/2021-09",
+			"saleDateRange": "2017-06-24/2021-09-27",
+			"saleMonthDayRange": "06-24/09-27"
 		}
 	},
 	{
@@ -1201,7 +1417,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2018",
+			"releaseMonth": "01",
+			"releaseMonthYear": "2018-01",
+			"releaseMonthDay": "01-01",
+			"saleYearRange": "2021/2026",
+			"saleMonthRange": "07/08",
+			"saleYearMonthRange": "2021-07/2026-08",
+			"saleDateRange": "2021-07-25/2026-08-26",
+			"saleMonthDayRange": "07-25/08-26"
 		}
 	},
 	{
@@ -1246,7 +1471,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2019",
+			"releaseMonth": "02",
+			"releaseMonthYear": "2019-02",
+			"releaseMonthDay": "02-08",
+			"saleYearRange": "2022/2023",
+			"saleMonthRange": "08/10",
+			"saleYearMonthRange": "2022-08/2023-10",
+			"saleDateRange": "2022-08-01/2023-10-03",
+			"saleMonthDayRange": "08-01/10-03"
 		}
 	},
 	{
@@ -1300,7 +1534,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2020",
+			"releaseMonth": "03",
+			"releaseMonthYear": "2020-03",
+			"releaseMonthDay": "03-15",
+			"saleYearRange": "2023/2025",
+			"saleMonthRange": "09/12",
+			"saleYearMonthRange": "2023-09/2025-12",
+			"saleDateRange": "2023-09-02/2025-12-05",
+			"saleMonthDayRange": "09-02/12-05"
 		}
 	},
 	{
@@ -1346,7 +1589,16 @@
 			"targetGroup": "women",
 			"inStock": true,
 			"limitedOffer": null,
-			"sellerEmail": "giafly@live.com"
+			"sellerEmail": "giafly@live.com",
+			"releaseYear": "2021",
+			"releaseMonth": "04",
+			"releaseMonthYear": "2021-04",
+			"releaseMonthDay": "04-22",
+			"saleYearRange": "2016/2019",
+			"saleMonthRange": "01/02",
+			"saleYearMonthRange": "2016-01/2019-02",
+			"saleDateRange": "2016-01-03/2019-02-04",
+			"saleMonthDayRange": "01-03/02-04"
 		}
 	},
 	{
@@ -1383,7 +1635,16 @@
 			},
 			"targetGroup": "women",
 			"inStock": null,
-			"limitedOffer": true
+			"limitedOffer": true,
+			"releaseYear": "2022",
+			"releaseMonth": "05",
+			"releaseMonthYear": "2022-05",
+			"releaseMonthDay": "05-01",
+			"saleYearRange": "2015/2019",
+			"saleMonthRange": "02/04",
+			"saleYearMonthRange": "2015-02/2019-04",
+			"saleDateRange": "2015-02-04/2019-04-06",
+			"saleMonthDayRange": "02-04/04-06"
 		}
 	},
 	{
@@ -1425,7 +1686,16 @@
 			},
 			"targetGroup": "men",
 			"inStock": true,
-			"limitedOffer": null
+			"limitedOffer": null,
+			"releaseYear": "2023",
+			"releaseMonth": "06",
+			"releaseMonthYear": "2023-06",
+			"releaseMonthDay": "06-08",
+			"saleYearRange": "2024/2029",
+			"saleMonthRange": "03/06",
+			"saleYearMonthRange": "2024-03/2029-06",
+			"saleDateRange": "2024-03-05/2029-06-08",
+			"saleMonthDayRange": "03-05/06-08"
 		}
 	}
 ]

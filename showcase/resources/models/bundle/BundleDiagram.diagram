@@ -1,0 +1,383 @@
+{
+  "header": {
+    "id": "bundleDia",
+    "type": "modelGraphDiagram",
+    "version": "3.0.0"
+  },
+  "content": {
+    "nodes": {
+      "node-d8e53166-b5d5-4064-a906-c318663a3e40": {
+        "id": "node-d8e53166-b5d5-4064-a906-c318663a3e40",
+        "type": "node",
+        "x": 810,
+        "y": 200,
+        "width": 160,
+        "height": 80,
+        "label": "",
+        "ports": {
+          "port-0b0a9192-3e68-4c60-927d-2fbf54331789": {
+            "id": "port-0b0a9192-3e68-4c60-927d-2fbf54331789",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 20,
+              "top": 0
+            }
+          },
+          "port-514b3d0e-0104-4276-94a5-a0b229a746cb": {
+            "id": "port-514b3d0e-0104-4276-94a5-a0b229a746cb",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 80,
+              "top": 0
+            }
+          },
+          "port-3bf4f6a8-2694-4439-ba88-14bf6c744b46": {
+            "id": "port-3bf4f6a8-2694-4439-ba88-14bf6c744b46",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 140,
+              "top": 0
+            }
+          },
+          "port-24b65418-bb7e-4c9a-bf9b-7e33cf7d148f": {
+            "id": "port-24b65418-bb7e-4c9a-bf9b-7e33cf7d148f",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 20,
+              "top": 80
+            }
+          },
+          "port-945154f0-3983-4f87-ab1d-9e1269de184d": {
+            "id": "port-945154f0-3983-4f87-ab1d-9e1269de184d",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 80,
+              "top": 80
+            }
+          },
+          "port-1e9ad10b-616d-442b-b9ed-89ebefaf220a": {
+            "id": "port-1e9ad10b-616d-442b-b9ed-89ebefaf220a",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 140,
+              "top": 80
+            }
+          },
+          "port-67537e9e-7577-4c85-ba25-ffa5b8866527": {
+            "id": "port-67537e9e-7577-4c85-ba25-ffa5b8866527",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 20
+            }
+          },
+          "port-3fc3dc5b-cd6a-44c0-89f6-f6219eed4ee8": {
+            "id": "port-3fc3dc5b-cd6a-44c0-89f6-f6219eed4ee8",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 40
+            }
+          },
+          "port-a6de2ec9-a749-47ca-b02a-9ac9a051a93d": {
+            "id": "port-a6de2ec9-a749-47ca-b02a-9ac9a051a93d",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 60
+            }
+          },
+          "port-dd69fef7-0dc0-45e6-9576-e011d20ab767": {
+            "id": "port-dd69fef7-0dc0-45e6-9576-e011d20ab767",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 20
+            }
+          },
+          "port-b5368005-e953-4876-b02a-b3a6773803c2": {
+            "id": "port-b5368005-e953-4876-b02a-b3a6773803c2",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 40
+            }
+          },
+          "port-25da6e7d-4eb0-42b6-af65-145f01d6c385": {
+            "id": "port-25da6e7d-4eb0-42b6-af65-145f01d6c385",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 60
+            }
+          }
+        },
+        "customType": "documentNode",
+        "modelRef": "PromotionDM"
+      },
+      "node-980b880e-d94c-42ea-b867-272fd8bc7d52": {
+        "id": "node-980b880e-d94c-42ea-b867-272fd8bc7d52",
+        "type": "node",
+        "x": 450,
+        "y": 200,
+        "width": 160,
+        "height": 80,
+        "label": "",
+        "ports": {
+          "port-90b64453-6c74-442c-9cac-8e459db15fd7": {
+            "id": "port-90b64453-6c74-442c-9cac-8e459db15fd7",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 20,
+              "top": 0
+            }
+          },
+          "port-65da8b8d-6340-4a4f-8d69-43c445547a62": {
+            "id": "port-65da8b8d-6340-4a4f-8d69-43c445547a62",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 80,
+              "top": 0
+            }
+          },
+          "port-9fe30902-0253-4948-b3ad-b34eb572248f": {
+            "id": "port-9fe30902-0253-4948-b3ad-b34eb572248f",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 140,
+              "top": 0
+            }
+          },
+          "port-94fcb921-3e27-45bb-a7e7-cb1646e5b594": {
+            "id": "port-94fcb921-3e27-45bb-a7e7-cb1646e5b594",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 20,
+              "top": 80
+            }
+          },
+          "port-44f304be-fe92-4331-86d2-7d3c7488ab17": {
+            "id": "port-44f304be-fe92-4331-86d2-7d3c7488ab17",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 80,
+              "top": 80
+            }
+          },
+          "port-dfae98ed-a07c-42f0-82ea-5a66b2a0bd86": {
+            "id": "port-dfae98ed-a07c-42f0-82ea-5a66b2a0bd86",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 140,
+              "top": 80
+            }
+          },
+          "port-d9834cb5-f66c-4dcc-96cf-799fb26300cf": {
+            "id": "port-d9834cb5-f66c-4dcc-96cf-799fb26300cf",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 20
+            }
+          },
+          "port-5b49c290-5f32-4848-8df3-af8287ff97b6": {
+            "id": "port-5b49c290-5f32-4848-8df3-af8287ff97b6",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 40
+            }
+          },
+          "port-f9c047f4-0520-4b6f-a9fe-add899d3486a": {
+            "id": "port-f9c047f4-0520-4b6f-a9fe-add899d3486a",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 0,
+              "top": 60
+            }
+          },
+          "port-460463e4-7db0-4545-8119-9d3c55b63681": {
+            "id": "port-460463e4-7db0-4545-8119-9d3c55b63681",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 20
+            }
+          },
+          "port-cd62ecd8-114c-46af-9688-283177d3c538": {
+            "id": "port-cd62ecd8-114c-46af-9688-283177d3c538",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 40
+            }
+          },
+          "port-aef5cc6d-b798-422e-b2fb-06230d903ddf": {
+            "id": "port-aef5cc6d-b798-422e-b2fb-06230d903ddf",
+            "type": "port",
+            "width": 8,
+            "height": 8,
+            "offset": {
+              "left": 160,
+              "top": 60
+            }
+          }
+        },
+        "customType": "documentNode",
+        "modelRef": "BundleDM"
+      },
+      "node-27ba51d2-5d1f-4f60-8e9e-e52dd3083f4f": {
+        "id": "node-27ba51d2-5d1f-4f60-8e9e-e52dd3083f4f",
+        "type": "node",
+        "x": 710,
+        "y": 240,
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "ports": {
+          "port-5f51a868-13ba-4fdb-8c3c-f2e0efee1284": {
+            "id": "port-5f51a868-13ba-4fdb-8c3c-f2e0efee1284",
+            "type": "port",
+            "width": 0,
+            "height": 0,
+            "offset": {
+              "top": 0,
+              "left": 0
+            },
+            "customType": "relationshipPort"
+          },
+          "port-c5d28d46-1376-4671-84f2-db0656ae951e": {
+            "id": "port-c5d28d46-1376-4671-84f2-db0656ae951e",
+            "type": "port",
+            "width": 0,
+            "height": 0,
+            "offset": {
+              "top": 0,
+              "left": 0
+            },
+            "customType": "relationshipPort"
+          },
+          "port-54b420ef-5b7e-4a44-abc7-7be854d02fe2": {
+            "id": "port-54b420ef-5b7e-4a44-abc7-7be854d02fe2",
+            "type": "port",
+            "width": 0,
+            "height": 0,
+            "offset": {
+              "top": 0,
+              "left": 0
+            },
+            "customType": "relationshipPort"
+          }
+        },
+        "customType": "relationshipNode",
+        "modelRef": "PromotionBundle",
+        "localSettings": {
+          "firstEntity": {},
+          "secondEntity": {},
+          "visualSettings": {}
+        }
+      }
+    },
+    "edges": {
+      "edge-89590e54-d8f3-4d4d-b5a8-1bf43ed85547": {
+        "type": "edge",
+        "id": "edge-89590e54-d8f3-4d4d-b5a8-1bf43ed85547",
+        "sourceNodeId": "node-27ba51d2-5d1f-4f60-8e9e-e52dd3083f4f",
+        "sourcePortId": "port-5f51a868-13ba-4fdb-8c3c-f2e0efee1284",
+        "targetNodeId": "node-d8e53166-b5d5-4064-a906-c318663a3e40",
+        "targetPortId": "port-3fc3dc5b-cd6a-44c0-89f6-f6219eed4ee8",
+        "anchors": [
+          {
+            "id": "anchor-426",
+            "x": 710,
+            "y": 240
+          },
+          {
+            "id": "anchor--2442ee8b-e065-4d18-b40c-551292ae9562",
+            "x": 810,
+            "y": 240
+          }
+        ],
+        "customType": "relationshipEdge",
+        "modelRef": "PromotionBundle"
+      },
+      "edge-34293fee-7902-4333-b94c-074d2eefcd91": {
+        "type": "edge",
+        "id": "edge-34293fee-7902-4333-b94c-074d2eefcd91",
+        "sourceNodeId": "node-980b880e-d94c-42ea-b867-272fd8bc7d52",
+        "sourcePortId": "port-cd62ecd8-114c-46af-9688-283177d3c538",
+        "targetNodeId": "node-27ba51d2-5d1f-4f60-8e9e-e52dd3083f4f",
+        "targetPortId": "port-5f51a868-13ba-4fdb-8c3c-f2e0efee1284",
+        "anchors": [
+          {
+            "id": "anchor-429",
+            "x": 610,
+            "y": 240
+          },
+          {
+            "id": "anchor-417",
+            "x": 710,
+            "y": 240
+          }
+        ],
+        "customType": "relationshipEdge",
+        "modelRef": "PromotionBundle"
+      }
+    },
+    "globalSettings": {
+      "showLabels": true,
+      "showRelationshipName": true,
+      "showRelationshipRoles": false,
+      "showDuplicable": false,
+      "showOrderable": false,
+      "showMultiplicity": false,
+      "showGrid": true
+    }
+  }
+}

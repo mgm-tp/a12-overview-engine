@@ -1,0 +1,69 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#request-selector-map]
+= Custom RequestSelectorMap
+
+[NOTE]
+====
+This API is marked as experimental. Breaking changes *might* happen even in minor releases.
+====
+
+The `RequestSelectorMap` can be used to customize how the Overview Engine produces Data Services Query API requests.
+Overview Engine ships a default variant, but you can provide your own implementation containing your customizations.
+Then it will be used in place of the default one.
+
+For example, adding a default constraint for a specific model while delegating back to the default implementation can look like this:
+
+[source,typescript]
+----
+include::./assets/typescript/features/custom-request-selector-map.ts[tags=requestSelectorMap]
+----
+
+Note that it is mandatory to spread the `DefaultRequestSelectorMap` when customizing (similar to `SelectorMap`, `WidgetMap`, and `ComponentMap`).
+
+TIP: See the API reference for link:./assets/generated/typedoc/interfaces/client-extensions_internal_utils_request-selector-map.RequestSelectorMap.html[RequestSelectorMap]
+and the default implementation link:./assets/generated/typedoc/variables/client-extensions_internal_utils_request-selector-map.DefaultRequestSelectorMap.html[DefaultRequestSelectorMap].
+
+Why does `loadListDocuments` return a list of requests instead of a single one?
+Overview Engine supports requesting multiple pages in a single operation. Each requested page is mapped to one Query API request,
+which allows the data loader to dispatch them concurrently and merge the results in order. Other methods build a single request.
+
+== Injecting a custom map
+
+The map can be injected into an Overview Engine instance by using the data provider function or the generic `createModule` function
+[source,typescript]
+----
+function setup() {
+    // Either
+	OverviewEngineFactories.createModule({
+		requestSelectorMap: customRequestSelectorMap
+	});
+
+    // Or directly configure it per data provider
+    dataHandlers = OverviewEngineFactories.createDataProviders(OverviewEngineFactories.dataLoader, {
+		requestSelectorMap: customRequestSelectorMap
+	});
+
+    // Rest...
+}
+----
+
+== Request Filters
+
+This customization approach can also be used in combination with the RequestFilter API (described in the link:/docs/DATA_SERVICES/dataservices-documentation-src/index.html#json-rpc-modifying-requests[Data Services documentation]), for example to use your own operation methods.
+Customizing the `RequestFilter` alone would not be enough when the method replacement needs some context (e.g. only overriding methods in certain conditions). Using the `RequestSelectorMap` could then be used to provide this context down for the filter to use.

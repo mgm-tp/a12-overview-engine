@@ -32,7 +32,7 @@
 
 import * as React from "react";
 
-import { type Column, type Container } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Column, Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 

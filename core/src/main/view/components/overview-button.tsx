@@ -34,7 +34,8 @@ import * as React from "react";
 
 import { UiStateSelector } from "../../store/index.js";
 import type { OverviewModel } from "../../overview-model.js";
-import { LocalizerHooks, OverviewModelKeys } from "../../services/localization/index.js";
+import { LocalizerHooks } from "../hooks/localizer-hooks.js";
+import { OverviewModelKeys } from "../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
 /** @internal */

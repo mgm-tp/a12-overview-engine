@@ -30,29 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { isModelInstance } from "@com.mgmtp.a12.base/base-model-api";
-import { type Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type Header as BaseHeader,
-	type ModelReference as BaseModelReference
-} from "@com.mgmtp.a12.base/base-model-api";
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Header as BaseHeader } from "@com.mgmtp.a12.base/base-model-api";
 
 export interface QueryModel {
-	header: QueryModel.Header;
-	content: QueryModel.Content;
+	readonly header: QueryModel.Header;
+	readonly content: QueryModel.Content;
 }
 export namespace QueryModel {
 	export interface Header extends BaseHeader {
 		readonly modelType: "query";
-		readonly modelReferences: BaseModelReference[];
 	}
 	export type Content = Query.QueryRoot;
-
-	/**
-	 * Determines for a given value if it is a document model.
-	 * @param value The value to be checked
-	 */
-	export function isInstance(value: unknown): value is QueryModel {
-		return isModelInstance(value) && value.header.modelType === "query";
-	}
 }

@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaIterator } from "redux-saga";
-import { type Action, type AnyAction } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 import { all, put, call, select, type SagaGenerator } from "typed-redux-saga";
 
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import {
 	Activity,
 	StoreSagas,
@@ -67,7 +67,7 @@ export function createApplicationSagas(): ApplicationSaga.Descriptor[] {
 
 function reloadActivityDataSaga(): ApplicationSaga.Descriptor {
 	return {
-		canHandle: (ad: Activity.Descriptor, action: AnyAction) => {
+		canHandle: (ad: Activity.Descriptor, action: UnknownAction) => {
 			// ad.instance === undefined is trying to reproduce the same behavior from reloadOverview function
 			// client/core/src/core/application/internal/adapter/shared.ts
 			return ad.instance === undefined && ActivityActions.reloadData.match(action);
@@ -124,7 +124,7 @@ function* handleReloadActivityData({ payload }: Action<ActivityActions.ActivityA
 
 function exportingSaga(): ApplicationSaga.Descriptor {
 	return {
-		canHandle: (ad: Activity.Descriptor, action: AnyAction) => {
+		canHandle: (ad: Activity.Descriptor, action: UnknownAction) => {
 			return OverviewEngineActions.event.match(action) && Events.onExport.match(action.payload.engineAction);
 		},
 		*handle(action: Action<OverviewEngineActions.CommandPayload<Action<Events.ExportPayload>>>) {
@@ -166,7 +166,7 @@ function exportingSaga(): ApplicationSaga.Descriptor {
 
 function multiSelectionDeleteSaga(): ApplicationSaga.Descriptor {
 	return {
-		canHandle: (ad: Activity.Descriptor, action: AnyAction) => {
+		canHandle: (ad: Activity.Descriptor, action: UnknownAction) => {
 			return (
 				OverviewEngineActions.event.match(action) &&
 				Events.onEventButtonClicked.match(action.payload.engineAction) &&
@@ -181,7 +181,19 @@ function multiSelectionDeleteSaga(): ApplicationSaga.Descriptor {
 				return;
 			}
 
-			const deletedDocumentIds = Object.keys(rowState).filter((key) => rowState[key].selected === true);
+			const deletedDocumentIds = Object.entries(rowState)
+				.filter(([, entry]) => {
+					if (entry.selected) {
+						return true;
+					}
+
+					if (entry.byLink) {
+						return Object.values(entry.byLink).some((linkEntry) => linkEntry.selected);
+					}
+
+					return false;
+				})
+				.map(([key]) => key);
 
 			if (!deletedDocumentIds.length) {
 				return;
@@ -209,7 +221,7 @@ function multiSelectionDeleteSaga(): ApplicationSaga.Descriptor {
 
 function queryParametersChangedSaga(): ApplicationSaga.Descriptor {
 	return {
-		canHandle: (ad: Activity.Descriptor, action: AnyAction) => {
+		canHandle: (ad: Activity.Descriptor, action: UnknownAction) => {
 			return (
 				OverviewEngineActions.command.match(action) && Commands.setQueryParameters.match(action.payload.engineAction)
 			);
@@ -217,24 +229,25 @@ function queryParametersChangedSaga(): ApplicationSaga.Descriptor {
 		*handle(action: Action<OverviewEngineActions.CommandPayload<Action<Commands.SetQueryParametersPayload>>>) {
 			const { scrolling } = action.payload.engineAction.payload;
 
+			const { dataHolderDescriptor } = action.payload;
+			const dataHolderDescriptors = dataHolderDescriptor ? [dataHolderDescriptor] : undefined;
+
 			if (scrolling) {
 				/**
 				 * Here we just dispatch a new loadData directly
 				 */
-				yield* put(ActivityActions.loadData({ activityId: action.payload.activityId }));
+				yield* put(ActivityActions.loadData({ activityId: action.payload.activityId, dataHolderDescriptors }));
 			} else {
-				yield* call(handleQueryParametersChanged, {
-					payload: { activityId: action.payload.activityId },
-					type: ActivityActions.loadData.type
-				});
+				yield* call(handleQueryParametersChanged, action);
 			}
 		}
 	};
 }
 
-function* handleQueryParametersChanged({
-	payload: { activityId }
-}: Action<ActivityActions.ActivityActionPayload>): SagaIterator<void> {
+function* handleQueryParametersChanged(
+	action: Action<OverviewEngineActions.CommandPayload<Action<Commands.SetQueryParametersPayload>>>
+): SagaGenerator<void> {
+	const { activityId } = action.payload;
 	// set the lock in store (can be used by the UI)
 	const lockId = yield* call(ActivitySagas.acquireActivityLock, activityId, "dataSagas.queryParametersChangedSaga", {
 		key: "Loading documents"
@@ -244,13 +257,20 @@ function* handleQueryParametersChanged({
 		return;
 	}
 
-	const defaultDataHolder = Activity.findDefaultDataHolder(yield* select(ActivitySelectors.activityById(activityId)));
+	const { dataHolderDescriptor } = action.payload;
+	let dataHolderDescriptors = dataHolderDescriptor ? [dataHolderDescriptor] : undefined;
 
-	if (!defaultDataHolder) {
-		throw new Error(`Default data holder for activity ${activityId} does not exist`);
+	if (!dataHolderDescriptor) {
+		const defaultDataHolder = Activity.findDefaultDataHolder(yield* select(ActivitySelectors.activityById(activityId)));
+
+		if (!defaultDataHolder) {
+			throw new Error(`Default data holder for activity ${activityId} does not exist`);
+		}
+
+		dataHolderDescriptors = [defaultDataHolder.descriptor];
 	}
 
-	yield* put(ActivityActions.loadData({ activityId, dataHolderDescriptors: [defaultDataHolder.descriptor] }));
+	yield* put(ActivityActions.loadData({ activityId, dataHolderDescriptors }));
 
 	const done = yield* call(() => StoreSagas.waitForStateChange(loadedOrError(activityId)));
 
@@ -279,7 +299,7 @@ function loadedOrError(activityId: string): Selector<{ stateChanged: boolean; re
 	};
 }
 
-function* goToLastValidPage(activityId: string): SagaIterator<void> {
+function* goToLastValidPage(activityId: string): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
 
 	if (activity === undefined) {
@@ -318,7 +338,7 @@ function* goToLastValidPage(activityId: string): SagaIterator<void> {
 
 function enumeratedStringQueryParametersChangedSaga(): ApplicationSaga.Descriptor {
 	return {
-		canHandle: (ad: Activity.Descriptor, action: AnyAction) =>
+		canHandle: (ad: Activity.Descriptor, action: UnknownAction) =>
 			OverviewEngineActions.enumeratedStringQueryParametersChanged.match(action),
 		handle: handleEnumeratedStringQueryParametersChangedSaga
 	};

@@ -1,15 +1,14 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-server",
 	"private": true,
-	"version": "38.3.0",
+	"version": "39.0.1",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
 	"description": "Dev server for Overview Engine showcase",
 	"type": "module",
 	"scripts": {
 		"gradle": "node scripts/gradle.mjs",
-		"clean": "pnpm gradle clean",
-		"compile": "pnpm gradle build",
+		"initialize": "pnpm gradle convertModels syncModelsToServerResources",
 		"start": "pnpm gradle bootRun",
 		"dist": "pnpm gradle bootJar"
 	}

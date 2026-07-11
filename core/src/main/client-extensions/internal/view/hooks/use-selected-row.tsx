@@ -34,7 +34,16 @@ import { useSelector } from "react-redux";
 
 import { ActivityMap, type Activity, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-/** @internal */
+/**
+ * Determines the currently selected row by finding a sub-activity whose descriptor instance
+ * matches one of the document IDs in `data`.
+ *
+ * When multiple rows in `data` share the same `id` (exclude-mode duplicates), this hook
+ * returns the FIRST match. Hosts that need to disambiguate the visible selection should
+ * override `selected`/`highlighted` via `rowStyling`.
+ *
+ * @internal
+ */
 export function useSelectedRow(params: { activityId: string; data: (Activity.Data.Document | undefined)[] }) {
 	const { activityId, data } = params;
 	const activityMap = useSelector(ActivitySelectors.activities());

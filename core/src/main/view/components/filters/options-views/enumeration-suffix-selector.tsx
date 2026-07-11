@@ -44,12 +44,12 @@ import {
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewEngineApi } from "../../../api.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { DocumentModelUtils } from "../../../../models/internal/shared.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
-import { type Filter, type FilterOptionsView } from "../filter-options-view.js";
+import type { Filter, FilterOptionsView } from "../filter-options-view.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
-import { type EnumerationFilterOptionsView } from "./enumeration-filter-options-view.js";
+import type { EnumerationFilterOptionsView } from "./enumeration-filter-options-view.js";
 import { convertToNumberFilterOptions, type NumberFilterOptionsView } from "./number-filter-options-view.js";
 
 /** @internal */
@@ -76,10 +76,8 @@ export const EnumerationSuffixSelector: React.ComponentType<EnumerationSuffixSel
 
 		const triggerChange = React.useCallback(
 			(options: EnumerationFilterOptionsView.EnumerationOption[]) => {
-				// Always trigger change for number options view (with criteria) so that the filter will be activated.
 				onChange?.(convertToNumberFilterOptions(numberUiValues, props.modelId, true), numberUiValues);
 
-				// Then trigger the change for enumeration option
 				const selectedValues = options.filter((option) => option.checked).map((option) => option.value);
 				onChange?.(
 					OverviewEngineApi.Filter.EnumeratedSuffixOptions.create(selectedValues, props.modelId),
@@ -154,12 +152,12 @@ export const EnumerationSuffixSelector: React.ComponentType<EnumerationSuffixSel
 
 const StyledCustomButton = styled(HeaderTrigger)((params) => {
 	const theme = params.theme as DefaultThemeType;
-	const { textLine } = theme.components;
+	const { textField } = theme.components;
 	const { input } = theme.applicationStyles;
 	const { placeHolderBackgroundLight } = theme.colors;
 
 	return css`
-		background-color: ${textLine.textSuffix.background};
+		background-color: ${textField.textSuffix.background};
 		min-height: ${input.height};
 		width: 100%;
 		justify-content: center;

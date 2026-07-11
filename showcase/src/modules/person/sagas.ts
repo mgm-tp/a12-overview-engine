@@ -35,71 +35,24 @@
  * @module extensions/crud
  */
 
-import { type AnyAction } from "redux";
-import { type Action } from "typescript-fsa";
-import { type SagaIterator } from "redux-saga";
-import { put, call, select, takeLatest } from "typed-redux-saga";
+import { call, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import { Activity, ActivitySagas, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
-import { Events, OverviewActivity, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import { Events, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { assert } from "../../utils.js";
+import { createCancelButtonSaga, handleRowClickWithCustomEvent } from "../common/overview-sagas.js";
 
-export const PersonSagas = [rowClickSaga];
+/** Custom event dispatched by PersonWithLinkOM's defaultRowAction */
+const SELECT_PERSON_EVENT = "selectPerson";
 
-function* rowClickSaga(): SagaIterator<void> {
+export const PersonSagas = [rowClickSaga, createCancelButtonSaga("person")];
+
+function* rowClickSaga(): SagaGenerator<void> {
 	yield* takeLatest(
-		(anyAction: AnyAction) =>
-			OverviewEngineActions.event.match(anyAction) && Events.onRowClicked.match(anyAction.payload.engineAction),
-		handleRowClick
-	);
-}
-
-function* handleRowClick(
-	action: Action<OverviewEngineActions.EventPayload<Action<Events.RowClickedPayload>>>
-): SagaIterator<void> {
-	const { activityId, engineAction } = action.payload;
-	const { documentId } = engineAction.payload;
-
-	const activity = yield* select(ActivitySelectors.activityById(activityId));
-	assert(activity);
-
-	if ("showcase" in activity.descriptor && activity.descriptor.showcase !== "person") {
-		return;
-	}
-
-	const data = yield* select(
-		ActivitySelectors.activityPropById(activityId, (activity) => Activity.findDefaultDataHolder(activity)?.data)
-	);
-	const documents = OverviewActivity.Data.DocumentListData.isInstance(data) ? data.documents : [];
-
-	const document = documents.find((d) => d?.id === documentId);
-
-	if (document === undefined) {
-		throw new Error(`Could not find document with id ${documentId}`);
-	}
-
-	const createActivityAction = ActivityActions.create({
-		activityDescriptor: { ...activity.descriptor, instance: document.id, model: document.modelId },
-		initiatingActivityId: action.payload.activityId
-	});
-
-	const childActivityWithInstance = yield* select(ActivitySelectors.childActivityWithInstance(activityId));
-
-	if (childActivityWithInstance) {
-		yield* put(
-			ActivityActions.cancelRequested({
-				activityIds: [childActivityWithInstance.id],
-				replacementActivity: createActivityAction.payload.activity
-			})
-		);
-
-		const cancelled = yield* call(ActivitySagas.waitForResponseCancelRequested);
-
-		if (!cancelled) {
-			return;
+		(action: unknown) =>
+			OverviewEngineActions.event.match(action) && Events.onRowClicked.match(action.payload.engineAction),
+		function* (action: Action<OverviewEngineActions.EventPayload<Action<Events.RowClickedPayload>>>) {
+			yield* call(handleRowClickWithCustomEvent, action, "person", SELECT_PERSON_EVENT, "selectedPerson");
 		}
-	} else {
-		yield* put(createActivityAction);
-	}
+	);
 }

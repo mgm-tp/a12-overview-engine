@@ -30,11 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type OverviewEngineApi } from "../../view/api.js";
-import { type OverviewModel } from "../../overview-model.js";
+import type { OverviewEngineApi } from "../../view/api.js";
+import type { OverviewModel } from "../../overview-model.js";
+
+import type { FilterState } from "./filter-state.js";
 
 export type OverviewEngineState = UiState;
 
@@ -51,11 +54,16 @@ export interface UiState {
 	readonly columnWidths?: ColumnWidths;
 	readonly expandedMultiSelection?: boolean;
 	/** @internal */
-	readonly latestSelectedDocumentId?: string | null;
+	readonly dataLoadTriggered?: boolean;
 	/** @internal */
-	readonly latestSelectedDocumentIds?: string[] | null;
+	readonly latestSelectedDocumentId?: { readonly documentId: string; readonly linkId?: string } | null;
+	/** @internal */
+	readonly latestSelectedDocumentIds?: readonly { readonly documentId: string; readonly linkId?: string }[] | null;
 	readonly dialog?: OverviewEngineApi.Dialog | null;
 	readonly disabled?: boolean;
+	readonly showMobileSearchBar?: boolean;
+
+	readonly newFilter?: FilterState;
 }
 
 export interface ScrollToRowRequest {
@@ -64,8 +72,14 @@ export interface ScrollToRowRequest {
 	readonly autoFocus?: boolean;
 }
 
+export interface RelationshipField {
+	readonly relationshipModel: string;
+	readonly targetRole: string;
+	readonly sortBy: string | RelationshipField;
+}
+
 export interface Sorting {
-	readonly path: string;
+	readonly path: string | RelationshipField;
 	readonly order: SortingOrder;
 }
 
@@ -74,10 +88,6 @@ export enum SortingOrder {
 	DESC = "DESC"
 }
 
-/**
- * @deprecated Use {@link PaginationState} instead
- */
-export type Pagination = PaginationState;
 export interface PaginationState {
 	readonly pageSize: number;
 	readonly pageNumber: number;
@@ -123,4 +133,5 @@ export interface ModelsState {
 	readonly documentModel: DocumentModel;
 	readonly queryModel?: QueryModel;
 	readonly subDocumentModels?: DocumentModel[];
+	readonly modelGraph?: ModelGraph;
 }

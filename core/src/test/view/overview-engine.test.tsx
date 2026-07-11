@@ -31,13 +31,13 @@
  */
 
 import { it, expect, describe } from "vitest";
-import { type ReactTestRenderer } from "react-test-renderer";
+import type { ReactTestRenderer } from "react-test-renderer";
 
-import { type RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../main/models/index.js";
-import { type OverviewEngineApi } from "../../main/view/api.js";
-import { OverviewTable } from "../../main/view/overviewTable.js";
+import type { JSONDocument } from "../../main/models/index.js";
+import type { OverviewEngineApi } from "../../main/view/api.js";
+import { OverviewTable } from "../../main/view/overview-table.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
 import { DefaultWidgetMap } from "../../main/view/configuration/widget-map.js";
 import { DefaultComponentMap } from "../../main/view/configuration/component-map.js";

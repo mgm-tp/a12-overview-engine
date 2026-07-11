@@ -32,10 +32,12 @@
 
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
 
-import { render, DataRoles } from "../test-utils.js";
+import { render } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
 import { resetWindowSize, setSmallWindowSize } from "../setup/widgets.js";
 
@@ -64,7 +66,7 @@ describe("com.mgmtp.a12.overview-engine.view.heading", () => {
 			...basicEngineProps,
 			overviewModel: {
 				...basicEngineProps.overviewModel,
-				content: { ...basicEngineProps.overviewModel.content, subHeaderBox: { minorElements: [buttonA, buttonB] } }
+				content: { ...basicEngineProps.overviewModel.content, subHeaderBox: { leftSlot: [buttonA, buttonB] } }
 			}
 		};
 		const wrapper = render(<OverviewEngine {...props} />);
@@ -80,7 +82,7 @@ describe("com.mgmtp.a12.overview-engine.view.heading", () => {
 			...basicEngineProps,
 			overviewModel: {
 				...basicEngineProps.overviewModel,
-				content: { ...basicEngineProps.overviewModel.content, subHeaderBox: { minorElements: [buttonA, buttonB] } }
+				content: { ...basicEngineProps.overviewModel.content, subHeaderBox: { leftSlot: [buttonA, buttonB] } }
 			}
 		};
 		const wrapper = render(<OverviewEngine {...props} />);
@@ -94,7 +96,7 @@ describe("com.mgmtp.a12.overview-engine.view.heading", () => {
 			...basicEngineProps.overviewModel,
 			content: {
 				...basicEngineProps.overviewModel.content,
-				subHeaderBox: { minorElements: [buttonA], majorElements: [buttonB] }
+				subHeaderBox: { leftSlot: [buttonA], rightSlot: [buttonB] }
 			}
 		};
 

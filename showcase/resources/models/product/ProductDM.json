@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": []
 	},
 	"content": {
@@ -27,8 +22,8 @@
 			"comment": "This is a sample product model for a commerce PIM."
 		},
 		"modelConfig": {
-			"decimalSeparator": ".",
 			"timeZone": "America/New_York",
+			"decimalSeparator": ".",
 			"conditionLanguage": {
 				"code": "en_US"
 			}
@@ -42,6 +37,207 @@
 					"Group": {
 						"repeatability": 1,
 						"elements": [
+							{
+								"type": "Field",
+								"id": "field_d4c4b",
+								"name": "releaseMonthYear",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateFragmentType",
+										"DateFragmentType": {
+											"formatOfFragment": "yyyy-MM"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsmonat & Jahr"
+										},
+										{
+											"locale": "en",
+											"text": "Release Month & Year"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d4c4c",
+								"name": "releaseYear",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateFragmentType",
+										"DateFragmentType": {
+											"formatOfFragment": "yyyy"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsjahr"
+										},
+										{
+											"locale": "en",
+											"text": "Release Year"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d4c4d",
+								"name": "releaseMonth",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateFragmentType",
+										"DateFragmentType": {
+											"formatOfFragment": "MM"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsmonat"
+										},
+										{
+											"locale": "en",
+											"text": "Release Month"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d4c4e",
+								"name": "releaseMonthDay",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateFragmentType",
+										"DateFragmentType": {
+											"formatOfFragment": "MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungstag & Monat"
+										},
+										{
+											"locale": "en",
+											"text": "Release Month & Day"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F100",
+								"name": "saleYearRange",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "yyyy",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Sale Year Range"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F101",
+								"name": "saleMonthRange",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "MM",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Sale Month Range"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F102",
+								"name": "saleYearMonthRange",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "yyyy-MM",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Sale YearMonth Range"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F103",
+								"name": "saleDateRange",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "yyyy-MM-dd",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Sale Date Range"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F104",
+								"name": "saleMonthDayRange",
+								"annotations": [],
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "MM-dd",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Sale MonthDay Range"
+										}
+									]
+								}
+							},
 							{
 								"type": "Field",
 								"id": "F3",
@@ -167,7 +363,6 @@
 								"type": "Field",
 								"id": "F50",
 								"name": "dateField",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "DateType",
@@ -194,7 +389,6 @@
 								"type": "Field",
 								"id": "F51",
 								"name": "dateTimeField",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "DateTimeType",
@@ -221,7 +415,6 @@
 								"type": "Field",
 								"id": "F52",
 								"name": "timeField",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "TimeType",
@@ -293,7 +486,6 @@
 										"text": "A transformation to the brand of this product."
 									}
 								],
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "StringType",
@@ -328,7 +520,6 @@
 											"type": "Field",
 											"id": "field_f866d",
 											"name": "item",
-											"annotations": [],
 											"Field": {
 												"fieldType": {
 													"type": "EnumerationType",
@@ -370,6 +561,45 @@
 																	{
 																		"locale": "de",
 																		"text": "Nummer drei"
+																	}
+																]
+															},
+															{
+																"value": "4",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Number Four"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Nummer vier"
+																	}
+																]
+															},
+															{
+																"value": "5",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Number Five"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Nummer f\u00fcnf"
+																	}
+																]
+															},
+															{
+																"value": "6",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Number Six"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Nummer sechs"
 																	}
 																]
 															}
@@ -417,7 +647,6 @@
 													"text": "A list of keywords for site search boosting. The entry of keywords is supported\n\t\t\t\t\t\tsuing keyword prediction."
 												}
 											],
-											"annotations": [],
 											"Field": {
 												"fieldType": {
 													"type": "StringType"
@@ -457,7 +686,7 @@
 											"internalDescription": [
 												{
 													"locale": "en",
-													"text": "One media file with…"
+													"text": "One media file with\u2026"
 												}
 											],
 											"Group": {
@@ -473,7 +702,6 @@
 																"text": "a type, e.g. image, video, document, etc."
 															}
 														],
-														"annotations": [],
 														"Field": {
 															"fieldType": {
 																"type": "StringType"
@@ -500,10 +728,9 @@
 														"internalDescription": [
 															{
 																"locale": "en",
-																"text": "a mime type, e.g. image/jpeg, video/mp4, application/pdf, …"
+																"text": "a mime type, e.g. image/jpeg, video/mp4, application/pdf, \u2026"
 															}
 														],
-														"annotations": [],
 														"Field": {
 															"fieldType": {
 																"type": "StringType"
@@ -533,7 +760,6 @@
 																"text": "an absolute or relative path and/or file name. The interpretation depends on the\n\t\t\t\t\t\t\tdigital asset management solution."
 															}
 														],
-														"annotations": [],
 														"Field": {
 															"fieldType": {
 																"type": "StringType"
@@ -583,7 +809,6 @@
 																"text": "The weight of the product."
 															}
 														],
-														"annotations": [],
 														"Field": {
 															"fieldType": {
 																"type": "NumberType",
@@ -616,7 +841,6 @@
 																"text": "The unit, in which the weight is measured."
 															}
 														],
-														"annotations": [],
 														"Field": {
 															"fieldType": {
 																"type": "StringType"
@@ -659,7 +883,6 @@
 													"text": "The number of sub items in the product, e.g. the number of bottles in a box of\n\t\t\t\t\t\twine."
 												}
 											],
-											"annotations": [],
 											"Field": {
 												"fieldType": {
 													"type": "NumberType"
@@ -689,7 +912,6 @@
 													"text": "The amount of content in one sub item of the product, e.g. 0.75 in case of a wine\n\t\t\t\t\t\tbottle."
 												}
 											],
-											"annotations": [],
 											"Field": {
 												"fieldType": {
 													"type": "NumberType",
@@ -723,7 +945,6 @@
 													"text": "The unit, in which the packagingAmount is measured, e.g. liter."
 												}
 											],
-											"annotations": [],
 											"Field": {
 												"fieldType": {
 													"type": "StringType"
@@ -856,10 +1077,7 @@
 														"locale": "de",
 														"text": "Internal Error: Either attachment_id or content must be filled, but not both."
 													}
-												],
-												"guiPatterns": {
-													"dynamicEnumerationRule": "false"
-												}
+												]
 											}
 										},
 										{
@@ -880,10 +1098,7 @@
 														"locale": "de",
 														"text": "Internal Error: If the content is filled, the size must be also filled."
 													}
-												],
-												"guiPatterns": {
-													"dynamicEnumerationRule": "false"
-												}
+												]
 											}
 										},
 										{
@@ -904,10 +1119,7 @@
 														"locale": "en",
 														"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
 													}
-												],
-												"guiPatterns": {
-													"dynamicEnumerationRule": "false"
-												}
+												]
 											}
 										},
 										{
@@ -928,10 +1140,7 @@
 														"locale": "en",
 														"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
 													}
-												],
-												"guiPatterns": {
-													"dynamicEnumerationRule": "false"
-												}
+												]
 											}
 										}
 									]
@@ -941,7 +1150,6 @@
 								"type": "Field",
 								"id": "F54",
 								"name": "targetGroup",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "EnumerationType",
@@ -969,7 +1177,7 @@
 														},
 														{
 															"locale": "de",
-															"text": "Männer"
+															"text": "M\u00e4nner"
 														}
 													]
 												},
@@ -983,6 +1191,45 @@
 														{
 															"locale": "de",
 															"text": "Kinder"
+														}
+													]
+												},
+												{
+													"value": "adults",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Adults"
+														},
+														{
+															"locale": "de",
+															"text": "Erwachsene"
+														}
+													]
+												},
+												{
+													"value": "seniors",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Seniors"
+														},
+														{
+															"locale": "de",
+															"text": "Senioren"
+														}
+													]
+												},
+												{
+													"value": "youth",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Youth"
+														},
+														{
+															"locale": "de",
+															"text": "Jugend"
 														}
 													]
 												}
@@ -1006,7 +1253,6 @@
 								"type": "Field",
 								"id": "F53",
 								"name": "inStock",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "BooleanType"
@@ -1027,7 +1273,6 @@
 								"type": "Field",
 								"id": "F66",
 								"name": "limitedOffer",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "ConfirmType"
@@ -1048,7 +1293,6 @@
 								"type": "Field",
 								"id": "F67",
 								"name": "sellerEmail",
-								"annotations": [],
 								"Field": {
 									"fieldType": {
 										"type": "CustomFieldType",
@@ -1064,6 +1308,185 @@
 										{
 											"locale": "de",
 											"text": "Seller email"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_6ab6b",
+								"name": "attachment",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_e32b5",
+											"name": "original_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_f7ae1",
+											"name": "internal_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_3b9dc",
+											"name": "content",
+											"Field": {
+												"fieldType": {
+													"type": "StringType",
+													"StringType": {
+														"lineBreaksPermitted": true,
+														"noValueValidation": true
+													}
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_80075",
+											"name": "attachment_id",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_3d4b8",
+											"name": "size",
+											"Field": {
+												"fieldType": {
+													"type": "NumberType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_ad739",
+											"name": "mime_type",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_f7ceb",
+											"name": "category",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_6830c",
+											"name": "description",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_9cf89",
+											"name": "AttachmentInternalFilenameRequired",
+											"Rule": {
+												"errorEntityRelPath": "../internal_filename",
+												"errorCode": "Error rule_9cf89",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_b342d",
+											"name": "AttachmentMimeTypeRequired",
+											"Rule": {
+												"errorEntityRelPath": "../mime_type",
+												"errorCode": "Error rule_b342d",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field mime_type of customType attachment is not filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Field mime_type of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_346ec",
+											"name": "AttachmentIdOrContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_346ec",
+												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_f45fa",
+											"name": "SizeOfContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_f45fa",
+												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													}
+												]
+											}
 										}
 									]
 								}

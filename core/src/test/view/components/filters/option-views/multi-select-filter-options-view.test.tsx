@@ -33,15 +33,16 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { FilterOperation, type OverviewEngineApi } from "../../../../../main/view/api.js";
 import { MultiSelectFilterOptionsView } from "../../../../../main/view/components/filters/options-views/multi-select-filter-options-view.js";
-import { type EnumerationFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumeration-filter-options-view.js";
+import type { EnumerationFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumeration-filter-options-view.js";
 
+import { assert, render, QueriableElement } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
-import { assert, render, DataRoles, QueriableElement } from "../../../../test-utils.js";
 import { createGroup, createDocumentModel, createEnumerationField } from "../../../../utils.js";
 
 describe.skip("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.multi-select-filter-options-view", () => {
@@ -506,7 +507,7 @@ describe.skip("com.mgmtp.a12.overview-engine.view.components.filters.optionsView
 
 				expect(wrapper.queryAllByDataRoles(DataRoles.Filter.Selector.List.Item)).toHaveLength(3);
 
-				fireEvent.change(wrapper.getByDataRole(DataRoles.Textline.Input).element, { target: { value: "Cherr" } });
+				fireEvent.change(wrapper.getByDataRole(DataRoles.TextField.Input).element, { target: { value: "Cherr" } });
 
 				expect(wrapper.getByDataRole(DataRoles.Filter.Selector.List.Item).element).toHaveTextContent("Cherry");
 			});

@@ -33,11 +33,14 @@
 import * as React from "react";
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../../main/overview-model.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
-import { SubHeader, getElementSegments } from "../../../main/view/components/sub-header.js";
+import { SubHeader } from "../../../main/view/components/sub-header.js";
+import { getElementSegments } from "../../../main/view/components/sub-header-elements.js";
 
-import { render, DataRoles } from "../../test-utils.js";
+import { render } from "../../test-utils.js";
 import { defaultEngineProps } from "../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.sub-header", () => {
@@ -75,7 +78,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.sub-header", () => {
 		content: {
 			...defaultEngineProps.overviewModel.content,
 			subHeaderBox: {
-				majorElements: [...buttonElements, filterElement, searchElement, multiSelectionElement]
+				rightSlot: [...buttonElements, filterElement, searchElement, multiSelectionElement]
 			}
 		}
 	};
@@ -137,7 +140,27 @@ describe("com.mgmtp.a12.overview-engine.view.components.sub-header", () => {
 			it.each(testCases)("the function should return segments with the correct order", (testCase) => {
 				const result = getElementSegments(testCase.input);
 
-				expect(result).toStrictEqual(testCase.output);
+				expect(result.map((s) => s.elements)).toStrictEqual(testCase.output);
+			});
+
+			it("assigns stable keys derived from the first element of each segment", () => {
+				const result = getElementSegments([filterElement, searchElement, buttonElements[0], multiSelectionElement]);
+
+				expect(result.map((s) => s.key)).toStrictEqual([
+					`type:${filterElement.type}`,
+					"button:event_1",
+					`type:${multiSelectionElement.type}`
+				]);
+			});
+
+			it("disambiguates duplicate segment bases with a numeric suffix", () => {
+				const result = getElementSegments([buttonElements[0], multiSelectionElement, buttonElements[0]]);
+
+				expect(result.map((s) => s.key)).toStrictEqual([
+					"button:event_1",
+					`type:${multiSelectionElement.type}`,
+					"button:event_1#1"
+				]);
 			});
 		});
 	});

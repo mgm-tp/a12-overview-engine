@@ -37,3 +37,9 @@ export namespace OverviewEngineInternalConstants {
 	export const MIN_SEARCH_TOKEN_SIZE_KEY = "mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize";
 	export const MAX_METHOD_CALLS_PER_REQUEST_KEY = "mgmtp.a12.dataservices.jsonRpc.maxMethodCallsPerRequest";
 }
+
+/** @internal */
+export const ENABLE_APPROXIMATE_MATCH_SEARCH_ANNOTATION = "enable_approximate_match_search";
+
+/** @internal */
+export const ENABLE_CASE_INSENSITIVE_SEARCH_ANNOTATION = "enable_case_insensitive_search";

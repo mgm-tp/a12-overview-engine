@@ -32,7 +32,8 @@
 
 import { Activity } from "@com.mgmtp.a12.client/client-core";
 
-import { type OverviewEngineApi } from "../../view/api.js";
+import type { DataGraph } from "../../models/index.js";
+import type { OverviewEngineApi } from "../../view/api.js";
 
 /**
  * A container for predefined types for the activity's data. It contains a
@@ -40,15 +41,7 @@ import { type OverviewEngineApi } from "../../view/api.js";
  */
 export namespace OverviewActivity {
 	export namespace Data {
-		export interface DocumentListData {
-			/**
-			 * List of documents to be displayed in an overview engine. Each
-			 * document requires a unique model id.
-			 *
-			 * When using infinite scrolling the list can be discontinuous.
-			 */
-			readonly documents: (Activity.Data.Document | undefined)[];
-
+		export interface DocumentListData extends DataGraph {
 			/**
 			 * Total number of documents that are currently loaded in the activity's data.
 			 *

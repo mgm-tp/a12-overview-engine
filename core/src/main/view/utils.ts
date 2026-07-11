@@ -35,8 +35,10 @@ import * as React from "react";
 import { getAllFocusableElements } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { UiStateSelector } from "../store/index.js";
+import { OverviewModel } from "../overview-model.js";
+import type { JSONDocument } from "../models/index.js";
 
-import { type OverviewEngineApi } from "./api.js";
+import type { OverviewEngineApi } from "./api.js";
 import {
 	useOverviewEngineState,
 	useOverviewEngineContext,
@@ -81,10 +83,10 @@ export function useIdGenerator() {
 /** @internal */
 export function useRowCount() {
 	const pagination = usePagination();
-	const loadingState = useOverviewEngineContext((context) => context.loadingState);
+	const dataLoadTriggered = useOverviewEngineState(UiStateSelector.dataLoadTriggered());
 
 	return useOverviewEngineContext((context) => {
-		if (loadingState === "without") {
+		if (context.overviewModel.content.configuration.skipInitialLoad && !dataLoadTriggered) {
 			return undefined;
 		}
 
@@ -154,6 +156,38 @@ export function toConditionalArray<T>(condition: boolean, ...elements: T[]): T[]
 }
 
 /** @internal */
-export function toCellId(rowId: string, columnId: string): string {
-	return `${rowId}_${columnId}`;
+export function toCellId(row: JSONDocument, columnId: string): string {
+	return row.linkId ? `${row.id}_${row.linkId}_${columnId}` : `${row.id}_${columnId}`;
+}
+
+/** @internal */
+export function resolveRowActivation(content: OverviewModel.Content): {
+	nonInteractive: boolean;
+	customEvent: string | undefined;
+} {
+	const { rowActivation } = content;
+	const nonInteractive = rowActivation
+		? OverviewModel.NonInteractiveRowActivation.isAssignableFrom(rowActivation)
+		: false;
+	const customEvent =
+		rowActivation && OverviewModel.EventRowActivation.isAssignableFrom(rowActivation) ? rowActivation.event : undefined;
+
+	return { nonInteractive, customEvent };
+}
+
+/**
+ * Resolves the effective row state entry for a row, preferring the linkId-specific entry when available.
+ * @internal
+ */
+export function pickRowState(
+	rowState: OverviewEngineApi.RowState | undefined,
+	row: Pick<JSONDocument, "id" | "linkId">
+): OverviewEngineApi.RowState[string] | undefined {
+	const entry = rowState?.[row.id];
+
+	if (row.linkId && entry?.byLink?.[row.linkId]) {
+		return entry.byLink[row.linkId];
+	}
+
+	return entry;
 }

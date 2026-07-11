@@ -32,15 +32,16 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { TextOutput, type TableRenderPropsType } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
-import { type OverviewColumn } from "../../../../../main/view/hooks/use-table-columns.js";
+import type { OverviewColumn } from "../../../../../main/view/hooks/use-table-columns.js";
 import { TableFootCellContent } from "../../../../../main/view/components/table/sub-components/table-foot-cell-content.js";
 
-import { render, DataRoles, shallowRender } from "../../../../test-utils.js";
+import { render, shallowRender } from "../../../../test-utils.js";
 import {
 	deLocale,
 	enLocale,

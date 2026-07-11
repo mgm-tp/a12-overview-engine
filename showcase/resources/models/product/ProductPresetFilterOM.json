@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductPresetFilterOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -29,29 +29,24 @@
 				"reference": "ProductDM"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		]
+		"annotations": []
 	},
 	"content": {
 		"subHeaderBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "search"
 				}
 			],
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "multi_selection"
 				}
 			]
 		},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"rightSlot": [],
+			"leftSlot": []
 		},
 		"columns": [
 			{
@@ -283,6 +278,9 @@
 			]
 		},
 		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+		"rowActivation": {
+			"type": "non_interactive"
+		},
 		"configuration": {
 			"pagingSize": 10,
 			"initialSorting": [
@@ -295,6 +293,7 @@
 			"multiSelection": {
 				"collapseOption": "collapsible_expanded",
 				"counterOption": "simple",
+				"selectionArea": "checkbox",
 				"buttons": [
 					{
 						"label": [

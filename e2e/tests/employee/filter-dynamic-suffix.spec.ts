@@ -38,6 +38,8 @@ const SALARY = "80000";
 
 test.describe("Dynamic suffix", () => {
 	test.beforeAll(async ({ seed }) => {
+		// Seeding data can be slow in CI
+		test.slow();
 		await seed("employee");
 	});
 
@@ -56,7 +58,7 @@ test.describe("Dynamic suffix", () => {
 		test("should not affect dynamic suffix filtering", async ({ page }) => {
 			await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 20,000 EUR");
 			await page.locator(Selector.BUTTON_SEARCH).click();
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(7);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(6);
 			await expect(page.locator(Selector.PAGINATION)).not.toBeVisible();
 			await page.locator(Selector.BUTTON_OPEN_FILTER).click();
 			await page
@@ -75,7 +77,7 @@ test.describe("Dynamic suffix", () => {
 			await fullNameFilterBar.locator(Selector.BUTTON_DELETE).click();
 			await expect(fullNameFilterBar).not.toBeVisible();
 			await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 20,000 EUR");
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(7);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(6);
 			await expect(page.locator(Selector.PAGINATION)).not.toBeVisible();
 		});
 	});
@@ -84,11 +86,11 @@ test.describe("Dynamic suffix", () => {
 		test("should work", async ({ page }) => {
 			await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 20,000 EUR");
 			await page.locator(Selector.BUTTON_SEARCH).click();
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(7);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(6);
 			await expect(page.locator(Selector.PAGINATION)).not.toBeVisible();
 			await page.locator(Selector.FILTER).locator(Selector.BUTTON_DELETE).click();
 			await expect(page.locator(Selector.FILTER_BAR)).not.toBeVisible();
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(10);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(8);
 			await expect(page.locator(Selector.PAGINATION)).toContainText("1 / 3");
 			// filter without suffix
 			await page.locator(Selector.BUTTON_OPEN_FILTER).click();
@@ -99,7 +101,7 @@ test.describe("Dynamic suffix", () => {
 			await page.getByPlaceholder("Start Filter Value").fill(SALARY);
 			await page.locator(Selector.BUTTON_APPLY).click();
 			await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 80,000");
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(8);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(6);
 			await expect(page.locator(Selector.PAGINATION)).not.toBeVisible();
 			// filter again with added suffix
 			await page.locator(Selector.FILTER).click();

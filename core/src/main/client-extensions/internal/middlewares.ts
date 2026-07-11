@@ -30,32 +30,40 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction } from "typescript-fsa";
-import { type Dispatch, type Middleware, type MiddlewareAPI } from "redux";
+import { isAction, type Dispatch, type Middleware, type MiddlewareAPI, type UnknownAction } from "redux";
 
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
 import { ActivityActions } from "@com.mgmtp.a12.client/client-core";
 import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { Commands, createEngineMiddlewares } from "../../store/index.js";
 import { OverviewEngineInternalConstants } from "../../shared/constants.js";
+import { Commands, type MiddlewareOptions, createEngineMiddlewares } from "../../store/index.js";
 
 import { OverviewEngineActions } from "./actions.js";
 import { OverviewEngineSelectors } from "./selectors.js";
 
 /** @internal */
-export const createOverviewEngineAdapterMiddleware = (): Middleware => {
-	const middlewares = createEngineMiddlewares();
+export const createOverviewEngineAdapterMiddleware = (options?: MiddlewareOptions): Middleware => {
+	const middlewares = createEngineMiddlewares(options);
 
 	return (api) => (next) => (action) => {
 		if (
 			OverviewEngineActions.event.match(action) ||
 			(OverviewEngineActions.command.match(action) && !Commands.setQueryParameters.match(action.payload.engineAction))
 		) {
-			createEngineNextActionDispatch({ activityId: action.payload.activityId, api, next, middlewares })(
-				action.payload.engineAction
-			);
+			createEngineNextActionDispatch({
+				activityId: action.payload.activityId,
+				options: {
+					...options,
+					dataHolderDescriptor: action.payload.dataHolderDescriptor,
+					overviewModelName: action.payload.overviewModelName
+				},
+				api,
+				next,
+				middlewares
+			})(action.payload.engineAction);
 
 			return action;
 		}
@@ -64,9 +72,17 @@ export const createOverviewEngineAdapterMiddleware = (): Middleware => {
 	};
 };
 
-function createEngineGetState(getState: () => object, activityId: string): () => object {
+function createEngineGetState(
+	getState: () => object,
+	activityId: string,
+	options: MiddlewareOptions & EngineDispatchOptions
+): () => object {
 	return () => {
-		const uiState = OverviewEngineSelectors.uiState(activityId)(getState());
+		const uiState = OverviewEngineSelectors.uiState(activityId, {
+			filterStateSelectors: options.filterStateSelectors,
+			descriptor: options.dataHolderDescriptor,
+			overviewModelName: options.overviewModelName
+		})(getState());
 
 		if (!uiState) {
 			throw new Error("Cannot find UiState");
@@ -76,12 +92,23 @@ function createEngineGetState(getState: () => object, activityId: string): () =>
 	};
 }
 
-function createEngineDispatch(dispatch: Dispatch<AnyAction>, activityId: string): Dispatch<AnyAction> {
-	return <T extends AnyAction>(engineAction: T): T => {
-		if (engineAction.type.includes("COMMAND")) {
-			dispatch(OverviewEngineActions.command({ activityId, engineAction }));
-		} else {
-			dispatch(OverviewEngineActions.event({ activityId, engineAction }));
+interface EngineDispatchOptions {
+	dataHolderDescriptor?: Activity.DataHolderDescriptor;
+	overviewModelName?: string;
+}
+
+function createEngineDispatch(dispatch: Dispatch, activityId: string, options: EngineDispatchOptions): Dispatch {
+	const { dataHolderDescriptor, overviewModelName } = options;
+
+	return <T extends UnknownAction>(engineAction: T): T => {
+		if (isAction(engineAction)) {
+			const payload = { activityId, dataHolderDescriptor, overviewModelName, engineAction };
+
+			if (engineAction.type.includes("COMMAND")) {
+				dispatch(OverviewEngineActions.command(payload));
+			} else {
+				dispatch(OverviewEngineActions.event(payload));
+			}
 		}
 
 		return engineAction;
@@ -92,15 +119,16 @@ function createEngineDispatch(dispatch: Dispatch<AnyAction>, activityId: string)
  * @see https://redux.js.org/advanced/middleware#attempt-6-naively-applying-the-middleware
  */
 function createEngineNext(
-	api: MiddlewareAPI<Dispatch<AnyAction>, object>,
-	next: Dispatch,
+	api: MiddlewareAPI,
+	next: (action: unknown) => unknown,
+	middlewares: Middleware[],
 	activityId: string,
-	middlewares: Middleware[]
-): <T extends AnyAction>(action: T) => T {
+	options: EngineDispatchOptions
+): (action: unknown) => unknown {
 	const reversedMiddlewares = [...middlewares].reverse();
-	const engineDispatch = createEngineDispatch(next, activityId);
-	let dispatch = <T extends AnyAction>(engineAction: T): T => {
-		engineDispatch(engineAction);
+	const engineDispatch = createEngineDispatch(next as Dispatch, activityId, options);
+	let dispatch = (engineAction: unknown) => {
+		engineDispatch(engineAction as UnknownAction);
 
 		return engineAction;
 	};
@@ -114,17 +142,21 @@ function createEngineNext(
 
 function createEngineNextActionDispatch(params: {
 	activityId: string;
-	api: MiddlewareAPI<Dispatch<AnyAction>, object>;
-	next: Dispatch<AnyAction>;
+	api: MiddlewareAPI;
+	next: (action: unknown) => unknown;
 	middlewares: Middleware[];
-}): <T extends AnyAction>(action: T) => T {
-	const { activityId, api, next, middlewares } = params;
+	options: MiddlewareOptions & EngineDispatchOptions;
+}): (action: unknown) => unknown {
+	const { activityId, api, next, middlewares, options } = params;
 	const engineApi: MiddlewareAPI = {
-		getState: createEngineGetState(api.getState, activityId),
-		dispatch: createEngineDispatch(api.dispatch, activityId)
+		getState: createEngineGetState(api.getState, activityId, options),
+		dispatch: createEngineDispatch(api.dispatch, activityId, options)
 	};
 
-	return createEngineNext(engineApi, next, activityId, middlewares);
+	return createEngineNext(engineApi, next, middlewares, activityId, {
+		dataHolderDescriptor: options.dataHolderDescriptor,
+		overviewModelName: options.overviewModelName
+	});
 }
 
 const usedProps: (keyof DataServicesConfiguration)[] = [

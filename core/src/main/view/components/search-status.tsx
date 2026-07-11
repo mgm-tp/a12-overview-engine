@@ -33,8 +33,9 @@
 import * as React from "react";
 
 import { UiStateSelector } from "../../store/index.js";
+import { LocalizerHooks } from "../hooks/localizer-hooks.js";
 import { useRowCount, useShouldAllowSearch } from "../utils.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../services/localization/index.js";
+import { RESOURCE_KEYS } from "../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
 /** @internal */

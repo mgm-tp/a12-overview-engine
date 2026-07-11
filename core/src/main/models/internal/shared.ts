@@ -41,3 +41,5 @@ export { type MultiSelectGroup, MultiSelectModelUtils, type MultiSelect, MultiSe
 
 /** @internal */
 export { type DocumentModelService, createDocumentModelService } from "./document-model-service.js";
+
+export * from "./typed-field.js";

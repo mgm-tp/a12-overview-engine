@@ -30,10 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { Events, Commands } from "../../actions.js";
-import { OverviewEngineApi } from "../../../../view/api.js";
+import { DialogTypes } from "../../../../shared/dialog-types.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
 
 /**
  * @internal
@@ -44,7 +45,7 @@ export const onRowButtonClickedRequest: Middleware = (api) => (next) => (action)
 	if (Events.onRowButtonClickedRequest.match(action)) {
 		const { row, componentKey, rowActionModel } = action.payload;
 		const dialog: OverviewEngineApi.Dialog.RowActionConfirm = {
-			type: OverviewEngineApi.Dialog.Types.ROW_ACTION_CONFIRM,
+			type: DialogTypes.ROW_ACTION_CONFIRM,
 			row,
 			rowActionModel,
 			componentKey

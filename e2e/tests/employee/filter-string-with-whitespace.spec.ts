@@ -35,6 +35,8 @@ import { Selector, Showcase, navigate } from "../utils.js";
 
 test.describe("String with whitespace", () => {
 	test.beforeAll(async ({ seed }) => {
+		// Seeding data can be slow in CI
+		test.slow();
 		await seed("employee");
 	});
 

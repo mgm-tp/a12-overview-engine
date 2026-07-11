@@ -30,22 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Model } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { ModelsState } from "../../../store/index.js";
-
-/** @internal */
-export function getDocumentModelReference({ header }: Model): string | undefined {
-	return header.modelReferences?.find((x) => x.modelType === "document")?.reference;
-}
-
-/** @internal */
-export function getSubDocumentModelReferences({ header }: Model): string[] | undefined {
-	return header.modelReferences
-		?.filter((x) => x.modelType === "document" && x.purpose === "sub-document-model-for-overview")
-		.map((x) => x.reference);
-}
 
 /** @internal */
 export function getTargetDocumentModel(modelsState: ModelsState, modelId: string | undefined): DocumentModel {

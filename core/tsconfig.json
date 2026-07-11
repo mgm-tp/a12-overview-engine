@@ -2,10 +2,6 @@
 	"extends": "../tsconfig.json",
 	"include": ["./src"],
 	"exclude": ["./src/test/**/*.skip-test.*"],
-	"compilerOptions": {
-		"outDir": "./lib",
-		"tsBuildInfoFile": "target/tsconfig.tsbuildinfo"
-	},
 	"typedocOptions": {
 		"name": "Overview Engine API Documentation",
 		"out": "../documentation/src/assets/generated/typedoc",

@@ -30,24 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 import { useSelector } from "react-redux";
 
-import { Activity, type View, ViewViews, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import { Activity, ViewViews, type ViewNGProps, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-export interface SingleDocumentData {
+interface SingleDocumentData {
 	readonly document: Activity.Data.Document;
 }
-export namespace SingleDocumentData {
+namespace SingleDocumentData {
 	export function isInstance(data: object | undefined): data is SingleDocumentData {
 		const { document }: Partial<SingleDocumentData> = data || {};
 
 		return Activity.Data.Document.isInstance(document);
 	}
-}
-
-export interface SimpleFormActivity extends Activity {
-	readonly descriptor: SimpleFormActivity.Descriptor;
 }
 
 export namespace SimpleFormActivity {
@@ -82,7 +78,7 @@ export namespace SimpleFormActivity {
 	}
 }
 
-export function withSingleDocumentActivityContext<P extends View>(
+export function withSingleDocumentActivityContext<P extends ViewNGProps>(
 	Component: React.ComponentType<P> | React.FunctionComponent<P>
 ): React.FC<P> {
 	return (props) => {

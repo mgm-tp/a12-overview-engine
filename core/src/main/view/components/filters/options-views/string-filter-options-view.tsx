@@ -33,29 +33,31 @@
 import * as React from "react";
 
 import {
+	TextField,
 	BufferedInput,
 	HTMLInputAdapter,
-	TextLineStateless,
+	type TextFieldProps,
 	type BufferedInputProps,
-	type ImmediateInputProps,
-	type TextLineStatelessProps
+	type ImmediateInputProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useIdGenerator, focusNextElement } from "../../../utils.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useSubstringSearchField, useMinSearchTokenSizeValidator } from "../../../hooks/use-search-token-validation.js";
 
 import { useHeadingElements, useLocalizedLabels } from "./date-time-common-hooks.js";
 
 const WrappedTextLineStateless: React.ComponentType<BufferedTextLine.PropsType> = BufferedInput(
-	HTMLInputAdapter(TextLineStateless)
+	HTMLInputAdapter(TextField)
 );
 
 namespace BufferedTextLine {
-	export type PropsType = BufferedInputProps<string> & ImmediateInputProps<string> & TextLineStatelessProps;
+	export type PropsType = BufferedInputProps<string> & ImmediateInputProps<string> & TextFieldProps;
 }
 
 export namespace StringFilterOptionsView {
@@ -79,8 +81,38 @@ export const StringFilterOptionsView: React.FC<StringFilterOptionsView.Props> = 
 			(context) => context.widgetMap.FilterSelectorTemplateContent
 		);
 
+		const substringSearchField = useSubstringSearchField(props.path, props.modelId);
+		const getMinTokenSizeError = useMinSearchTokenSizeValidator(substringSearchField);
+		const localizedResource = LocalizerHooks.useLocalizedResource();
+		const value = uiValue.value ?? "";
+		const [submittedValue, setSubmittedValue] = React.useState<string>(value);
+		const [prevUiValue, setPrevUiValue] = React.useState<string>(value);
+
+		// Resync on external uiValue change so a rejected value's error does not linger.
+		if (value !== prevUiValue) {
+			setPrevUiValue(value);
+			setSubmittedValue(value);
+		}
+
+		const minTokenSizeErrorResource = getMinTokenSizeError(submittedValue);
+		const minTokenSizeError = minTokenSizeErrorResource
+			? localizedResource(minTokenSizeErrorResource.key, minTokenSizeErrorResource.args)
+			: undefined;
+
 		const handleOptionValueChange = React.useCallback(
 			(value?: string): void => {
+				setSubmittedValue(value ?? "");
+
+				const newValue: StringFilterOptionsView.StringUiValueType = { ...uiValue, value };
+
+				// Flag the option as errored so the filter list item shows the error icon and Apply is
+				// blocked, mirroring the date filter; keep the rejected text via the carried uiValue.
+				if (getMinTokenSizeError(value)) {
+					onChange?.({ filterType: "String", error: true, modelId: props.modelId }, newValue);
+
+					return;
+				}
+
 				const convertToFilterOption = (
 					stringUiValue: StringFilterOptionsView.StringUiValueType
 				): OverviewEngineApi.Filter.StringOptions => {
@@ -91,11 +123,9 @@ export const StringFilterOptionsView: React.FC<StringFilterOptionsView.Props> = 
 					return { filterType: "String", criteria: { value: stringUiValue.value }, modelId: props.modelId };
 				};
 
-				const newValue: StringFilterOptionsView.StringUiValueType = { ...uiValue, value };
-
 				onChange?.(convertToFilterOption(newValue));
 			},
-			[onChange, props.modelId, uiValue]
+			[getMinTokenSizeError, onChange, props.modelId, uiValue]
 		);
 
 		const onEmptySwitch = React.useCallback(
@@ -129,8 +159,10 @@ export const StringFilterOptionsView: React.FC<StringFilterOptionsView.Props> = 
 					<WrappedTextLineStateless
 						id={id}
 						disabled={disabled}
-						value={uiValue.value || ""}
+						value={submittedValue}
 						onValueSubmit={handleOptionValueChange}
+						error={!!minTokenSizeError}
+						errorMessage={minTokenSizeError}
 						placeholder={singleInputLabel}
 					/>
 				)}

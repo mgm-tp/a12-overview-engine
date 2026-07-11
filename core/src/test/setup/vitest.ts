@@ -40,7 +40,12 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // @ts-expect-error To suppress warning about react-test-renderer is deprecated
 global.IS_REACT_NATIVE_TEST_ENVIRONMENT = true;
 
-// For component assertions by name
+let randomCounter = 1;
+
+vi.spyOn(Math, "random").mockImplementation(() => {
+	return (randomCounter++ % 1000) / 1000;
+});
+
 vi.mock("react", async () => {
 	const originalReact = await vi.importActual("react");
 
@@ -56,6 +61,43 @@ vi.mock("react", async () => {
 	};
 });
 
+function shouldSuppress(args: unknown[]): boolean {
+	const first = args[0];
+
+	if (typeof first !== "string") {
+		return false;
+	}
+
+	if (first.includes("not wrapped in act(")) {
+		return true;
+	}
+
+	if (first.includes("returned the root state when called")) {
+		return true;
+	}
+
+	return false;
+}
+
+const originalConsoleError = console.error;
+console.error = (...args: unknown[]) => {
+	if (shouldSuppress(args)) {
+		return;
+	}
+
+	originalConsoleError(...args);
+};
+
+const originalConsoleWarn = console.warn;
+console.warn = (...args: unknown[]) => {
+	if (shouldSuppress(args)) {
+		return;
+	}
+
+	originalConsoleWarn(...args);
+};
+
 afterEach(() => {
 	cleanup();
+	randomCounter = 1;
 });

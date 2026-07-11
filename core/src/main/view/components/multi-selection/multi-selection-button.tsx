@@ -34,7 +34,8 @@ import * as React from "react";
 
 import { UiStateSelector } from "../../../store/index.js";
 import { OverviewModel } from "../../../overview-model.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../services/localization/index.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 
 import { useClearMultiSelectionDialogVisible } from "./clear-multi-selection-dialog.js";

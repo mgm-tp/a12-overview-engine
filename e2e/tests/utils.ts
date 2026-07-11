@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Page } from "@playwright/test";
+import type { Page, Locator } from "@playwright/test";
 
 import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
@@ -93,7 +93,7 @@ export namespace Selector {
 
 	export const TABLE_BODY_CELL = dataRole("table-body-cell");
 	export const TABLE_BODY_ROW = dataRole("table-body-row");
-	export const INFINITE_SCROLL_ROW = `${TABLE_BODY_ROW}:not([role="presentation"])`;
+	export const TABLE_INFINITE_BODY_ROW = `${TABLE_BODY_ROW}[role="row"]`;
 	export const TABLE_HEADER_CELL = dataRole("table-header-cell");
 	export const TABLE_HEADER_ROW = dataRole("table-header-row");
 	export const TABLE_ROW = dataRole("table-body-row");
@@ -104,7 +104,6 @@ export namespace Selector {
 	export const SELECT_INPUT = dataRole("select-input");
 
 	export function buttonContains(text: string) {
-		// Playwright does not support :contains, so use a locator helper
 		return `button >> text="${text}"`;
 	}
 }
@@ -116,12 +115,15 @@ function dataRole(role: string) {
 export enum Showcase {
 	DEFAULT = "",
 	PRODUCT_PAGINATION = "#showcase:product,feature:pagination",
+	PRODUCT_NEW_FILTER = "#showcase:product,feature:new-filter",
 	PRODUCT_PRESET_FILTER = "#showcase:product,feature:preset-filter",
 	MOBILE_EXPRESSION = "#showcase:mobile,feature:expression",
 	MOBILE_CARD_VIEW = "#showcase:mobile,feature:card-view",
 	BUNDLE = "#showcase:bundle",
 	PERSON = "#showcase:person",
-	EMPLOYEE_PRESET_FILTER = "#showcase:employee,feature:preset-filter"
+	EMPLOYEE_PRESET_FILTER = "#showcase:employee,feature:preset-filter",
+	BUNDLE_WITH_LINK = "#showcase:bundle,feature:with-link",
+	PERSON_WITH_LINK = "#showcase:person,feature:with-link"
 }
 
 export async function navigate(page: Page, showcase: Showcase) {
@@ -148,4 +150,24 @@ export async function setLocale(page: Page, country: (typeof LOCALE_PRESETS)[num
 		},
 		{ locale: Locale.toString(preset) }
 	);
+}
+
+export async function getColumnIndex(headerCell: Locator): Promise<number> {
+	return headerCell.evaluate((el) => {
+		const row = el.closest('[data-role="table-header-row"]');
+
+		if (!row) {
+			throw new Error("No table-header-row ancestor found");
+		}
+
+		const headers = Array.from(row.querySelectorAll('[data-role="table-header-cell"]'));
+
+		const index = headers.indexOf(el);
+
+		if (index === -1) {
+			throw new Error("Could not determine column index for the given header cell");
+		}
+
+		return index;
+	});
 }

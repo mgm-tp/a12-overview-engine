@@ -30,9 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import Chance from "chance";
 import { addDays, getDate, getMonth } from "date-fns";
 
-export function generateBundle(chance: Chance.Chance) {
+import { addRequest, linkEntities } from "../index.js";
+
+function generateBundle(chance: Chance.Chance) {
 	const releaseDate = chance.date({ year: 2021 }) as Date;
 	const onSaleStart = chance.date({ year: 2021, month: chance.integer({ min: 1, max: 10 }) }) as Date;
 	const onSaleEnd = addDays(onSaleStart, chance.integer({ min: 1, max: 30 }));
@@ -50,6 +53,53 @@ export function generateBundle(chance: Chance.Chance) {
 			onSaleInterval: `${toDateFragment(onSaleStart)}/${toDateFragment(onSaleEnd)}`
 		}
 	};
+}
+
+function generatePromotion(chance: Chance.Chance) {
+	const startDate = chance.date({ year: 2024 }) as Date;
+	const endDate = addDays(startDate, chance.integer({ min: 7, max: 90 }));
+
+	return {
+		promotion: {
+			name: `${chance.word({ capitalize: true })} ${chance.pickone(["Sale", "Discount", "Offer", "Deal"])}`,
+			start: startDate.toISOString().substring(0, 19),
+			end: endDate.toISOString().substring(0, 19)
+		}
+	};
+}
+
+export function createBundlesWithLinks() {
+	const SIZE = 100;
+	const NUMBER_OF_PROMOTIONS = 10;
+
+	const promotionRequests = Array.from({ length: NUMBER_OF_PROMOTIONS }, (_, index) => {
+		const chance = new Chance(index);
+
+		return addRequest("PromotionDM", generatePromotion(chance), index);
+	});
+
+	const bundleRequests = Array.from({ length: SIZE }, (_, index) => {
+		const chance = new Chance(index);
+
+		const bundle = generateBundle(chance);
+		const bundleRequest = addRequest("BundleDM", bundle, index);
+
+		const shouldLinkPromotion = chance.bool({ likelihood: 70 });
+
+		if (shouldLinkPromotion) {
+			const promotionIndex = index % NUMBER_OF_PROMOTIONS;
+			const bundlePromotionLink = linkEntities(`bundle-promo-${index}`, "PromotionBundle", [
+				{ role: "promotion", docRef: `#{#${promotionRequests[promotionIndex].id}.metadata.docRef}` },
+				{ role: "bundle", docRef: `#{#${bundleRequest.id}.metadata.docRef}` }
+			]);
+
+			return [bundleRequest, bundlePromotionLink];
+		}
+
+		return [bundleRequest];
+	}).flat();
+
+	return [...promotionRequests, ...bundleRequests];
 }
 
 function toDateFragment(date: Date) {

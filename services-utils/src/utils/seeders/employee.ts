@@ -30,7 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-export function generateEmployee(chance: Chance.Chance) {
+import Chance from "chance";
+
+import { addRequest, linkEntities } from "../index.js";
+
+function generateEmployee(chance: Chance.Chance) {
 	const DateField = (chance.date({ min: new Date("01-01-1960"), max: new Date("01-01-2000") }) as Date)
 		.toISOString()
 		.substring(0, 10);
@@ -46,7 +50,7 @@ export function generateEmployee(chance: Chance.Chance) {
 	};
 }
 
-export function generateDepartment(chance: Chance.Chance) {
+function generateDepartment(chance: Chance.Chance) {
 	const DateField = (chance.date({ min: new Date("01-01-1960"), max: new Date("01-01-2000") }) as Date).toISOString();
 
 	return {
@@ -62,4 +66,52 @@ export function generateDepartment(chance: Chance.Chance) {
 			}
 		}
 	};
+}
+
+function generateProject(chance: Chance.Chance) {
+	const deadline = (chance.date({ min: new Date("2025-01-01"), max: new Date("2028-12-31") }) as Date)
+		.toISOString()
+		.substring(0, 10);
+
+	return {
+		Project: {
+			ProjectName: `${chance.pickone(["Alpha", "Beta", "Gamma", "Delta", "Omega", "Nova", "Phoenix", "Atlas", "Titan", "Apex"])} ${chance.word({ capitalize: true })}`,
+			Status: chance.pickone(["active", "completed", "planned"]),
+			Budget: chance.floating({ min: 10000, max: 500000, fixed: 2 }),
+			Deadline: deadline
+		}
+	};
+}
+
+const NUMBER_OF_EMPLOYEES = 12;
+const NUMBER_OF_PROJECTS = 50;
+const NUMBER_OF_PROJECTS_PER_EMPLOYEE = 45;
+
+export function createEmployeesWithLinks() {
+	const projectRequests = Array.from({ length: NUMBER_OF_PROJECTS }, (_, index) =>
+		addRequest("ProjectDM", generateProject(new Chance(index + 200)), index)
+	);
+
+	const departmentRequests = Array.from({ length: 5 }, (_, index) =>
+		addRequest("DepartmentDM", generateDepartment(new Chance(index + 100)), index)
+	);
+
+	const employeeRequests = Array.from({ length: NUMBER_OF_EMPLOYEES }, (_, index) => {
+		const chance = new Chance(index);
+		const employeeRequest = addRequest("EmployeeDM", generateEmployee(chance), index);
+
+		const employeeProjectLinks = Array.from({ length: NUMBER_OF_PROJECTS_PER_EMPLOYEE }, (_, offset) =>
+			linkEntities(`${index}-proj${offset}`, "EmployeeProjectRM", [
+				{ role: "employee", docRef: `#{#${employeeRequest.id}.metadata.docRef}` },
+				{
+					role: "project",
+					docRef: `#{#AddProjectDM${(index + offset) % NUMBER_OF_PROJECTS}.metadata.docRef}`
+				}
+			])
+		);
+
+		return [employeeRequest, ...employeeProjectLinks];
+	}).flat();
+
+	return [...projectRequests, ...departmentRequests, ...employeeRequests];
 }

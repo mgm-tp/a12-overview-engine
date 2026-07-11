@@ -33,11 +33,13 @@
 import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { BooleanFilterOptionsView } from "../../../../../main/view/components/filters/options-views/boolean-filter-options-view.js";
 
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 
 import { getClearAllButton } from "./shared.js";

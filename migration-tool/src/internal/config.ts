@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type MigrationParameters } from "@com.mgmtp.a12.migrationtool/migrationtool-core/types";
+import type { MigrationParameters } from "@com.mgmtp.a12.migrationtool/migrationtool-core/types";
 
 import { MIGRATION_STEPS } from "./steps/index.js";
 
 /** @internal */
 export const MIGRATION_PARAMETERS: MigrationParameters = {
 	modelType: "overview",
-	minimumSupportedVersion: "36.0.0",
+	minimumSupportedVersion: "37.0.0",
 	migrationSteps: MIGRATION_STEPS
 };

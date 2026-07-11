@@ -33,12 +33,13 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../../../../main/overview-model.js";
-import { type OverviewEngineApi } from "../../../../../main/view/api.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
 
 import { mockType } from "../../../../utils.js";
-import { DataRoles } from "../../../../test-utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import {
 	setupMultiSelection,
@@ -190,11 +191,59 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.ove
 
 					fireEvent.click(checkbox);
 
-					expect(onOverallMultiSelectionButtonClick).toHaveBeenCalledExactlyOnceWith({
-						affectedRowIds: ["1", "2"],
-						selected: expectNextSelected
-					});
+					expect(onOverallMultiSelectionButtonClick).toHaveBeenCalledExactlyOnceWith([
+						{ documentId: "1", linkId: undefined, selected: expectNextSelected },
+						{ documentId: "2", linkId: undefined, selected: expectNextSelected }
+					]);
 				});
+			});
+		});
+
+		describe("with linkId rows", () => {
+			it("should pass documentId and linkId in each entry when toggling", () => {
+				const onOverallMultiSelectionButtonClick = vi.fn();
+				const linkData = [
+					{
+						id: "1",
+						linkId: "linkA",
+						modelId: "test-model",
+						root: { string: "ABC", number: 1 }
+					},
+					{
+						id: "1",
+						linkId: "linkB",
+						modelId: "test-model",
+						root: { string: "DEF", number: 2 }
+					}
+				];
+				const linkRowState: OverviewEngineApi.RowState = {
+					"1": {
+						byLink: {
+							linkA: { selected: true },
+							linkB: { selected: false }
+						}
+					}
+				};
+				const wrapper = setupMultiSelection(
+					{
+						collapseOption: OverviewModel.MultiSelection.CollapseOption.COLLAPSIBLE_EXPANDED,
+						counterOption: OverviewModel.MultiSelection.CounterOption.SIMPLE
+					},
+					{
+						eventHandlers: { onOverallMultiSelectionButtonClick },
+						uiState: { rowState: linkRowState, expandedMultiSelection: true },
+						data: linkData as any
+					}
+				);
+
+				const checkbox = wrapper.getByDataRoles(DataRoles.Table.Header, DataRoles.Checkbox.Input).element;
+
+				fireEvent.click(checkbox);
+
+				expect(onOverallMultiSelectionButtonClick).toHaveBeenCalledExactlyOnceWith([
+					{ documentId: "1", linkId: "linkA", selected: true },
+					{ documentId: "1", linkId: "linkB", selected: true }
+				]);
 			});
 		});
 	});

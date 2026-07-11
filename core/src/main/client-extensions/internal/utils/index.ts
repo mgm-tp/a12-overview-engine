@@ -38,5 +38,6 @@ export * from "./fields-projection.js";
 export * from "./document-model-utils.js";
 export * from "./infinite-scroll-utils.js";
 export * from "./request-builder.js";
+export * from "./relationship-sort-utils.js";
 export * from "./request-selector-map.js";
 export * from "./trigger-file-download.js";

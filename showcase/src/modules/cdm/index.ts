@@ -30,11 +30,62 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { Dispatch } from "redux";
 
-import NaturalPersonCDM_AM from "../../../resources/models/cdm/NaturalPersonCDM_AM.json" with { type: "json" };
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
 
-export const CDMModule: Module = {
+import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
+
+const DESCRIPTOR = { showcase: "cdm" };
+
+function onClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR }),
+			descriptor: {}
+		})
+	);
+}
+
+export const CDMModule: DynamicConfiguration = {
 	id: "CDM",
-	model: () => NaturalPersonCDM_AM as ApplicationModel
+	menus: (state) => {
+		const activity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR)(state).at(0);
+
+		return [
+			{
+				id: "menu.cdm",
+				label: { key: "application.menu.cdm" },
+				selected: activity !== undefined,
+				action: onClick
+			}
+		];
+	},
+	flows: [
+		{
+			name: "OverviewFlow",
+			scenes: [
+				{
+					name: "NaturalPersonCDM-overview",
+					matches: (d) => d.showcase === DESCRIPTOR.showcase && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: "NaturalPersonCDMNoRepeatable-overview" }]
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 };

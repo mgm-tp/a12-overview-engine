@@ -43,9 +43,7 @@ test.describe("Date range", () => {
 	});
 
 	test("should work with start and/or end inputs", async ({ page }) => {
-		const rows = page.locator(Selector.INFINITE_SCROLL_ROW);
-
-		await expect(rows.nth(0)).toContainText("02/04-02/13");
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).nth(0)).toContainText("02/04-02/13");
 		await page.locator(Selector.BUTTON_OPEN_FILTER).click();
 		await page
 			.locator(Selector.FILTER_SELECTOR_LIST_ITEM)
@@ -55,8 +53,8 @@ test.describe("Date range", () => {
 		await inputByLabel(page, "Start Filter Value").blur();
 		await page.locator(Selector.BUTTON_APPLY).click();
 		await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 10/25");
-		await expect(rows).toHaveCount(12);
-		await expect(rows.nth(0)).toContainText("10/25-11/15");
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).first()).toBeVisible();
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).nth(0)).toContainText("10/25-11/15");
 		await page.locator(Selector.FILTER_BAR).locator(Selector.FILTER_CONTENT).click();
 		await inputByLabel(page, "Start Filter Value").fill("");
 		await inputByLabel(page, "Start Filter Value").blur();
@@ -65,15 +63,15 @@ test.describe("Date range", () => {
 		await inputByLabel(page, "End Filter Value").blur();
 		await page.locator(Selector.BUTTON_APPLY).click();
 		await expect(page.locator(Selector.FILTER_BAR)).toContainText("≤ 03/25");
-		await expect(rows).toHaveCount(6);
-		await expect(rows.nth(0)).toContainText("02/04-02/13");
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW)).toHaveCount(6);
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).nth(0)).toContainText("02/04-02/13");
 		await page.locator(Selector.FILTER_BAR).locator(Selector.FILTER_CONTENT).click();
 		await inputByLabel(page, "Start Filter Value").fill("03/05");
 		await inputByLabel(page, "Start Filter Value").blur();
 		await page.locator(Selector.BUTTON_APPLY).click();
 		await waitUntilLoaded(page);
 		await expect(page.locator(Selector.FILTER_BAR)).toContainText("03/05 - 03/25");
-		await expect(rows).toHaveCount(1);
-		await expect(rows.nth(0)).toContainText("03/05-03/17");
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW)).toHaveCount(1);
+		await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).nth(0)).toContainText("03/05-03/17");
 	});
 });

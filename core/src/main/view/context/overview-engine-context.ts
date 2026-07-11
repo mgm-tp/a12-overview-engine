@@ -30,19 +30,25 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Expression } from "@com.mgmtp.a12.expression/expression-core";
+import type { Expression } from "@com.mgmtp.a12.expression/expression-core";
 import { createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type OverviewEngineApi } from "../api.js";
-import { type OverviewEngine } from "../overview-engine.js";
-import { type OverviewModel } from "../../overview-model.js";
-import { type WidgetMap } from "../configuration/widget-map.js";
-import { type SelectorMap } from "../configuration/selector-map.js";
-import { type ComponentMap } from "../configuration/component-map.js";
+import { Links } from "../../models/index.js";
+import type { OverviewEngineApi } from "../api.js";
+import type { OverviewEngine } from "../overview-engine.js";
+import type { OverviewModel } from "../../overview-model.js";
+import type { WidgetMap } from "../configuration/widget-map.js";
+import type { SelectorMap } from "../configuration/selector-map.js";
+import type { ComponentMap } from "../configuration/component-map.js";
 import { defaultMapDispatchToEventHandlers } from "../configuration/event-handlers-dispatch-map.js";
-import { type UiState, type OverviewEngineState, type Selector as BaseSelector } from "../../store/index.js";
+import type {
+	UiState,
+	OverviewEngineState,
+	FilterStateSelectors,
+	Selector as BaseSelector
+} from "../../store/index.js";
 
-import { defaultDocumentModel, defaultOverviewModel } from "./defaults.js";
+import { defaultModelGraph, defaultDocumentModel, defaultOverviewModel } from "./defaults.js";
 
 export type OverviewEngineContextType = OverviewEngineContextType.Paginated | OverviewEngineContextType.InfiniteScroll;
 
@@ -73,6 +79,8 @@ export namespace OverviewEngineContextType {
 		 * @experimental
 		 */
 		readonly selectorMap: SelectorMap;
+		/** @experimental until 40.0.0 - API may change without semver guarantees. */
+		readonly filterStateSelectors?: FilterStateSelectors;
 		/**
 		 * The map between column's id field and the parsed expression tree if exists.
 		 */
@@ -92,7 +100,9 @@ export const OverviewEngineContext = createContext<OverviewEngineContextType>({
 	documentModel: defaultDocumentModel,
 	subDocumentModels: undefined,
 	overviewModel: defaultOverviewModel,
+	modelGraph: defaultModelGraph,
 	data: [],
+	links: Links.create(),
 	eventHandlers: defaultMapDispatchToEventHandlers((anyAction) => anyAction),
 	selectorMap: {} as SelectorMap,
 	widgetMap: {} as WidgetMap,

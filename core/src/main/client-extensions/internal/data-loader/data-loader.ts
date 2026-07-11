@@ -30,32 +30,45 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaGenerator } from "typed-redux-saga";
+import type { SagaGenerator } from "typed-redux-saga";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import { type DocumentModel, type DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type Query as DSQuery, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type {
+	Query as DSQuery,
+	SupportedRequest,
+	QueryJsonRpc2Response
+} from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type OverviewModel } from "../../../overview-model.js";
-import { type RequestSelectorMap } from "../utils/request-selector-map.js";
+import type { OverviewModel } from "../../../overview-model.js";
+import type { Links, JSONDocument } from "../../../models/index.js";
+import type { RequestSelectorMap } from "../utils/request-selector-map.js";
 
-/** @experimental */
 export interface OverviewEngineDataLoader {
-	provideData(params: ProvideDataParams): ProvideDataResults;
+	buildRequests(params: BuildRequestsParams): MaybeAsync<SupportedRequest[]>;
+	handleResponses(params: HandleResponsesParams): MaybeAsync<DataOperation.ResultSet>;
 }
 
-/** @experimental */
-export interface ProvideDataParams {
+export interface BuildRequestsParams {
 	activityId: string;
-	queries: DataOperation.Query[];
+	dataHolderDescriptor?: Activity.DataHolderDescriptor;
 	documentService: DocumentService;
-	documentModel: DocumentModel;
 	overviewModel: OverviewModel;
+	documentModel: DocumentModel;
 	requestSelectorMap: RequestSelectorMap;
+	queries: DataOperation.Query[];
 }
 
-/** @experimental */
-export type ProvideDataResults = MaybeAsync<DataOperation.ResultSet>;
+export interface HandleResponsesParams {
+	activityId: string;
+	dataHolderDescriptor?: Activity.DataHolderDescriptor;
+	documentService: DocumentService;
+	overviewModel: OverviewModel;
+	documentModel: DocumentModel;
+	queries: DataOperation.Query[];
+	responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response>;
+	thumbnails?: Record<string, string>;
+}
 
 /** @experimental */
 export namespace DataOperation {
@@ -93,13 +106,16 @@ export namespace DataOperation {
 			pageSize: number;
 		}
 
-		export interface Query extends BaseQuery {
+		export interface Query<Operator extends DSQuery.Operator = DSQuery.Operator> extends BaseQuery {
 			type: "LIST_DOCUMENTS";
 			paging: Paging;
-			constraint?: DSQuery.Operator;
+			constraint?: Operator;
 			sort?: DSQuery.Order[];
 			fields?: string[];
 			aggregation?: DSQuery.AggregationProjector;
+			links?: DSQuery.QueryLink[];
+			exclude?: boolean;
+			targetDocumentModel?: string;
 		}
 		export namespace Query {
 			export function isAssignableFrom(query: unknown): query is Query {
@@ -108,7 +124,9 @@ export namespace DataOperation {
 		}
 
 		export interface Result extends BaseResult {
-			documents: Activity.Data.Document[];
+			documents: JSONDocument[];
+			/** Resolved document links and their associated documents for reference columns. */
+			links?: Links;
 			fullSize: number;
 			aggregationResult?: QueryJsonRpc2Response.AggregationEntry[];
 			thumbnails?: Record<string, string>;
@@ -121,10 +139,10 @@ export namespace DataOperation {
 	}
 
 	export namespace ListStringFilterOptions {
-		export interface Query extends BaseQuery {
+		export interface Query<Operator extends DSQuery.Operator = DSQuery.Operator> extends BaseQuery {
 			type: "LIST_STRING_FILTER_OPTIONS";
 			paging: DSQuery.Paging;
-			constraint?: DSQuery.Operator;
+			constraint?: Operator;
 			fields?: string[];
 			aggregation?: DSQuery.AggregationProjector;
 		}
@@ -146,9 +164,9 @@ export namespace DataOperation {
 	}
 
 	export namespace Export {
-		export interface Query extends BaseQuery {
+		export interface Query<Operator extends DSQuery.Operator = DSQuery.Operator> extends BaseQuery {
 			type: "EXPORT";
-			constraint?: DSQuery.Operator;
+			constraint?: Operator;
 			sort?: DSQuery.Order[];
 		}
 		export namespace Query {

@@ -41,8 +41,8 @@ import packageJson from "../package.json" with { type: "json" };
 import { preferTopLevelImportsRecipe } from "./recipes/prefer-top-level-imports.js";
 
 createCodemodCLI({
-	name: "overview-engine-codemod",
 	version: packageJson.version,
+	name: "overview-engine-codemod",
 	description: "Codemod for assisting with migrations of A12 Overview Engine",
 	recipes: [preferTopLevelImportsRecipe]
 });

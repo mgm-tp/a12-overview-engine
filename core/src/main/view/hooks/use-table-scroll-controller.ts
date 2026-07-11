@@ -32,9 +32,9 @@
 
 import * as React from "react";
 
-import { type BaseTableProps, type TableScrollToNodeHandler } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { BaseTableProps, TableScrollToNodeHandler } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../models/index.js";
+import type { JSONDocument } from "../../models/index.js";
 import { UiStateSelector, type ScrollToRowRequest } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 

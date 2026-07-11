@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { page } from "@vitest/browser/context";
+import { page } from "vitest/browser";
 
 export async function setSmallWindowSize() {
 	return page.viewport(500, 720);

@@ -32,11 +32,13 @@
 
 import { it, expect, describe, beforeEach } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
 
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
-import { render, DataRoles, ClassNames, type QueriableElement } from "../test-utils.js";
+import { render, ClassNames, type QueriableElement } from "../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.button", () => {
 	const basicEngineProps = defaultEngineProps;
@@ -112,8 +114,8 @@ describe("com.mgmtp.a12.overview-engine.view.button", () => {
 			...basicEngineProps.overviewModel,
 			content: {
 				...basicEngineProps.overviewModel.content,
-				subHeaderBox: { minorElements: headerButtons },
-				footerBox: { minorElements: footerButtons },
+				subHeaderBox: { leftSlot: headerButtons },
+				footerBox: { leftSlot: footerButtons },
 				multiSelection
 			}
 		};

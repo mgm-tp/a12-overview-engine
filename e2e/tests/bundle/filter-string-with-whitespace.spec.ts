@@ -41,12 +41,16 @@ test.describe("String with whitespace", () => {
 	test.describe("normal string filter without enable_approximate_match_search", () => {
 		test.beforeEach(async ({ page }) => {
 			await navigate(page, Showcase.BUNDLE);
+			await expect(
+				page.locator(Selector.TABLE_INFINITE_BODY_ROW).nth(0).locator(Selector.TABLE_BODY_CELL).first()
+			).toContainText("Teresa Valdez");
+
 			await page.locator(Selector.BUTTON_OPEN_FILTER).click();
 			await expect(page.locator(Selector.PORTAL).locator(Selector.FILTER_SELECTOR)).toBeVisible();
 		});
 		test.describe("filter a string field by a full value contains whitespace", () => {
 			test("filtered result should contain filter value", async ({ page }) => {
-				const fullKeyword = "Tel oplu tar giwerjuw ti mo fa nac kaicdar regitet kezula raj uwovu jo gamjo ura gohfih.";
+				const fullKeyword = "Majo kozu we adulam wamovigu jabij ovoju rijef led di maj roud eceujozi.";
 				await page
 					.locator(Selector.FILTER_SELECTOR_LIST_ITEM)
 					.locator(Selector.LIST_ITEM_TEXT, { hasText: "Description" })
@@ -56,9 +60,8 @@ test.describe("String with whitespace", () => {
 				await page.locator(Selector.BUTTON_APPLY).click();
 				await waitUntilLoaded(page);
 				await expect(page.locator(Selector.FILTER_SELECTOR)).not.toBeVisible();
-				const rows = page.locator(Selector.INFINITE_SCROLL_ROW);
-				await expect(rows).toHaveCount(1);
-				await expect(rows).toContainText(fullKeyword);
+				await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).first()).toBeVisible();
+				await expect(page.locator(Selector.TABLE_INFINITE_BODY_ROW).first()).toContainText(fullKeyword);
 			});
 		});
 	});

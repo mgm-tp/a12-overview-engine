@@ -32,45 +32,44 @@
 
 import * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel, type FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { UiStateSelector } from "../../../store/index.js";
 import type { OverviewModel } from "../../../overview-model.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 import { FilterOperation, OverviewEngineApi } from "../../api.js";
-import { LocalizerHooks } from "../../../services/localization/index.js";
-import { type Converter } from "../../../services/converter/internal/shared.js";
+import type { Converter } from "../../../services/converter/internal/shared.js";
+import { defaultDateRangeConversionTransformer } from "../../../services/index.js";
 import { type MultiSelectGroup, MultiSelectModelUtils } from "../../../models/internal/shared.js";
 import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 
-import { FilterOptionsViews } from "./index.js";
 import { useSuffixFilterDataGetter } from "./utils.js";
+import { FilterOptionsViews } from "./filter-options-views.js";
 import { SectionType } from "./options-views/section-template.js";
 import { DateTimeUtils } from "./options-views/date-time-utils.js";
-import { Filter, type FilterOptionsView } from "./filter-options-view.js";
+import type { Filter, FilterOptionsView } from "./filter-options-view.js";
 import { EmptyFilterOptionsView } from "./options-views/empty-filter-options-view.js";
 import { EnumerationSuffixSelector } from "./options-views/enumeration-suffix-selector.js";
-import { type NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
-import { type StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
-import { type ConfirmFilterOptionsView } from "./options-views/confirm-filter-options-view.js";
-import { type BooleanFilterOptionsView } from "./options-views/boolean-filter-options-view.js";
-import { type EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
-import { type MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
-import {
-	type DateTimeViewValue,
-	type DateTimeUiValueType,
-	type DateTimeViewSelection
+import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
+import type { StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
+import type { ConfirmFilterOptionsView } from "./options-views/confirm-filter-options-view.js";
+import type { BooleanFilterOptionsView } from "./options-views/boolean-filter-options-view.js";
+import type { EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
+import type { MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
+import type {
+	DateTimeViewValue,
+	DateTimeUiValueType,
+	DateTimeViewSelection
 } from "./options-views/date-time-filter-view.api.js";
-
-import FilterData = Filter.FilterData;
 
 const ariaLevel = 2;
 
 export namespace FilterOptionsViewRouter {
-	export interface Props extends Filter.PropsType {
+	export interface Props {
 		readonly id: string;
-		readonly filterData?: FilterData;
+		readonly filterData?: Filter.FilterData;
 		onSetFilterState(
 			id: string,
 			options: OverviewEngineApi.Filter.Options | undefined,
@@ -100,14 +99,14 @@ export const FilterOptionsViewRouter: React.FC<FilterOptionsViewRouter.Props> = 
 
 namespace VisibleFilterOptionsViewRouter {
 	export type Props = Omit<FilterOptionsViewRouter.Props, "filterData"> & {
-		readonly filterData: FilterData;
+		readonly filterData: Filter.FilterData;
 		readonly element: DocumentModel.Element;
 	};
 }
 
 const VisibleFilterOptionsViewRouter: React.FC<VisibleFilterOptionsViewRouter.Props> = React.memo(
 	function VisibleFilterOptionsViewRouter(props) {
-		const { onSetFilterState, id, filterData, timeMode, element } = props;
+		const { onSetFilterState, id, filterData, element } = props;
 
 		const converter = useOverviewEngineInternalContext((context) => context.converter);
 		const FilterOptionsViews = useOverviewEngineContext((context) => context.componentMap.FilterOptionsViews);
@@ -186,7 +185,7 @@ const VisibleFilterOptionsViewRouter: React.FC<VisibleFilterOptionsViewRouter.Pr
 
 					const View = getView(FilterOptionsViews, "StringFilterOptionsView");
 
-					return <View {...baseProps} uiValue={getInitialStringValue(filterData.filterOptions)} />;
+					return <View {...baseProps} uiValue={getInitialStringValue(filterData)} />;
 				}
 
 				if (fieldType === "CustomFieldType") {
@@ -223,14 +222,7 @@ const VisibleFilterOptionsViewRouter: React.FC<VisibleFilterOptionsViewRouter.Pr
 				if (fieldType === "TimeType") {
 					const View = getView(FilterOptionsViews, "TimeFilterOptionsView");
 
-					return (
-						<View
-							{...baseProps}
-							timeMode={timeMode}
-							enableTimePicker
-							uiValue={getInitialDateTimeUiValues(filterData, converter)}
-						/>
-					);
+					return <View {...baseProps} enableTimePicker uiValue={getInitialDateTimeUiValues(filterData, converter)} />;
 				}
 
 				if (fieldType === "DateType") {
@@ -305,7 +297,6 @@ const VisibleFilterOptionsViewRouter: React.FC<VisibleFilterOptionsViewRouter.Pr
 			activeFilterOption,
 			enumeratedStringFilter,
 			converter,
-			timeMode,
 			enumValuesGetter,
 			suffixFilterDataGetter
 		]);
@@ -336,13 +327,18 @@ function getInitialConfirmValue(
 		: { value: undefined };
 }
 
-function getInitialStringValue(
-	filterOptions?: OverviewEngineApi.Filter.Options
-): StringFilterOptionsView.StringUiValueType {
+function getInitialStringValue(filterData: Filter.FilterData): StringFilterOptionsView.StringUiValueType {
+	const { filterOptions } = filterData;
+
+	// On a rejected (errored) value the criteria is not committed; restore the typed text from the
+	// carried uiValue so the error and its input survive reopening, mirroring the date filter.
+	if (filterOptions?.error) {
+		return (filterData.uiValue as StringFilterOptionsView.StringUiValueType | undefined) ?? { value: "" };
+	}
+
 	return filterOptions !== undefined &&
 		OverviewEngineApi.Filter.StringOptions.isInstance(filterOptions) &&
-		filterOptions.criteria !== undefined &&
-		!filterOptions.error
+		filterOptions.criteria !== undefined
 		? { value: filterOptions.criteria.value }
 		: filterOptions?.undefinedMatch
 			? { value: undefined, undefinedMatch: true }
@@ -374,7 +370,7 @@ function getInitialBooleanValue(
 }
 
 function getInitialNumberUiValues(
-	filterData: FilterData,
+	filterData: Filter.FilterData,
 	converter: Converter
 ): NumberFilterOptionsView.NumberUiValueType {
 	const filterOptions = filterData.filterOptions;
@@ -405,7 +401,7 @@ function getInitialNumberUiValues(
 	return (filterData.uiValue as NumberFilterOptionsView.NumberUiValueType) || DateTimeUtils.getEmptyDateTimeViewInput();
 }
 
-function getInitialDateTimeUiValues(filterData: FilterData, converter: Converter): DateTimeViewValue {
+function getInitialDateTimeUiValues(filterData: Filter.FilterData, converter: Converter): DateTimeViewValue {
 	const filterOptions = filterData.filterOptions;
 
 	if (filterOptions?.undefinedMatch) {
@@ -435,7 +431,7 @@ function getInitialDateTimeUiValues(filterData: FilterData, converter: Converter
 }
 
 function getInitialDateUiValues(
-	filterData: FilterData,
+	filterData: Filter.FilterData,
 	converter: Converter,
 	includeTime: boolean
 ): DateTimeUiValueType {
@@ -515,9 +511,7 @@ function createDefaultDateTimeValue(selectedView: DateTimeViewSelection): DateTi
 }
 
 function format(converter: Converter, path: ModelPath, value?: FieldInstanceValue | object, modelId?: string): string {
-	return value !== undefined
-		? converter.formatValue(path, value, DateTimeUtils.defaultDateRangeConversionTransformer, modelId)
-		: "";
+	return value !== undefined ? converter.formatValue(path, value, defaultDateRangeConversionTransformer, modelId) : "";
 }
 
 function useEnumValuesGetter(filterOption?: OverviewEngineApi.Filter.Options) {
@@ -576,7 +570,7 @@ function useInitialMultiSelectUiValuesGetter(activeOptions?: OverviewEngineApi.F
 
 	return React.useCallback(
 		(
-			filterData: FilterData,
+			filterData: Filter.FilterData,
 			multiSelectGroup: MultiSelectGroup,
 			path: ModelPath
 		): MultiSelectFilterOptionsView.MultiSelectUiValueType => {

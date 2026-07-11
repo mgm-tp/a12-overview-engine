@@ -32,7 +32,7 @@
 
 import * as React from "react";
 import { it, vi, expect, describe } from "vitest";
-import { type ReactTestRenderer } from "react-test-renderer";
+import type { ReactTestRenderer } from "react-test-renderer";
 
 import { Pagination as BasePagination } from "@com.mgmtp.a12.widgets/widgets-core";
 

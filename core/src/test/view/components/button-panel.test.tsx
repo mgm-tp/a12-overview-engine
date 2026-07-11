@@ -42,27 +42,25 @@ import { shallowRender } from "../../test-utils.js";
 import { defaultEngineProps } from "../../basic.spec.js";
 
 interface PanelButton {
-	readonly rank: "major" | "minor";
+	readonly rank: "left" | "right";
 	readonly element: React.ReactNode;
 }
 
 describe("com.mgmtp.a12.overview-engine.view.components.button-panel", () => {
-	const minorButtons: PanelButton[] = [
-		{ rank: "minor", element: <Button label={"Minor button 1"} /> },
-		{ rank: "minor", element: <Button label={"Minor button 2"} /> }
+	const leftButtons: PanelButton[] = [
+		{ rank: "left", element: <Button label={"Left button 1"} /> },
+		{ rank: "left", element: <Button label={"Left button 2"} /> }
 	];
-	const majorButtons: PanelButton[] = [
-		{ rank: "major", element: <Button label={"Major button 1"} /> },
-		{ rank: "major", element: <Button label={"Major button 2"} /> },
-		{ rank: "major", element: <Button label={"Major button 3"} /> }
+	const rightButtons: PanelButton[] = [
+		{ rank: "right", element: <Button label={"Right button 1"} /> },
+		{ rank: "right", element: <Button label={"Right button 2"} /> },
+		{ rank: "right", element: <Button label={"Right button 3"} /> }
 	];
-	const buttons: PanelButton[] = [...minorButtons, ...majorButtons];
+	const buttons: PanelButton[] = [...leftButtons, ...rightButtons];
 
 	const tests = [
 		{ responsive: undefined, expectedResponsive: false },
 		{ responsive: false, expectedResponsive: false }
-		// Fix in A12OE-936
-		// { responsive: true, expectedResponsive: true }
 	];
 	tests.forEach((testCase) => {
 		const buttonPanelType =
@@ -73,7 +71,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.button-panel", () => {
 					: "is unresponsive";
 
 		describe(`given a button-panel that ${buttonPanelType}`, () => {
-			it("should render minor/major buttons regardless the responsiveness", async () => {
+			it("should render left/right buttons regardless the responsiveness", async () => {
 				const buttonPanel = await shallowRender(<ButtonPanel responsive={testCase.responsive} buttons={buttons} />, {
 					wrappingComponent: OverviewEngine,
 					wrappingComponentProps: defaultEngineProps
@@ -84,10 +82,10 @@ describe("com.mgmtp.a12.overview-engine.view.components.button-panel", () => {
 				expect(buttonGroupContainer.props.responsive).toEqual(testCase.expectedResponsive);
 
 				expect(buttonGroupContainer.props.leftSlot).toHaveLength(2);
-				expect(buttonGroupContainer.props.leftSlot).toStrictEqual(minorButtons.map((button) => button.element));
+				expect(buttonGroupContainer.props.leftSlot).toStrictEqual(leftButtons.map((button) => button.element));
 
 				expect(buttonGroupContainer.props.rightSlot).toHaveLength(3);
-				expect(buttonGroupContainer.props.rightSlot).toStrictEqual(majorButtons.map((button) => button.element));
+				expect(buttonGroupContainer.props.rightSlot).toStrictEqual(rightButtons.map((button) => button.element));
 			});
 		});
 	});

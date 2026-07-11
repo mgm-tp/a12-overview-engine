@@ -32,7 +32,7 @@
 
 // tag::custom-reference-cell-example[]
 
-import React from "react";
+import * as React from "react";
 import { format } from "date-fns/format";
 
 import { convertMomentToDateFnsFormat } from "@com.mgmtp.a12.widgets/widgets-core";

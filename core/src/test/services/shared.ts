@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { createModelPath } from "../utils.js";
 

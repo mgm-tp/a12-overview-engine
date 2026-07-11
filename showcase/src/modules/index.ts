@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module } from "@com.mgmtp.a12.client/client-core";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
 import { CDMModule } from "./cdm/index.js";
 import { BundleModule } from "./bundle/index.js";
@@ -38,10 +38,12 @@ import { PersonModule } from "./person/index.js";
 import { ProductModule } from "./product/index.js";
 import { EmployeeModule } from "./employee/index.js";
 import { SimpleFormModule } from "./simple-form/index.js";
+import { ShowcaseConfigModule } from "./showcase-module.js";
 import { MobileSupportModule } from "./mobile-support/index.js";
 import { ShowcaseOverviewModule } from "./showcase-overview/index.js";
 
-export const Modules: Module[] = [
+export const Modules: DynamicConfiguration[] = [
+	ShowcaseConfigModule,
 	ProductModule,
 	MobileSupportModule,
 	BundleModule,

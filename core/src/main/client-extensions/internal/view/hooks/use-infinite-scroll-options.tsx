@@ -33,11 +33,11 @@
 import * as React from "react";
 import type { List, InfiniteLoader, OverscanIndexRange } from "react-virtualized";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import { type RowLoadingStatus } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { RowLoadingStatus } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type OverviewEngineApi } from "../../../../view/api.js";
-import { type UiState, type Scrolling } from "../../../../store/index.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
+import type { UiState, Scrolling } from "../../../../store/index.js";
 
 interface OverscanRange {
 	visibleStart: number;
@@ -141,9 +141,16 @@ export function useInfiniteScrollOptions(params: {
 	]);
 }
 
-/** @internal */
+/*
+ * ===== BEGIN THIRD-PARTY SOURCE: [ts-debounce] (https://github.com/chodorowicz/ts-debounce),
+ * https://github.com/chodorowicz/ts-debounce/blob/v1.0.0/src/index.ts
+ * Licensed under the MIT License.
+ * Copyright (c) 2017 Jakub Chodorowicz
+ * Modified by mgm technology partners on [2024-08-22].
+ */
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-export function debounce<F extends Function>(
+function debounce<F extends Function>(
 	func: F,
 	waitMilliseconds = 50,
 	options: { isImmediate: boolean } = {
@@ -177,3 +184,5 @@ export function debounce<F extends Function>(
 		}
 	} as any;
 }
+
+// ===== END THIRD-PARTY SOURCE =====

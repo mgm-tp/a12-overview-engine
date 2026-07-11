@@ -30,16 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module } from "@com.mgmtp.a12.client/client-core";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
 import { SimpleFormSagas } from "./sagas.js";
 import { SimpleFormDataLoader } from "./data-loader.js";
 
 export * from "./inputs/index.js";
 export { SimpleForm } from "./simple-form.js";
-export { withSingleDocumentActivityContext, SimpleFormActivity } from "./activity.js";
+export { withSingleDocumentActivityContext } from "./activity.js";
 
-export const SimpleFormModule: Module = {
+export const SimpleFormModule: DynamicConfiguration = {
 	id: "SimpleForm",
 	sagas: () => SimpleFormSagas
 };

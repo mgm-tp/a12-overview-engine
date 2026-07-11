@@ -32,13 +32,14 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import type { OverviewModel } from "../../../main/overview-model.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { OverviewButton } from "../../../main/view/components/overview-button.js";
 
-import { render, DataRoles } from "../../test-utils.js";
+import { render } from "../../test-utils.js";
 import { createLocalizedModelText } from "../../utils.js";
 import { deLocale, defaultEngineProps } from "../../basic.spec.js";
 

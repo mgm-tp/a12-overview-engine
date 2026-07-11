@@ -1,8 +1,10 @@
 {
-	"extends": "../tsconfig",
-	"include": ["./src", "./scripts"],
+	"extends": "../tsconfig.json",
+	"include": ["./src", "./scripts", "package.json"],
 	"exclude": ["./src/assets/generated/typescript"],
+	"references": [{ "path": "../core/tsconfig.build.json" }],
 	"compilerOptions": {
+		"rootDir": "${configDir}",
 		"noEmit": true
 	}
 }

@@ -1,0 +1,84 @@
+{
+	"header": {
+		"id": "PromotionBundle",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "bundle",
+				"reference": "BundleDM"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "promotion",
+				"reference": "PromotionDM"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"documentModel": "BundleDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Bundle"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "bundle",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"documentModel": "PromotionDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Promotion"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "promotion",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			}
+		]
+	}
+}

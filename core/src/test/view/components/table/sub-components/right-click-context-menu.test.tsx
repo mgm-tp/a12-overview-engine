@@ -33,21 +33,22 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { type JSONDocument } from "../../../../../main/models/index.js";
-import { type OverviewModel } from "../../../../../main/overview-model.js";
+import type { JSONDocument } from "../../../../../main/models/index.js";
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { RightClickContextMenu } from "../../../../../main/view/components/table/sub-components/right-click-context-menu.js";
 
 import { mockType } from "../../../../utils.js";
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.right-click-context-menu", () => {
 	const basicEngineProps = defaultEngineProps;
 
-	const basicRow = mockType<JSONDocument>({ id: "1024" });
+	const basicRow = mockType<JSONDocument>({ id: "1024", linkId: undefined });
 
 	const closeHandlerSpy = vi.fn();
 

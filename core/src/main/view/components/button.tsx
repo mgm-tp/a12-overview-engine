@@ -95,8 +95,7 @@ export namespace Button {
 	}
 }
 
-/** @internal */
-export function getButtonTitle(params: {
+function getButtonTitle(params: {
 	description: string | undefined;
 	labelHidden: true | undefined;
 	label: string;
@@ -110,8 +109,7 @@ export function getButtonTitle(params: {
 	return labelHidden && label ? label : undefined;
 }
 
-/** @internal */
-export function getButtonAttributes(params: {
+function getButtonAttributes(params: {
 	description: string | undefined;
 	label: string;
 	ariaLabelledBy?: string;

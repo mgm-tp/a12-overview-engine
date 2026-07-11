@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -9,7 +9,7 @@ You may redistribute and/or modify this file under the terms of the European Uni
 Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
 
 Please contact a12-license@mgm-tp.com for more information.
-    
+
 You must select and comply with exactly one of the above license options.
 
 Warranty Disclaimer (applies to either option)
@@ -26,6 +26,8 @@ include::0200_getting_started.adoc[]
 include::0300_details.adoc[]
 
 include::0400_typedoc.adoc[]
+
+include::0450_breaking_change_management.adoc[]
 
 include::0500_migration_instructions.adoc[]
 

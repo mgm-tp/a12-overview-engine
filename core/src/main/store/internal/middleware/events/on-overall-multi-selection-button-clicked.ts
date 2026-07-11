@@ -30,10 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { Events, Commands } from "../../actions.js";
 import { UiStateSelector } from "../../selectors/ui-state.js";
+
+import { mergeLinkRowState, mergeDocumentRowState } from "./row-state-utils.js";
 
 /**
  * @internal
@@ -42,16 +44,15 @@ export const onOverallMultiSelectionButtonClicked: Middleware = (api) => (next) 
 	const result = next(action);
 
 	if (Events.onOverallMultiSelectionButtonClicked.match(action)) {
-		const { affectedRowIds, selected } = action.payload;
+		const currentRowState = UiStateSelector.rowState()(api.getState()) ?? {};
 
-		api.dispatch(
-			Commands.setRowState({
-				rowState: affectedRowIds.reduce(
-					(rowState, documentId) => ({ ...rowState, [documentId]: { ...rowState[documentId], selected } }),
-					UiStateSelector.rowState()(api.getState()) ?? {}
-				)
-			})
-		);
+		const itemsWithLink = action.payload.documentsSelection.filter((item) => item.linkId !== undefined);
+		const itemsWithoutLink = action.payload.documentsSelection.filter((item) => item.linkId === undefined);
+
+		const rowStateAfterFlat = itemsWithoutLink.reduce(mergeDocumentRowState, currentRowState);
+		const rowState = itemsWithLink.reduce(mergeLinkRowState, rowStateAfterFlat);
+
+		api.dispatch(Commands.setRowState({ rowState }));
 	}
 
 	return result;

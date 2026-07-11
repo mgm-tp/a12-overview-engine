@@ -33,13 +33,14 @@
 import * as React from "react";
 import { it, vi, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import { Button, ContentBoxElements, NavigationContentboxContext } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { Heading } from "../../../main/view/components/heading.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
 
 import { defaultEngineProps } from "../../basic.spec.js";
-import { render, DataRoles, shallowRender } from "../../test-utils.js";
+import { render, shallowRender } from "../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.heading", () => {
 	function setupTest(props?: Partial<Heading.PropsType>) {

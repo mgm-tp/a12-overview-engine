@@ -34,10 +34,10 @@ import "../../../setup/jsdom.js";
 
 import { it, expect, describe } from "vitest";
 
-import { OverviewModel } from "../../../../main/overview-model.js";
-import { type OverviewEngineApi } from "../../../../main/view/api.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { DataRoles } from "../../../test-utils.js";
+import { OverviewModel } from "../../../../main/overview-model.js";
+import type { OverviewEngineApi } from "../../../../main/view/api.js";
 
 import { setupMultiSelection } from "./utils.js";
 

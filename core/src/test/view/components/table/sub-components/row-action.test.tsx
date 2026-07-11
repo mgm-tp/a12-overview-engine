@@ -33,7 +33,9 @@
 import { it, expect, describe } from "vitest";
 import { waitFor, fireEvent } from "@testing-library/react";
 
-import { type JSONDocument } from "../../../../../main/models/index.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { JSONDocument } from "../../../../../main/models/index.js";
 import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
@@ -41,7 +43,7 @@ import { OverviewDialog } from "../../../../../main/view/components/dialogs/over
 import { RowAction } from "../../../../../main/view/components/table/sub-components/row-action.js";
 
 import { noop, mockType } from "../../../../utils.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 import { StringColumnModel, NumberColumnModel, defaultEngineProps } from "../../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.row-action", () => {

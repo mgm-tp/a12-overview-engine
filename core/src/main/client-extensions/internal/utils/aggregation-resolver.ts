@@ -31,11 +31,11 @@
  */
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type Query, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Query, QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewModel } from "../../../overview-model.js";
-import { type OverviewEngineApi } from "../../../view/api.js";
+import type { OverviewEngineApi } from "../../../view/api.js";
 import { DocumentModelUtils } from "../../../models/internal/shared.js";
 
 export interface AggregationResolver {

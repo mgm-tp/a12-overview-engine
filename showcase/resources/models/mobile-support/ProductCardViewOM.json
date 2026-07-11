@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductCardViewOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Liste aller Produkte"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,138 +32,8 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_expanded",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Add to cart"
-							},
-							{
-								"locale": "de",
-								"text": "In den Warenkorb legen"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "shopping_cart"
-						},
-						"event": "add_to_cart_event",
-						"labelHidden": true,
-						"primary": false
-					},
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Delete"
-							},
-							{
-								"locale": "de",
-								"text": "Löschen"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "delete",
-							"theme": "filled"
-						},
-						"event": "event_delete_rows",
-						"labelHidden": true,
-						"confirmation": {
-							"title": [
-								{
-									"locale": "en",
-									"text": "Rows Deletion"
-								},
-								{
-									"locale": "de",
-									"text": "Löschen von Zeilen"
-								}
-							],
-							"message": [
-								{
-									"locale": "en",
-									"text": "\bDo you want to delete selected rows?"
-								},
-								{
-									"locale": "de",
-									"text": "Möchten Sie ausgewählte Zeilen löschen?"
-								}
-							]
-						},
-						"primary": false
-					}
-				]
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"subtitle": [
-				{
-					"locale": "en",
-					"text": "Sports accessories"
-				},
-				{
-					"locale": "de",
-					"text": "Sportzubehör"
-				}
-			],
-			"rowTitle": [
-				{
-					"locale": "en",
-					"text": "Click to select this product"
-				},
-				{
-					"locale": "de",
-					"text": "Klicken Sie, um dieses Produkt auszuwählen"
-				}
-			],
-			"initialSorting": [
-				{
-					"idref": "column-752d8"
-				}
-			],
-			"actionColumnWidth": 1,
-			"labelHidden": true,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all",
-				"sectionData": [
-					{
-						"id": "section-number",
-						"label": [
-							{
-								"locale": "en",
-								"text": "Number"
-							},
-							{
-								"locale": "de",
-								"text": "Nummer"
-							}
-						],
-						"fields": [
-							{
-								"fieldId": "F3"
-							},
-							{
-								"fieldId": "F5"
-							},
-							{
-								"fieldId": "F6"
-							}
-						]
-					}
-				]
-			}
-		},
 		"subHeaderBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "search"
 				},
@@ -176,15 +41,15 @@
 					"type": "filter"
 				}
 			],
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "multi_selection"
 				}
 			]
 		},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"rightSlot": [],
+			"leftSlot": []
 		},
 		"columns": [
 			{
@@ -380,6 +245,136 @@
 				}
 			]
 		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"]
+		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_expanded",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Add to cart"
+							},
+							{
+								"locale": "de",
+								"text": "In den Warenkorb legen"
+							}
+						],
+						"destructive": false,
+						"icon": {
+							"name": "shopping_cart"
+						},
+						"event": "add_to_cart_event",
+						"labelHidden": true,
+						"primary": false
+					},
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Delete"
+							},
+							{
+								"locale": "de",
+								"text": "Löschen"
+							}
+						],
+						"destructive": false,
+						"icon": {
+							"name": "delete",
+							"theme": "filled"
+						},
+						"event": "event_delete_rows",
+						"labelHidden": true,
+						"confirmation": {
+							"title": [
+								{
+									"locale": "en",
+									"text": "Rows Deletion"
+								},
+								{
+									"locale": "de",
+									"text": "Löschen von Zeilen"
+								}
+							],
+							"message": [
+								{
+									"locale": "en",
+									"text": "\bDo you want to delete selected rows?"
+								},
+								{
+									"locale": "de",
+									"text": "Möchten Sie ausgewählte Zeilen löschen?"
+								}
+							]
+						},
+						"primary": false
+					}
+				]
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"subtitle": [
+				{
+					"locale": "en",
+					"text": "Sports accessories"
+				},
+				{
+					"locale": "de",
+					"text": "Sportzubehör"
+				}
+			],
+			"rowTitle": [
+				{
+					"locale": "en",
+					"text": "Click to select this product"
+				},
+				{
+					"locale": "de",
+					"text": "Klicken Sie, um dieses Produkt auszuwählen"
+				}
+			],
+			"initialSorting": [
+				{
+					"idref": "column-752d8"
+				}
+			],
+			"actionColumnWidth": 1,
+			"labelHidden": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all",
+				"sectionData": [
+					{
+						"id": "section-number",
+						"label": [
+							{
+								"locale": "en",
+								"text": "Number"
+							},
+							{
+								"locale": "de",
+								"text": "Nummer"
+							}
+						],
+						"fields": [
+							{
+								"fieldId": "F3"
+							},
+							{
+								"fieldId": "F5"
+							},
+							{
+								"fieldId": "F6"
+							}
+						]
+					}
+				]
+			}
+		}
 	}
 }

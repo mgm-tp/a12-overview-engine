@@ -30,12 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 
 import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
-export const PersonOverview: View.ViewComponent = (props) => {
-	return <ShowcaseOverview {...props} accessibilityConfigurations={{ hasFootContent: true }} />;
-};
+import { useEquipmentRowStyling } from "./use-equipment-row-styling.js";
 
-PersonOverview.handleProgressIndicator = ShowcaseOverview.handleProgressIndicator;
+export const PersonOverview = (props: ViewNGProps) => {
+	const rowStyling = useEquipmentRowStyling(props.activityId);
+
+	return <ShowcaseOverview {...props} accessibilityConfigurations={{ hasFootContent: true }} rowStyling={rowStyling} />;
+};

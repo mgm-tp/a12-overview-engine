@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -9,7 +9,7 @@ You may redistribute and/or modify this file under the terms of the European Uni
 Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
 
 Please contact a12-license@mgm-tp.com for more information.
-    
+
 You must select and comply with exactly one of the above license options.
 
 Warranty Disclaimer (applies to either option)
@@ -44,10 +44,37 @@ overview-model-migration . --backup
 
 *Note*
 
-- The minimum supported model version is 36.0.0. Models older than this must first be migrated to version 36.0.0 using that version's migration tool.
+- The minimum supported model version is 37.0.0. Models older than this must first be migrated to version 37.0.0 using that version's migration tool.
 - If `<path to overview model file or directory>` is a directory, the migration tool will recursively search for Overview Model files to migrate.
 - If Overview Model files are not under version control, use `--backup` (alias `-b`) flag to create backups for model files. This flag is optional.
 - Use `--help` (alias `-h`) flag to show all available options.
+
+== Model migrations
+
+This section documents what the tool changes in an Overview Model when migrating to a given engine version — the change categories it applies, with at least one named example each — so you can map the resulting diff to the documented intent. Each entry is also referenced from the matching subsection of the migration instructions.
+
+[[model-migration-39.0.0]]
+=== 39.0.0
+
+*Rename model fields.* `SubHeaderBox`/`FooterBox` `majorElements` becomes `rightSlot` and `minorElements` becomes `leftSlot`; `ButtonType.rank` values change from major/minor to left/right.
+
+[source,json]
+----
+// before
+{ "majorElements": [/* ... */], "minorElements": [/* ... */] }
+// after
+{ "rightSlot": [/* ... */], "leftSlot": [/* ... */] }
+----
+
+*Rewrite the row-action shape.* The legacy default-row-action is rewritten to the new `rowActivation` event shape.
+
+[source,json]
+----
+// before
+"defaultRowAction": { "custom": true, "event": "open" }
+// after
+"rowActivation": { "type": "event", "event": "open" }
+----
 
 
 

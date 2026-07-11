@@ -35,8 +35,8 @@ import * as React from "react";
 import { format } from "date-fns/format";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { convertMomentToDateFnsFormat } from "@com.mgmtp.a12.widgets/widgets-core";
+import { LocalizerContext, type LocalizerContextProps } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
 	defaultDataFormats,
 	type ValueConversion,
@@ -47,7 +47,7 @@ import {
 export const LocalizationProvider: React.FC = () => {
 	const locale = useProjectLocale();
 
-	const localizerContextValue: LocalizerContext.Type = React.useMemo(() => {
+	const localizerContextValue: LocalizerContextProps = React.useMemo(() => {
 		const dataFormats = defaultDataFormats(locale);
 		const defaultConversion = defaultValueConversion(dataFormats);
 

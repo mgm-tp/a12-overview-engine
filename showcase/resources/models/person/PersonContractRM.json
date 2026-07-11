@@ -1,0 +1,82 @@
+{
+	"header": {
+		"id": "PersonContractRM",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "person",
+				"reference": "PersonDM"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "contract",
+				"reference": "ContractDM"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"documentModel": "PersonDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "person",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			},
+			{
+				"documentModel": "ContractDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "contract",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			}
+		]
+	}
+}

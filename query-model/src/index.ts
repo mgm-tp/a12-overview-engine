@@ -30,4 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+export * from "./query-builder.js";
 export * from "./query-model.js";
+export * from "./is-query-model.js";
+export * from "./query-introspection.js";

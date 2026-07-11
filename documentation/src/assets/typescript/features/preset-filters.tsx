@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 // tag::preparePresetFilters[]
 const presetFilter: OverviewEngineApi.FilterMap = {

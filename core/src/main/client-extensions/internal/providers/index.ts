@@ -32,4 +32,6 @@
 
 export * from "./enumerated-string-data-provider.js";
 export * from "./overview-engine-data-provider.js";
+export * from "./query-execution-plan.js";
+export * from "./execute-plan.js";
 export * from "./types.js";

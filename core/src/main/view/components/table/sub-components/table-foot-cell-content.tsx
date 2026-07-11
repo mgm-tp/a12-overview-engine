@@ -35,12 +35,13 @@ import * as React from "react";
 import { Icon, type TableRenderPropsType } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../overview-model.js";
-import { type OverviewColumn } from "../../../hooks/use-table-columns.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import type { OverviewColumn } from "../../../hooks/use-table-columns.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import { useFieldFormatter } from "./reference-cell.js";
+import { useFieldFormatter } from "./field-reference-cell.js";
 
 export namespace TableFootCellContent {
 	export type Props = TableRenderPropsType.FootContentProps<OverviewColumn>;

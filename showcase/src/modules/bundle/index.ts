@@ -30,15 +30,102 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { Dispatch } from "redux";
 
-import { createViewProviderSelector } from "../../utils.js";
-import BundleAM from "../../../resources/models/bundle/BundleAM.json" with { type: "json" };
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
 
 import { InfiniteScrollingOverview } from "./infinite-scrolling-overview.js";
 
-export const BundleModule: Module = {
+const DESCRIPTOR_DEFAULT = { showcase: "bundle" };
+const DESCRIPTOR_WITH_LINK = { showcase: "bundle", feature: "with-link" };
+
+function onDefaultClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_DEFAULT }),
+			descriptor: {}
+		})
+	);
+}
+
+function onWithLinkClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_WITH_LINK }),
+			descriptor: {}
+		})
+	);
+}
+
+export const BundleModule: DynamicConfiguration = {
 	id: "Bundle",
-	model: () => BundleAM as ApplicationModel,
-	views: createViewProviderSelector({ InfiniteScrollingOverview })
+	menus: (state) => {
+		const defaultActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_DEFAULT)(state).at(0);
+		const withLinkActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_WITH_LINK)(state).at(0);
+
+		return [
+			{
+				id: "menu.Bundle",
+				label: { key: "application.menu.bundle.label" },
+				children: [
+					{
+						id: "menu.Bundle.Default",
+						label: { key: "application.menu.bundle.default" },
+						selected: defaultActivity !== undefined,
+						action: onDefaultClick
+					},
+					{
+						id: "menu.Bundle.WithLink",
+						label: { key: "application.menu.bundle.withLink" },
+						selected: withLinkActivity !== undefined,
+						action: onWithLinkClick
+					}
+				]
+			}
+		];
+	},
+	flows: [
+		{
+			name: "OverviewFlow",
+			scenes: [
+				{
+					name: "Infinite-Bundle-overview",
+					matches: (d) => d.showcase === DESCRIPTOR_DEFAULT.showcase && !d.feature && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: InfiniteScrollingOverview,
+								models: [{ modelType: "overview", name: "BundleOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "BundleWithLinkOverview",
+					matches: (d) =>
+						d.showcase === DESCRIPTOR_WITH_LINK.showcase && d.feature === DESCRIPTOR_WITH_LINK.feature && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: InfiniteScrollingOverview,
+								constraints: { type: "MasterDetail" },
+								models: [{ modelType: "overview", name: "BundleWithLinkOM" }]
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 };

@@ -50,3 +50,4 @@ export * from "./table-body-cell.js";
 export * from "./table-body.js";
 export * from "./table-foot-cell-content.js";
 export * from "./table-head-cell.js";
+export * from "./field-reference-cell.js";

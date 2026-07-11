@@ -1,0 +1,36 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#sorting]
+= Sorting
+
+In Overview Engine, sorting is managed through state for consistent and customizable control:
+
+* link:./assets/generated/typedoc/interfaces/store_internal_store.UiState.html#sorting[uiState.sorting]: to define the current sorting state.
+Note that Overview Engine only displays the sort icon (↑ or ↓) for the first item in sorting array.
+* link:./assets/generated/typedoc/interfaces/view_api.OverviewEngineApi.EventHandlers.html#oncolumnclick[eventHandlers.onColumnClick]
+callback: to subscribe to the change event of sorting state. This will be triggered when the column header is clicked.
+
+[NOTE]
+====
+* Because the initial sorting state can be defined in Overview Model, the initial `sorting` passed to
+`OverviewEngine` should be based on what is defined in Overview Model.
+link:./assets/generated/typedoc/functions/view_api.OverviewEngineApi.Sorting.getInitialValue.html[OverviewEngineApi.Sorting.getInitialValue]
+is provided to get the initial sorting state from Overview Model.
+* If no default sorting is specified, results are sorted by `__meta/createdAt` in descending order.
+* Case is ignored during sorting (`ignoreCase` is set to true).
+====

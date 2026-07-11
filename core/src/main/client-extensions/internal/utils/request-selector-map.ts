@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { type Selector, LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
 import type {
 	Query,
@@ -38,7 +38,7 @@ import type {
 	DocumentJsonRpc2Request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type OverviewModel } from "../../../overview-model.js";
+import type { OverviewModel } from "../../../overview-model.js";
 import type { DataOperation } from "../data-loader/data-loader.js";
 
 import { isCdm } from "./cdm-utils.js";
@@ -50,30 +50,30 @@ import { RequestBuilder } from "./request-builder.js";
  * Map of request selector factories that can be customized.
  * When customizing, always spread the default factories.
  */
-export interface RequestSelectorMap {
+export interface RequestSelectorMap<Operator extends Query.Operator = Query.Operator> {
 	/**
 	 * Build one QUERY request per requested page for listing documents.
 	 */
 	loadListDocuments: (
-		config: RequestSelectorMap.LoadListDocumentsConfig
+		config: RequestSelectorMap.LoadListDocumentsConfig<Operator>
 	) => Selector<QueryJsonRpc2Request<RequestSelectorMap.LoadDocumentEntries>[]>;
 	/**
 	 * Build a single QUERY request that computes aggregation for the current list context.
 	 */
 	loadSummary: (
-		config: RequestSelectorMap.LoadSummaryConfig
+		config: RequestSelectorMap.LoadSummaryConfig<Operator>
 	) => Selector<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
 	/**
 	 * Build a single QUERY request to retrieve filter options for a string field via aggregation.
 	 */
 	loadListStringFilterOptions: (
-		config: RequestSelectorMap.LoadListStringFilterOptionsConfig
+		config: RequestSelectorMap.LoadListStringFilterOptionsConfig<Operator>
 	) => Selector<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
 	/**
 	 * Build a single QUERY request to trigger the export.
 	 */
 	export: (
-		config: RequestSelectorMap.ExportConfig
+		config: RequestSelectorMap.ExportConfig<Operator>
 	) => Selector<QueryJsonRpc2Request<RequestSelectorMap.ExportQueryRoot>>;
 	/**
 	 * Build a single request to delete a document by docRef.
@@ -117,17 +117,19 @@ export namespace RequestSelectorMap {
 		documentModel: DocumentModel;
 		overviewModel: OverviewModel;
 	}
-	export interface LoadListDocumentsConfig extends BaseRequestConfig {
-		query: DataOperation.ListDocuments.Query;
+	export interface LoadListDocumentsConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
+		query: DataOperation.ListDocuments.Query<Operator>;
 	}
-	export interface LoadSummaryConfig extends BaseRequestConfig {
-		query: DataOperation.ListDocuments.Query;
+	export interface LoadSummaryConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
+		query: DataOperation.ListDocuments.Query<Operator>;
 	}
-	export interface LoadListStringFilterOptionsConfig extends BaseRequestConfig {
-		query: DataOperation.ListStringFilterOptions.Query;
+	export interface LoadListStringFilterOptionsConfig<
+		Operator extends Query.Operator = Query.Operator
+	> extends BaseRequestConfig {
+		query: DataOperation.ListStringFilterOptions.Query<Operator>;
 	}
-	export interface ExportConfig extends BaseRequestConfig {
-		query: DataOperation.Export.Query;
+	export interface ExportConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
+		query: DataOperation.Export.Query<Operator>;
 	}
 	export interface DeleteDocumentConfig extends BaseRequestConfig {
 		docRef: string;
@@ -141,7 +143,7 @@ export const DefaultRequestSelectorMap: RequestSelectorMap = {
 	loadListDocuments: (config) => () => {
 		const { query, documentModel } = config;
 		const projectionName = computeProjectionName(documentModel);
-		const targetDocumentModel = documentModel.header.id;
+		const targetDocumentModel = query.targetDocumentModel ?? documentModel.header.id;
 
 		return query.paging.pageNumbers.map((pageNumber) =>
 			RequestBuilder.query(query.id, {
@@ -151,7 +153,9 @@ export const DefaultRequestSelectorMap: RequestSelectorMap = {
 					paging: { pageSize: query.paging.pageSize, pageNumber },
 					constraint: query.constraint,
 					sort: query.sort,
-					fields: query.fields
+					fields: query.fields,
+					links: query.links,
+					exclude: query.exclude
 				}
 			})
 		);

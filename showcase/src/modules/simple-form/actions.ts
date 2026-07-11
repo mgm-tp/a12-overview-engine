@@ -30,9 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { actionCreatorFactory } from "typescript-fsa";
-
-import { type ActivityActions } from "@com.mgmtp.a12.client/client-core";
+import type { ActivityActions } from "@com.mgmtp.a12.client/client-core";
+import { actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 export namespace SimpleFormActions {
 	const factory = actionCreatorFactory("SimpleForm");

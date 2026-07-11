@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Header } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Header } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 function queryRootName(documentModel: DocumentModel): string | undefined {
 	return resolveHeaderAnnotationOrUndefined(documentModel.header, "cdm.queryRoot");

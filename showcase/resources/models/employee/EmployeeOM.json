@@ -2,7 +2,7 @@
 	"header": {
 		"id": "EmployeeOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Employee"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -43,7 +38,149 @@
 		]
 	},
 	"content": {
+		"subHeaderBox": {
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"rightSlot": [],
+			"leftSlot": []
+		},
+		"columns": [
+			{
+				"id": "column-51003",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Salary (pinned to the left)"
+					},
+					{
+						"locale": "de",
+						"text": "Gehalt (pinned to the left)"
+					}
+				],
+				"width": 1.4,
+				"pinDirection": "LEFT",
+				"elementRef": "F4",
+				"sortable": false,
+				"suffix": [
+					{
+						"locale": "en",
+						"text": "USD"
+					},
+					{
+						"locale": "de",
+						"text": "EUR"
+					}
+				]
+			},
+			{
+				"id": "column-63750",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Full Name"
+					},
+					{
+						"locale": "de",
+						"text": "Vollständiger Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": false
+			},
+			{
+				"id": "column-a4715",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Date of birth"
+					},
+					{
+						"locale": "de",
+						"text": "Geburtsdatum"
+					}
+				],
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false
+			},
+			{
+				"id": "column-3ac77",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Actual Salary (with sum)"
+					},
+					{
+						"locale": "de",
+						"text": "Tatsächliches Gehalt (mit Summe)"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "F6",
+				"sortable": false
+			},
+			{
+				"id": "column-01563",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Actual Salary"
+					},
+					{
+						"locale": "de",
+						"text": "Actual Gehalt"
+					}
+				],
+				"width": 1.4,
+				"pinDirection": "RIGHT",
+				"elementRef": "F6",
+				"sortable": false,
+				"suffixRef": "F7"
+			}
+		],
+		"rowActivation": {
+			"type": "event",
+			"event": "selectEmployee"
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
 		"configuration": {
+			"skipInitialLoad": true,
 			"enableFilter": true,
 			"filterConfiguration": {
 				"showFilterButton": true,
@@ -240,7 +377,7 @@
 				}
 			},
 			"showFullTextSearch": true,
-			"pagingSize": 10,
+			"pagingSize": 8,
 			"enableColumnsResize": true,
 			"subtitle": [
 				{
@@ -253,143 +390,6 @@
 				}
 			],
 			"showRowCount": true
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"event": "add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
-		"columns": [
-			{
-				"id": "column-51003",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Salary (pinned to the left)"
-					},
-					{
-						"locale": "de",
-						"text": "Gehalt (pinned to the left)"
-					}
-				],
-				"width": 1.4,
-				"pinDirection": "LEFT",
-				"elementRef": "F4",
-				"sortable": false,
-				"suffix": [
-					{
-						"locale": "en",
-						"text": "USD"
-					},
-					{
-						"locale": "de",
-						"text": "EUR"
-					}
-				]
-			},
-			{
-				"id": "column-63750",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Full Name"
-					},
-					{
-						"locale": "de",
-						"text": "Vollständiger Name"
-					}
-				],
-				"width": 1,
-				"elementRef": "F3",
-				"sortable": false
-			},
-			{
-				"id": "column-a4715",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Date of birth"
-					},
-					{
-						"locale": "de",
-						"text": "Geburtsdatum"
-					}
-				],
-				"width": 1,
-				"elementRef": "F5",
-				"sortable": false
-			},
-			{
-				"id": "column-3ac77",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Actual Salary (with sum)"
-					},
-					{
-						"locale": "de",
-						"text": "Tatsächliches Gehalt (mit Summe)"
-					}
-				],
-				"width": 1,
-				"styles": {},
-				"elementRef": "F6",
-				"sortable": false
-			},
-			{
-				"id": "column-01563",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Actual Salary"
-					},
-					{
-						"locale": "de",
-						"text": "Actual Gehalt"
-					}
-				],
-				"width": 1.4,
-				"pinDirection": "RIGHT",
-				"elementRef": "F6",
-				"sortable": false,
-				"suffixRef": "F7"
-			}
-		],
-		"rowActionGroup": {
-			"actions": []
 		}
 	}
 }

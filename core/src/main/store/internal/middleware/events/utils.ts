@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type UiState } from "../../store.js";
-import { type Commands } from "../../actions.js";
+import type { UiState } from "../../store.js";
+import type { Commands } from "../../actions.js";
 
 /** @internal */
 export function resetPaginationAndScrolling(params: {

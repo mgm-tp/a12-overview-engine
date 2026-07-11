@@ -43,9 +43,9 @@ import { useOverviewEngineInternalContext } from "../../../context/overview-engi
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { DateTimeUtils } from "./date-time-utils.js";
-import { type SectionType } from "./section-template.js";
+import type { SectionType } from "./section-template.js";
 import { useLocalizedLabels } from "./date-time-common-hooks.js";
-import { type DateTimeViewValue } from "./date-time-filter-view.api.js";
+import type { DateTimeViewValue } from "./date-time-filter-view.api.js";
 
 /** @internal */
 export namespace TimePickerAdapter {
@@ -58,7 +58,6 @@ export namespace TimePickerAdapter {
 		readonly readonly?: boolean;
 		readonly isDateTime?: boolean;
 		readonly enableTimePicker?: boolean;
-		readonly timeMode?: TimePickerProps.ClockMode;
 		readonly fieldFormatString?: string;
 
 		timeFormatter: TimePickerProps.TimeFormatter;
@@ -79,7 +78,6 @@ export const TimePickerAdapter: React.FC<TimePickerAdapter.Props> = React.memo(f
 		clearHandlerRef,
 		isDateTime,
 		enableTimePicker,
-		timeMode,
 		timeFormatter,
 		timeConverter,
 		onValidate,
@@ -137,7 +135,6 @@ export const TimePickerAdapter: React.FC<TimePickerAdapter.Props> = React.memo(f
 		<A11YLanguageContext.Provider value={customA11yContext}>
 			<TimePicker
 				{...props}
-				mode={timeMode}
 				hidePickerButton={!enableTimePicker}
 				error={error}
 				errorMessage={errorMessage}

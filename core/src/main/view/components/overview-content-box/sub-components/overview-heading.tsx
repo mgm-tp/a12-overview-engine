@@ -32,10 +32,9 @@
 
 import * as React from "react";
 
+import { useShouldAllowSearch } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { OverviewModel } from "../../../../overview-model.js";
-import { useRowCount, useShouldAllowSearch } from "../../../utils.js";
-import { LocalizerHooks, OverviewModelKeys } from "../../../../services/localization/index.js";
+import { useHeadingMetadata } from "../../../hooks/use-heading-metadata.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export interface OverviewHeadingProps {
@@ -46,73 +45,14 @@ export interface OverviewHeadingProps {
 export const OverviewHeading: React.FC<OverviewHeadingProps> = React.memo(function OverviewHeading(props) {
 	const activeFilters = useOverviewEngineState(UiStateSelector.activeFilters());
 	const enumeratedStringFilterMap = useOverviewEngineState(UiStateSelector.enumeratedStringFilterMap());
-	const modelLabels = useOverviewEngineContext((context) => context.overviewModel.header.labels);
-	const modelSubtitle = useOverviewEngineContext((context) => context.overviewModel.content.configuration.subtitle);
-	const subHeaderBox = useOverviewEngineContext((context) => context.overviewModel.content.subHeaderBox);
-	const Heading = useOverviewEngineContext((context) => context.componentMap.Heading);
-	const OverviewButton = useOverviewEngineContext((context) => context.componentMap.OverviewButton);
-	const OverviewSearchButton = useOverviewEngineContext((context) => context.componentMap.OverviewSearchButton);
-	const OverviewFilterButton = useOverviewEngineContext((context) => context.componentMap.OverviewFilterButton);
-	const showRowCount = useOverviewEngineContext((context) => context.overviewModel.content.configuration.showRowCount);
-	const labelHidden = useOverviewEngineContext((context) => context.overviewModel.content.configuration.labelHidden);
-	const enableFilter = useOverviewEngineContext((context) => context.overviewModel.content.configuration.enableFilter);
+	const Heading = useOverviewEngineContext((c) => c.componentMap.Heading);
+	const OverviewSearchButton = useOverviewEngineContext((c) => c.componentMap.OverviewSearchButton);
+	const OverviewFilterButton = useOverviewEngineContext((c) => c.componentMap.OverviewFilterButton);
+	const enableFilter = useOverviewEngineContext((c) => c.overviewModel.content.configuration.enableFilter);
 	const shouldAllowSearch = useShouldAllowSearch();
-	const shouldDisplayInSmallView = useOverviewEngineContext((context) => !!context.smallView);
+	const shouldDisplayInSmallView = useOverviewEngineContext((c) => !!c.smallView);
 
-	const rowCount = useRowCount();
-
-	const extractedButtons: OverviewModel.ButtonElement[] = React.useMemo(
-		() =>
-			[...(subHeaderBox?.minorElements || []), ...(subHeaderBox?.majorElements || [])].filter(
-				OverviewModel.ButtonElement.isAssignableFrom
-			),
-		[subHeaderBox?.majorElements, subHeaderBox?.minorElements]
-	);
-
-	const buttons = React.useMemo(
-		() =>
-			shouldDisplayInSmallView &&
-			extractedButtons.length > 0 &&
-			extractedButtons.map((buttonModel) => (
-				<OverviewButton
-					componentKey={OverviewModelKeys.HEADER}
-					key={buttonModel.event}
-					buttonModel={{ ...buttonModel, labelHidden: undefined }} // to show button label in pop up menu in small view only
-				/>
-			)),
-		[OverviewButton, extractedButtons, shouldDisplayInSmallView]
-	);
-
-	const localizedOverviewElement = LocalizerHooks.useLocalizedOverviewElement();
-	const title = React.useMemo<string>(() => {
-		if (labelHidden) {
-			return "";
-		}
-
-		const localizedTitle = localizedOverviewElement([OverviewModelKeys.HEADER, OverviewModelKeys.LABEL], modelLabels);
-
-		if (!showRowCount || rowCount === undefined) {
-			return localizedTitle;
-		}
-
-		return !localizedTitle ? "" : `${localizedTitle} (${rowCount})`;
-	}, [labelHidden, localizedOverviewElement, modelLabels, showRowCount, rowCount]);
-
-	const hiddenText = React.useMemo<string>(() => {
-		if (!labelHidden) {
-			return "";
-		}
-
-		return localizedOverviewElement([OverviewModelKeys.HEADER, OverviewModelKeys.LABEL], modelLabels);
-	}, [labelHidden, localizedOverviewElement, modelLabels]);
-
-	const subtitle = React.useMemo<string>(() => {
-		if (!title) {
-			return "";
-		}
-
-		return localizedOverviewElement([OverviewModelKeys.HEADER, OverviewModelKeys.SUBTITLE], modelSubtitle);
-	}, [localizedOverviewElement, modelSubtitle, title]);
+	const { title, hiddenText, subtitle, buttons, labelHidden } = useHeadingMetadata();
 
 	return (
 		<Heading

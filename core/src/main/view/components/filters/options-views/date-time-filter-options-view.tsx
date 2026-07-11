@@ -33,12 +33,12 @@
 import * as React from "react";
 import { endOfYear, endOfMonth, startOfYear, startOfMonth } from "date-fns";
 
-import { TimeUtils, type YearRange, type TimePickerProps } from "@com.mgmtp.a12.widgets/widgets-core";
+import { TimeUtils, type YearRange, type YearSelectorVariant } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIdGenerator } from "../../../utils.js";
+import { LocalizerHooks } from "../../../hooks/index.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 import { useValueFormatter, useLocalizedDateTimeFormatString } from "../utils.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
@@ -47,12 +47,9 @@ import { DateTimeUtils } from "./date-time-utils.js";
 import { DateInputAdapter } from "./date-input-adapter.js";
 import { TimePickerAdapter } from "./time-picker-adapter.js";
 import { DateTimeInputAdapter } from "./date-time-input-adapter.js";
+import { useDateParser, useTimeParser } from "./date-time-hooks.js";
 import { SectionType, SectionTemplate } from "./section-template.js";
-import {
-	type DateTimeViewValue,
-	type DateTimeUiValueType,
-	type DateTimeViewSelection
-} from "./date-time-filter-view.api.js";
+import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
 import {
 	useSelectItems,
 	useValueSelect,
@@ -69,7 +66,7 @@ export namespace DateTimeFilterOptionsView {
 		readonly enableDatePicker?: boolean;
 		readonly enableTimePicker?: boolean;
 		readonly yearRange?: YearRange;
-		readonly timeMode?: TimePickerProps.ClockMode;
+		readonly yearSelectorVariant?: YearSelectorVariant;
 		readonly uiValue: DateTimeUiValueType;
 	}
 }
@@ -165,6 +162,7 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 		path,
 		triggerChange,
 		yearRange,
+		yearSelectorVariant,
 		enableDatePicker,
 		modelId
 	} = props;
@@ -174,11 +172,8 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 	const YearSelector = useOverviewEngineContext((context) => context.widgetMap.YearSelector);
 	const timezone = useOverviewEngineInternalContext((context) => context.timezone);
 	const converter = useOverviewEngineInternalContext((context) => context.converter);
-	const engineTimeMode = useOverviewEngineContext((context) => context.timeMode);
 	const getFieldStringFormat = useLocalizedDateTimeFormatString();
 	const localizedFieldFormat = LocalizerHooks.useLocalizedDateFieldFormat();
-
-	const timeMode = React.useMemo(() => props.timeMode ?? engineTimeMode, [engineTimeMode, props.timeMode]);
 
 	const { currentDate, currentView, currentViewValue } = React.useMemo(() => {
 		const currentView = uiValue.selected;
@@ -216,8 +211,8 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 	);
 
 	const parseDateTime = DateTimeUtils.useDateTimeParser(modelId);
-	const parseDate = DateTimeUtils.useDateParser();
-	const parseTime = DateTimeUtils.useTimeParser();
+	const parseDate = useDateParser();
+	const parseTime = useTimeParser();
 	const parseValue = React.useCallback(
 		(newText: string): DateTimeUiValueType.InputState => {
 			switch (uiValue.selected) {
@@ -243,19 +238,19 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 			value: currentDate,
 			sectionType,
 			onValueSubmit,
-			timeMode,
 			getLocalizedDateString: (date?: Date) => DateTimeUtils.formatAsDate(converter, path, date, modelId),
 			clearHandlerRef,
 			dateTimeFormatter,
 			fieldFormatString: localizedFieldFormat(path, props.modelId),
-			dateTimeConverter: (input: string) => parseValue(input)?.value ?? undefined
+			dateTimeConverter: (input: string) => parseValue(input)?.value ?? undefined,
+			yearSelectorVariant
 		};
 	}, [
 		currentDate,
 		sectionType,
 		onValueSubmit,
-		timeMode,
 		clearHandlerRef,
+		yearSelectorVariant,
 		dateTimeFormatter,
 		localizedFieldFormat,
 		path,
@@ -276,10 +271,12 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 				getFieldStringFormat(DateTimeUtils.SelectOptions.date) || localizedFieldFormat(path, props.modelId),
 			dateFormatter: dateTimeFormatter,
 			dateConverter: (input) => parseValue(input)?.value ?? undefined,
-			clearHandlerRef
+			clearHandlerRef,
+			yearSelectorVariant
 		};
 	}, [
 		yearRange,
+		yearSelectorVariant,
 		sectionType,
 		currentDate,
 		onValueSelect,
@@ -335,6 +332,7 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 				month={currentDate?.getUTCMonth() ?? new Date().getUTCMonth()}
 				year={currentDate?.getUTCFullYear() ?? new Date().getUTCFullYear()}
 				yearRange={yearRange}
+				yearSelectorVariant="select"
 				onValueChange={onYearMonthValueChange}
 			/>
 		);
@@ -347,6 +345,7 @@ const DateTimeFilterInput: React.FC<DateTimeFilterInput.Props> = React.memo(func
 				hideLabel
 				year={currentDate?.getUTCFullYear()}
 				yearRange={yearRange}
+				variant="select"
 				onYearChange={(year) => onValueSelect(DateTimeUtils.padYearAndMonth(year, undefined, timezone))}
 			/>
 		);

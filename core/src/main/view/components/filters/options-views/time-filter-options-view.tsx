@@ -32,17 +32,15 @@
 
 import * as React from "react";
 
-import { type TimePickerProps } from "@com.mgmtp.a12.widgets/widgets-core";
-
 import { useIdGenerator } from "../../../utils.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
 import { DateTimeUtils } from "./date-time-utils.js";
 import { TimePickerAdapter } from "./time-picker-adapter.js";
-import { type DateTimeViewValue } from "./date-time-filter-view.api.js";
+import type { DateTimeViewValue } from "./date-time-filter-view.api.js";
 import { SectionTemplate, type SectionType } from "./section-template.js";
 import {
 	useRangeErrorMessage,
@@ -55,7 +53,6 @@ export namespace TimeFilterOptionsView {
 	export interface Props extends FilterOptionsView.PropsType {
 		readonly readonly?: boolean;
 		readonly enableTimePicker?: boolean;
-		readonly timeMode?: TimePickerProps.ClockMode;
 		readonly initialDate?: Date;
 		readonly uiValue: DateTimeViewValue;
 	}
@@ -148,10 +145,6 @@ function useSectionRenderer(
 	);
 	const timeConverter = React.useCallback((input: string) => parseValue(input)?.value ?? undefined, [parseValue]);
 
-	const engineTimeMode = useOverviewEngineContext((context) => context.timeMode);
-
-	const timeMode = React.useMemo(() => filterProps.timeMode ?? engineTimeMode, [engineTimeMode, filterProps.timeMode]);
-
 	return React.useCallback(
 		(sectionType: SectionType) => {
 			const clearHandlerRef = clearHandlerRegistry.createRef(sectionType);
@@ -168,7 +161,6 @@ function useSectionRenderer(
 					timeConverter={timeConverter}
 					timeFormatter={timeFormatter}
 					onValidate={onValidateValue}
-					timeMode={timeMode}
 					fieldFormatString={localizedFieldFormat(path, filterProps.modelId)}
 				/>
 			);
@@ -183,7 +175,6 @@ function useSectionRenderer(
 			path,
 			timeConverter,
 			timeFormatter,
-			timeMode,
 			triggerChange,
 			uiValue
 		]

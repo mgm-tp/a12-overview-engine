@@ -30,29 +30,149 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { Dispatch } from "redux";
 
-import { createViewProviderSelector } from "../../utils.js";
-import { createPresetFilterMiddleware } from "../common/middleware.js";
-import ProductAM from "../../../resources/models/product/ProductAM.json" with { type: "json" };
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
+
+import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
+import { createPresetFilterMiddleware, createInitialUiStateMiddleware } from "../common/middleware.js";
 
 import { ProductOverviewSagas } from "./saga.js";
 import { ProductOverview } from "./product-overview.js";
 
-export const ProductModule: Module = {
-	id: "Product",
-	model: () => ProductAM as unknown as ApplicationModel,
-	middlewares: () => [
-		createPresetFilterMiddleware(productPresetFilter, {
-			showcase: "product",
-			feature: "preset-filter"
+const DESCRIPTOR_PAGINATION = { showcase: "product", feature: "pagination" };
+const DESCRIPTOR_PRESET_FILTER = { showcase: "product", feature: "preset-filter" };
+const DESCRIPTOR_NEW_FILTER = { showcase: "product", feature: "new-filter" };
+
+function onPaginationClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_PAGINATION }),
+			descriptor: {}
 		})
+	);
+}
+
+function onPresetClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_PRESET_FILTER }),
+			descriptor: {}
+		})
+	);
+}
+
+function onNewFilterClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_NEW_FILTER }),
+			descriptor: {}
+		})
+	);
+}
+
+export const ProductModule: DynamicConfiguration = {
+	id: "Product",
+	sagas: () => ProductOverviewSagas,
+	middlewares: () => [
+		createInitialUiStateMiddleware({}, DESCRIPTOR_PAGINATION),
+		createPresetFilterMiddleware(productPresetFilter, DESCRIPTOR_PRESET_FILTER)
 	],
-	views: createViewProviderSelector({
-		ProductOverview
-	}),
-	sagas: () => ProductOverviewSagas
+	menus: (state) => {
+		const paginationActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_PAGINATION)(state).at(0);
+		const presetFilterActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_PRESET_FILTER)(state).at(0);
+		const newFilterActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_NEW_FILTER)(state).at(0);
+
+		return [
+			{
+				id: "menu.Product",
+				label: { key: "application.menu.product.label" },
+				children: [
+					{
+						id: "menu.Pagination",
+						label: { key: "application.menu.product.pagination" },
+						selected: paginationActivity !== undefined,
+						action: onPaginationClick
+					},
+					{
+						id: "menu.PresetFilter",
+						label: { key: "application.menu.product.presetFilter" },
+						selected: presetFilterActivity !== undefined,
+						action: onPresetClick
+					},
+					{
+						id: "menu.NewFilter",
+						label: { key: "application.menu.product.newFilter" },
+						selected: newFilterActivity !== undefined,
+						action: onNewFilterClick
+					}
+				]
+			}
+		];
+	},
+	flows: [
+		{
+			name: "Flow",
+			scenes: [
+				{
+					name: "Pagination",
+					matches: (d) =>
+						d.showcase === DESCRIPTOR_PAGINATION.showcase && d.feature === DESCRIPTOR_PAGINATION.feature && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ProductOverview,
+								models: [{ modelType: "overview", name: "ProductOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "PresetFilter",
+					matches: (d) =>
+						d.showcase === DESCRIPTOR_PRESET_FILTER.showcase &&
+						d.feature === DESCRIPTOR_PRESET_FILTER.feature &&
+						!d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: "ProductPresetFilterOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "NewFilter",
+					matches: (d) =>
+						d.showcase === DESCRIPTOR_NEW_FILTER.showcase && d.feature === DESCRIPTOR_NEW_FILTER.feature && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: "ProductNewFilterOM" }]
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 };
 
 const productPresetFilter: OverviewEngineApi.FilterMap = {

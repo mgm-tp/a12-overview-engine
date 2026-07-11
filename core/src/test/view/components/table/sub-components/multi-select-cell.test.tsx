@@ -32,14 +32,15 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { MultiSelectCell } from "../../../../../main/view/components/table/sub-components/multi-select-cell.js";
 
+import { render, type QueriableElement } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
 import { createGroup, createDocumentModel, createOverviewModel, createEnumerationField } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.multi-select-cell", () => {

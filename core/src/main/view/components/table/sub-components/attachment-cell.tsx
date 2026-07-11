@@ -32,9 +32,9 @@
 
 import * as React from "react";
 
-import { type Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type OverviewModel } from "../../../../overview-model.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { AttachmentCellContent } from "./attachment-cell-content.js";

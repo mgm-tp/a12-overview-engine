@@ -42,6 +42,7 @@ test.describe("Initial load - Without preset filter", () => {
 		// It has to navigate to the default showcase first, because Client deep linking's restore activities state feature cannot prevent the initial load.
 		await navigate(page, Showcase.DEFAULT);
 		await page.locator(Selector.MENU_ITEM, { hasText: "Person" }).click();
+		await page.locator(Selector.MENU_ITEM, { hasText: "Default" }).click();
 	});
 
 	test("should work", async ({ page }) => {

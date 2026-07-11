@@ -33,14 +33,16 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type JSONDocument } from "../../../../../main/models/index.js";
-import { type OverviewModel } from "../../../../../main/overview-model.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { JSONDocument } from "../../../../../main/models/index.js";
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import hooks from "../../../../../main/view/components/table/sub-components/hooks.js";
 import { ContextMenu } from "../../../../../main/view/components/table/sub-components/context-menu.js";
 
 import { mockType } from "../../../../utils.js";
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.context-menu", () => {
@@ -100,7 +102,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.con
 		describe("when the context menu model has empty groups", () => {
 			it("should return null", () => {
 				const wrapper = setupTest({ groups: [] });
-				const contextMenu = wrapper.queryByDataRole(DataRoles.ContextMenu).element;
+				const contextMenu = wrapper.queryByDataRole("context-menu").element;
 
 				expect(contextMenu).not.toBeInTheDocument();
 			});
@@ -117,7 +119,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.con
 					},
 					undefined
 				);
-				const contextMenu = wrapper.queryByDataRole(DataRoles.ContextMenu).element;
+				const contextMenu = wrapper.queryByDataRole("context-menu").element;
 
 				expect(contextMenu).not.toBeInTheDocument();
 			});
@@ -135,7 +137,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.con
 						}
 					}
 				});
-				const contextMenu = wrapper.queryByDataRole(DataRoles.ContextMenu).element;
+				const contextMenu = wrapper.queryByDataRole("context-menu").element;
 
 				expect(contextMenu).not.toBeInTheDocument();
 			});

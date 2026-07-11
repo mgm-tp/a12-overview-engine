@@ -30,22 +30,25 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 
 import { Commands } from "../actions.js";
-import { type UiState } from "../store.js";
+import type { UiState } from "../store.js";
 
 import { setRowState } from "./handler/set-row-state.js";
 import { handleSetDialog } from "./handler/set-dialog.js";
 import { handleSetDisabled } from "./handler/set-disabled.js";
+import { handleSetFilterState } from "./handler/set-filter-state.js";
 import { handleSetScrollToRow } from "./handler/set-scroll-to-row.js";
 import { handleSetColumnWidths } from "./handler/set-column-widths.js";
+import { handleSetFilterOptions } from "./handler/set-filter-options.js";
+import { handleSetMobileSearchBar } from "./handler/set-mobile-search-bar.js";
 import { handleSetExpandedMultiSelection } from "./handler/set-expanded-multi-selection.js";
 import { handleSetQueryParametersChanged } from "./handler/set-query-parameters-changed.js";
 import { handleSetLatestSelectedDocumentId } from "./handler/set-latest-selected-document-id.js";
 import { handleSetLatestSelectedDocumentIds } from "./handler/set-latest-selected-document-ids.js";
 
-export function uiStateReducer(state: UiState | undefined, action: AnyAction): UiState {
+export function uiStateReducer(state: UiState | undefined, action: UnknownAction): UiState {
 	if (state === undefined) {
 		return {};
 	} else if (Commands.setRowState.match(action)) {
@@ -62,10 +65,16 @@ export function uiStateReducer(state: UiState | undefined, action: AnyAction): U
 		return handleSetDialog(state, action);
 	} else if (Commands.setDisabled.match(action)) {
 		return handleSetDisabled(state, action);
+	} else if (Commands.setMobileSearchBar.match(action)) {
+		return handleSetMobileSearchBar(state, action);
 	} else if (Commands.setQueryParameters.match(action)) {
 		return handleSetQueryParametersChanged(state, action);
 	} else if (Commands.setScrollToRow.match(action)) {
 		return handleSetScrollToRow(state, action);
+	} else if (Commands.setFilterState.match(action)) {
+		return handleSetFilterState(state, action);
+	} else if (Commands.setFilterOptions.match(action)) {
+		return handleSetFilterOptions(state, action);
 	}
 
 	return state;

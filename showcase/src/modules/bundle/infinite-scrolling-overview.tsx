@@ -34,8 +34,8 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
 import { Icon, Button } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import {
 	Events,
 	type Heading,
@@ -48,14 +48,12 @@ import {
 
 import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
-export function InfiniteScrollingOverview(props: View): React.JSX.Element {
+export function InfiniteScrollingOverview(props: ViewNGProps): React.JSX.Element {
 	const { activityId } = props;
 	const componentMap = React.useMemo(() => createComponentMap(activityId), [activityId]);
 
 	return <ShowcaseOverview {...props} componentMap={componentMap} />;
 }
-
-InfiniteScrollingOverview.handleProgressIndicator = ShowcaseOverview.handleProgressIndicator;
 
 function createComponentMap(activityId: string): ComponentMap {
 	return {

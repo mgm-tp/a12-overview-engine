@@ -31,11 +31,7 @@
  */
 
 import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import {
-	type GroupInstance,
-	type EntityInstancePath,
-	type FieldInstanceValue
-} from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { GroupInstance, EntityInstancePath, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
 export namespace DocumentUtils {

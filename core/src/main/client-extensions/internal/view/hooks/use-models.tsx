@@ -34,19 +34,21 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import { OverviewEngineSelectors } from "../../selectors.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 
 /** @internal */
-export function useModels(params: { activityId: string }) {
+export function useModels(params: { activityId: string; overviewModelName?: string; overviewModel?: OverviewModel }) {
 	const { activityId } = params;
 
-	const modelsState = useSelector(OverviewEngineSelectors.modelsState(activityId));
+	const modelsState = useSelector(OverviewEngineSelectors.modelsState(activityId, params.overviewModelName));
 
 	return React.useMemo(() => {
 		return {
-			overviewModel: modelsState?.overviewModel,
+			overviewModel: params.overviewModel ?? modelsState?.overviewModel,
 			documentModel: modelsState?.documentModel,
 			subDocumentModels: modelsState?.subDocumentModels,
-			queryModel: modelsState?.queryModel
+			queryModel: modelsState?.queryModel,
+			modelGraph: modelsState?.modelGraph
 		};
-	}, [modelsState]);
+	}, [modelsState, params.overviewModel]);
 }

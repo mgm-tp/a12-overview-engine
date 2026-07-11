@@ -33,26 +33,17 @@
 import * as Path from "path";
 
 import { defineConfig } from "@rsbuild/core";
-import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
 
-const PATH = {
-	NODE_MODULES: Path.join(__dirname, "node_modules"),
-	SRC: Path.join(__dirname, "src"),
-	ENTRY: Path.join(__dirname, "src", "cli.ts"),
-	OUTPUT: Path.join(__dirname, "dist")
-};
-const config: ReturnType<typeof defineConfig> = defineConfig(({ command }) => {
-	return {
-		source: {
-			entry: { index: [PATH.ENTRY] }
-		},
-		plugins: [pluginTypeCheck()],
-		output: {
-			target: "node",
-			filename: { js: "services-utils.js" },
-			filenameHash: false
-		}
-	};
+const config: ReturnType<typeof defineConfig> = defineConfig({
+	source: {
+		entry: { index: [Path.join(__dirname, "src", "cli.ts")] }
+	},
+	output: {
+		target: "node",
+		module: false,
+		filename: { js: "services-utils.js" },
+		filenameHash: false
+	}
 });
 
 export default config;

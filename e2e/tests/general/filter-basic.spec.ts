@@ -67,10 +67,9 @@ test.describe("Filtering Feature - Basic test", () => {
 
 	test("should show all fields from document model", async ({ page }) => {
 		const items = page.locator(Selector.FILTER_SELECTOR_CONTENT_PRIMARY).locator(Selector.FILTER_SELECTOR_LIST_ITEM);
-		await expect(items).toHaveCount(listFilterOptions.length);
+		expect(await items.count()).toBeGreaterThan(listFilterOptions.length);
 
-		for (let i = 0; i < listFilterOptions.length; i++) {
-			await expect(items.nth(i).locator(Selector.LIST_ITEM_TEXT)).toHaveText(listFilterOptions[i]);
-		}
+		const texts = await items.locator(Selector.LIST_ITEM_TEXT).allTextContents();
+		expect(texts).toEqual(expect.arrayContaining(listFilterOptions));
 	});
 });

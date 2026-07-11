@@ -37,7 +37,7 @@ import FsPromise from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 import { set } from "lodash-es";
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
 import { JsonRpc2Response, type JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { AttachmentUploadV2, type AttachmentHeader } from "@com.mgmtp.a12.dataservices/dataservices-access";
@@ -49,14 +49,12 @@ import {
 	rpcRequest,
 	PresetsOption,
 	BaseUrlOption,
-	createRequests,
-	generateBundle,
-	generatePerson,
 	type PresetMap,
 	resolvePresets,
-	generateEmployee,
-	generateDepartment,
-	type RequestsCreator
+	type RequestsCreator,
+	createPeopleWithLinks,
+	createBundlesWithLinks,
+	createEmployeesWithLinks
 } from "../utils/index.js";
 
 import { handleClean } from "./clean.js";
@@ -118,12 +116,9 @@ export async function handleSeed(options: Options) {
 
 const presetMap: PresetMap<RequestsCreator> = {
 	product: [createProductRequestsCreator()],
-	person: [() => createRequests(30, "PersonDM", generatePerson)],
-	bundle: [() => createRequests(100, "BundleDM", generateBundle)],
-	employee: [
-		() => createRequests(25, "EmployeeDM", generateEmployee),
-		() => createRequests(5, "DepartmentDM", generateDepartment)
-	],
+	person: [createPeopleWithLinks],
+	bundle: [createBundlesWithLinks],
+	employee: [createEmployeesWithLinks],
 	cdm: [() => CDMRequest as JsonRpc2Request[]]
 };
 

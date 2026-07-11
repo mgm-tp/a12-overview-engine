@@ -32,9 +32,9 @@
 
 import * as React from "react";
 
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { useHeadingElements } from "./date-time-common-hooks.js";

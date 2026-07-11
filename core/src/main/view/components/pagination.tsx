@@ -33,7 +33,7 @@
 import * as React from "react";
 
 import { useIdGenerator } from "../utils.js";
-import { type OverviewEngineApi } from "../api.js";
+import type { OverviewEngineApi } from "../api.js";
 import { UiStateSelector } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 

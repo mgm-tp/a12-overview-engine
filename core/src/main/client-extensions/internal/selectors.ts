@@ -30,37 +30,75 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { Model, Activity, type Selector, ModelSelectors, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import { weakMapMemoize } from "reselect";
+
+import { isQueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { isRelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import {
+	Model,
+	Activity,
+	type Selector,
+	type ModelMap,
+	ModelSelectors,
+	ActivitySelectors
+} from "@com.mgmtp.a12.client/client-core";
 
 import { OverviewEngineApi } from "../../view/api.js";
 import { isOverviewModel } from "../../models/index.js";
 import { OverviewModel } from "../../overview-model.js";
-import { type UiState, type ModelsState } from "../../store/index.js";
 import { OverviewEngineInternalConstants } from "../../shared/constants.js";
+import {
+	type UiState,
+	UiStateSelector,
+	type ModelsState,
+	type FilterState,
+	FilterStateBuilder,
+	type FilterStateSelectors,
+	DefaultFilterStateSelectors
+} from "../../store/index.js";
 
 import { createSelector } from "./utils.js";
 import { EnumeratedStringDataHolder } from "./data-holder.js";
 import { getSorting, SLICE_NAME, getScrolling, getPagination } from "./state.js";
+import { removeLinkReferencesForExcludeMode } from "./utils/link-column-utils.js";
 
 export namespace OverviewEngineSelectors {
-	export function uiState(activityId: string): Selector<UiState> {
-		return (state) => uiStateReselect(state, activityId);
+	export function uiState(
+		activityId: string,
+		options?: {
+			filterStateSelectors?: FilterStateSelectors;
+			descriptor?: Activity.DataHolderDescriptor;
+			overviewModelName?: string;
+		}
+	): Selector<UiState> {
+		return (state) =>
+			uiStateReselect(
+				state,
+				activityId,
+				options?.descriptor,
+				options?.overviewModelName,
+				options?.filterStateSelectors
+			);
 	}
 
 	const uiStateReselect = createSelector(
 		[
-			(state: object, activityId: string) => uiStateWithoutDefaults(activityId)(state),
+			(state: object, activityId: string, descriptor?: Activity.DataHolderDescriptor) =>
+				uiStateWithoutDefaults(activityId, descriptor)(state),
 			(state: object, activityId: string) => enumeratedStringFilterMapReselect(state, activityId),
-			(state: object, activityId: string) => modelsState(activityId)(state)
+			(state: object, activityId: string, _?: unknown, overviewModelName?: string) =>
+				modelsState(activityId, overviewModelName)(state),
+			(_state: object, _activityId: string, _?: unknown, __?: unknown, selectors?: FilterStateSelectors) =>
+				selectors ?? DefaultFilterStateSelectors
 		],
-		(uiStateSlice, enumeratedStringFilterMap, modelsState) => {
+		(uiStateSlice, enumeratedStringFilterMap, modelsState, selectors) => {
 			if (!modelsState) {
 				return OverviewEngineInternalConstants.DEFAULT_UI_STATE;
 			}
 
-			const { overviewModel, documentModel } = modelsState;
+			const { overviewModel, documentModel, subDocumentModels = [] } = modelsState;
 
 			const { multiSelection } = overviewModel.content.configuration;
 			const expandedMultiSelection =
@@ -70,26 +108,55 @@ export namespace OverviewEngineSelectors {
 					: uiStateSlice.expandedMultiSelection;
 
 			const scrolling = getScrolling(overviewModel);
-			const sorting = getSorting(overviewModel, documentModel);
 
 			return {
 				...uiStateSlice,
 				pagination: uiStateSlice?.pagination ?? (scrolling ? undefined : getPagination(overviewModel)),
 				scrolling: uiStateSlice?.scrolling ?? scrolling,
-				sorting: uiStateSlice?.sorting ?? sorting,
+				sorting: uiStateSlice?.sorting ?? getSorting(modelsState),
 				expandedMultiSelection,
 				activeFilters: uiStateSlice?.activeFilters ?? OverviewEngineInternalConstants.NO_ACTIVE_FILTER,
-				enumeratedStringFilterMap
-			};
+				enumeratedStringFilterMap,
+				newFilter:
+					uiStateSlice?.newFilter ?? defaultNewFilterState(overviewModel, documentModel, subDocumentModels, selectors)
+			} satisfies UiState;
 		}
 	);
 
-	export function uiStateWithoutDefaults(activityId: string): Selector<UiState | undefined> {
+	/**
+	 * Initial NewFilter state derived from model configuration. Memoized by model identity
+	 * because A12 models are immutable per engine instance — host must produce a new model
+	 * object to refresh.
+	 */
+	const defaultNewFilterState = weakMapMemoize(
+		(
+			overviewModel: OverviewModel,
+			documentModel: DocumentModel,
+			subDocumentModels: DocumentModel[],
+			selectors: FilterStateSelectors
+		): FilterState | undefined => {
+			const newFilter = new FilterStateBuilder(overviewModel, documentModel, subDocumentModels, selectors).build();
+
+			return newFilter
+				? { ...newFilter, snapshot: UiStateSelector.NewFilter.filtersSnapshot(selectors)({ newFilter }) }
+				: undefined;
+		}
+	);
+
+	export function uiStateWithoutDefaults(
+		activityId: string,
+		descriptor?: Activity.DataHolderDescriptor
+	): Selector<UiState | undefined> {
 		return (state: object) =>
-			ActivitySelectors.activityPropById(
-				activityId,
-				(activity) => Activity.findDefaultDataHolder(activity)?.slices[SLICE_NAME]
-			)(state);
+			ActivitySelectors.activityPropById(activityId, (activity) => {
+				let dataHolder = Activity.findDefaultDataHolder(activity);
+
+				if (descriptor) {
+					dataHolder = activity.dataHolders.find(Activity.DataHolder.hasDescriptor(descriptor));
+				}
+
+				return dataHolder?.slices[SLICE_NAME];
+			})(state);
 	}
 
 	export function enumeratedStringFilterMap(
@@ -149,32 +216,45 @@ export namespace OverviewEngineSelectors {
 	);
 
 	/** @experimental */
-	export function modelsState(activityId: string): Selector<ModelsState | undefined> {
-		return (state) => modelsStateReselect(state, activityId);
+	export function modelsState(activityId: string, overviewModelName?: string): Selector<ModelsState | undefined> {
+		return (state) => modelsStateReselect(state, activityId, overviewModelName);
 	}
 
-	const modelsStateReselect = createSelector(
+	const overviewModelReselect = createSelector(
 		[
 			(state: object, activityId: string) =>
 				ModelSelectors.modelInScene({ activityId, modelType: "overview" }, isOverviewModel)(state),
-			(state: object) => ModelSelectors.models()(state)
+			(state: object, activityId: string, overrideOverviewModelName?: string) =>
+				overrideOverviewModelName
+					? ModelSelectors.modelByName(overrideOverviewModelName, isOverviewModel)(state)
+					: undefined
 		],
-		(overviewModel, models) => {
-			if (!overviewModel) {
+		(overviewModel, overrideOverviewModel) => overrideOverviewModel ?? overviewModel
+	);
+
+	const modelsStateReselect = createSelector(
+		[
+			(state: object, activityId: string, overrideOverviewModelName?: string) =>
+				overviewModelReselect(state, activityId, overrideOverviewModelName),
+			(state: object) => ModelSelectors.models()(state),
+			(state: object) => ModelSelectors.modelGraph()(state)
+		],
+		(overviewModel, models, modelGraph) => {
+			if (!overviewModel || !overviewModel.header.modelReferences) {
 				return undefined;
 			}
 
-			const queryModelName = overviewModel.header.modelReferences?.find(
+			const queryModelName = overviewModel.header.modelReferences.find(
 				({ modelType, purpose }) => modelType === "query" && purpose === "query-model-for-overview"
 			)?.reference;
 
 			const queryModel = queryModelName ? models[queryModelName] : undefined;
 
-			if (queryModel && !QueryModel.isInstance(queryModel)) {
+			if (queryModel && !isQueryModel(queryModel)) {
 				return undefined;
 			}
 
-			let documentModel: unknown | undefined;
+			let documentModel: ModelMap[string];
 
 			if (queryModel) {
 				const documentModelName = queryModel.header.modelReferences?.find(
@@ -192,27 +272,121 @@ export namespace OverviewEngineSelectors {
 				return undefined;
 			}
 
-			const subDocumentModelNames = overviewModel.header.modelReferences
-				?.filter(({ modelType, purpose }) => modelType === "document" && purpose === "sub-document-model-for-overview")
-				.map(({ reference }) => reference);
+			const { subDocumentModels, displayDocumentModel } = resolveRelatedDocumentModels(
+				models,
+				overviewModel,
+				queryModel,
+				documentModel
+			);
 
-			const subDocumentModels = subDocumentModelNames
-				?.map((documentModelName) => {
-					const documentModel = models[documentModelName];
+			const finalDocumentModel = displayDocumentModel ?? documentModel;
 
-					if (!Model.isDocumentModel(documentModel)) {
-						return undefined;
-					}
+			const firstLink = queryModel?.content.links?.[0];
+			const isExcludeMode = !!queryModel?.content.exclude;
+			const cleanedOverviewModel =
+				isExcludeMode && firstLink
+					? removeLinkReferencesForExcludeMode(overviewModel, {
+							relationship: firstLink.relationshipModel,
+							targetRole: firstLink.targetRole
+						})
+					: overviewModel;
 
-					return documentModel;
-				})
-				.filter((nullableDocumentModel): nullableDocumentModel is DocumentModel => !!nullableDocumentModel);
-
-			if (subDocumentModelNames?.length !== subDocumentModels?.length) {
-				return undefined;
-			}
-
-			return { overviewModel, queryModel, documentModel, subDocumentModels };
+			return {
+				overviewModel: cleanedOverviewModel,
+				queryModel,
+				documentModel: finalDocumentModel,
+				subDocumentModels: subDocumentModels?.filter((model) => model.header.id !== finalDocumentModel.header.id),
+				modelGraph
+			};
 		}
 	);
+
+	function resolveRelatedDocumentModels(
+		models: ModelMap,
+		overviewModel: OverviewModel,
+		queryModel: QueryModel | undefined,
+		documentModel: DocumentModel
+	): { subDocumentModels?: DocumentModel[]; displayDocumentModel?: DocumentModel } {
+		const seen = new Set<string>();
+		const subDocumentModels: DocumentModel[] = [];
+		let displayDocumentModel: DocumentModel | undefined;
+
+		const addSubDocument = (id: string, model: DocumentModel): void => {
+			if (!seen.has(id)) {
+				seen.add(id);
+				subDocumentModels.push(model);
+			}
+		};
+
+		// Collect sub-document models declared in the overview model
+		for (const { modelType, purpose, reference } of overviewModel.header.modelReferences ?? []) {
+			if (modelType === "document" && purpose === "sub-document-model-for-overview") {
+				const model = models[reference];
+
+				if (Model.isDocumentModel(model)) {
+					addSubDocument(reference, model);
+				}
+			}
+		}
+
+		if (!queryModel) {
+			return { subDocumentModels: subDocumentModels.length > 0 ? subDocumentModels : undefined };
+		}
+
+		const excludedRelationship = queryModel.content.exclude
+			? queryModel.content.links?.[0]?.relationshipModel
+			: undefined;
+		const excludedLinkTargetRole = queryModel.content.exclude ? queryModel.content.links?.[0]?.targetRole : undefined;
+
+		// The document ID to exclude from subDocumentModels
+		// Initially the primary document; swapped to the display document once resolved
+		let excludedDocumentId = documentModel.header.id;
+
+		// Collect sub-document models from query relationships and resolve displayDocumentModel
+		for (const { modelType, purpose, reference } of queryModel.header.modelReferences ?? []) {
+			if (modelType !== "relationship" || purpose !== "relationship-model-for-query") {
+				continue;
+			}
+
+			const relationshipModel = models[reference];
+
+			if (!isRelationshipModel(relationshipModel)) {
+				continue;
+			}
+
+			const { entityCharacteristics, linkDocumentModel } = relationshipModel.content;
+
+			for (const { documentModel, role } of entityCharacteristics) {
+				if (!documentModel || documentModel === excludedDocumentId) {
+					continue;
+				}
+
+				const model = models[documentModel];
+
+				if (!Model.isDocumentModel(model)) {
+					continue;
+				}
+
+				// For exclude mode, only set displayDocumentModel for the entity characteristic
+				// whose role matches the link's targetRole. Without this guard the last entity
+				// characteristic unconditionally overwrites, which is wrong when the relationship
+				// has roles in an order that puts the non-target role last (e.g. ProductBundle:
+				// [Product→Product-document, Bundle→Bundle-document] with targetRole="Product"
+				// would end up with Bundle-document instead of Product-document).
+				if (excludedRelationship === reference && role === excludedLinkTargetRole) {
+					displayDocumentModel = model;
+					excludedDocumentId = documentModel;
+					continue;
+				}
+
+				addSubDocument(documentModel, model);
+			}
+
+			if (linkDocumentModel && Model.isDocumentModel(models[linkDocumentModel])) {
+				addSubDocument(linkDocumentModel, models[linkDocumentModel]);
+			}
+		}
+
+		return { subDocumentModels: subDocumentModels.length > 0 ? subDocumentModels : undefined, displayDocumentModel };
+	}
 }

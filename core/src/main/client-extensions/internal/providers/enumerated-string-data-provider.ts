@@ -30,12 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaIterator } from "redux-saga";
 import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type DataProvider } from "@com.mgmtp.a12.client/client-core";
-import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
+import type { DataProvider } from "@com.mgmtp.a12.client/client-core";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { Query, Dispatcher, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewEngineActions } from "../actions.js";
 import { OverviewEngineSelectors } from "../selectors.js";
@@ -43,7 +44,7 @@ import { EnumeratedStringDataHolder } from "../data-holder.js";
 import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
 import { DataOperation, maybeAsyncFnWrapper, type OverviewEngineDataLoader } from "../data-loader/data-loader.js";
 
-import { type DataProvidersConfig } from "./types.js";
+import type { DataProvidersConfig } from "./types.js";
 import { getModels } from "./overview-engine-data-provider.js";
 
 const NAME = "EnumeratedStringDataProvider";
@@ -53,7 +54,7 @@ let counter = 0;
 export class EnumeratedStringDataProvider implements DataProvider {
 	public readonly name = NAME;
 	private documentService = new DocumentServiceFactory().getDocumentService();
-	private requestSelectorMap: RequestSelectorMap;
+	private readonly requestSelectorMap: RequestSelectorMap;
 
 	constructor(
 		private dataLoader: OverviewEngineDataLoader,
@@ -65,7 +66,7 @@ export class EnumeratedStringDataProvider implements DataProvider {
 		return operation === "load" && EnumeratedStringDataHolder.isInstance(dataHolder);
 	}
 
-	*provideData(config: DataProvider.ProvideDataConfig): SagaIterator<void> {
+	*provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void> {
 		if (config.operation === "load") {
 			yield* call(this.loadData.bind(this), config);
 
@@ -100,39 +101,23 @@ export class EnumeratedStringDataProvider implements DataProvider {
 			pageNumber: reload ? 0 : pageNumber,
 			pageSize
 		};
-		const uiState = yield* select(OverviewEngineSelectors.uiState(config.activityId));
+		const uiState = yield* select(
+			OverviewEngineSelectors.uiState(config.activityId, {
+				filterStateSelectors: this.config?.filterStateSelectors
+			})
+		);
 
-		const constraint: Query.Operator = {
-			operator: Query.OPERATORS.AND_OPERATOR,
-			operands: []
-		};
-
-		if (queryModel?.content.constraint) {
-			constraint.operands.push(queryModel.content.constraint);
-		}
-
-		if (uiState.searchString) {
-			constraint.operands.push({ operator: Query.OPERATORS.SIMPLE_SEARCH_OPERATOR, value: uiState.searchString });
-		}
-
-		if (keyword) {
-			constraint.operands.push({
-				operator: Query.OPERATORS.SIMPLE_SEARCH_OPERATOR,
-				fields: [fieldPath],
-				value: keyword
-			});
-		}
+		const constraint = QueryBuilder.and(
+			queryModel?.content.constraint,
+			QueryBuilder.simpleSearch(uiState.searchString),
+			QueryBuilder.simpleSearch(keyword, [fieldPath])
+		).build();
 
 		const query: DataOperation.ListStringFilterOptions.Query = {
 			id: requestId,
 			type: "LIST_STRING_FILTER_OPTIONS",
 			paging,
-			constraint:
-				constraint.operands.length === 0
-					? undefined
-					: constraint.operands.length === 1
-						? constraint.operands[0]
-						: constraint,
+			constraint,
 			aggregation: {
 				aggregations: [{ function: Query.AGGREGATIONS.COUNT_FUNCTION, field: fieldPath }],
 				group: [{ field: fieldPath, alias: "name" }]
@@ -143,13 +128,24 @@ export class EnumeratedStringDataProvider implements DataProvider {
 			? (subDocumentModels?.find((m) => m.header.id === modelId) ?? documentModel)
 			: documentModel;
 
-		const { queryResults } = yield* call(maybeAsyncFnWrapper(this.dataLoader.provideData), {
+		const buildParams = {
 			activityId: config.activityId,
 			documentService: this.documentService,
 			requestSelectorMap: this.requestSelectorMap,
 			documentModel: targetDocumentModel,
 			overviewModel,
 			queries: [query]
+		};
+
+		const requests = yield* call(maybeAsyncFnWrapper(this.dataLoader.buildRequests.bind(this.dataLoader)), buildParams);
+		const { language } = yield* select(LocaleSelectors.locale());
+		const responses = yield* call(() => Dispatcher.rpc(language, requests));
+		const responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response> = new Map(
+			requests.map((r, i) => [String(r.id), (responses as QueryJsonRpc2Response[])[i]])
+		);
+		const { queryResults } = yield* call(maybeAsyncFnWrapper(this.dataLoader.handleResponses.bind(this.dataLoader)), {
+			...buildParams,
+			responsesByQueryId
 		});
 
 		const [queryResult] = queryResults;

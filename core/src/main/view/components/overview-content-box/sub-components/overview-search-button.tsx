@@ -33,26 +33,21 @@
 import * as React from "react";
 
 import { UiStateSelector } from "../../../../store/index.js";
-import { useOverviewContentBoxContext } from "../../../context/overview-content-box-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 /** @internal */
 export const OverviewSearchButton: React.FC = React.memo(function OverviewSearchButton() {
 	const searchString = useOverviewEngineState(UiStateSelector.searchString());
-	const SearchButtonComponent = useOverviewEngineContext((context) => context.componentMap.SearchButton);
+	const SearchButton = useOverviewEngineContext((context) => context.componentMap.SearchButton);
 
-	const showMobileSearchBar = useOverviewContentBoxContext((context) => context.showMobileSearchBar);
-	const setShowMobileSearchBar = useOverviewContentBoxContext((context) => context.setShowMobileSearchBar);
+	const showMobileSearchBar = useOverviewEngineState((state) => state.showMobileSearchBar ?? false);
+	const onMobileSearchBarToggle = useOverviewEngineContext((context) => context.eventHandlers.onMobileSearchBarToggle);
 
 	const onClick = React.useCallback(() => {
-		setShowMobileSearchBar(!showMobileSearchBar);
-	}, [setShowMobileSearchBar, showMobileSearchBar]);
+		onMobileSearchBarToggle?.({ visible: !showMobileSearchBar });
+	}, [onMobileSearchBarToggle, showMobileSearchBar]);
 
 	return (
-		<SearchButtonComponent
-			active={showMobileSearchBar}
-			showBadge={!showMobileSearchBar && !!searchString}
-			onClick={onClick}
-		/>
+		<SearchButton active={showMobileSearchBar} showBadge={!showMobileSearchBar && !!searchString} onClick={onClick} />
 	);
 });

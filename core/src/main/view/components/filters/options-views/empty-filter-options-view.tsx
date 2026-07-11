@@ -32,8 +32,9 @@
 
 import * as React from "react";
 
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
 
 /** @internal */
 export namespace EmptyFilterOptionsView {

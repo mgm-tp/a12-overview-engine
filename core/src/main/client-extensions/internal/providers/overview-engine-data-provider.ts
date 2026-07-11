@@ -30,58 +30,68 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaIterator } from "redux-saga";
 import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import { setThumbnails } from "@com.mgmtp.a12.client/client-core/a12internal";
 import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { Query, Dispatcher } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { setThumbnails } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/action.js";
+import {
+	Query,
+	Dispatcher,
+	isRelationshipModel,
+	type SupportedRequest,
+	type QueryJsonRpc2Response
+} from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	Model,
-	Activity,
 	StoreSagas,
+	type Activity,
 	type Selector,
 	ModelSelectors,
 	LocaleSelectors,
 	ActivityActions,
 	ReferencedModel,
 	type DataProvider,
-	ActivitySelectors,
-	NotificationActions,
 	extractModelsInScenePayload
 } from "@com.mgmtp.a12.client/client-core";
 
 import { isCdm } from "../utils/cdm-utils.js";
+import { Links } from "../../../models/index.js";
 import { OverviewActivity } from "../activity.js";
 import { OverviewEngineActions } from "../actions.js";
 import { OverviewEngineSelectors } from "../selectors.js";
-import { type OverviewEngineApi } from "../../../view/api.js";
-import { RequestValidator } from "../utils/request-validator.js";
+import type { OverviewEngineApi } from "../../../view/api.js";
+import { DefaultFilterStateSelectors } from "../../../store/index.js";
 import { AggregationResolver } from "../utils/aggregation-resolver.js";
-import { triggerFileDownload } from "../utils/trigger-file-download.js";
-import { InfiniteScrollUtils } from "../utils/infinite-scroll-utils.js";
-import { collectFieldsProjection } from "../utils/fields-projection.js";
 import { FieldBasedFiltering } from "../utils/field-based-filtering.js";
-import { RESOURCE_KEYS, LocalizableFactory } from "../../../services/index.js";
+import { InfiniteScrollUtils } from "../utils/infinite-scroll-utils.js";
+import { triggerFileDownload } from "../utils/trigger-file-download.js";
+import { toQueryRelationshipOrder } from "../utils/relationship-sort-utils.js";
+import { NewFieldBasedFiltering } from "../utils/new-field-based-filtering.js";
+import type { FilterState, FilterStateSelectors } from "../../../store/index.js";
+import { getProjectedLinks, getProjectedFields } from "../utils/fields-projection.js";
 import { Commands, type Sorting, SortingOrder, type ModelsState } from "../../../store/index.js";
 import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
 import { DataOperation, maybeAsyncFnWrapper, type OverviewEngineDataLoader } from "../data-loader/data-loader.js";
 
-import { type DataProvidersConfig } from "./types.js";
+import type { DataProvidersConfig } from "./types.js";
+import { executeQueryPlan as executeQueryPlanFn } from "./execute-plan.js";
+import type { UpdatedDataHolder, QueryExecutionPlan } from "./query-execution-plan.js";
 
-/** @internal */
+/** @experimental */
 export class OverviewEngineDataProvider implements DataProvider {
 	private operationCounter = 0;
 	public name = "OverviewEngineDataProvider";
 	private documentService = new DocumentServiceFactory().getDocumentService();
-	private requestSelectorMap: RequestSelectorMap;
+	private readonly requestSelectorMap: RequestSelectorMap;
+	private readonly filterStateSelectors: FilterStateSelectors;
 
 	constructor(
-		private dataLoader: OverviewEngineDataLoader,
-		private config?: DataProvidersConfig
+		protected dataLoader: OverviewEngineDataLoader,
+		protected config?: DataProvidersConfig
 	) {
 		this.requestSelectorMap = config?.requestSelectorMap ?? DefaultRequestSelectorMap;
+		this.filterStateSelectors = config?.filterStateSelectors ?? DefaultFilterStateSelectors;
 	}
 
 	canHandle({ action }: DataProvider.CanHandleConfig): boolean {
@@ -102,53 +112,89 @@ export class OverviewEngineDataProvider implements DataProvider {
 		);
 	}
 
-	*provideData(config: DataProvider.ProvideDataConfig): SagaIterator<void> {
-		if (config.operation === "load") {
-			if ("exporting" in config.details && config.details.exporting === true) {
-				yield* call(this.exportData.bind(this), config);
-			} else {
-				yield* call(this.loadData.bind(this), config);
-			}
-		}
+	*provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void> {
+		const { dataHolders } = config;
 
-		if (config.operation === "delete") {
-			yield* call(this.deleteData.bind(this), config);
+		for (const dataHolder of dataHolders) {
+			if (config.operation === "load") {
+				if ("exporting" in config.details && config.details.exporting === true) {
+					yield* call(this.exportData.bind(this), config, dataHolder);
+				} else {
+					yield* call(this.loadData.bind(this), config, dataHolder);
+				}
+			}
+
+			if (config.operation === "delete") {
+				yield* call(this.deleteData.bind(this), config, dataHolder);
+			}
 		}
 	}
 
-	protected *loadData(config: DataProvider.LoadConfig): SagaGenerator<void> {
+	protected *loadData(config: DataProvider.LoadConfig, dataHolder: Activity.DataHolder): SagaGenerator<void> {
+		const plans: QueryExecutionPlan[] = [yield* call([this, this.createExecutionPlan], config, dataHolder)];
+
+		const updates = yield* call([this, this.executeQueryPlan], config.activityId, plans);
+
+		yield* call([this, this.applyUpdates], config.activityId, updates);
+	}
+
+	protected *createExecutionPlan(
+		config: DataProvider.LoadConfig,
+		dataHolder: Activity.DataHolder
+	): SagaGenerator<QueryExecutionPlan> {
 		const { activityId } = config;
-		const modelsState = yield* call(getModels, activityId);
-		const { documentModel, overviewModel } = modelsState;
-		const queryId = `${this.name}-${this.operationCounter++}`;
+		const descriptor = dataHolder.descriptor;
 
-		const uiState = yield* select(OverviewEngineSelectors.uiState(activityId));
+		const modelsState = yield* call(this.getModels.bind(this), activityId, dataHolder);
+		const { documentModel, overviewModel, subDocumentModels } = modelsState;
 
-		// prevents unnecessary network request on infinite scroll initialization
-		if (uiState.scrolling?.pageNumbers.length === 0) {
-			yield* put(ActivityActions.setData({ activityId, data: { documents: [], totalDocumentsCount: undefined } }));
+		const uiState = yield* select(
+			OverviewEngineSelectors.uiState(activityId, {
+				descriptor: dataHolder.descriptor,
+				overviewModelName: overviewModel.header.id,
+				filterStateSelectors: this.filterStateSelectors
+			})
+		);
 
-			if (
-				this.config?.infiniteScroll?.pageSize &&
-				this.config?.infiniteScroll?.pageSize !== uiState.scrolling.pageSize
-			) {
-				yield* put(
-					OverviewEngineActions.command({
-						activityId,
-						engineAction: Commands.setQueryParameters({
-							...uiState,
-							scrolling: { ...uiState.scrolling, pageSize: this.config.infiniteScroll.pageSize }
-						})
-					})
-				);
-			}
-
-			return;
-		} else if (uiState.scrolling?.visibleEnd === 0) {
-			yield* put(ActivityActions.setData({ activityId, data: { documents: [], totalDocumentsCount: undefined } }));
+		if (overviewModel.content.configuration.skipInitialLoad && !uiState.dataLoadTriggered) {
+			return {
+				id: `${this.name}-${this.operationCounter++}`,
+				dataHolder,
+				requests: [],
+				applyResponse: function* () /* eslint-disable-line require-yield */ {
+					return [{ descriptor, data: { documents: [], totalDocumentsCount: 0 } }];
+				}
+			};
 		}
 
-		const { searchString: fulltext = "", pagination, scrolling, sorting, activeFilters } = uiState;
+		if (uiState.scrolling?.pageNumbers.length === 0) {
+			const scrolling = uiState.scrolling;
+			const configPageSize = this.config?.infiniteScroll?.pageSize;
+
+			return {
+				id: `${this.name}-${this.operationCounter++}`,
+				dataHolder,
+				requests: [],
+				applyResponse: function* () {
+					if (configPageSize && configPageSize !== scrolling.pageSize) {
+						yield* put(
+							OverviewEngineActions.command({
+								activityId,
+								engineAction: Commands.setQueryParameters({
+									...uiState,
+									scrolling: { ...scrolling, pageSize: configPageSize }
+								})
+							})
+						);
+					}
+
+					return [{ descriptor, data: { documents: [], totalDocumentsCount: undefined } }];
+				}
+			};
+		}
+
+		const queryId = `${this.name}-${this.operationCounter++}`;
+		const { searchString: fulltext = "", pagination, scrolling, sorting, activeFilters, newFilter } = uiState;
 
 		let paging: DataOperation.ListDocuments.Paging;
 
@@ -160,157 +206,231 @@ export class OverviewEngineDataProvider implements DataProvider {
 			throw new Error("Neither pagination nor infinite scrolling data provided!");
 		}
 
-		const locale = yield* select(LocaleSelectors.locale());
+		const models = yield* select(ModelSelectors.allLoadedModelsInScene(activityId));
+		const relationshipModels = models?.filter(isRelationshipModel);
 
-		// CDM does not support fields projection
-		const fields = isCdm(documentModel) ? undefined : collectFieldsProjection(overviewModel, documentModel);
+		const fields = isCdm(documentModel)
+			? undefined
+			: getProjectedFields(overviewModel, documentModel, modelsState.queryModel);
 
 		const { aggregation, resolveSummaryResult } = AggregationResolver.create(queryId, overviewModel, documentModel);
+		const projectedLinks =
+			modelsState.queryModel && relationshipModels
+				? getProjectedLinks(overviewModel, documentModel, subDocumentModels, relationshipModels, modelsState.queryModel)
+				: undefined;
 
 		const query: DataOperation.ListDocuments.Query = {
 			id: queryId,
 			type: "LIST_DOCUMENTS",
 			paging,
 			sort: computeListDocumentsQueryOrders(modelsState, sorting),
-			constraint: computeListDocumentsConstraints(modelsState, locale, activeFilters, fulltext),
+			constraint: computeListDocumentsConstraints(
+				modelsState,
+				this.filterStateSelectors,
+				activeFilters,
+				newFilter,
+				fulltext
+			),
 			fields,
-			aggregation
+			aggregation,
+			links: projectedLinks,
+			exclude: modelsState.queryModel?.content.exclude,
+			targetDocumentModel: modelsState.queryModel?.content.targetDocumentModel
 		};
 
-		let result: DataOperation.ResultSet;
-
-		try {
-			result = yield* call(maybeAsyncFnWrapper(this.dataLoader.provideData), {
+		const requests: SupportedRequest[] = yield* call(
+			maybeAsyncFnWrapper(this.dataLoader.buildRequests.bind(this.dataLoader)),
+			{
 				activityId,
-				documentModel,
-				overviewModel,
+				dataHolderDescriptor: descriptor,
+				queries: [query],
 				documentService: this.documentService,
-				requestSelectorMap: this.requestSelectorMap,
-				queries: [query]
-			});
-		} catch (error) {
-			if (error instanceof RequestValidator.RequestLimitExceededError) {
-				// Show notification
-				yield* put(
-					NotificationActions.add({
+				documentModel,
+				subDocumentModels,
+				overviewModel,
+				requestSelectorMap: this.requestSelectorMap
+			}
+		);
+
+		const documentService = this.documentService;
+		const cachePages = this.config?.infiniteScroll?.cachePages;
+		const dataLoader = this.dataLoader;
+
+		return {
+			id: queryId,
+			dataHolder,
+			requests,
+			applyResponse: function* (responses, context) {
+				const responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response> = new Map(
+					requests.map((r, i) => [String(r.id), responses[i]])
+				);
+
+				const resultSet: DataOperation.ResultSet = yield* call(
+					maybeAsyncFnWrapper(dataLoader.handleResponses.bind(dataLoader)),
+					{
 						activityId,
-						severity: "error",
-						title: LocalizableFactory.createResourceLocalizable(
-							RESOURCE_KEYS.overviewEngine.error.requestLimitExceeded.title
-						),
-						message: LocalizableFactory.createResourceLocalizable(
-							RESOURCE_KEYS.overviewEngine.error.requestLimitExceeded.message,
-							{
-								maxRequests: { type: "plain", value: String(error.maxRequests) }
-							}
-						)
-					})
+						dataHolderDescriptor: descriptor,
+						queries: [query],
+						responsesByQueryId,
+						thumbnails: context.thumbnails ?? {},
+						documentService,
+						documentModel,
+						subDocumentModels,
+						overviewModel
+					}
 				);
 
-				// Reset loading state while preserving existing data
-				const existingData = yield* select(
-					ActivitySelectors.activityPropById(activityId, (a) => Activity.findDefaultDataHolder(a)?.data)
-				);
+				const queryResult = resultSet.queryResults.find(DataOperation.ListDocuments.Result.isAssignableFrom);
 
-				if (existingData) {
-					yield* put(ActivityActions.setData({ activityId, data: existingData }));
+				if (!queryResult) {
+					throw new Error(`No LIST_DOCUMENTS result for query ${queryId}`);
 				}
 
-				return;
+				const summaryResult = resolveSummaryResult(queryResult.aggregationResult);
+				const thumbnails = context.thumbnails;
+
+				if (!scrolling) {
+					return [
+						{
+							descriptor,
+							data: {
+								links: queryResult.links,
+								documents: queryResult.documents,
+								totalDocumentsCount: queryResult.fullSize,
+								summaryResult
+							} satisfies OverviewActivity.Data.DocumentListData,
+							thumbnails
+						}
+					];
+				}
+
+				if (!OverviewActivity.Data.DocumentListData.isInstance(dataHolder.data)) {
+					throw new Error(`No default DataHolder found for activityId ${activityId}`);
+				}
+
+				const existingData = dataHolder.data;
+				const mergedDocuments = InfiniteScrollUtils.mergeDocuments({
+					scrolling,
+					documents: queryResult.documents,
+					fullSize: queryResult.fullSize,
+					existingDocuments: existingData.documents ?? [],
+					cachePages
+				});
+
+				const activeDocRefs = new Set(mergedDocuments.flatMap((doc) => (doc ? [doc.id] : [])));
+
+				return [
+					{
+						descriptor,
+						data: {
+							documents: mergedDocuments,
+							links: InfiniteScrollUtils.mergeLink(
+								queryResult.links ?? Links.create(),
+								activeDocRefs
+							)(existingData.links),
+							totalDocumentsCount: queryResult.fullSize,
+							summaryResult
+						} satisfies OverviewActivity.Data.DocumentListData,
+						thumbnails
+					}
+				];
+			}
+		};
+	}
+
+	protected *executeQueryPlan(
+		activityId: string,
+		plans: ReadonlyArray<QueryExecutionPlan>
+	): SagaGenerator<UpdatedDataHolder[]> {
+		return yield* call(executeQueryPlanFn, activityId, plans);
+	}
+
+	protected *applyUpdates(activityId: string, updates: UpdatedDataHolder[]): SagaGenerator<void> {
+		for (const { data, thumbnails } of updates) {
+			if (data !== undefined) {
+				yield* put(ActivityActions.setData({ activityId, data }));
 			}
 
-			throw error;
-		}
-
-		const [queryResult] = result.queryResults;
-
-		if (!DataOperation.ListDocuments.Result.isAssignableFrom(queryResult)) {
-			throw new Error(`Expect a result from query results`);
-		}
-
-		if (!scrolling) {
-			yield* put(
-				ActivityActions.setData({
-					activityId,
-					data: {
-						documents: queryResult.documents,
-						totalDocumentsCount: queryResult.fullSize,
-						summaryResult: resolveSummaryResult(queryResult.aggregationResult)
-					}
-				})
-			);
-		} else {
-			const defaultDataHolder = yield* select(
-				ActivitySelectors.activityPropById(activityId, Activity.findDefaultDataHolder)
-			);
-
-			if (!OverviewActivity.Data.DocumentListData.isInstance(defaultDataHolder?.data)) {
-				throw new Error(`No default DataHolder found for activityId ${activityId}`);
+			if (thumbnails !== undefined) {
+				yield* put(setThumbnails({ activityId, thumbnails }));
 			}
-
-			yield* put(
-				ActivityActions.setData({
-					activityId,
-					data: {
-						documents: InfiniteScrollUtils.mergeDocuments({
-							scrolling,
-							documents: queryResult.documents,
-							fullSize: queryResult.fullSize,
-							existingDocuments: defaultDataHolder.data.documents ?? [],
-							cachePages: this.config?.infiniteScroll?.cachePages
-						}),
-						totalDocumentsCount: queryResult.fullSize,
-						summaryResult: resolveSummaryResult(queryResult.aggregationResult)
-					}
-				})
-			);
-		}
-
-		if (queryResult.thumbnails) {
-			yield* put(setThumbnails({ activityId, thumbnails: queryResult.thumbnails }));
 		}
 	}
 
-	protected *exportData(config: DataProvider.LoadConfig): SagaGenerator<void> {
+	protected *exportData(config: DataProvider.LoadConfig, dataHolder?: Activity.DataHolder): SagaGenerator<void> {
 		const { activityId } = config;
-		const modelsState = yield* call(getModels, config.activityId);
-		const { documentModel, overviewModel } = modelsState;
+		const modelsState = yield* call(this.getModels.bind(this), config.activityId, dataHolder);
+		const { documentModel, overviewModel, subDocumentModels } = modelsState;
 		const {
 			searchString: fulltext = "",
 			activeFilters,
-			sorting
-		} = yield* select(OverviewEngineSelectors.uiState(activityId));
-
-		const locale = yield* select(LocaleSelectors.locale());
+			sorting,
+			newFilter
+		} = yield* select(
+			OverviewEngineSelectors.uiState(activityId, {
+				descriptor: dataHolder?.descriptor,
+				overviewModelName: overviewModel.header.id,
+				filterStateSelectors: this.filterStateSelectors
+			})
+		);
 
 		try {
 			const query: DataOperation.Export.Query = {
 				id: "export",
 				type: "EXPORT",
 				sort: computeListDocumentsQueryOrders(modelsState, sorting),
-				constraint: computeListDocumentsConstraints(modelsState, locale, activeFilters, fulltext)
+				constraint: computeListDocumentsConstraints(
+					modelsState,
+					this.filterStateSelectors,
+					activeFilters,
+					newFilter,
+					fulltext
+				)
 			};
 
-			const result = yield* call(maybeAsyncFnWrapper(this.dataLoader.provideData), {
+			const buildParams = {
 				activityId,
+				dataHolderDescriptor: dataHolder?.descriptor,
 				documentModel,
 				overviewModel,
+				subDocumentModels,
 				documentService: this.documentService,
 				requestSelectorMap: this.requestSelectorMap,
 				queries: [query]
+			};
+
+			const requests: SupportedRequest[] = yield* call(
+				maybeAsyncFnWrapper(this.dataLoader.buildRequests.bind(this.dataLoader)),
+				buildParams
+			);
+
+			const { language } = yield* select(LocaleSelectors.locale());
+			const responses = yield* call(() => Dispatcher.rpc(language, requests));
+			const responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response> = new Map(
+				requests.map((r, i) => [String(r.id), (responses as QueryJsonRpc2Response[])[i]])
+			);
+
+			const result = yield* call(maybeAsyncFnWrapper(this.dataLoader.handleResponses.bind(this.dataLoader)), {
+				activityId,
+				dataHolderDescriptor: dataHolder?.descriptor,
+				documentModel,
+				overviewModel,
+				subDocumentModels,
+				documentService: this.documentService,
+				queries: [query],
+				responsesByQueryId,
+				thumbnails: {}
 			});
 
-			const [queryResult] = result.queryResults;
+			const queryResult = result.queryResults.find(DataOperation.Export.Result.isAssignableFrom);
 
-			if (!DataOperation.Export.Result.isAssignableFrom(queryResult)) {
-				throw new Error(`Expect a result from query results`);
+			if (!queryResult) {
+				throw new Error(`Expect an EXPORT result from query results`);
 			}
 
 			triggerFileDownload(queryResult.location);
 		} finally {
-			const data = yield* select(
-				ActivitySelectors.activityPropById(activityId, (a) => Activity.findDefaultDataHolder(a)?.data)
-			);
+			const data = dataHolder?.data;
 
 			if (data) {
 				yield* put(ActivityActions.setData({ activityId, data }));
@@ -319,12 +439,12 @@ export class OverviewEngineDataProvider implements DataProvider {
 	}
 
 	protected *deleteData(config: DataProvider.DeleteConfig, dataHolder?: Activity.DataHolder): SagaGenerator<void> {
+		const locale = yield* select(LocaleSelectors.locale());
 		const { activityId, details } = config;
 		const { instanceId } = details;
-		const { overviewModel, documentModel } = yield* call(getModels, activityId);
-		const state = yield* select();
-		const locale = yield* select(LocaleSelectors.locale());
 		const { rowState = {} } = yield* select(OverviewEngineSelectors.uiState(activityId));
+		const { documentModel, overviewModel } = yield* call(this.getModels.bind(this), config.activityId, dataHolder);
+		const state = yield* select();
 
 		if (instanceId === "" && "deletedDocumentIds" in details) {
 			const { deletedDocumentIds } = details;
@@ -361,62 +481,66 @@ export class OverviewEngineDataProvider implements DataProvider {
 
 		yield* put(ActivityActions.reloadData({ activityId }));
 	}
+
+	protected *getModels(activityId: string, _dataHolder?: Activity.DataHolder): SagaGenerator<ModelsState> {
+		return yield* call(getModels, activityId);
+	}
 }
 
 /** @internal */
 export function computeListDocumentsQueryOrders(modelsState: ModelsState, sorting?: Sorting[]): Query.Order[] {
-	if (!sorting?.length) {
-		if (modelsState.queryModel?.content.sort?.length) {
-			return modelsState.queryModel?.content.sort;
-		}
+	const isExcludeMode = !!modelsState.queryModel?.content.exclude;
 
-		return [
-			{
-				field: "/__meta/createdAt",
-				direction: Query.Direction.DESC,
-				nullHandling: Query.NullHandling.NULLS_LAST,
-				ignoreCase: false
-			}
-		];
+	if (isExcludeMode) {
+		return [];
 	}
 
-	return sorting.map((sorting) => {
-		return {
-			field: sorting.path,
-			direction: sorting.order === SortingOrder.ASC ? Query.Direction.ASC : Query.Direction.DESC,
+	const querySort = modelsState.queryModel?.content.sort;
+	const fallback: Query.Order[] = querySort?.length
+		? querySort
+		: [
+				{
+					field: "/__meta/createdAt",
+					direction: Query.Direction.DESC,
+					nullHandling: Query.NullHandling.NULLS_LAST,
+					ignoreCase: false
+				}
+			];
+
+	if (!sorting?.length) {
+		return fallback;
+	}
+
+	return sorting.map((s) => {
+		const direction = s.order === SortingOrder.ASC ? Query.Direction.ASC : Query.Direction.DESC;
+		const fieldOrder = {
+			direction,
 			nullHandling: Query.NullHandling.NULLS_LAST,
 			ignoreCase: true
 		};
+
+		if (typeof s.path === "string") {
+			return { field: s.path, ...fieldOrder };
+		}
+
+		return toQueryRelationshipOrder(s.path, fieldOrder);
 	});
 }
 
 /** @internal */
 export function computeListDocumentsConstraints(
 	modelsState: ModelsState,
-	locale: Locale,
+	selectors: FilterStateSelectors,
 	activeFilters?: OverviewEngineApi.FilterMap,
+	newFilterState?: FilterState,
 	fulltext?: string
 ): Query.Operator | undefined {
-	const operators: (Query.Operator[] | undefined)[] = [
-		modelsState.queryModel?.content.constraint ? [modelsState.queryModel.content.constraint] : undefined,
-		activeFilters ? FieldBasedFiltering.toOperators(activeFilters, modelsState, locale) : undefined,
-		fulltext && fulltext !== "" ? [{ operator: Query.OPERATORS.SIMPLE_SEARCH_OPERATOR, value: fulltext }] : undefined
-	];
-
-	const nonNullOperators = operators.filter((op): op is Query.Operator[] => Array.isArray(op) && op.length > 0).flat();
-
-	if (nonNullOperators.length === 0) {
-		return undefined;
-	}
-
-	if (nonNullOperators.length === 1) {
-		return nonNullOperators[0];
-	}
-
-	return {
-		operator: Query.OPERATORS.AND_OPERATOR,
-		operands: nonNullOperators
-	};
+	return QueryBuilder.and(
+		modelsState.queryModel?.content.constraint,
+		...FieldBasedFiltering.toOperators(activeFilters ?? {}, modelsState),
+		newFilterState ? NewFieldBasedFiltering.toOperator(newFilterState, modelsState, selectors) : undefined,
+		QueryBuilder.simpleSearch(fulltext)
+	).build();
 }
 
 /** @internal */
@@ -457,13 +581,6 @@ const modelsLoaded: (activityId: string) => Selector<{
 	return { stateChanged: true, returnValue: modelsState };
 };
 
-export function createNotFoundError(modelType: string, modelName?: string): Model.Error {
-	return {
-		type: "NOT_FOUND",
-		message: `Cannot find ${modelType} model${modelName ? ` "${modelName}"` : ""} from scene.`
-	};
-}
-
 function areDocumentIds(documentIds: unknown): documentIds is string[] {
 	return Array.isArray(documentIds) && documentIds.every((item) => typeof item === "string");
 }
@@ -477,6 +594,7 @@ function* updateRowState(params: {
 	const nextRowState = Object.fromEntries(
 		Object.entries(rowState).filter(([documentId]) => !deletedDocumentIds.includes(documentId))
 	);
+
 	yield* put(
 		OverviewEngineActions.command({
 			activityId,

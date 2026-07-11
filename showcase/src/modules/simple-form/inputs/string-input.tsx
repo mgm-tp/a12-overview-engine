@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
 import {
 	TextField,
@@ -42,7 +42,7 @@ import {
 
 import { useValue } from "../hooks.js";
 
-import { type BaseInput } from "./base-input.js";
+import type { BaseInput } from "./base-input.js";
 
 export namespace StringInput {
 	export interface Props extends BaseInputProps, BaseInput.Props {

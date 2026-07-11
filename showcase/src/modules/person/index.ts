@@ -30,18 +30,151 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { Dispatch } from "redux";
 
-import { createViewProviderSelector } from "../../utils.js";
-import PersonAM from "../../../resources/models/person/PersonAM.json" with { type: "json" };
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
 
 import { PersonSagas } from "./sagas.js";
 import { PersonForm } from "./person-form.js";
+import { EquipmentForm } from "./equipment-form.js";
 import { PersonOverview } from "./person-overview.js";
 
-export const PersonModule: Module = {
+const DESCRIPTOR_DEFAULT = { showcase: "person" };
+const DESCRIPTOR_WITH_LINK = { showcase: "person", feature: "with-link" };
+
+function onDefaultClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_DEFAULT }),
+			descriptor: {}
+		})
+	);
+}
+
+function onWithLinkClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_WITH_LINK }),
+			descriptor: {}
+		})
+	);
+}
+
+export const PersonModule: DynamicConfiguration = {
 	id: "Person",
-	model: () => PersonAM as ApplicationModel,
 	sagas: () => PersonSagas,
-	views: createViewProviderSelector({ PersonForm, PersonOverview })
+	menus: (state) => {
+		const defaultActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_DEFAULT)(state).at(0);
+		const withLinkActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_WITH_LINK)(state).at(0);
+
+		return [
+			{
+				id: "menu.Person",
+				label: { key: "application.menu.person.label" },
+				children: [
+					{
+						id: "menu.Person.Default",
+						label: { key: "application.menu.person.default" },
+						selected: defaultActivity !== undefined,
+						action: onDefaultClick
+					},
+					{
+						id: "menu.Person.WithLink",
+						label: { key: "application.menu.person.withLink" },
+						selected: withLinkActivity !== undefined,
+						action: onWithLinkClick
+					}
+				]
+			}
+		];
+	},
+	flows: [
+		{
+			name: "OE with pagination",
+			scenes: [
+				{
+					name: "PersonOverview",
+					matches: (d) => d.showcase === DESCRIPTOR_DEFAULT.showcase && !d.feature && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: PersonOverview,
+								constraints: { type: "MasterDetail" },
+								models: [{ modelType: "overview", name: "PersonOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "PersonForm",
+					matches: (d) => d.model === "PersonDM" && !!d.instance && !d.feature,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: PersonForm,
+								models: [{ modelType: "document", name: "PersonDM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "PersonEquipmentOverview",
+					matches: (d) => d.model === "PersonDM" && !!d.selectedPerson && d.feature === "with-link",
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: PersonOverview,
+								models: [{ modelType: "overview", name: "PersonEquipmentOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "EquipmentForm",
+					matches: (d) => d.model === "EquipmentDM" && !!d.instance && d.feature === "with-link",
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: EquipmentForm,
+								models: [{ modelType: "document", name: "EquipmentDM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "PersonWithLinkOverview",
+					matches: (d) =>
+						d.showcase === DESCRIPTOR_WITH_LINK.showcase &&
+						d.feature === DESCRIPTOR_WITH_LINK.feature &&
+						!d.selectedPerson,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: PersonOverview,
+								constraints: { type: "MasterDetail" },
+								models: [{ modelType: "overview", name: "PersonWithLinkOM" }]
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 };

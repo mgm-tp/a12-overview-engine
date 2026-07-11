@@ -1,14 +1,12 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-services-utils",
 	"private": true,
-	"version": "38.3.0",
+	"version": "39.0.1",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
 	"type": "module",
+	"exports": "./lib/api.js",
 	"scripts": {
-		"clean": "rimraf dist/** lib/**",
-		"compile": "tsc",
-		"start": "tsc --watch",
 		"dist": "rsbuild build"
 	},
 	"dependencies": {
@@ -16,24 +14,22 @@
 		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
 		"@com.mgmtp.a12.utils/utils-connector": "catalog:a12Libs",
 		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
-		"chance": "^1.1.11",
-		"date-fns": "^4.1.0",
-		"glob": "^11.0.0",
+		"chance": "^1.1.13",
+		"date-fns": "catalog:libs",
+		"glob": "^13.0.6",
 		"jszip": "^3.10.1",
-		"lodash-es": "^4.17.21",
-		"wait-on": "7.0.1",
+		"lodash-es": "^4.18.1",
+		"wait-on": "^9.0.10",
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
-		"@rsbuild/core": "1.5.13",
-		"@rsbuild/plugin-type-check": "1.2.4",
-		"@types/chance": "^1.1.6",
-		"@types/lodash-es": "^4.17.12",
+		"@rsbuild/core": "catalog:devLibs",
+		"@rsbuild/plugin-type-check": "catalog:devLibs",
+		"@types/chance": "^1.1.8",
+		"@types/lodash-es": "catalog:devLibs",
 		"@types/node": "catalog:devLibs",
-		"@types/wait-on": "^5.3.1",
-		"@types/yargs": "^17.0.17",
-		"rimraf": "catalog:devLibs",
-		"typescript": "catalog:libs"
+		"@types/wait-on": "^5.3.4",
+		"@types/yargs": "^17.0.35"
 	},
 	"bin": {
 		"services-utils": "bin/services-utils"

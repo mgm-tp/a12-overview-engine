@@ -33,13 +33,10 @@
 import * as React from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
-import { type FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import {
-	type Localizable,
-	type ValueConversion,
-	type ValueConversionConfig
-} from "@com.mgmtp.a12.utils/utils-localization";
+import type { FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Localizable, ValueConversion, ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { DocumentUtils, DocumentModelUtils, type DocumentModelService } from "../../../models/internal/shared.js";
 
@@ -115,4 +112,33 @@ function adaptParseResult(result: ReturnType<ValueConversion["parseValue"]>): Re
 
 function adaptFormatResult(result: ReturnType<ValueConversion["formatValue"]>): ReturnType<Converter["formatValue"]> {
 	return result ?? "";
+}
+
+/** @internal */
+export function defaultDateRangeConversionTransformer(config: ValueConversionConfig): ValueConversionConfig {
+	return config.type === "DateRangeType" ? { ...config, singleDate: "only" } : config;
+}
+
+/**
+ * Returns the format string for a date/time-typed field.
+ *
+ * @internal
+ */
+export function getDateTimeFormat(fieldType: DocumentModel.FieldType) {
+	if (fieldType.type === "DateFragmentType") {
+		return fieldType.formatOfFragment;
+	}
+
+	if (
+		fieldType.type === "DateRangeType" ||
+		fieldType.type === "DateType" ||
+		fieldType.type === "DateTimeType" ||
+		fieldType.type === "TimeType"
+	) {
+		return fieldType.format;
+	}
+
+	throw new Error(
+		`Cannot get formatString, ${fieldType} is not a DateType/DateFragmentType/DateRangeType/DateTimeType/TimeType field.`
+	);
 }

@@ -31,7 +31,7 @@
  */
 
 import { Icon } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import {
 	type ComponentMap,
 	DefaultComponentMap,
@@ -40,13 +40,11 @@ import {
 
 import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
-export const MobileSupportCardView = (props: View) => <MobileSupportExpression {...props} cardView />;
+export const MobileSupportCardView = (props: ViewNGProps) => <MobileSupportExpression {...props} cardView />;
 
-export const MobileSupportExpression = (props: View & { cardView?: boolean }) => (
+export const MobileSupportExpression = (props: ViewNGProps & { cardView?: boolean }) => (
 	<ShowcaseOverview {...props} componentMap={createMobileComponentMap()} />
 );
-
-MobileSupportExpression.handleProgressIndicator = ShowcaseOverview.handleProgressIndicator;
 
 function createMobileComponentMap(): ComponentMap {
 	return {

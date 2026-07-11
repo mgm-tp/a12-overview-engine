@@ -30,116 +30,188 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type RESOURCE_KEYS } from "./keys.js";
+import type { RESOURCE_KEYS } from "./keys.js";
 
 // prettier-ignore
 /** @internal */
 export const en: typeof RESOURCE_KEYS = {
-	"overviewEngine": {
-		"button": {
-			"confirmation": {
-				"ok": "Ok",
-				"cancel": "Cancel"
+	overviewEngine: {
+		button: {
+			confirmation: {
+				ok: "Ok",
+				cancel: "Cancel"
 			}
 		},
-		"rowAction": {
-			"confirmation": {
-				"ok": "Ok",
-				"cancel": "Cancel"
+		rowAction: {
+			confirmation: {
+				ok: "Ok",
+				cancel: "Cancel"
 			},
-			"deleteConfirmation": {
-				"delete": "Delete",
-				"cancel": "Cancel"
+			deleteConfirmation: {
+				delete: "Delete",
+				cancel: "Cancel"
 			}
 		},
-		"filterSelector": {
-			"searchFilter": "Filter Search",
-			"title": "Filter Selector",
-			"inactive": "Inactive",
-			"clearAll": "Clear all",
-			"selectAll": "Select All",
-			"noFilterFound": "No filter found",
-			"selectDeselectAllCheckboxLabel": "De/Select all",
-			"errorIconTitle": "This filter option contains error",
-			"section": {
-				"other": "Other"
+		filterSelector: {
+			searchFilter: "Filter Search",
+			title: "Filter",
+			inactive: "Inactive",
+			clearAll: "Clear all",
+			selectAll: "Select All",
+			noFilterFound: "No filter found",
+			noSetFilters: "There are no set filters.",
+			noSearchResults: "No search results. Try again with another query.",
+			selectDeselectAllCheckboxLabel: "De/Select all",
+			errorIconTitle: "This filter option contains error",
+			errorBanner: "Some errors occur",
+			section: {
+				other: "Other"
 			}
 		},
-		"searchButton": {
-			"openSearch": "Open search",
-			"hideSearch": "Hide search"
-		},
-		"searchFooter": {
-			"filterLabel": "Apply",
-			"cancelLabel": "Cancel"
-		},
-		"emptyFilterOptionsView": {
-			"title": "Filter Options",
-			"noViewSelected": "No filter selected"
-		},
-		"enumerationFilterOptionView": {
-			"noOptionFound": "No option found"
-		},
-		"enumeratedStringFilterOptionView": {
-			"loadMore": "Load more"
-		},
-		"filterOptionView": {
-			"sectionHeader": {
-				"start": "Start",
-				"end": "End"
+		newFilter: {
+			selector: {
+				closeButtonTitle: "Close",
+				searchPlaceholder: "Search"
 			},
-			"placeholder": {
-				"start": "Start Filter Value",
-				"end": "End Filter Value",
-				"singleInput": "Filter Value",
-				"valueSearch": "Value Search"
+			selectorOptions: {
+				viewHeader: "View",
+				showSearch: "Show Search",
+				expandAll: "Expand All Filters",
+				collapseAll: "Collapse All Filters",
+				showSetFiltersOnly: "Show Set Filters Only",
+				pinFilterList: "Pin Filter List",
+				matchHeader: "Match",
+				any: "Any",
+				all: "All",
+				resultHeader: "Result",
+				invert: "Invert"
 			},
-			"select": {
-				"mode": "Selection Mode",
-				"date": "Date Range",
-				"dateTime": "Date & Time Range",
-				"time": "Time Range (Today)",
-				"monthYear": "Month & Year Range",
-				"year": "Year Range",
-				"empty": "Empty",
+			optionsButton: {
+				a11yLabel: "Settings dialog"
 			},
-			"hidden": {
-				"year": {
-					"start": "Start Year",
-					"end": "End Year"
+			barItemDropdown: {
+				settingsTitle: "Configurations",
+				resetLabel: "Reset",
+				applyLabel: "Apply"
+			},
+			footer: {
+				resetAllLabel: "Reset All",
+				applyAllLabel: "Apply All"
+			},
+			setting: {
+				empty: "Empty",
+				match: "Match",
+				range: "Range",
+				period: "Period",
+				invertResult: "Invert Result",
+				fromTo: "From To",
+				fromOnly: "From",
+				toOnly: "To",
+				exact: "Exact",
+				any: "Any",
+				all: "All",
+				caseSensitive: "Case",
+				exactMatch: "Exact",
+				periodDate: "Date",
+				periodYear: "Year",
+				periodYearMonth: "Year & Month",
+				periodMonth: "Month",
+				periodTime: "Time (Today)",
+				periodDateTime: "Date & Time",
+				yes: "Yes",
+				no: "No"
+			},
+			rangeEditor: {
+				fromLabel: "From",
+				toLabel: "To"
+			},
+			queryEnable: "Enable",
+			queryEnabledValue: "Enabled",
+			emptyValue: "Empty",
+			fieldLabel: {
+				year: "Year",
+				month: "Month"
+			}
+		},
+		searchButton: {
+			openSearch: "Open search",
+			hideSearch: "Hide search"
+		},
+		searchFooter: {
+			filterLabel: "Apply",
+			cancelLabel: "Cancel"
+		},
+		emptyFilterOptionsView: {
+			title: "Filter Options",
+			noViewSelected: "No filter selected"
+		},
+		enumerationFilterOptionView: {
+			noOptionFound: "No option found",
+			showMore: "Show more",
+			showLess: "Show less"
+		},
+		enumeratedStringFilterOptionView: {
+			loadMore: "Load more"
+		},
+		filterOptionView: {
+			sectionHeader: {
+				start: "Start",
+				end: "End"
+			},
+			placeholder: {
+				start: "Start Filter Value",
+				end: "End Filter Value",
+				singleInput: "Filter Value",
+				valueSearch: "Value Search"
+			},
+			select: {
+				mode: "Selection Mode",
+				date: "Date Range",
+				dateTime: "Date & Time Range",
+				time: "Time Range (Today)",
+				monthYear: "Month & Year Range",
+				year: "Year Range",
+				empty: "Empty"
+			},
+			hidden: {
+				year: {
+					start: "Start Year",
+					end: "End Year"
 				},
-				"month": {
-					"start": "Start Month",
-					"end": "End Month"
+				month: {
+					start: "Start Month",
+					end: "End Month"
 				}
 			},
-			"error": {
-				"startGreaterThanEnd": "The start value must not be bigger than the end value."
+			error: {
+				startGreaterThanEnd: "The start value must not be bigger than the end value.",
+				partialYearMonth: "Only selections with both year and month specified, or both left empty, are allowed.",
+				invalidYear: "Year must be a 4-digit number."
 			},
-			"picker": {
-				"ok": "Ok",
-				"clear": "Clear",
-				"back": "Back",
-				"editTime": "Edit Time",
-				"datePickerButton": "Select a date",
-				"timePickerButton": "Select a time",
-				"dateTimePickerHeader": "Select a date and time"
+			picker: {
+				ok: "Ok",
+				clear: "Clear",
+				back: "Back",
+				editTime: "Edit Time",
+				datePickerButton: "Select a date",
+				timePickerButton: "Select a time",
+				dateTimePickerHeader: "Select a date and time"
 			},
-			"filterOperation": {
-				"title": "Filter Operation",
-				"and": "And",
-				"or": "Or"
+			filterOperation: {
+				title: "Filter Operation",
+				and: "And",
+				or: "Or"
 			},
-			"null": "Empty",
-			"true": "Yes",
-			"false": "No"
+			null: "Empty",
+			true: "Yes",
+			false: "No"
 		},
-		"filterBar": {
-			"edit": "Edit"
+		filterBar: {
+			edit: "Edit"
 		},
-		"filterButton": {
-			"openFilter": "Open filter",
-			"closeFilter": "Close filter"
+		filterButton: {
+			openFilter: "Open filter",
+			closeFilter: "Close filter"
 		},
 		"searchBar": {
 			"searchButtonTitle": "Search",
@@ -147,23 +219,27 @@ export const en: typeof RESOURCE_KEYS = {
 			"placeholder": "Search",
             "resetSearch": "Reset search"
 		},
-		"searchStatus": {
-			"allEntriesShown": "All entries shown",
-			"searchResultsFor": "Search results for"
+		searchStatus: {
+			allEntriesShown: "All entries shown",
+			searchResultsFor: "Search results for"
 		},
-		"multiSelection": {
-			"multiSelectionButton": {
-				"expandTitle": "Expand functions for bulk operation",
-				"collapseTitle": "Collapse functions for bulk operation",
+		multiSelection: {
+			multiSelectionButton: {
+				expandTitle: "Expand functions for bulk operation",
+				collapseTitle: "Collapse functions for bulk operation"
 			},
-			"clearConfirmation": {
-				"title": "Warning",
-				"message": "If you filter, search or collapse the multi-selection panel, all selected documents will be cleared. Do you want to continue?",
-				"ok": "Clear selection",
-				"cancel": "Cancel"
+			clearConfirmation: {
+				title: "Warning",
+				message:
+					"If you filter, search or collapse the multi-selection panel, all selected documents will be cleared. Do you want to continue?",
+				ok: "Clear selection",
+				cancel: "Cancel"
 			},
-			"overallCheckboxTitle": "De/Select all",
-			"rowCheckboxTitle": "Select",
+			overallCheckboxTitle: "De/Select all",
+			rowCheckboxTitle: "Select"
+		},
+		"table": {
+			"linkNotFound": "Link not found."
 		},
 		"noResultFound": "No results found",
 		"noInitQuery": "Please apply a filter or perform a search to see results",
@@ -174,22 +250,26 @@ export const en: typeof RESOURCE_KEYS = {
 			"requestLimitExceeded": {
 				"title": "Request Limit Exceeded",
 				"message": "Too many requests. Maximum allowed is $maxRequests$. Please reduce the number of operations."
+			},
+			"serverError": {
+				"title": "An error occurred",
+				"message": "$message$"
 			}
 		}
 	},
-	"true": "yes",
-	"false": "no",
-	"null": "",
+	true: "yes",
+	false: "no",
+	null: "",
 	"attachment-handler": {
-		"error": {
-			"unknown": "An unknown error occurred.",
-			"internal": "An internal error occurred.",
-			"abort": "An error occurred during the cancel.",
+		error: {
+			unknown: "An unknown error occurred.",
+			internal: "An internal error occurred.",
+			abort: "An error occurred during the cancel.",
 			"not-found": "The selected file cannot be found any longer.",
-			"security": "No access to the selected file.",
+			security: "No access to the selected file.",
 			"no-preview": "A preview does not exist.",
 			"invalid-file": "The last given file could not be processed.",
 			"no-handler": "No AttachmentHandler was defined."
 		}
 	}
-}
+};

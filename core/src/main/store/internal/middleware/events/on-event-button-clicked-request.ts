@@ -30,10 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { Events, Commands } from "../../actions.js";
-import { OverviewEngineApi } from "../../../../view/api.js";
+import { DialogTypes } from "../../../../shared/dialog-types.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
 
 /**
  * @internal
@@ -44,7 +45,7 @@ export const onEventButtonClickedRequest: Middleware = (api) => (next) => (actio
 	if (Events.onEventButtonClickedRequest.match(action)) {
 		const { buttonModel, componentKey } = action.payload;
 		const dialog: OverviewEngineApi.Dialog.OverviewButtonConfirm = {
-			type: OverviewEngineApi.Dialog.Types.OVERVIEW_BUTTON_CONFIRM,
+			type: DialogTypes.OVERVIEW_BUTTON_CONFIRM,
 			buttonModel,
 			componentKey
 		};

@@ -32,18 +32,19 @@
 
 import { it, vi, expect, describe, afterEach } from "vitest";
 
-import { type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type Locale, DatePrecision } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { DocumentUtils } from "../../../../../main/models/internal/shared.js";
 import { ExpressionCell } from "../../../../../main/view/components/table/sub-components/expression-cell.js";
-import { type FieldFormatterParams } from "../../../../../main/view/components/table/sub-components/reference-cell.js";
+import type { FieldFormatterParams } from "../../../../../main/view/components/table/sub-components/field-reference-cell.js";
 
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../../../../setup/models.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.expression-cell", async () => {
 	const basicEngineProps = {
@@ -55,6 +56,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.exp
 	const basicProps: ExpressionCell.Props = {
 		row: {
 			id: "1024",
+			modelId: "test-model",
 			product: {
 				number: 42,
 				name: 'Pro Touch Basketball "Harlem"',
@@ -102,7 +104,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.exp
 
 	describe("ExpressionOutput", () => {
 		it("should throw an error if no find the expression tree", () => {
-			vi.spyOn(global.console, "error").mockImplementation(() => {});
+			vi.spyOn(globalThis.console, "error").mockImplementation(() => {});
 
 			expect(() => setupTest({ ...basicProps, columnModel: { ...basicProps.columnModel, id: "1" } })).toThrow();
 		});
@@ -142,14 +144,14 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.exp
 					id: "F50",
 					type: "Field",
 					name: "dateField",
-					annotations: [],
 					label: [
 						{ locale: "de", text: "[D] Date" },
 						{ locale: "en", text: "[D] Date" }
 					],
 					requirednessConfig: { mode: "absoluteOrRelativeToNextRepAncestor" },
-					fieldType: { type: "DateType", format: "yyyy-MM-dd", datePrecision: DatePrecision.FULL }
+					fieldType: { type: "DateType", format: "yyyy-MM-dd", datePrecision: "FULL" }
 				},
+				modelId: "ProductDM",
 				modelPath: path,
 				value: new Date("2018-03-17T11:00:00.000Z")
 			};

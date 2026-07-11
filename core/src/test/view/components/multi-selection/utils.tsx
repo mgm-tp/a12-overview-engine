@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewModel } from "../../../../main/overview-model.js";
-import { type OverviewEngineApi } from "../../../../main/view/api.js";
+import type { OverviewEngineApi } from "../../../../main/view/api.js";
 import { OverviewEngine } from "../../../../main/view/overview-engine.js";
 
 import { defaultEngineProps } from "../../../basic.spec.js";
@@ -53,7 +53,7 @@ export function setupMultiSelection(
 	shortcut?: boolean,
 	rendererOptions?: MultiSelectionRendererOptions
 ) {
-	const majorElements: OverviewModel.Element[] = multiSelection
+	const rightSlotElements: OverviewModel.Element[] = multiSelection
 		? [{ type: OverviewModel.ElementType.MULTI_SELECTION }]
 		: [];
 	const defaultOverviewModel = engineProps?.overviewModel ?? defaultEngineProps.overviewModel;
@@ -63,7 +63,7 @@ export function setupMultiSelection(
 			...defaultOverviewModel.content,
 			subHeaderBox: {
 				...defaultOverviewModel.content.subHeaderBox,
-				majorElements: [...(defaultOverviewModel.content.subHeaderBox?.majorElements || []), ...majorElements]
+				rightSlot: [...(defaultOverviewModel.content.subHeaderBox?.rightSlot || []), ...rightSlotElements]
 			},
 			configuration: {
 				...defaultOverviewModel.content.configuration,

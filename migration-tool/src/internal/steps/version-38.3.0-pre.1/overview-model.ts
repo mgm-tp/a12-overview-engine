@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
-import { type Header, type Annotation } from "@com.mgmtp.a12.base/base-model-api";
+import type { Header, Annotation } from "@com.mgmtp.a12.base/base-model-api";
+import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
 
 export interface OverviewModel {
 	readonly header: Header;

@@ -41,7 +41,7 @@ import type { Store } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 
-import "@com.mgmtp.a12.widgets/widgets-core/lib/theme/basic.css";
+import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
 import { withDirtyHandling } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import { addDeepLinkingSagas } from "@com.mgmtp.a12.client/client-core/deepLinking";
 import { withOverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
@@ -53,22 +53,24 @@ import {
 	addCustomSagas,
 	addDataHandlers,
 	combineFeatures,
+	withDynamicConfig,
 	ModuleRegistryProvider,
+	addAdditionalMiddlewares,
 	type A12ApplicationConfig,
-	createA12ApplicationSetup
+	createA12ApplicationSetup,
+	APPLICATION_MODEL_PLACEHOLDER
 } from "@com.mgmtp.a12.client/client-core";
-
-import model from "../resources/models/showcaseAM.json" with { type: "json" };
 
 import { Modules } from "./modules/index.js";
 import { withTheme } from "./config/themes.js";
 import { handleErrorSaga } from "./modules/common/saga.js";
+import { initializationMiddleware } from "./config/init.js";
 import { withNotification } from "./config/notification.js";
 import { withSizeDetector } from "./config/size-detector.js";
 import { SimpleFormFactories } from "./modules/simple-form/index.js";
 import { fetchModelGraph, withReduxDevtool } from "./config/redux.js";
+import { customRequestSelectorMap } from "./config/request-selector-map.js";
 import { LOCALES, withLocalizationProvider } from "./config/localization.js";
-import { withApplicationFrameLayout } from "./config/application-frame-layout.js";
 
 Modules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));
 
@@ -76,17 +78,21 @@ const initialConfig: A12ApplicationConfig = {
 	config: {},
 	localization: { supportedLocales: LOCALES },
 	initialActions: ({ dispatch }: Store) => fetchModelGraph(dispatch),
-	deepLinking: { config: { applyTriggers: [ModelActions.setModelGraph] } }
+	deepLinking: { config: { applyTriggers: [ModelActions.setModelGraph] } },
+	overviewEngine: {
+		moduleConfig: { requestSelectorMap: customRequestSelectorMap, infiniteScroll: { cachePages: 5, pageSize: 20 } }
+	}
 };
 
 const { store, initialActions, Component } = createA12ApplicationSetup(
 	combineFeatures(
-		withModel(model),
+		withModel(APPLICATION_MODEL_PLACEHOLDER), // not used, DynamicConfiguration provides the model
+		withDynamicConfig(),
 		withDataServicesConfiguration,
 		withOverviewEngine,
-
 		withPlatformModelLoader,
 		combineFeatures(
+			addAdditionalMiddlewares(initializationMiddleware),
 			addCustomSagas(handleErrorSaga),
 			addDataHandlers(SimpleFormFactories.createDataLoader()),
 			withTheme,
@@ -98,8 +104,7 @@ const { store, initialActions, Component } = createA12ApplicationSetup(
 			/* Nice to have extensions */
 			withDirtyHandling,
 			addDeepLinkingSagas,
-			withReduxDevtool,
-			withApplicationFrameLayout
+			withReduxDevtool
 		)
 	)(initialConfig)
 );

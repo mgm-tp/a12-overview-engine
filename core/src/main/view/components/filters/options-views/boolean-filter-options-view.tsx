@@ -32,17 +32,17 @@
 
 import * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useIdGenerator, focusNextElement } from "../../../utils.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { EmptyLabel } from "./empty-label.js";
-import { type ConfirmFilterOptionsView } from "./confirm-filter-options-view.js";
+import type { ConfirmFilterOptionsView } from "./confirm-filter-options-view.js";
 import { useHeadingElements, useLocalizedLabels } from "./date-time-common-hooks.js";
 
 export namespace BooleanFilterOptionsView {

@@ -31,7 +31,7 @@
  */
 
 // tag::main[]
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";

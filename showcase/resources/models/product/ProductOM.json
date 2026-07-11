@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Liste aller Produkte"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,186 +32,8 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Add to cart"
-							},
-							{
-								"locale": "de",
-								"text": "In den Warenkorb legen"
-							}
-						],
-						"icon": {
-							"name": "shopping_cart"
-						},
-						"event": "add_to_cart_event",
-						"destructive": false,
-						"primary": true
-					},
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Favorit"
-							}
-						],
-						"icon": {
-							"name": "grade"
-						},
-						"event": "mark_as_favorite_event",
-						"description": [
-							{
-								"locale": "en",
-								"text": "Mark as Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Als Favorit markieren"
-							}
-						],
-						"destructive": false,
-						"primary": false
-					},
-					{
-						"icon": {
-							"name": "delete",
-							"theme": "filled"
-						},
-						"label": [
-							{
-								"locale": "en",
-								"text": "Delete"
-							},
-							{
-								"locale": "de",
-								"text": "Loschen"
-							}
-						],
-						"event": "delete_selected",
-						"destructive": false,
-						"confirmation": {
-							"title": [
-								{
-									"locale": "en",
-									"text": "Warning"
-								},
-								{
-									"locale": "de",
-									"text": "Warnung"
-								}
-							],
-							"message": [
-								{
-									"locale": "en",
-									"text": "Do you want to continue?"
-								},
-								{
-									"locale": "de",
-									"text": "Wollen Sie fortfahren?"
-								}
-							]
-						},
-						"primary": true
-					}
-				]
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"subtitle": [
-				{
-					"locale": "en",
-					"text": "Sports accessories"
-				},
-				{
-					"locale": "de",
-					"text": "Sportzubehör"
-				}
-			],
-			"rowTitle": [
-				{
-					"locale": "en",
-					"text": "Click to select this product"
-				},
-				{
-					"locale": "de",
-					"text": "Klicken Sie, um dieses Produkt auszuwählen"
-				}
-			],
-			"initialSorting": [
-				{
-					"idref": "column-752d8"
-				},
-				{
-					"idref": "column-254dd8"
-				}
-			],
-			"screenReaderColumn": {
-				"idref": "column-752d8"
-			},
-			"showRowCount": true,
-			"enableColumnsResize": true,
-			"actionColumnWidth": 1,
-			"rowHeight": 50,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all",
-				"sectionData": [
-					{
-						"id": "section-number",
-						"label": [
-							{
-								"locale": "en",
-								"text": "Number"
-							},
-							{
-								"locale": "de",
-								"text": "Nummer"
-							}
-						],
-						"fields": [
-							{
-								"fieldId": "F3"
-							},
-							{
-								"fieldId": "F5"
-							},
-							{
-								"fieldId": "F6"
-							}
-						]
-					}
-				],
-				"enumeratedStringFilter": {
-					"pagingSize": 5,
-					"fields": [
-						{
-							"fieldId": "F5"
-						},
-						{
-							"fieldId": "F6"
-						},
-						{
-							"fieldId": "F7"
-						}
-					]
-				}
-			}
-		},
 		"subHeaderBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "button",
 					"label": [
@@ -263,7 +80,7 @@
 					"type": "filter"
 				}
 			],
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "multi_selection"
 				},
@@ -329,7 +146,7 @@
 			]
 		},
 		"footerBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "button",
 					"label": [
@@ -385,7 +202,7 @@
 					"primary": false
 				}
 			],
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "button",
 					"label": [
@@ -857,6 +674,184 @@
 				}
 			]
 		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"]
+		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Add to cart"
+							},
+							{
+								"locale": "de",
+								"text": "In den Warenkorb legen"
+							}
+						],
+						"icon": {
+							"name": "shopping_cart"
+						},
+						"event": "add_to_cart_event",
+						"destructive": false,
+						"primary": true
+					},
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Favorite"
+							},
+							{
+								"locale": "de",
+								"text": "Favorit"
+							}
+						],
+						"icon": {
+							"name": "grade"
+						},
+						"event": "mark_as_favorite_event",
+						"description": [
+							{
+								"locale": "en",
+								"text": "Mark as Favorite"
+							},
+							{
+								"locale": "de",
+								"text": "Als Favorit markieren"
+							}
+						],
+						"destructive": false,
+						"primary": false
+					},
+					{
+						"icon": {
+							"name": "delete",
+							"theme": "filled"
+						},
+						"label": [
+							{
+								"locale": "en",
+								"text": "Delete"
+							},
+							{
+								"locale": "de",
+								"text": "Loschen"
+							}
+						],
+						"event": "delete_selected",
+						"destructive": false,
+						"confirmation": {
+							"title": [
+								{
+									"locale": "en",
+									"text": "Warning"
+								},
+								{
+									"locale": "de",
+									"text": "Warnung"
+								}
+							],
+							"message": [
+								{
+									"locale": "en",
+									"text": "Do you want to continue?"
+								},
+								{
+									"locale": "de",
+									"text": "Wollen Sie fortfahren?"
+								}
+							]
+						},
+						"primary": true
+					}
+				]
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"subtitle": [
+				{
+					"locale": "en",
+					"text": "Sports accessories"
+				},
+				{
+					"locale": "de",
+					"text": "Sportzubehör"
+				}
+			],
+			"rowTitle": [
+				{
+					"locale": "en",
+					"text": "Click to select this product"
+				},
+				{
+					"locale": "de",
+					"text": "Klicken Sie, um dieses Produkt auszuwählen"
+				}
+			],
+			"initialSorting": [
+				{
+					"idref": "column-752d8"
+				},
+				{
+					"idref": "column-254dd8"
+				}
+			],
+			"screenReaderColumn": {
+				"idref": "column-752d8"
+			},
+			"showRowCount": true,
+			"enableColumnsResize": true,
+			"actionColumnWidth": 1,
+			"rowHeight": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all",
+				"sectionData": [
+					{
+						"id": "section-number",
+						"label": [
+							{
+								"locale": "en",
+								"text": "Number"
+							},
+							{
+								"locale": "de",
+								"text": "Nummer"
+							}
+						],
+						"fields": [
+							{
+								"fieldId": "F3"
+							},
+							{
+								"fieldId": "F5"
+							},
+							{
+								"fieldId": "F6"
+							}
+						]
+					}
+				],
+				"enumeratedStringFilter": {
+					"pagingSize": 5,
+					"fields": [
+						{
+							"fieldId": "F5"
+						},
+						{
+							"fieldId": "F6"
+						},
+						{
+							"fieldId": "F7"
+						}
+					]
+				}
+			}
+		}
 	}
 }

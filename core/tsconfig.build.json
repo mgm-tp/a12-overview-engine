@@ -1,7 +1,9 @@
 {
-	"extends": "./tsconfig.json",
+	"extends": "../tsconfig.json",
 	"include": ["./src/main"],
+	"references": [{ "path": "../query-model" }],
 	"compilerOptions": {
-		"outDir": "./lib/main"
+		"rootDir": "${configDir}/src/main",
+		"outDir": "${configDir}/lib"
 	}
 }

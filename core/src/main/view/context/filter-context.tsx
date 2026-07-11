@@ -32,7 +32,7 @@
 
 import { createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type Filter } from "../components/filters/filter-options-view.js";
+import type { Filter } from "../components/filters/filter-options-view.js";
 
 /** @internal */
 export namespace FilterContext {

@@ -1,0 +1,76 @@
+{
+	"header": {
+		"id": "PersonEquipment_AdditionalLinkFields_DM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "PersonEquipment_AdditionalLinkFields_DM"
+		},
+		"modelConfig": {
+			"timeZone": "UTC",
+			"decimalSeparator": ".",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_2b6ac",
+					"name": "AdditionalLinkFields",
+					"Group": {
+						"label": [
+							{
+								"locale": "en",
+								"text": "Additional Link Fields"
+							},
+							{
+								"locale": "de",
+								"text": "Additional Link Fields"
+							}
+						],
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_5ada4",
+								"name": "UsageRate",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"trait": "percent"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Usage Rate"
+										},
+										{
+											"locale": "de",
+											"text": "Nutzungsrate"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

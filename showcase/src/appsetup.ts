@@ -31,32 +31,39 @@
  */
 
 import { DeepLinkingFactories } from "@com.mgmtp.a12.client/client-core/deepLinking";
-import { DataServicesReducerMap } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
+import { DataServicesReducerMap } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
 import {
 	ModelActions,
 	ApplicationFactories,
 	type ApplicationSetup,
-	ModuleRegistryProvider
+	ModuleRegistryProvider,
+	APPLICATION_MODEL_PLACEHOLDER
 } from "@com.mgmtp.a12.client/client-core";
-
-import model from "../resources/models/showcaseAM.json" with { type: "json" };
 
 import { Modules } from "./modules/index.js";
 import { createComposeEnhancer } from "./config/redux.js";
 import { handleErrorSaga } from "./modules/common/saga.js";
+import { initializationMiddleware } from "./config/init.js";
 import { SimpleFormFactories } from "./modules/simple-form/index.js";
+import { customRequestSelectorMap } from "./config/request-selector-map.js";
 
 export function setup(): ApplicationSetup {
-	ModuleRegistryProvider.getInstance().addModule(OverviewEngineFactories.createModule({}));
+	ModuleRegistryProvider.getInstance().addModule(
+		OverviewEngineFactories.createModule({
+			requestSelectorMap: customRequestSelectorMap,
+			infiniteScroll: { pageSize: 20 }
+		})
+	);
 	Modules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));
 
 	return ApplicationFactories.createApplicationSetup({
-		model,
+		model: APPLICATION_MODEL_PLACEHOLDER, // not used, DynamicConfiguration provides the model
 		dataHandlers: [SimpleFormFactories.createDataLoader()],
 		modelLoader: createPlatformServerModelLoader(),
+		additionalMiddlewares: [initializationMiddleware],
 		overridePlatformSagas: [
 			...OverviewEngineFactories.createApplicationSagas(),
 			...DirtyHandlingFactories.createSagas()

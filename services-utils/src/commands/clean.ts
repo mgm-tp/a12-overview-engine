@@ -32,7 +32,7 @@
 
 import { inspect } from "node:util";
 
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
 import { JsonRpc2Response, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
@@ -91,9 +91,9 @@ function getActualDocRef(docRef: string): string {
 }
 
 const presetMap: PresetMap<string> = {
-	person: ["PersonDM"],
+	person: ["PersonDM", "ContractDM", "EquipmentDM", "PersonDepartmentDM"],
 	bundle: ["BundleDM"],
-	employee: ["EmployeeDM"],
+	employee: ["EmployeeDM", "DepartmentDM"],
 	product: ["ProductDM"],
 	cdm: [
 		"Address-document",

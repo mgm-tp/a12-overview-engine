@@ -1,26 +1,29 @@
 {
 	"name": "@com.mgmtp.a12.querymodel/querymodel-core",
-	"version": "0.1.2",
+	"version": "0.2.1",
 	"type": "module",
 	"description": "Query Model",
 	"author": "mgm technology partners",
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
 	"scripts": {
-		"clean": "rimraf lib/**",
-		"compile": "tsc",
-		"start": "tsc --watch"
+		"test": "pnpm --sequential \"/test:/\"",
+		"test:unit": "vitest run",
+		"test:api": "api-extractor run",
+		"update": "pnpm \"/update:/\"",
+		"update:unit": "vitest -u",
+		"update:api": "pnpm test:api --local"
 	},
 	"peerDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "^29.1.0",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "^38.1.0",
-		"@com.mgmtp.a12.utils/utils-localization": "^7.2.0"
+		"@com.mgmtp.a12.base/base-model-api": "^30.0.1",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "^39.0.0"
 	},
 	"devDependencies": {
 		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
 		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"rimraf": "catalog:devLibs",
-		"ts-node": "catalog:devLibs",
-		"typescript": "catalog:libs"
+		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12Libs",
+		"@microsoft/api-extractor": "catalog:devLibs",
+		"vite": "catalog:devLibs",
+		"vitest": "catalog:devLibs"
 	},
 	"files": [
 		"lib",
@@ -31,6 +34,5 @@
 		"THIRD_PARTY_NOTICES",
 		"licenses"
 	],
-	"main": "lib/index.js",
-	"types": "lib/index.d.ts"
+	"exports": "./lib/index.js"
 }

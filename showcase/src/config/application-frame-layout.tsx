@@ -37,15 +37,20 @@ import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { toggleWdyr, isWdyrEnabled } from "@com.mgmtp.a12.devtools/why-did-you-render";
 import { List, Icon, PopUpMenu, HeaderTrigger, GlobalMessageBox } from "@com.mgmtp.a12.widgets/widgets-core";
-import { Model, FrameViews, modifyLayout, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
+import {
+	Model,
+	type FrameViews,
+	ApplicationFrameLayoutNGComponent,
+	type ApplicationFrameLayoutPropsNG
+} from "@com.mgmtp.a12.client/client-core";
 
 import { THEMES, useThemeContext } from "./themes.js";
-import { LOCALES, useLocalizationContext } from "./localization.js";
+import { LOCALES, TIME_MODES, type TimeMode, useLocalizationContext } from "./localization.js";
 
 declare const __VERSION__: string;
 const version = typeof __VERSION__ !== "undefined" ? __VERSION__ : "Unknown version";
 
-export const ApplicationFrameLayout: React.FC<FrameViews.LayoutProps> = (props) => {
+export const CustomApplicationFrameLayout: React.FC<ApplicationFrameLayoutPropsNG> = (props) => {
 	const settingItem: FrameViews.HeaderItemProps = {
 		orientation: "rightSlots-left",
 		item: (
@@ -65,6 +70,10 @@ export const ApplicationFrameLayout: React.FC<FrameViews.LayoutProps> = (props) 
 					<List.SubHeader fill>Theme</List.SubHeader>
 					{Object.keys(THEMES).map((item) => (
 						<ThemeItem key={item} theme={item} />
+					))}
+					<List.SubHeader fill>Time mode</List.SubHeader>
+					{TIME_MODES.map((mode) => (
+						<TimeModeItem key={mode} timeMode={mode} />
 					))}
 					{process.env.NODE_ENV === "development" && (
 						<>
@@ -88,7 +97,7 @@ export const ApplicationFrameLayout: React.FC<FrameViews.LayoutProps> = (props) 
 	}, [errors]);
 
 	return (
-		<FrameViews.ApplicationFrameLayout
+		<ApplicationFrameLayoutNGComponent
 			{...props}
 			additionalHeaderItems={[settingItem]}
 			globalMessageBox={
@@ -126,6 +135,16 @@ const ThemeItem: React.FC<{ theme: string }> = React.memo(({ theme }) => {
 	return <List.Item text={theme} onClick={onClick} meta={currentTheme === theme ? <Icon>check</Icon> : undefined} />;
 });
 
+const TimeModeItem: React.FC<{ timeMode: TimeMode }> = React.memo(({ timeMode }) => {
+	const currentTimeMode = useLocalizationContext((context) => context.timeMode);
+	const setTimeMode = useLocalizationContext((context) => context.setTimeMode);
+	const onClick = React.useCallback(() => setTimeMode(timeMode), [setTimeMode, timeMode]);
+
+	return (
+		<List.Item text={timeMode} onClick={onClick} meta={currentTimeMode === timeMode ? <Icon>check</Icon> : undefined} />
+	);
+});
+
 const WhyDidYouRenderItem: React.FC = React.memo(() => {
 	const handleClick = React.useCallback(() => {
 		toggleWdyr();
@@ -141,11 +160,11 @@ const WhyDidYouRenderItem: React.FC = React.memo(() => {
 	);
 });
 
-export interface ModelSlice {
+interface ModelSlice {
 	models: ModelSlice.ModelMap;
 }
 
-export namespace ModelSlice {
+namespace ModelSlice {
 	export function isInstance(slice: unknown): slice is ModelSlice {
 		if (typeof slice !== "object" || slice === null) {
 			return false;
@@ -191,9 +210,3 @@ export namespace ModelSlice {
 		};
 	};
 }
-
-export const withApplicationFrameLayout = <T extends A12ApplicationConfig>(cfg: T) =>
-	modifyLayout<T>("ApplicationFrame", (layout: FrameViews.Layout) => ({
-		...layout,
-		component: ApplicationFrameLayout
-	}))(cfg);

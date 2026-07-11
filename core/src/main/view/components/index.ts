@@ -43,6 +43,7 @@ export * from "./search-status.js";
 export * from "./sub-header.js";
 export * from "./dialogs/index.js";
 export * from "./filters/index.js";
+export * from "./new-filters/index.js";
 export * from "./multi-selection/index.js";
 export * from "./overview-content-box/index.js";
 export * from "./table/index.js";

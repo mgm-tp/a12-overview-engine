@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Action } from "typescript-fsa";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { type UiState } from "../../store.js";
-import { type Commands } from "../../actions.js";
+import type { UiState } from "../../store.js";
+import type { Commands } from "../../actions.js";
 
 /**
  * @internal
@@ -48,6 +48,7 @@ export function handleSetQueryParametersChanged(
 		pagination: action.payload.pagination,
 		scrolling: action.payload.scrolling,
 		sorting: action.payload.sorting,
-		activeFilters: action.payload.activeFilters
+		activeFilters: action.payload.activeFilters,
+		dataLoadTriggered: true
 	};
 }

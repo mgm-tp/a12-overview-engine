@@ -32,15 +32,17 @@
 
 import * as React from "react";
 
-import { type RowStyles, type RowStyleGetter, type CellStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { RowStyles, RowStyleGetter, CellStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
+import { pickRowState } from "../utils.js";
 import { UiStateSelector } from "../../store/index.js";
-import { type JSONDocument } from "../../models/index.js";
+import type { JSONDocument } from "../../models/index.js";
 import hooks from "../components/table/sub-components/hooks.js";
-import { LocalizerHooks, OverviewModelKeys } from "../../services/localization/index.js";
+import { OverviewModelKeys } from "../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
-import { type OverviewColumn } from "./use-table-columns.js";
+import { LocalizerHooks } from "./localizer-hooks.js";
+import type { OverviewColumn } from "./use-table-columns.js";
 
 /** @internal */
 export function useCellStyling(): CellStyleGetter<JSONDocument, OverviewColumn> {
@@ -48,7 +50,7 @@ export function useCellStyling(): CellStyleGetter<JSONDocument, OverviewColumn> 
 
 	return React.useCallback(
 		({ row, column }) => ({
-			useSecondaryColor: rowState?.[row.id]?.useSecondaryColor ?? undefined,
+			useSecondaryColor: pickRowState(rowState, row)?.useSecondaryColor ?? undefined,
 			className: column.columnModel?.styles?.content?.join(" ")
 		}),
 		[rowState]
@@ -85,7 +87,7 @@ export function useRowStyling(): RowStyleGetter<JSONDocument> {
 			return {
 				disabled,
 				selected: row.id === activeRowId,
-				highlighted: !!rowState?.[row.id]?.selected,
+				highlighted: !!pickRowState(rowState, row)?.selected,
 				style: enableInfiniteScroll ? undefined : { height: rowHeight },
 				disabledRightClickContextMenu: menuItemsGetter(row).menuItems.length === 0,
 				title: disabled ? undefined : rowTitle,

@@ -1,29 +1,28 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-e2e",
 	"private": true,
-	"version": "38.3.0",
+	"version": "39.0.1",
 	"description": "Overview Engine E2E Tests",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
 	"scripts": {
 		"prepare": "playwright install chromium",
-		"clean": "rimraf playwright-report test-results",
 		"testE2E": "pnpm --sequential \"/testE2E:/\"",
 		"testE2E:regular": "playwright test --config playwright-parallel.config.ts",
 		"testE2E:composable": "cross-env COMPOSABLE=true playwright test --config playwright-parallel.config.ts",
 		"test:headed": "playwright test --headed",
-		"test:ui": "playwright test --ui"
+		"test:ui": "playwright test --ui",
+		"playwright": "playwright"
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
+		"@com.mgmtp.a12.overviewengine/overviewengine-core": "workspace:",
 		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.overviewengine/overviewengine-services-utils": "workspace:^",
+		"@com.mgmtp.a12.overviewengine/overviewengine-services-utils": "workspace:",
 		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
-		"@playwright/test": "^1.55.0",
+		"@playwright/test": "^1.60.0",
 		"@types/node": "catalog:devLibs",
 		"cross-env": "^10.1.0",
-		"rimraf": "catalog:devLibs",
-		"typescript": "catalog:libs"
+		"immer": "^11.0.1"
 	},
 	"type": "module"
 }

@@ -34,29 +34,21 @@ import * as React from "react";
 import { isAfter, endOfDay, endOfYear, endOfMonth, startOfDay, startOfYear, startOfMonth } from "date-fns";
 
 import { TimeUtils } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
-import * as KernelUtils from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
-import { type Localizable, type ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { useDateTimeFormatString } from "../utils.js";
-import { type OverviewEngineApi } from "../../../api.js";
-import { type Converter } from "../../../../services/converter/internal/shared.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import type { OverviewEngineApi } from "../../../api.js";
+import type { Converter } from "../../../../services/converter/internal/shared.js";
+import { defaultDateRangeConversionTransformer } from "../../../../services/index.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
 import { SectionType } from "./section-template.js";
-import { type NumberFilterOptionsView } from "./number-filter-options-view.js";
-import {
-	type DateTimeViewValue,
-	type DateTimeUiValueType,
-	type DateTimeViewSelection
-} from "./date-time-filter-view.api.js";
+import type { NumberFilterOptionsView } from "./number-filter-options-view.js";
+import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
 
 export namespace DateTimeUtils {
 	/** @internal */
-	export const EMPTY_SELECT_OPTION_VALUE = "empty" as unknown as DateTimeViewSelection; // move to `SelectOptions` in A12OE-1068
+	export const EMPTY_SELECT_OPTION_VALUE = "empty" as unknown as DateTimeViewSelection;
 
 	export const SelectOptions: Record<DateTimeViewSelection, DateTimeViewSelection> = {
 		dateTime: "dateTime",
@@ -65,26 +57,6 @@ export namespace DateTimeUtils {
 		monthYear: "monthYear",
 		year: "year"
 	};
-
-	/** @internal */
-	export function getDateTimeFormat(fieldType: DocumentModel.FieldType) {
-		if (fieldType.type === "DateFragmentType") {
-			return fieldType.formatOfFragment;
-		}
-
-		if (
-			fieldType.type === "DateRangeType" ||
-			fieldType.type === "DateType" ||
-			fieldType.type === "DateTimeType" ||
-			fieldType.type === "TimeType"
-		) {
-			return fieldType.format;
-		}
-
-		throw new Error(
-			`Cannot get formatString, ${fieldType} is not a DateType/DateFragmentType/DateRangeType/DateTimeType/TimeType field.`
-		);
-	}
 
 	/** @internal */
 	export function isStartSection(sectionType: SectionType): boolean {
@@ -111,11 +83,6 @@ export namespace DateTimeUtils {
 		const zonedDate = TimeUtils.getTimeWithTimezone(date ?? new Date(), timezone);
 
 		return unit === "month" ? zonedDate.getMonth() : zonedDate.getFullYear();
-	}
-
-	/** @internal */
-	export function defaultDateRangeConversionTransformer(config: ValueConversionConfig): ValueConversionConfig {
-		return config.type === "DateRangeType" ? { ...config, singleDate: "only" } : config;
 	}
 
 	/** @internal */
@@ -177,92 +144,6 @@ export namespace DateTimeUtils {
 				};
 			},
 			[converter, localizer, modelId]
-		);
-	}
-
-	function useDateTimeParserWithKernelUtils(dateTimeFormatString: string) {
-		const { localizer } = React.useContext(LocalizerContext);
-		const timezone = useOverviewEngineInternalContext((context) => context.timezone);
-		const baseYear = useOverviewEngineContext((context) => context.documentModel.content.modelInfo.baseYear ?? 2000);
-
-		return React.useCallback(
-			(
-				path: ModelPath,
-				dateTimeString: string,
-				padFunction: (dateValue: Date, timezone: string) => Date | undefined
-			): DateTimeUiValueType.InputState => {
-				const emptyInputState = { input: "", value: null };
-
-				if (!dateTimeString) {
-					return emptyInputState;
-				}
-
-				let inputState: DateTimeUiValueType.InputState | undefined;
-				const errorHandler = (localizableMessages: Localizable[]) => {
-					inputState = {
-						input: dateTimeString,
-						value: undefined,
-						errorMessage: localizer(...localizableMessages)
-					};
-				};
-
-				const dateTimeValue = KernelUtils.parseDate(
-					dateTimeString,
-					dateTimeFormatString,
-					baseYear,
-					true,
-					timezone,
-					errorHandler
-				);
-
-				if (dateTimeValue && dateTimeValue instanceof Date) {
-					const value = padFunction(dateTimeValue, timezone);
-					const formattedValue = value ? KernelUtils.formatDate(value, dateTimeString, timezone) : "";
-					inputState = {
-						input: formattedValue,
-						value
-					};
-				}
-
-				if (!inputState) {
-					inputState = emptyInputState;
-				}
-
-				return inputState;
-			},
-			[dateTimeFormatString, baseYear, timezone, localizer]
-		);
-	}
-
-	/** @internal */
-	export function useDateParser() {
-		const getDateTimeFormatString = useDateTimeFormatString();
-		const dateFormatString = getDateTimeFormatString(DateTimeUtils.SelectOptions.date);
-		const parseDateTimeWithKernelUtils = useDateTimeParserWithKernelUtils(dateFormatString);
-
-		return React.useCallback(
-			(path: ModelPath, dateString: string, sectionType: SectionType): DateTimeUiValueType.InputState => {
-				const padFunction = (dateValue: Date, timezone: string): Date | undefined => {
-					return padDate(dateValue, { sectionType, timezone });
-				};
-
-				return parseDateTimeWithKernelUtils(path, dateString, padFunction);
-			},
-			[parseDateTimeWithKernelUtils]
-		);
-	}
-
-	/** @internal */
-	export function useTimeParser() {
-		const getDateTimeFormatString = useDateTimeFormatString();
-		const timeFormatString = getDateTimeFormatString(DateTimeUtils.SelectOptions.time);
-		const parseDateTimeWithKernelUtils = useDateTimeParserWithKernelUtils(timeFormatString);
-
-		return React.useCallback(
-			(path: ModelPath, timeString: string): DateTimeUiValueType.InputState => {
-				return parseDateTimeWithKernelUtils(path, timeString, padToday);
-			},
-			[parseDateTimeWithKernelUtils]
 		);
 	}
 
@@ -383,12 +264,10 @@ export namespace DateTimeUtils {
 		}
 
 		if (strict || unit === "date") {
-			// for date filter, respect the selected day if strict is true, or just return the start/end of day
 			return result;
 		}
 
 		if (!isStart) {
-			// for month/year filter, return the midnight of the first day of the month/year
 			return startOfDay(result);
 		}
 

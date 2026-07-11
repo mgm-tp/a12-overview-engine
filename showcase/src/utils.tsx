@@ -30,18 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type React from "react";
-
-import { type View, type Selector } from "@com.mgmtp.a12.client/client-core";
-
 export function assert(condition: unknown, onFailedMessage = "Condition return a falsely value."): asserts condition {
 	if (!condition) {
 		throw new Error(onFailedMessage);
 	}
-}
-
-export function createViewProviderSelector(viewMap: {
-	[name: string]: React.ComponentType<View>;
-}): Selector<View.Provider> {
-	return () => (componentName) => viewMap[componentName];
 }

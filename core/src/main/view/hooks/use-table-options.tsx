@@ -32,20 +32,28 @@
 
 import * as React from "react";
 
-import { type SortOptions, type ColumnResizingOptions } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { SortOptions, ColumnResizingOptions } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewEngineApi } from "../api.js";
 import { UiStateSelector } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
-import { type OverviewColumn } from "./use-table-columns.js";
+import type { OverviewColumn } from "./use-table-columns.js";
 
 /** @internal */
 export function useSortOptions(columns: OverviewColumn[]): SortOptions<OverviewColumn> {
 	const overviewModel = useOverviewEngineContext((context) => context.overviewModel);
 	const documentModel = useOverviewEngineContext((context) => context.documentModel);
+	const modelGraph = useOverviewEngineContext((context) => context.modelGraph);
+	const subDocumentModels = useOverviewEngineContext((context) => context.subDocumentModels);
 	const storeSorting = useOverviewEngineState(UiStateSelector.sorting());
-	const sorting = OverviewEngineApi.getSortingProps(storeSorting, documentModel, overviewModel);
+	const sorting = OverviewEngineApi.getSortingProps(
+		storeSorting,
+		documentModel,
+		overviewModel,
+		modelGraph?.relationshipModels,
+		subDocumentModels
+	);
 	const disabled = useOverviewEngineState(UiStateSelector.disabled());
 	const onColumnClick = useOverviewEngineContext((context) => context.eventHandlers.onColumnClick);
 	const expandedMultiSelection = useOverviewEngineState(UiStateSelector.expandedMultiSelection());

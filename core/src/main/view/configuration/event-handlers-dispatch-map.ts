@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Dispatch } from "redux";
+import type { Dispatch } from "redux";
 
 import { Events } from "../../store/index.js";
-import { type OverviewEngineApi } from "../api.js";
+import type { OverviewEngineApi } from "../api.js";
 import type { OverviewModel } from "../../overview-model.js";
 
 export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewEngineApi.EventHandlers {
@@ -45,18 +45,16 @@ export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewE
 			dispatch(Events.onRowsSelected({ documentsSelection: params }));
 		},
 		onOverallMultiSelectionButtonClick(params) {
-			dispatch(Events.onOverallMultiSelectionButtonClicked(params));
+			dispatch(Events.onOverallMultiSelectionButtonClicked({ documentsSelection: params }));
 		},
 		onMultiSelectionButtonClick() {
 			dispatch(Events.onMultiSelectionButtonClicked({}));
 		},
 		onLatestSelectedDocumentIdChange(params) {
-			dispatch(Events.onLatestSelectedDocumentIdChanged({ latestSelectedDocumentId: params.latestSelectedDocumentId }));
+			dispatch(Events.onLatestSelectedDocumentIdChanged(params));
 		},
 		onLatestSelectedDocumentIdsChange(params) {
-			dispatch(
-				Events.onLatestSelectedDocumentIdsChanged({ latestSelectedDocumentIds: params.latestSelectedDocumentIds })
-			);
+			dispatch(Events.onLatestSelectedDocumentIdsChanged(params));
 		},
 		onEventButtonClickRequest(params) {
 			dispatch(Events.onEventButtonClickedRequest(params));
@@ -74,7 +72,7 @@ export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewE
 			dispatch(Events.onRowClicked(params));
 		},
 		onColumnWidthsChange(params) {
-			dispatch(Events.onColumnWidthsChanged({ columnWidths: params.columnWidths }));
+			dispatch(Events.onColumnWidthsChanged(params));
 		},
 		onSearch(params) {
 			dispatch(Events.onSearched({ searchString: params }));
@@ -105,6 +103,60 @@ export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewE
 		},
 		onDialogClose() {
 			dispatch(Events.onDialogClosed({}));
+		},
+		onMobileSearchBarToggle(params) {
+			dispatch(Events.onMobileSearchBarToggle(params));
+		},
+		newFilter: {
+			onFilterSelectorOptionsChanged(params): void {
+				dispatch(Events.NewFilter.onFilterSelectorOptionsChanged(params));
+			},
+			onFilterOptionsChanged(params): void {
+				dispatch(Events.NewFilter.onFilterOptionsChanged(params));
+			},
+			onFilterItemOptionsChanged<Options = object>(params: Events.NewFilter.FilterItemOptionsChangedPayload<Options>) {
+				dispatch(
+					Events.NewFilter.onFilterItemOptionsChanged(
+						params as Events.NewFilter.FilterItemOptionsChangedPayload<object>
+					)
+				);
+			},
+			onFilterSelectorAllApplied() {
+				dispatch(Events.NewFilter.onFilterSelectorAllApplied());
+			},
+			onFilterItemEditApplied() {
+				dispatch(Events.NewFilter.onFilterItemEditApplied());
+			},
+			onFilterItemReset(params) {
+				dispatch(Events.NewFilter.onFilterItemReset(params));
+			},
+			onFilterSelectorReset() {
+				dispatch(Events.NewFilter.onFilterSelectorReset());
+			},
+			onFilterBarReset() {
+				dispatch(Events.NewFilter.onFilterBarReset());
+			},
+			onFilterSelectorVisibilityChanged(params) {
+				dispatch(Events.NewFilter.onFilterSelectorVisibilityChanged(params));
+			},
+			onFilterItemEditStarted(params) {
+				dispatch(Events.NewFilter.onFilterItemEditStarted(params));
+			},
+			onFilterItemEditCanceled(params) {
+				dispatch(Events.NewFilter.onFilterItemEditCanceled(params));
+			},
+			onFilterCollapsedChanged(params) {
+				dispatch(Events.NewFilter.onFilterCollapsedChanged(params));
+			},
+			onFilterBarItemsOverflowed(params) {
+				dispatch(Events.NewFilter.onFilterBarItemsOverflowed(params));
+			},
+			onFilterItemSettingsOpened(params) {
+				dispatch(Events.NewFilter.onFilterItemSettingsOpened(params));
+			},
+			onFilterItemSettingsClosed() {
+				dispatch(Events.NewFilter.onFilterItemSettingsClosed({}));
+			}
 		}
 	};
 }

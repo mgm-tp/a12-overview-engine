@@ -33,11 +33,11 @@
 import * as React from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 import { createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type OverviewEngine } from "../overview-engine.js";
+import type { OverviewEngine } from "../overview-engine.js";
 import { useConverter, type Converter } from "../../services/converter/internal/shared.js";
 import { type DocumentModelService, createDocumentModelService } from "../../models/internal/shared.js";
 
@@ -114,7 +114,7 @@ export function useInternalContextValue({
 	const documentModelService = useDocumentModelService(documentModel, subDocumentModels);
 	const converter = useConverter(documentModelService);
 
-	return { converter, documentModelService: documentModelService, timezone };
+	return { converter, documentModelService, timezone };
 }
 
 function useDocumentModelService(

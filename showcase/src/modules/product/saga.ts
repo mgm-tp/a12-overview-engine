@@ -35,12 +35,10 @@
  * @module extensions/crud
  */
 
-import { type AnyAction } from "redux";
-import { type SagaIterator } from "redux-saga";
-import { put, call, select, takeLatest } from "typed-redux-saga";
-import { type Action, actionCreatorFactory } from "typescript-fsa";
+import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
 import { ActivitySelectors, NotificationActions } from "@com.mgmtp.a12.client/client-core";
+import { type Action, actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import {
 	Events,
 	OverviewEngineActions,
@@ -52,15 +50,15 @@ import { SHOWCASE_RESOURCE_KEYS } from "../../config/resources.js";
 export const ProductOverviewSagas = [rowClickSaga, customEnumeratedStringSearchingSaga];
 
 // tag::handleCustomRowActionSaga[]
-function* rowClickSaga(): SagaIterator<void> {
-	yield* takeLatest((anyAction: AnyAction) => {
-		return OverviewEngineActions.event.match(anyAction) && Events.onRowClicked.match(anyAction.payload.engineAction);
+function* rowClickSaga(): SagaGenerator<void> {
+	yield* takeLatest((action: unknown) => {
+		return OverviewEngineActions.event.match(action) && Events.onRowClicked.match(action.payload.engineAction);
 	}, handleRowButtonClick);
 }
 
 function* handleRowButtonClick(
 	action: Action<OverviewEngineActions.EventPayload<Action<Events.RowClickedPayload>>>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { documentId } = action.payload.engineAction.payload;
 
 	yield* put(
@@ -87,15 +85,15 @@ export const customEnumeratedStringQuery = factory<OverviewEngineActions.Enumera
 // end::customEnumeratedStringQueryAction[]
 
 // tag::customEnumeratedStringSearchingSaga[]
-function* customEnumeratedStringSearchingSaga(): SagaIterator<void> {
-	yield* takeLatest((anyAction: AnyAction) => {
-		return customEnumeratedStringQuery.match(anyAction);
+function* customEnumeratedStringSearchingSaga(): SagaGenerator<void> {
+	yield* takeLatest((action: unknown) => {
+		return customEnumeratedStringQuery.match(action);
 	}, handleCustomEnumeratedStringSearching);
 }
 
 function* handleCustomEnumeratedStringSearching(
 	action: Action<OverviewEngineActions.EnumeratedStringQueryParametersChangedPayload>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId, fieldPath, keyword, nextPage } = action.payload;
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
 

@@ -32,23 +32,19 @@
 
 import * as React from "react";
 
-import { TimeUtils, type YearRange } from "@com.mgmtp.a12.widgets/widgets-core";
+import { TimeUtils, type YearRange, type YearSelectorVariant } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIdGenerator } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { DateTimeUtils } from "./date-time-utils.js";
 import { DateInputAdapter } from "./date-input-adapter.js";
 import { SectionType, SectionTemplate } from "./section-template.js";
-import {
-	type DateTimeViewValue,
-	type DateTimeUiValueType,
-	type DateTimeViewSelection
-} from "./date-time-filter-view.api.js";
+import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
 import {
 	useSelectItems,
 	useValueSelect,
@@ -64,6 +60,7 @@ export namespace DateFilterOptionsView {
 		readonly initialDate?: Date;
 		readonly readonly?: boolean;
 		readonly yearRange?: YearRange;
+		readonly yearSelectorVariant?: YearSelectorVariant;
 		readonly enableDatePicker?: boolean;
 		readonly uiValue: DateTimeUiValueType;
 	}
@@ -290,6 +287,7 @@ const DateFilterInput: React.FC<DateFilterInput.Props> = React.memo(function Dat
 	const {
 		readonly,
 		yearRange,
+		yearSelectorVariant,
 		sectionType,
 		uiValue,
 		initialDate,
@@ -369,7 +367,8 @@ const DateFilterInput: React.FC<DateFilterInput.Props> = React.memo(function Dat
 			onValueSelect,
 			onValueSubmit,
 			sectionType,
-			value: currentDate
+			value: currentDate,
+			yearSelectorVariant
 		};
 	}, [
 		clearHandlerRef,
@@ -380,7 +379,8 @@ const DateFilterInput: React.FC<DateFilterInput.Props> = React.memo(function Dat
 		onValueSelect,
 		onValueSubmit,
 		path,
-		sectionType
+		sectionType,
+		yearSelectorVariant
 	]);
 
 	if (currentView === DateTimeUtils.SelectOptions.date) {
@@ -395,6 +395,7 @@ const DateFilterInput: React.FC<DateFilterInput.Props> = React.memo(function Dat
 				month={DateTimeUtils.getTimezoneDateUnit(currentDate, timezone, "month")}
 				year={DateTimeUtils.getTimezoneDateUnit(currentDate, timezone, "year")}
 				hiddenLabels={{ yearLabel, monthLabel }}
+				yearSelectorVariant="select"
 				onValueChange={onYearMonthValueChange}
 			/>
 		);
@@ -405,6 +406,7 @@ const DateFilterInput: React.FC<DateFilterInput.Props> = React.memo(function Dat
 			<YearSelector
 				{...baseProps}
 				year={DateTimeUtils.getTimezoneDateUnit(currentDate, timezone, "year")}
+				variant="select"
 				onYearChange={(year) =>
 					onValueSelect(
 						DateTimeUtils.padYearAndMonth(year, DateTimeUtils.isStartSection(sectionType) ? 0 : 11, timezone)

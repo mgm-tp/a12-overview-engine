@@ -31,24 +31,69 @@
  */
 
 import * as React from "react";
-import { type Dispatch } from "redux";
+import type { Dispatch } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import type { List, InfiniteLoader } from "react-virtualized";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import { type RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { assertObject } from "../../utils/assertion.js";
 import { OverviewEngineActions } from "../../actions.js";
 import { OverviewEngineSelectors } from "../../selectors.js";
 import { OverviewModel } from "../../../../overview-model.js";
-import { type JSONDocument } from "../../../../models/index.js";
-import { type OverviewEngineApi } from "../../../../view/api.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
 import { DocumentModelUtils } from "../../../../models/internal/shared.js";
-import { Events, SortingOrder, type UiState, type PaginationState } from "../../../../store/index.js";
+import { buildRelationshipField, relationshipFieldEquals } from "../../utils/relationship-sort-utils.js";
 import { defaultMapDispatchToEventHandlers } from "../../../../view/configuration/event-handlers-dispatch-map.js";
+import { Events, SortingOrder, type UiState, type Sorting, type PaginationState } from "../../../../store/index.js";
 
 import { useModels } from "./use-models.js";
+
+type SortPath = Sorting["path"];
+
+interface SortDescriptor {
+	readonly path: SortPath;
+	readonly preferredSorting: SortingOrder;
+}
+
+const flipOrder = (order: SortingOrder): SortingOrder =>
+	order === SortingOrder.ASC ? SortingOrder.DESC : SortingOrder.ASC;
+
+const getPreferredSorting = (column: { readonly preferredSorting?: "ASC" | "DESC" }): SortingOrder =>
+	column.preferredSorting === "DESC" ? SortingOrder.DESC : SortingOrder.ASC;
+
+const isSamePath = (a: SortPath, b: SortPath): boolean => {
+	if (typeof a === "string" || typeof b === "string") {
+		return a === b;
+	}
+
+	return relationshipFieldEquals(a, b);
+};
+
+function computeNextSorting(params: {
+	descriptor: SortDescriptor;
+	isInitial: boolean;
+	currentSorting: Sorting | undefined;
+}): Sorting | undefined {
+	const { descriptor, isInitial, currentSorting } = params;
+	const { path, preferredSorting } = descriptor;
+
+	if (!currentSorting && isInitial) {
+		return { path, order: flipOrder(preferredSorting) };
+	}
+
+	if (!currentSorting || !isSamePath(currentSorting.path, path)) {
+		return { path, order: preferredSorting };
+	}
+
+	if (currentSorting.order === preferredSorting) {
+		return { path, order: flipOrder(preferredSorting) };
+	}
+
+	return undefined;
+}
 
 /** @internal */
 export function useEventHandlers(params: {
@@ -59,18 +104,37 @@ export function useEventHandlers(params: {
 	loaderRef: React.MutableRefObject<InfiniteLoader | null>;
 	listRef: React.MutableRefObject<List | null>;
 	rowStyling: RowStyleGetter<JSONDocument> | undefined;
+	dataHolderDescriptor?: Activity.DataHolderDescriptor;
+	overviewModelName?: string;
 }): OverviewEngineApi.EventHandlers {
-	const { activityId, eventHandlerProps, loaderRef, listRef, uiState, data, rowStyling } = params;
+	const {
+		activityId,
+		eventHandlerProps,
+		loaderRef,
+		listRef,
+		uiState,
+		data,
+		rowStyling,
+		dataHolderDescriptor,
+		overviewModelName
+	} = params;
 	const { pagination } = uiState;
 
 	const bapDispatch = useDispatch();
 	const engineDispatch: Dispatch = React.useCallback(
 		(action) => {
-			bapDispatch(OverviewEngineActions.event({ activityId, engineAction: action }));
+			bapDispatch(
+				OverviewEngineActions.event({
+					activityId,
+					dataHolderDescriptor,
+					overviewModelName,
+					engineAction: action
+				})
+			);
 
 			return action;
 		},
-		[bapDispatch, activityId]
+		[bapDispatch, activityId, dataHolderDescriptor, overviewModelName]
 	);
 
 	const mergeEngineHandlers = React.useMemo(
@@ -91,7 +155,7 @@ export function useEventHandlers(params: {
 		useOnSearch({ loaderRef, listRef, mergeEngineHandlers }),
 		useOnFilterChange({ loaderRef, listRef, mergeEngineHandlers }),
 		useOnPageChange({ pagination, mergeEngineHandlers }),
-		useOnColumnClick({ activityId, loaderRef, listRef, mergeEngineHandlers }),
+		useOnColumnClick({ activityId, loaderRef, listRef, mergeEngineHandlers, overviewModelName }),
 		useOnEventButtonClick({ activityId, mergeEngineHandlers }),
 		useOnRowClick({ data, mergeEngineHandlers, rowStyling }),
 		useOnRowButtonClick({ mergeEngineHandlers }),
@@ -134,6 +198,7 @@ function useOnSearch(params: {
 	React.useEffect(() => {
 		if (searchTrigger instanceof HTMLElement) {
 			searchTrigger.focus();
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setSearchTrigger(null);
 		}
 	}, [searchTrigger]);
@@ -186,44 +251,48 @@ function useOnColumnClick(params: {
 	loaderRef: React.MutableRefObject<InfiniteLoader | null>;
 	listRef: React.MutableRefObject<List | null>;
 	mergeEngineHandlers: OverviewEngineApi.EventHandlers;
-}): Required<OverviewEngineApi.EventHandlers>["onColumnClick"] {
-	const { activityId, loaderRef, listRef, mergeEngineHandlers } = params;
-	const { documentModel, overviewModel } = useModels({ activityId });
+	overviewModelName?: string;
+}): Required<OverviewEngineApi.EventHandlers>["onColumnClick"] | undefined {
+	const { activityId, loaderRef, listRef, mergeEngineHandlers, overviewModelName } = params;
+	const { documentModel, overviewModel, modelGraph, subDocumentModels, queryModel } = useModels({
+		activityId,
+		overviewModelName
+	});
+	const isExcludeMode = !!queryModel?.content.exclude;
 
 	const uiStateWithoutDefaultSelector = React.useMemo(() => {
 		return OverviewEngineSelectors.uiStateWithoutDefaults(activityId);
 	}, [activityId]);
 	const uiStateWithoutDefault = useSelector(uiStateWithoutDefaultSelector);
 
-	const getNextSortingState = React.useCallback(
-		(
-			column: OverviewModel.ReferenceColumn,
-			initialSorting?: OverviewModel.ColumnRef
-		): { path: string; order: SortingOrder }[] | undefined => {
-			const currentSorting = uiStateWithoutDefault?.sorting;
-
+	const resolveSortDescriptor = React.useCallback(
+		(column: OverviewModel.Column): SortDescriptor | undefined => {
 			if (!documentModel) {
 				return undefined;
 			}
 
-			const path = DocumentModelUtils.getElementPathForId(column.elementRef, documentModel);
-			const { preferredSorting = SortingOrder.ASC } = column;
-
-			if (currentSorting === undefined && initialSorting?.idref === column.id) {
-				return [{ path, order: preferredSorting !== "ASC" ? SortingOrder.ASC : SortingOrder.DESC }];
-			} else if (currentSorting === undefined || currentSorting.length === 0 || path !== currentSorting[0].path) {
-				return [{ path, order: preferredSorting === "ASC" ? SortingOrder.ASC : SortingOrder.DESC }];
-			} else if (currentSorting[0].order === preferredSorting) {
-				return [{ path, order: preferredSorting !== "ASC" ? SortingOrder.ASC : SortingOrder.DESC }];
-			} else {
-				return undefined;
+			if (OverviewModel.ReferenceColumn.isAssignableFrom(column)) {
+				return {
+					path: DocumentModelUtils.getElementPathForId(column.elementRef, documentModel),
+					preferredSorting: getPreferredSorting(column)
+				};
 			}
+
+			if (OverviewModel.LinkColumn.Reference.isAssignableFrom(column)) {
+				const path = buildRelationshipField(column, documentModel, modelGraph?.relationshipModels, subDocumentModels);
+
+				if (path) {
+					return { path, preferredSorting: getPreferredSorting(column) };
+				}
+			}
+
+			return undefined;
 		},
-		[documentModel, uiStateWithoutDefault?.sorting]
+		[documentModel, modelGraph?.relationshipModels, subDocumentModels]
 	);
 
-	return React.useCallback(
-		(columnIndex) => {
+	const onColumnClick = React.useCallback(
+		(columnIndex: number) => {
 			loaderRef.current?.resetLoadMoreRowsCache(true);
 			listRef.current?.scrollToPosition(0);
 
@@ -239,19 +308,32 @@ function useOnColumnClick(params: {
 				return;
 			}
 
-			const {
-				configuration: { initialSorting },
-				columns
-			} = content;
+			const column = content.columns[columnIndex];
+			const descriptor = resolveSortDescriptor(column);
 
-			const column = columns[columnIndex];
-
-			if (OverviewModel.ReferenceColumn.isAssignableFrom(column)) {
-				mergeEngineHandlers.onSort?.({ sorting: getNextSortingState(column, initialSorting?.[0]) ?? [] });
+			if (!descriptor) {
+				return;
 			}
+
+			const next = computeNextSorting({
+				descriptor,
+				isInitial: !uiStateWithoutDefault?.sorting && content.configuration.initialSorting?.[0]?.idref === column.id,
+				currentSorting: uiStateWithoutDefault?.sorting?.[0]
+			});
+
+			mergeEngineHandlers.onSort?.({ sorting: next ? [next] : [] });
 		},
-		[getNextSortingState, listRef, loaderRef, mergeEngineHandlers, overviewModel?.content]
+		[
+			listRef,
+			loaderRef,
+			mergeEngineHandlers,
+			overviewModel?.content,
+			resolveSortDescriptor,
+			uiStateWithoutDefault?.sorting
+		]
 	);
+
+	return isExcludeMode ? undefined : onColumnClick;
 }
 
 function useOnEventButtonClick(params: {
@@ -275,7 +357,7 @@ function useOnEventButtonClick(params: {
 }
 
 function useOnRowClick(params: {
-	data: (Activity.Data.Document | undefined)[];
+	data: (JSONDocument | undefined)[];
 	mergeEngineHandlers: OverviewEngineApi.EventHandlers;
 	rowStyling: RowStyleGetter<JSONDocument> | undefined;
 }): Required<OverviewEngineApi.EventHandlers>["onRowClick"] {
@@ -283,20 +365,21 @@ function useOnRowClick(params: {
 
 	return React.useCallback(
 		(params) => {
-			const { documentId, customEvent } = params;
-			let document: Activity.Data.Document | undefined;
-			const documentIndex = data.findIndex((d) => d?.id === documentId);
+			const { documentId, linkId, customEvent } = params;
+			let document: JSONDocument | undefined;
+			const documentIndex = data.findIndex((d) => d?.id === documentId && d?.linkId === linkId);
 
 			if (documentIndex > -1) {
 				document = data[documentIndex];
 			}
 
 			if (document === undefined) {
-				throw new Error(`Could not find document with id ${documentId}`);
+				const optionalLinkMessage = linkId ? ` and linkId ${linkId}` : "";
+				throw new Error(`Could not find document with id ${documentId}${optionalLinkMessage}.`);
 			}
 
 			if (rowStyling?.({ row: document, rowIndex: documentIndex }).interactive) {
-				mergeEngineHandlers.onRowClick?.({ documentId: document.id, customEvent: customEvent });
+				mergeEngineHandlers.onRowClick?.({ documentId: document.id, linkId, customEvent });
 			}
 		},
 		[data, mergeEngineHandlers, rowStyling]
@@ -309,8 +392,8 @@ function useOnRowButtonClick(params: {
 	const { mergeEngineHandlers } = params;
 
 	return React.useCallback(
-		({ documentId, rowActionModel }) => {
-			mergeEngineHandlers.onRowButtonClick?.({ documentId, rowActionModel });
+		({ documentId, linkId, rowActionModel }) => {
+			mergeEngineHandlers.onRowButtonClick?.({ documentId, linkId, rowActionModel });
 		},
 		[mergeEngineHandlers]
 	);

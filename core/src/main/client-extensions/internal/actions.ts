@@ -30,13 +30,18 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Action, type AnyAction, type ActionCreator, actionCreatorFactory } from "typescript-fsa";
+import { isAction, type UnknownAction } from "redux";
 
 import { Activity, ActivityActions } from "@com.mgmtp.a12.client/client-core";
+import {
+	type Action,
+	type ActionCreator,
+	actionCreatorFactory
+} from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { type UiState } from "../../store/index.js";
+import type { UiState } from "../../store/index.js";
 
-import { type EnumeratedStringDataHolder } from "./data-holder.js";
+import type { EnumeratedStringDataHolder } from "./data-holder.js";
 
 export namespace OverviewEngineActions {
 	/**
@@ -44,10 +49,7 @@ export namespace OverviewEngineActions {
 	 * @param createActivityPayload - an object to specify core properties for the new activity
 	 * @param initialUiState - to specify the initial Overview Engine UI slices
 	 */
-	export function createActivity(
-		createActivityPayload: ActivityActions.CreatePayload,
-		initialUiState?: UiState
-	): Action<ActivityActions.PushPayload> {
+	export function createActivity(createActivityPayload: ActivityActions.CreatePayload, initialUiState?: UiState) {
 		let action = ActivityActions.create(createActivityPayload);
 		const defaultDataHolder = Activity.findDefaultDataHolder(action.payload.activity);
 
@@ -76,7 +78,8 @@ export namespace OverviewEngineActions {
 	export const command: ActionCreator<CommandPayload> = Object.assign(
 		(payload: CommandPayload): Action<CommandPayload> => {
 			const { engineAction } = payload;
-			const [, commandType] = typeof engineAction.type === "string" ? engineAction.type.split("/") : [];
+			const [, ...commandParts] = isAction(engineAction) ? engineAction.type.split("/") : [];
+			const commandType = commandParts.join("/");
 
 			if (commandType) {
 				return { type: `${commandActionType}/${commandType}`, payload };
@@ -85,15 +88,17 @@ export namespace OverviewEngineActions {
 			return { type: commandActionType, payload };
 		},
 		{
-			match(anyAction: AnyAction): anyAction is Action<CommandPayload> {
-				return anyAction.type.includes(commandActionType);
+			match(action: unknown): action is Action<CommandPayload> {
+				return isAction(action) && action.type.includes(commandActionType);
 			},
 			toString: () => commandActionType,
 			type: commandActionType
 		}
 	);
-	export interface CommandPayload<T = AnyAction> {
+	export interface CommandPayload<T = UnknownAction> {
 		activityId: string;
+		dataHolderDescriptor?: Activity.DataHolderDescriptor;
+		overviewModelName?: string;
 		engineAction: T;
 	}
 
@@ -101,7 +106,8 @@ export namespace OverviewEngineActions {
 	export const event: ActionCreator<EventPayload> = Object.assign(
 		(payload: EventPayload): Action<EventPayload> => {
 			const { engineAction } = payload;
-			const [, eventType] = typeof engineAction.type === "string" ? engineAction.type.split("/") : [];
+			const [, ...eventParts] = isAction(engineAction) ? engineAction.type.split("/") : [];
+			const eventType = eventParts.join("/");
 
 			if (eventType) {
 				return { type: `${eventActionType}/${eventType}`, payload };
@@ -110,15 +116,17 @@ export namespace OverviewEngineActions {
 			return { type: eventActionType, payload };
 		},
 		{
-			match(anyAction: AnyAction): anyAction is Action<EventPayload> {
-				return anyAction.type.includes(eventActionType);
+			match(action: unknown): action is Action<EventPayload> {
+				return isAction(action) && action.type.includes(eventActionType);
 			},
 			toString: () => eventActionType,
 			type: eventActionType
 		}
 	);
-	export interface EventPayload<T = AnyAction> {
+	export interface EventPayload<T = UnknownAction> {
 		activityId: string;
+		dataHolderDescriptor?: Activity.DataHolderDescriptor;
+		overviewModelName?: string;
 		engineAction: T;
 	}
 

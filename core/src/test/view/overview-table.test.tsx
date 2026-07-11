@@ -34,18 +34,19 @@ import * as React from "react";
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, afterEach, type Mock, beforeEach } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { OverviewModel } from "../../main/overview-model.js";
-import { type JSONDocument } from "../../main/models/index.js";
-import { type OverviewEngineApi } from "../../main/view/api.js";
+import type { JSONDocument } from "../../main/models/index.js";
+import type { OverviewEngineApi } from "../../main/view/api.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-import { type ComponentMap } from "../../main/view/configuration/component-map.js";
+import type { ComponentMap } from "../../main/view/configuration/component-map.js";
 import { type WidgetMap, DefaultWidgetMap } from "../../main/view/configuration/widget-map.js";
 
+import { render, type QueriableElement } from "../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../setup/models.js";
-import { render, DataRoles, type QueriableElement } from "../test-utils.js";
 import { cartesianProduct, createComponentMap, type PartialOEInfiniteScrollProps } from "../utils.js";
 import { deLocale, enLocale, NumberColumnModel, defaultEngineProps, MultiSelectColumnModel } from "../basic.spec.js";
 
@@ -107,7 +108,7 @@ describe("com.mgmtp.a12.overview-engine.view.OverviewTable", () => {
 		const overviewModel = await getOverviewModel("attachment", "Attachment-overview");
 
 		const documents = attachmentValues.map(
-			(item, index) => ({ id: String(index), root: { attachment: item } }) as JSONDocument
+			(item, index) => ({ id: String(index), modelId: "test-model", root: { attachment: item } }) as JSONDocument
 		);
 
 		return { documentModel, overviewModel, documents };
@@ -869,8 +870,8 @@ describe("com.mgmtp.a12.overview-engine.view.OverviewTable", () => {
 
 		beforeEach(() => {
 			rowEventHandlersMock = vi.fn().mockReturnValue({ onClick: vi.fn() });
-			// vi.mock("../../main/view/overviewTable", async () => {
-			// 	const mod = await import("../../main/view/overviewTable.js");
+			// vi.mock("../../main/view/overview-table", async () => {
+			// 	const mod = await import("../../main/view/overview-table.js");
 
 			// 	return {
 			// 		...mod,
@@ -923,6 +924,44 @@ describe("com.mgmtp.a12.overview-engine.view.OverviewTable", () => {
 			fireEvent.click(tableRow);
 
 			expect(rowClickHandler).not.toHaveBeenCalled();
+		});
+
+		it("should call onRowClick with customEvent when rowActivation is event", () => {
+			const onRowClick = vi.fn();
+			const wrapper = setupTest({
+				overviewModel: {
+					...basicOverviewModel,
+					content: {
+						...basicOverviewModel.content,
+						rowActivation: { type: "event", event: "myEvent" }
+					}
+				},
+				eventHandlers: { onRowClick }
+			});
+
+			const tableRow = wrapper.getAllByDataRole(DataRoles.Table.Body.Row)[0];
+			fireEvent.click(tableRow);
+
+			expect(onRowClick).toHaveBeenCalledWith(expect.objectContaining({ customEvent: "myEvent" }));
+		});
+
+		it("should not call onRowClick when rowActivation is non_interactive", () => {
+			const onRowClick = vi.fn();
+			const wrapper = setupTest({
+				overviewModel: {
+					...basicOverviewModel,
+					content: {
+						...basicOverviewModel.content,
+						rowActivation: { type: "non_interactive" }
+					}
+				},
+				eventHandlers: { onRowClick }
+			});
+
+			const tableRow = wrapper.getAllByDataRole(DataRoles.Table.Body.Row)[0];
+			fireEvent.click(tableRow);
+
+			expect(onRowClick).not.toHaveBeenCalled();
 		});
 
 		describe("Enable multi-selection", () => {
@@ -1050,6 +1089,88 @@ describe("com.mgmtp.a12.overview-engine.view.OverviewTable", () => {
 					});
 				}
 			);
+
+			describe("with non_interactive rowActivation", () => {
+				const nonInteractiveOverviewModel: OverviewModel = {
+					...basicOverviewModel,
+					content: {
+						...basicOverviewModel.content,
+						rowActivation: { type: "non_interactive" }
+					}
+				};
+
+				it("should call onRowsSelect when multi-selection is expanded (COLLAPSIBLE)", () => {
+					onRowClick = vi.fn();
+					onRowsSelect = vi.fn();
+					wrapper = setupMultiSelection(
+						{
+							counterOption: OverviewModel.MultiSelection.CounterOption.SIMPLE,
+							collapseOption: OverviewModel.MultiSelection.CollapseOption.COLLAPSIBLE_COLLAPSED,
+							selectionArea: OverviewModel.MultiSelection.SelectionArea.CHECKBOX_AND_ROW
+						},
+						{
+							overviewModel: nonInteractiveOverviewModel,
+							eventHandlers: { onRowClick, onRowsSelect },
+							uiState: { expandedMultiSelection: true }
+						},
+						undefined,
+						false
+					);
+
+					clickRow(1);
+
+					expect(onRowsSelect).toHaveBeenCalled();
+					expect(onRowClick).not.toHaveBeenCalled();
+				});
+
+				it("should call onRowsSelect when NON_COLLAPSIBLE and a row is already selected", () => {
+					onRowClick = vi.fn();
+					onRowsSelect = vi.fn();
+					wrapper = setupMultiSelection(
+						{
+							counterOption: OverviewModel.MultiSelection.CounterOption.SIMPLE,
+							collapseOption: OverviewModel.MultiSelection.CollapseOption.NON_COLLAPSIBLE,
+							selectionArea: OverviewModel.MultiSelection.SelectionArea.CHECKBOX_AND_ROW
+						},
+						{
+							overviewModel: nonInteractiveOverviewModel,
+							eventHandlers: { onRowClick, onRowsSelect },
+							uiState: { rowState: { "0": { selected: true } } }
+						},
+						undefined,
+						false
+					);
+
+					clickRow(1);
+
+					expect(onRowsSelect).toHaveBeenCalled();
+					expect(onRowClick).not.toHaveBeenCalled();
+				});
+
+				it("should not call onRowClick when multi-selection is expanded and selectionArea is CHECKBOX", () => {
+					onRowClick = vi.fn();
+					onRowsSelect = vi.fn();
+					wrapper = setupMultiSelection(
+						{
+							counterOption: OverviewModel.MultiSelection.CounterOption.SIMPLE,
+							collapseOption: OverviewModel.MultiSelection.CollapseOption.COLLAPSIBLE_COLLAPSED,
+							selectionArea: OverviewModel.MultiSelection.SelectionArea.CHECKBOX
+						},
+						{
+							overviewModel: nonInteractiveOverviewModel,
+							eventHandlers: { onRowClick, onRowsSelect },
+							uiState: { expandedMultiSelection: true }
+						},
+						undefined,
+						false
+					);
+
+					clickRow(1);
+
+					expect(onRowClick).not.toHaveBeenCalled();
+					expect(onRowsSelect).not.toHaveBeenCalled();
+				});
+			});
 		});
 	});
 
@@ -1109,6 +1230,7 @@ describe("com.mgmtp.a12.overview-engine.view.OverviewTable", () => {
 
 		const customData = Array.from({ length: 10 }, (_, id) => ({
 			id: String(id),
+			modelId: "test-model",
 			root: { string: "ABC", number: 1, multiSelectGroup: [{ value: "1" }] }
 		}));
 

@@ -40,9 +40,27 @@ import {
 	type OverviewEngineDataLoader
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
+// tag::default_data_loader_fallback[]
+function* defaultBuildRequests(params: Parameters<OverviewEngineDataLoader["buildRequests"]>[0]) {
+	return yield* call(
+		maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.buildRequests.bind(OverviewEngineFactories.dataLoader)),
+		params
+	);
+}
+
+function defaultHandleResponses(
+	params: Parameters<OverviewEngineDataLoader["handleResponses"]>[0]
+): SagaGenerator<DataOperation.ResultSet> {
+	return call(
+		maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.handleResponses.bind(OverviewEngineFactories.dataLoader)),
+		params
+	);
+}
+// end::default_data_loader_fallback[]
+
 // tag::filter[]
 export const customFilterDataLoader: OverviewEngineDataLoader = {
-	*provideData(params): SagaGenerator<DataOperation.ResultSet> {
+	*buildRequests(params) {
 		const { queries, documentModel } = params;
 		const [query, ...otherQueries] = queries;
 		let updatedQuery = query;
@@ -63,17 +81,17 @@ export const customFilterDataLoader: OverviewEngineDataLoader = {
 			};
 		}
 
-		return yield* call(maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.provideData), {
-			...params,
-			queries: [updatedQuery, ...otherQueries]
-		});
+		return yield* defaultBuildRequests({ ...params, queries: [updatedQuery, ...otherQueries] });
+	},
+	*handleResponses(params): SagaGenerator<DataOperation.ResultSet> {
+		return yield* defaultHandleResponses(params);
 	}
 };
 // end::filter[]
 
 // tag::EnumeratedStringFilter[]
 export const customEnumeratedStringFiltersDataLoader: OverviewEngineDataLoader = {
-	*provideData(params): SagaGenerator<DataOperation.ResultSet> {
+	*buildRequests(params) {
 		const { queries, documentModel } = params;
 		const [query, ...otherQueries] = queries;
 		let updatedQuery = query;
@@ -96,17 +114,17 @@ export const customEnumeratedStringFiltersDataLoader: OverviewEngineDataLoader =
 			};
 		}
 
-		return yield* call(maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.provideData), {
-			...params,
-			queries: [updatedQuery, ...otherQueries]
-		});
+		return yield* defaultBuildRequests({ ...params, queries: [updatedQuery, ...otherQueries] });
+	},
+	*handleResponses(params): SagaGenerator<DataOperation.ResultSet> {
+		return yield* defaultHandleResponses(params);
 	}
 };
 // end::EnumeratedStringFilter[]
 
 // tag::fields_projection[]
 export const customFieldsProjectionDataLoader: OverviewEngineDataLoader = {
-	*provideData(params): SagaGenerator<DataOperation.ResultSet> {
+	*buildRequests(params) {
 		const { queries, documentModel } = params;
 		const [query, ...otherQueries] = queries;
 		let updatedQuery = query;
@@ -120,17 +138,17 @@ export const customFieldsProjectionDataLoader: OverviewEngineDataLoader = {
 			};
 		}
 
-		return yield* call(maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.provideData), {
-			...params,
-			queries: [updatedQuery, ...otherQueries]
-		});
+		return yield* defaultBuildRequests({ ...params, queries: [updatedQuery, ...otherQueries] });
+	},
+	*handleResponses(params): SagaGenerator<DataOperation.ResultSet> {
+		return yield* defaultHandleResponses(params);
 	}
 };
 // end::fields_projection[]
 
 // tag::sorting[]
 export const customSortingDataLoader: OverviewEngineDataLoader = {
-	*provideData(params): SagaGenerator<DataOperation.ResultSet> {
+	*buildRequests(params) {
 		const { queries, documentModel } = params;
 		const [query, ...otherQueries] = queries;
 		let updatedQuery = query;
@@ -150,10 +168,10 @@ export const customSortingDataLoader: OverviewEngineDataLoader = {
 			};
 		}
 
-		return yield* call(maybeAsyncFnWrapper(OverviewEngineFactories.dataLoader.provideData), {
-			...params,
-			queries: [updatedQuery, ...otherQueries]
-		});
+		return yield* defaultBuildRequests({ ...params, queries: [updatedQuery, ...otherQueries] });
+	},
+	*handleResponses(params): SagaGenerator<DataOperation.ResultSet> {
+		return yield* defaultHandleResponses(params);
 	}
 };
 // end::sorting[]

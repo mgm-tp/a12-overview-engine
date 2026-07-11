@@ -32,7 +32,6 @@
 
 export * from "./document-model-keys.js";
 export * from "./localizable-factory.js";
-export * from "./localizer-hooks.js";
 export * from "./overview-model-keys.js";
 export * from "./shared.js";
 export * from "./languages/index.js";

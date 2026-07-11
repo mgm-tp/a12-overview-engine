@@ -35,6 +35,8 @@ import { navigate, Selector, Showcase, inputByLabel } from "../utils.js";
 
 test.describe("Date with timezone", () => {
 	test.beforeAll(async ({ seed }) => {
+		// Seeding data can be slow in CI
+		test.slow();
 		await seed("employee");
 	});
 	test.describe("Start date with timezone Europe/Berlin", () => {
@@ -51,7 +53,7 @@ test.describe("Date with timezone", () => {
 			await inputByLabel(page, "Start Filter Value").fill("02/28/1989\n");
 			await page.locator(Selector.BUTTON_APPLY).click();
 			await expect(page.locator(Selector.FILTER_SELECTOR)).not.toBeVisible();
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(2);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(1);
 			await expect(page.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "02/27/1989" })).toHaveCount(0);
 			await expect(page.locator(Selector.FILTER_BAR)).toContainText("≥ 02/28/1989");
 			await page.locator(Selector.FILTER_BAR).locator(Selector.FILTER_CONTENT, { hasText: "≥ 02/28/1989" }).click();
@@ -59,7 +61,7 @@ test.describe("Date with timezone", () => {
 			await inputByLabel(page, "Start Filter Value").fill("02/27/1989\n");
 			await page.locator(Selector.BUTTON_APPLY).click();
 			await expect(page.locator(Selector.FILTER_SELECTOR)).not.toBeVisible();
-			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(2);
+			await expect(page.locator(Selector.TABLE_BODY_ROW)).toHaveCount(1);
 			await expect(page.locator(Selector.TABLE_BODY_ROW, { hasText: "12/08/1994" })).toBeVisible();
 		});
 	});

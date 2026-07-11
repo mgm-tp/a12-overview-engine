@@ -1,0 +1,114 @@
+{
+	"header": {
+		"id": "39.0.0-pre.1",
+		"modelType": "overview",
+		"modelVersion": "39.0.0-pre.1",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Test Overview"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "TestDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			},
+			"pagingSize": 10
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Export"
+						}
+					],
+					"event": "export",
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"minorElements": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Save"
+						}
+					],
+					"event": "save",
+					"destructive": false,
+					"primary": true
+				}
+			]
+		},
+		"columns": [
+			{
+				"id": "column-1",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		}
+	}
+}

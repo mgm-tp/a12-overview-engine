@@ -38,9 +38,11 @@ import {
 	DefaultTableComponentRenderers
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../../../models/index.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import { UiStateSelector } from "../../../../store/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export namespace InfiniteScrollTableBody {
 	export type Props = TableRenderPropsType.InfiniteScrollBodyProps<JSONDocument>;
@@ -51,10 +53,13 @@ export const InfiniteScrollTableBody: React.ComponentType<InfiniteScrollTableBod
 	function InfiniteScrollTableBody(props) {
 		const localizedResource = LocalizerHooks.useLocalizedResource();
 		const Message = useOverviewEngineContext((context) => context.widgetMap.Message);
-		const loadingState = useOverviewEngineContext((context) => context.loadingState);
+		const skipInitialLoad = useOverviewEngineContext(
+			(context) => context.overviewModel.content.configuration.skipInitialLoad
+		);
+		const dataLoadTriggered = useOverviewEngineState(UiStateSelector.dataLoadTriggered());
 
 		if (props.infiniteScrollOptions.rowCount === 0) {
-			if (loadingState === "without") {
+			if (skipInitialLoad && !dataLoadTriggered) {
 				return (
 					<Message className={addPrefix("-u-height-full -u-flex -u-justify-center")}>
 						{localizedResource(RESOURCE_KEYS.overviewEngine.noInitQuery)}

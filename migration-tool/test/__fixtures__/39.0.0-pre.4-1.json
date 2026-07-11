@@ -1,0 +1,58 @@
+{
+	"header": {
+		"id": "39.0.0-pre.4-with-default-row-action",
+		"modelType": "overview",
+		"modelVersion": "39.0.0-pre.4",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Test Overview With Default Row Action"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "TestDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			},
+			"pagingSize": 10
+		},
+		"columns": [
+			{
+				"id": "column-1",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"defaultRowAction": {
+			"custom": true,
+			"event": "selectItem"
+		}
+	}
+}

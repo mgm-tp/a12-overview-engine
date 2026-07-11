@@ -31,3 +31,4 @@
  */
 
 export * from "./utils.js";
+export { buildRelationshipField, relationshipFieldEquals } from "./utils/relationship-sort-utils.js";

@@ -34,8 +34,7 @@ import * as Path from "path";
 
 import _ from "lodash";
 import { pluginReact } from "@rsbuild/plugin-react";
-import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
-import { rspack, defineConfig, type RsbuildConfig } from "@rsbuild/core";
+import { rspack, defineConfig } from "@rsbuild/core";
 import { pluginStyledComponents } from "@rsbuild/plugin-styled-components";
 
 import packageJson from "./package.json" with { type: "json" };
@@ -60,71 +59,67 @@ const entries: Record<string, { path: string; title: string }> = {
 	composable: { path: PATH.COMPOSABLE_ENTRY, title: "[Composable] Overview Engine Showcase" }
 };
 
-const config: ReturnType<typeof defineConfig> = defineConfig(({ command }) => {
-	return {
-		server: {
-			port: 12000,
-			publicDir: [{ name: PATH.PUBLIC }],
-			proxy: [
-				{
-					context: ["/api", "/cs"],
-					target: `http://localhost:12090`,
-					secure: false,
-					changeOrigin: true
-				},
-				{
-					context: ["/composable/api"],
-					target: `http://localhost:12090`,
-					secure: false,
-					changeOrigin: true,
-					pathRewrite: { "^/composable/api": "/api" }
-				}
-			]
-		},
-		source: {
-			entry: _.mapValues(entries, (entry) => entry.path),
-			define: {
-				__A12_MODEL_VERSIONS__: JSON.stringify(collectModelVersions()),
-				__VERSION__: `"${packageJson.version}"`,
-				SC_DISABLE_SPEEDY: false
-			}
-		},
-		resolve: {
-			dedupe: ["immutable", "clsx", "scheduler", "react-is", "react", "styled-components"],
-			alias: {
-				// caused by react-dnd
-				"react/jsx-runtime.js": "react/jsx-runtime",
-				// necessary for WhyDidYouRender to track useSelector
-				"react-redux": command === "dev" ? "react-redux/lib" : "react-redux"
-			}
-		},
-		html: {
-			template: PATH.HTML,
-			favicon: "./resources/public/favicon.svg",
-			templateParameters: ({ entryName }) => entries[entryName as any]
-		},
-		plugins: _.compact([pluginReact(), pluginStyledComponents(), command === "dev" ? pluginTypeCheck() : undefined]),
-		tools: {
-			rspack: {
-				plugins: [
-					new rspack.IgnorePlugin({
-						resourceRegExp: new RegExp(`^date-fns/locale/(?!${supportedLocales.join("|")}).*$`)
-					})
-				],
-				optimization: {
-					minimizer: [new rspack.SwcJsMinimizerRspackPlugin({ minimizerOptions: { mangle: { keep_fnames: true } } })]
-				}
-			}
-		},
-		output: {
-			assetPrefix: "./",
-			distPath: {
-				root: "dist"
+const config: ReturnType<typeof defineConfig> = defineConfig({
+	server: {
+		port: 12000,
+		strictPort: true,
+		publicDir: [{ name: PATH.PUBLIC }],
+		proxy: [
+			{
+				pathFilter: ["/api", "/cs"],
+				target: `http://localhost:12090`,
+				secure: false,
+				changeOrigin: true
 			},
-			sourceMap: true,
-			injectStyles: true
+			{
+				pathFilter: ["/composable/api"],
+				target: `http://localhost:12090`,
+				secure: false,
+				changeOrigin: true,
+				pathRewrite: { "^/composable/api": "/api" }
+			}
+		]
+	},
+	source: {
+		entry: _.mapValues(entries, (entry) => entry.path),
+		define: {
+			__A12_MODEL_VERSIONS__: JSON.stringify(collectModelVersions()),
+			__VERSION__: `"${packageJson.version}"`,
+			SC_DISABLE_SPEEDY: false
 		}
-	} satisfies RsbuildConfig;
+	},
+	resolve: {
+		dedupe: ["immutable", "clsx", "scheduler", "react-is", "react", "styled-components"],
+		alias: {
+			// caused by react-dnd
+			"react/jsx-runtime.js": "react/jsx-runtime"
+		}
+	},
+	html: {
+		template: PATH.HTML,
+		templateParameters: ({ entryName }) => entries[entryName as any]
+	},
+	plugins: _.compact([pluginReact(), pluginStyledComponents()]),
+	tools: {
+		rspack: {
+			plugins: [
+				new rspack.IgnorePlugin({
+					resourceRegExp: new RegExp(`^date-fns/locale/(?!${supportedLocales.join("|")}).*$`)
+				})
+			],
+			optimization: {
+				minimizer: [new rspack.SwcJsMinimizerRspackPlugin({ minimizerOptions: { mangle: { keep_fnames: true } } })]
+			}
+		}
+	},
+	output: {
+		assetPrefix: "./",
+		distPath: {
+			root: "dist"
+		},
+		sourceMap: true,
+		injectStyles: true
+	}
 });
 
 export default config;

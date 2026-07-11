@@ -32,14 +32,16 @@
 
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewEngineApi } from "../../main/view/api.js";
-import { OverviewTable } from "../../main/view/overviewTable.js";
-import { type OverviewModel } from "../../main/overview-model.js";
+import { OverviewTable } from "../../main/view/overview-table.js";
+import type { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
 
 import { noop } from "../utils.js";
+import { render, ClassNames } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
-import { render, DataRoles, ClassNames } from "../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../setup/models.js";
 
 describe("com.mgmtp.a12.overview-engine.view.table", () => {
@@ -128,7 +130,9 @@ describe("com.mgmtp.a12.overview-engine.view.table", () => {
 					sorting: OverviewEngineApi.getUiStateSorting(
 						[{ columnIndex: 0, order: "asc" }],
 						basicEngineProps.documentModel,
-						basicEngineProps.overviewModel
+						basicEngineProps.overviewModel,
+						basicEngineProps.modelGraph?.relationshipModels,
+						basicEngineProps.subDocumentModels
 					)
 				},
 				eventHandlers: { onColumnClick: noop }
@@ -142,7 +146,9 @@ describe("com.mgmtp.a12.overview-engine.view.table", () => {
 							const sortingProps = OverviewEngineApi.getSortingProps(
 								customProps.uiState?.sorting,
 								customProps.documentModel,
-								customProps.overviewModel
+								customProps.overviewModel,
+								customProps.modelGraph?.relationshipModels,
+								customProps.subDocumentModels
 							);
 
 							expect(headCell.querySelectorAll(`.${ClassNames.TableSortingIcon}`)).toHaveLength(

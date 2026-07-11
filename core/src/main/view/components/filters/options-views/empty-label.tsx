@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
 import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 

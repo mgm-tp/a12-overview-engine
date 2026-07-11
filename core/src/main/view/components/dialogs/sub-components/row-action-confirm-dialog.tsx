@@ -32,10 +32,11 @@
 
 import * as React from "react";
 
-import { type JSONDocument } from "../../../../models/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
 import type { OverviewModel } from "../../../../overview-model.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { RESOURCE_KEYS, LocalizerHooks, OverviewModelKeys } from "../../../../services/localization/index.js";
+import { RESOURCE_KEYS, OverviewModelKeys } from "../../../../services/localization/index.js";
 
 export namespace RowActionConfirmDialog {
 	export interface Props {
@@ -86,7 +87,7 @@ export const RowActionConfirmDialog: React.ComponentType<RowActionConfirmDialog.
 		const onConfirm = React.useCallback(
 			(event: React.MouseEvent<HTMLElement>) => {
 				onDialogConfirm?.();
-				onRowButtonClick?.({ documentId: row.id, rowActionModel });
+				onRowButtonClick?.({ documentId: row.id, linkId: row.linkId, rowActionModel });
 				event.stopPropagation();
 			},
 			[onRowButtonClick, row, rowActionModel, onDialogConfirm]

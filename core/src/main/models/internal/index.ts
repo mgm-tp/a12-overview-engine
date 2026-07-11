@@ -32,6 +32,9 @@
 
 export * from "./document-model-service.js";
 export * from "./is-overview-model.js";
+export * from "./links.js";
+export * from "./data-graph.js";
+export * from "./json-link.js";
 export * from "./json-document.js";
 export * from "./multi-select.js";
 export * from "./shared.js";

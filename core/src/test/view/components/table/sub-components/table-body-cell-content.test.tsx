@@ -32,12 +32,13 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type Column } from "@com.mgmtp.a12.widgets/widgets-core";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Column } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { TableBodyCellContent } from "../../../../../main/view/components/table/sub-components/table-body-cell-content.js";
 
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.table-body-cell-content", () => {

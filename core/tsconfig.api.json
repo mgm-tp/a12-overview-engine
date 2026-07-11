@@ -1,8 +1,0 @@
-{
-	"extends": "../tsconfig.json",
-	"include": ["./src", "./target/api.ts"],
-	"exclude": ["./src/test"],
-	"compilerOptions": {
-		"outDir": "./target/api"
-	}
-}

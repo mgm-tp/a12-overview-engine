@@ -30,12 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-
 import { OverviewEngineApi } from "../../view/api.js";
-import { OverviewModel } from "../../overview-model.js";
-import { DocumentModelUtils } from "../../models/index.js";
-import { SortingOrder, type UiState, type Scrolling, type PaginationState } from "../../store/index.js";
+import type { OverviewModel } from "../../overview-model.js";
+import type { UiState, Scrolling, ModelsState, PaginationState } from "../../store/index.js";
 import { OverviewEngineInternalConstants } from "../../constants/overview-engine-internal-constants.js";
 
 /** @internal */
@@ -67,23 +64,19 @@ export function getPagination({
 }
 
 /** @internal */
-export function getSorting(overviewModel: OverviewModel, documentModel: DocumentModel): UiState["sorting"] | undefined {
+export function getSorting(modelsState: ModelsState): UiState["sorting"] | undefined {
+	if (modelsState.queryModel?.content.exclude) {
+		return undefined;
+	}
+
+	const { overviewModel, documentModel, modelGraph, subDocumentModels } = modelsState;
 	const initialSorting = OverviewEngineApi.Sorting.getInitialValue(overviewModel);
 
-	const sorting = initialSorting?.flatMap(({ columnIndex, order }) => {
-		if (columnIndex === -1) {
-			return [];
-		}
-
-		const column = overviewModel.content.columns[columnIndex];
-
-		return OverviewModel.ReferenceColumn.isAssignableFrom(column)
-			? {
-					path: DocumentModelUtils.getElementPathForId(column.elementRef, documentModel),
-					order: order === "desc" ? SortingOrder.DESC : SortingOrder.ASC
-				}
-			: [];
-	});
-
-	return sorting && sorting.length > 0 ? sorting : undefined;
+	return OverviewEngineApi.getUiStateSorting(
+		initialSorting,
+		documentModel,
+		overviewModel,
+		modelGraph?.relationshipModels,
+		subDocumentModels
+	);
 }

@@ -32,6 +32,7 @@
 
 export * from "./common.js";
 export * from "./request.js";
+export * from "./role-annotation.js";
 export * from "./seeders/person.js";
 export * from "./seeders/bundle.js";
 export * from "./seeders/employee.js";

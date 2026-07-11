@@ -24,7 +24,6 @@ atlassian-ide-plugin.xml
 # Other
 .DS_Store
 .envrc
-*.local.*
 
 # Legal files copied into packages by copyLegalFiles task
 */LICENSE
@@ -48,10 +47,13 @@ target
 dist
 generated
 playwright-report
+coverage
 test-results
 server/src/main/resources/models
 server/bin
-coverage
+showcase-models-converters/bin
+dataservices-server.log.*.gz
 
 # LLM
 .serena
+.playwright-mcp

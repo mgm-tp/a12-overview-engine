@@ -40,16 +40,16 @@ export const ButtonPanel: React.ComponentType<ButtonPanel.PropsType> = React.mem
 
 	const ButtonGroupContainer = useOverviewEngineContext((context) => context.widgetMap.ButtonGroupContainer);
 
-	const minorButtons = React.useMemo(
-		() => buttons.filter((button) => button.rank === "minor").map((button) => button.element),
+	const leftButtons = React.useMemo(
+		() => buttons.filter((button) => button.rank === "left").map((button) => button.element),
 		[buttons]
 	);
-	const majorButtons = React.useMemo(
-		() => buttons.filter((button) => button.rank === "major").map((button) => button.element),
+	const rightButtons = React.useMemo(
+		() => buttons.filter((button) => button.rank === "right").map((button) => button.element),
 		[buttons]
 	);
 
-	return <ButtonGroupContainer responsive={responsive} leftSlot={minorButtons} rightSlot={majorButtons} />;
+	return <ButtonGroupContainer responsive={responsive} leftSlot={leftButtons} rightSlot={rightButtons} />;
 });
 
 export namespace ButtonPanel {
@@ -58,7 +58,7 @@ export namespace ButtonPanel {
 		readonly responsive?: boolean;
 	}
 	export interface ButtonType {
-		readonly rank: "major" | "minor";
+		readonly rank: "left" | "right";
 		readonly element: React.ReactNode;
 	}
 }

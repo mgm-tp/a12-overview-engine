@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 export namespace CustomFieldTypeCell {
 	export interface Props {

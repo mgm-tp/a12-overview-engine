@@ -1,0 +1,101 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+[[_row_activation]]
+= Row Activation
+
+The `rowActivation` field on `OverviewModel.Content` controls how rows respond to user interaction.
+When omitted, the default behavior applies: rows are interactive and clicking a row invokes the `onRowClick` handler.
+
+Two activation types are available:
+
+* <<_row_activation_event,`event`>> — clicking a row dispatches a named custom event in addition to invoking engine handlers.
+* <<_row_activation_non_interactive,`non_interactive`>> — rows have no pointer cursor, and click events are suppressed entirely.
+
+[[_row_activation_event]]
+== Event
+
+Setting `rowActivation` to `{ "type": "event", "event": "<eventName>" }` causes a named event to be passed as `customEvent` in the `onRowClick` payload whenever a row is clicked.
+This allows consumers to distinguish between rows dispatching different events without needing per-row `rowStyling` overrides.
+
+[source,json, title="Overview Model"]
+----
+{
+  "content": {
+    "rowActionGroup": { "actions": [] },
+    "rowActivation": { "type": "event", "event": "selectEmployee" }
+  }
+}
+----
+
+The `customEvent` value is available in the `onRowClick` event handler:
+
+[source,typescript, title="Handling the custom event"]
+----
+<OverviewEngine
+    eventHandlers={{
+        onRowClick: ({ documentId, customEvent }) => {
+            if (customEvent === "selectEmployee") {
+                dispatch(selectEmployee(documentId));
+            }
+        }
+    }}
+/>
+----
+
+[[_row_activation_non_interactive]]
+== Non-Interactive Rows
+
+Setting `rowActivation` to `{ "type": "non_interactive" }` makes all rows non-interactive at the model level.
+Rows rendered with this configuration have no pointer cursor, and clicking them does not invoke any handler.
+
+[source,json, title="Overview Model"]
+----
+{
+  "content": {
+    "rowActionGroup": { "actions": [] },
+    "rowActivation": { "type": "non_interactive" }
+  }
+}
+----
+
+Row action buttons within non-interactive rows still work normally — only the row click itself is suppressed.
+
+NOTE: When multi-selection is active and the selection area includes the row, the row is temporarily restored to interactive so the user can still toggle selection by clicking it.
+
+[[_row_activation_row_styling]]
+=== Interaction with rowStyling
+
+The engine-computed interactive state is merged first; a consumer's `rowStyling` prop is applied on top.
+This means a `rowStyling` callback can override the model:
+
+* To force a row clickable when the model says `non_interactive`, return `{ interactive: true }` from `rowStyling` for that row.
+* To respect the model strictly, omit the `interactive` key from the `rowStyling` return value.
+
+[source,typescript, title="Overriding interactive state per row"]
+----
+<OverviewEngine
+    rowStyling={({ row }) => ({
+        interactive: row.alwaysClickable ? true : undefined,
+    })}
+/>
+----
+
+[[_row_activation_typescript]]
+== TypeScript
+
+The `rowActivation` field maps to `OverviewModel.RowActivation` in the TypeScript model.

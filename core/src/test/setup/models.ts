@@ -30,33 +30,24 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type OverviewModel } from "../../main/overview-model.js";
+import type { OverviewModel } from "../../main/overview-model.js";
 
 const MODELS_BASE_URL = new URL("../../../../showcase/resources/models/", import.meta.url);
 
 export async function getOverviewModel(dirName: string, fileName: string): Promise<OverviewModel> {
 	const fileUrl = new URL(`models/${dirName}/${fileName}.json`, MODELS_BASE_URL);
 
-	const module = await import(/* @vite-ignore */ fileUrl.href, { assert: { type: "json" } });
+	const module = await import(/* @vite-ignore */ fileUrl.href, { with: { type: "json" } });
 
 	return module.default as OverviewModel;
 }
 
 export async function getDocumentModel(dirName: string, fileName: string): Promise<DocumentModel> {
 	const fileUrl = new URL(`models/${dirName}/${fileName}.json`, MODELS_BASE_URL);
-	const module = await import(/* @vite-ignore */ fileUrl.href, { assert: { type: "json" } });
+	const module = await import(/* @vite-ignore */ fileUrl.href, { with: { type: "json" } });
 
 	return new DocumentServiceFactory().getDocumentModelSerializer().deserialize(JSON.stringify(module.default));
 }
-
-// export async function getValidateProvider(dirName: string, fileName: string): Promise<IGeneratedCodeAccessor> {
-// 	const fileUrl = new URL(`models/${dirName}/${fileName}.validation.js`, MODELS_BASE_URL);
-
-// 	const module = await import(/* @vite-ignore */ fileUrl.href);
-// 	console.log("validation", module.default);
-
-// 	return new GeneratedCodeAccessorFactory().createScriptAccessor(module.default || module);
-// }

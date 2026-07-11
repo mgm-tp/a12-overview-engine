@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
 import { addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
 import { SizeContext, useWindowSize, type Container } from "@com.mgmtp.a12.widgets/widgets-core";

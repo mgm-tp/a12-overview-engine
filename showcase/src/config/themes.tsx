@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
 
 import { addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
@@ -57,7 +57,7 @@ export const THEMES: Record<string, DefaultThemeType> = {
 
 const THEME_KEY = "theme";
 
-export function useTheme() {
+function useTheme() {
 	const [theme, setTheme] = React.useState<keyof typeof THEMES>(() => localStorage.getItem(THEME_KEY) ?? "Flat");
 
 	const onChangeTheme = React.useCallback((theme: keyof typeof THEMES) => {
@@ -68,7 +68,7 @@ export function useTheme() {
 	return [theme, onChangeTheme] as const;
 }
 
-export interface ThemeContextType {
+interface ThemeContextType {
 	theme: string;
 	setTheme(theme: string): void;
 }

@@ -32,7 +32,7 @@
 
 import * as React from "react";
 
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 
 import { StringFilterOptionsView } from "./string-filter-options-view.js";
 

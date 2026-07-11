@@ -2,7 +2,7 @@
 	"header": {
 		"id": "EmployeeDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -16,10 +16,6 @@
 			{
 				"name": "subTypes",
 				"value": "DepartmentDM"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": []

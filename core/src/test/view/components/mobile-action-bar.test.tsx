@@ -34,11 +34,12 @@ import * as React from "react";
 import { it, expect, describe } from "vitest";
 
 import { Button } from "@com.mgmtp.a12.widgets/widgets-core";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { MobileActionBar } from "../../../main/view/components/mobile-action-bar.js";
 
-import { render, DataRoles } from "../../test-utils.js";
+import { render } from "../../test-utils.js";
 import { defaultEngineProps } from "../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.mobile-action-bar", () => {

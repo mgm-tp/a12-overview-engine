@@ -31,9 +31,9 @@
  */
 
 import { set } from "lodash-es";
-import { type Action } from "typescript-fsa";
 import { put, select, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { Activity, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { assert } from "../../utils.js";

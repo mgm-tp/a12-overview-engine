@@ -32,20 +32,40 @@
 
 import * as React from "react";
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import { FrameFactories, type ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 export namespace ShowcaseOverview {
 	export interface Props
-		extends View,
-			Pick<
-				OverviewEngineFactories.ViewComponentProps,
-				"componentMap" | "accessibilityConfigurations" | "rowStyling" | "eventHandlers" | "selectorMap"
+		extends
+			ViewNGProps,
+			Partial<
+				Pick<
+					OverviewEngineFactories.ViewComponentProps,
+					| "componentMap"
+					| "accessibilityConfigurations"
+					| "rowStyling"
+					| "eventHandlers"
+					| "selectorMap"
+					| "filterStateSelectors"
+				>
 			> {}
 }
 
-export function ShowcaseOverview(props: ShowcaseOverview.Props): React.JSX.Element {
-	return <OverviewEngineFactories.ViewComponent {...props} />;
-}
+const SHOWCASE_OVERVIEW_NAME = "ShowcaseOverview";
 
-ShowcaseOverview.handleProgressIndicator = OverviewEngineFactories.ViewComponent.handleProgressIndicator;
+const ShowcaseProgressComponent = FrameFactories.createProgressComponentProvider()([], SHOWCASE_OVERVIEW_NAME);
+
+/**
+ * With DynamicConfig, default layouts do not wrap/pass ProgressIndicators to their views. Since the OE component expects a ProgressIndicator to be passed,
+ * we do it here once (for all showcase overviews)
+ */
+export function ShowcaseOverview(props: ShowcaseOverview.Props): React.JSX.Element {
+	return (
+		<OverviewEngineFactories.ViewComponent
+			name={SHOWCASE_OVERVIEW_NAME}
+			{...props}
+			ProgressComponent={ShowcaseProgressComponent}
+		/>
+	);
+}

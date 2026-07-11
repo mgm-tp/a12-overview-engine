@@ -44,7 +44,7 @@ test.describe("Multi-Selection Feature - Shift+click range selection disabled fo
 	});
 
 	test("shift+click should NOT select a range of rows, only the clicked row", async ({ page }) => {
-		const rows = page.locator(Selector.INFINITE_SCROLL_ROW);
+		const rows = page.locator(Selector.TABLE_INFINITE_BODY_ROW);
 
 		const startRowCheckbox = rows.nth(0).locator(Selector.CHECKBOX_INPUT);
 		await startRowCheckbox.click();

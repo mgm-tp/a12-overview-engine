@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
 export namespace DocumentModelKeys {

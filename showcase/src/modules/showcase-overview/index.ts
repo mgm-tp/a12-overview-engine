@@ -30,15 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module } from "@com.mgmtp.a12.client/client-core";
-
-import { createViewProviderSelector } from "../../utils.js";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
 import { ShowcaseOverviewSagas } from "./sagas.js";
-import { ShowcaseOverview } from "./showcase-overview.js";
 
-export const ShowcaseOverviewModule: Module = {
+export const ShowcaseOverviewModule: DynamicConfiguration = {
 	id: "ShowcaseOverview",
-	sagas: () => ShowcaseOverviewSagas,
-	views: createViewProviderSelector({ ShowcaseOverview })
+	sagas: () => ShowcaseOverviewSagas
 };

@@ -35,15 +35,16 @@ import * as React from "react";
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { ExpressionOutput } from "@com.mgmtp.a12.expression/expression-core";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
-import { type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type OverviewModel } from "../../../../overview-model.js";
+import type { JSONLink } from "../../../../models/index.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 import { DocumentUtils } from "../../../../models/internal/shared.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import { type TableBodyCell } from "./table-body-cell.js";
-import { useFieldFormatter, type FieldFormatterParams } from "./reference-cell.js";
+import type { TableBodyCell } from "./table-body-cell.js";
+import { useFieldFormatter, type FieldFormatterParams } from "./field-reference-cell.js";
 
 export namespace ExpressionCell {
 	export interface Props extends TableBodyCell.Props {
@@ -54,16 +55,64 @@ export namespace ExpressionCell {
 
 /** @internal */
 export const ExpressionCell: React.FC<ExpressionCell.Props> = React.memo(function ExpressionCell(props) {
-	const { columnModel, row } = props;
-
+	const { row } = props;
 	const documentModel = useOverviewEngineContext((context) => context.documentModel);
+
+	return <ExpressionCellByDocument {...props} document={row} documentModel={documentModel} />;
+});
+
+export namespace LinkedExpressionCell {
+	export interface Props {
+		readonly link: JSONLink;
+		readonly columnModel: OverviewModel.LinkColumn.Expression;
+		readonly fieldFormatter?: (params: FieldFormatterParams) => string;
+	}
+}
+
+/** @internal */
+export const LinkedExpressionCell: React.FC<LinkedExpressionCell.Props> = React.memo(
+	function LinkedExpressionCell(props) {
+		const { columnModel, link } = props;
+		const { documentModelName } = link;
+
+		const documentModel = useOverviewEngineContext((context) =>
+			context.subDocumentModels?.find((m) => m.header.id === documentModelName)
+		);
+
+		if (!documentModel) {
+			throw new Error("Cannot resolve document model for column: " + columnModel.id);
+		}
+
+		return <ExpressionCellByDocument {...props} document={link.document} documentModel={documentModel} />;
+	}
+);
+
+interface ExpressionCellByDocumentProps {
+	readonly columnModel: OverviewModel.ExpressionColumn | OverviewModel.LinkColumn.Expression;
+	readonly document: GroupInstance;
+	readonly documentModel: DocumentModel;
+	readonly fieldFormatter?: (params: FieldFormatterParams) => string;
+}
+
+/**
+ * Shared rendering logic for expression-based cells.
+ * Resolves the field formatter and value getter from the given document,
+ * then delegates to {@link ExpressionOutput}.
+ *
+ * Used by both {@link ExpressionCell} (main document) and
+ * {@link LinkedExpressionCell} (linked document).
+ */
+function ExpressionCellByDocument(props: ExpressionCellByDocumentProps) {
+	const { columnModel, document, documentModel } = props;
+
 	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
 	const BodyCellContent = useOverviewEngineContext((context) => context.componentMap.TableBodyCellContent);
 
 	const formatField = useFieldFormatter();
+
 	const fieldFormatter = React.useCallback(
 		(entityInstancePath: EntityInstancePath) => {
-			const field = documentModelService.getByPath(entityInstancePath);
+			const field = documentModelService.getByPath(entityInstancePath, documentModel.header.id);
 
 			if (field.type !== "Field") {
 				throw new Error("Invalid field path: " + ModelPath.toString(entityInstancePath));
@@ -72,15 +121,16 @@ export const ExpressionCell: React.FC<ExpressionCell.Props> = React.memo(functio
 			return (props.fieldFormatter ?? formatField)({
 				field,
 				modelPath: entityInstancePath,
-				value: DocumentUtils.getValue(row, entityInstancePath)
+				value: DocumentUtils.getValue(document, entityInstancePath),
+				modelId: documentModel.header.id
 			});
 		},
-		[documentModelService, formatField, props.fieldFormatter, row]
+		[documentModelService, formatField, document, props.fieldFormatter, documentModel.header.id]
 	);
 
 	const valueGetter = React.useCallback(
-		(entityInstancePath: EntityInstancePath) => DocumentUtils.getValue(row, entityInstancePath),
-		[row]
+		(entityInstancePath: EntityInstancePath) => DocumentUtils.getValue(document, entityInstancePath),
+		[document]
 	);
 
 	const { localizer } = React.useContext(LocalizerContext);
@@ -103,4 +153,4 @@ export const ExpressionCell: React.FC<ExpressionCell.Props> = React.memo(functio
 			/>
 		</BodyCellContent>
 	);
-});
+}

@@ -33,13 +33,14 @@
 import * as React from "react";
 import { sortBy } from "lodash-es";
 
-import { type FilterSelectorTemplateProps } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { FilterSelectorTemplateProps } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIdGenerator } from "../../utils.js";
-import { type OverviewEngineApi } from "../../api.js";
+import type { OverviewEngineApi } from "../../api.js";
 import { UiStateSelector } from "../../../store/index.js";
 import { FilterContext } from "../../context/filter-context.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../services/localization/index.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../services/localization/index.js";
 import { useClearMultiSelectionDialogVisible } from "../multi-selection/clear-multi-selection-dialog.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 
@@ -63,7 +64,7 @@ import {
 type UiValueType = FilterOptionsView.UiValueType;
 
 export namespace FilterSelector {
-	export interface Props extends Filter.PropsType, Filter.FilterListPropType {
+	export interface Props extends Filter.FilterListPropType {
 		open: boolean;
 		currentFilterId?: string;
 		filters: Filter.FilterData[];

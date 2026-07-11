@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type FilterOptionsView } from "../filter-options-view.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 
 export interface DateTimeUiValueType extends FilterOptionsView.UiValueType {
 	readonly selected: DateTimeViewSelection;

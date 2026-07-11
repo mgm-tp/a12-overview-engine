@@ -2,7 +2,7 @@
 	"header": {
 		"id": "NaturalPersonCDMNoRepeatable-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -28,28 +23,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"clearConfirmation": {
-					"enabled": true
-				}
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 50,
-			"initialSorting": [
-				{
-					"idref": "column-26e31"
-				}
-			],
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
 		"columns": [
 			{
 				"id": "column-26e31",
@@ -91,7 +64,7 @@
 			}
 		],
 		"subHeaderBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "search"
 				},
@@ -99,7 +72,7 @@
 					"type": "filter"
 				}
 			],
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "multi_selection"
 				}
@@ -182,7 +155,7 @@
 			]
 		},
 		"footerBox": {
-			"majorElements": [
+			"rightSlot": [
 				{
 					"type": "button",
 					"label": [
@@ -226,7 +199,29 @@
 					"primary": true
 				}
 			],
-			"minorElements": []
+			"leftSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 50,
+			"initialSorting": [
+				{
+					"idref": "column-26e31"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

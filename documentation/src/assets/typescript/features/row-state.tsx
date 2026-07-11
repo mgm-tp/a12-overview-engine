@@ -30,16 +30,29 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import { Commands, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 // tag::row-state[]
 export interface RowState {
-	readonly [id: string]: {
+	readonly [docRef: string]: {
 		readonly selected?: boolean;
 		readonly useSecondaryColor?: boolean;
 		readonly disabled?: boolean;
+		/**
+		 * Per-linkId flag overrides for exclude-mode duplicate rows.
+		 * When present for a given `linkId`, these flags take precedence over the
+		 * outer-level flags for that specific `(docRef, linkId)` row.
+		 * Hosts that do not use exclude-mode duplicates can ignore this field.
+		 */
+		readonly byLink?: {
+			readonly [linkId: string]: {
+				readonly selected?: boolean;
+				readonly useSecondaryColor?: boolean;
+				readonly disabled?: boolean;
+			};
+		};
 	};
 }
 // end::row-state[]

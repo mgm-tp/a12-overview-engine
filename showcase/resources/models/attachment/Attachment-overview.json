@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Attachment-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -17,16 +17,11 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		]
+		"annotations": []
 	},
 	"content": {
 		"subHeaderBox": {
-			"minorElements": [
+			"leftSlot": [
 				{
 					"type": "search"
 				},

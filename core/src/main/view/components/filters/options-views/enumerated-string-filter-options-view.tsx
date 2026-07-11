@@ -32,18 +32,17 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
-import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { Link, addPrefix, ProgressIndicator } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { toFilterId } from "../utils.js";
 import { toConditionalArray } from "../../../utils.js";
-import { type OverviewEngineApi } from "../../../api.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
-import { OverviewEngineInternalConstants } from "../../../../shared/constants.js";
+import type { OverviewEngineApi } from "../../../api.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import { useMinSearchTokenSize, minSearchTokenSizeHint } from "../../../hooks/use-search-token-validation.js";
 
 import { useHeadingElements } from "./date-time-common-hooks.js";
 import {
@@ -84,20 +83,14 @@ export const EnumeratedStringFilterOptionsView: React.FC<EnumeratedStringFilterO
 		const undefinedSelected = React.useMemo(() => uiValue?.undefinedMatch ?? false, [uiValue?.undefinedMatch]);
 		const [searchText, setSearchText] = React.useState<string>("");
 
-		const minSearchableTokenSize = useSelector(
-			DataServicesSelectors.configurationByKey(OverviewEngineInternalConstants.MIN_SEARCH_TOKEN_SIZE_KEY)
-		);
+		const minSearchableTokenSize = useMinSearchTokenSize();
 		const shouldSearchDisabled = React.useCallback(
 			(keyword: string) => {
-				if (minSearchableTokenSize === undefined || keyword === undefined) {
+				if (minSearchableTokenSize === undefined || keyword === undefined || keyword.length === 0) {
 					return false;
 				}
 
-				if (keyword.length === 0) {
-					return false;
-				}
-
-				return keyword.length < Number(minSearchableTokenSize);
+				return keyword.length < minSearchableTokenSize;
 			},
 			[minSearchableTokenSize]
 		);
@@ -114,7 +107,7 @@ export const EnumeratedStringFilterOptionsView: React.FC<EnumeratedStringFilterO
 			(context) => context.eventHandlers.onSearchEnumeratedStringField
 		);
 
-		const fieldPath = React.useMemo(() => toFilterId(path), [path]);
+		const fieldPath = React.useMemo(() => ModelPath.toString(path), [path]);
 
 		const triggerOnChange = React.useCallback(
 			(selected: string[], emptySelected?: boolean) => {
@@ -232,9 +225,9 @@ export const EnumeratedStringFilterOptionsView: React.FC<EnumeratedStringFilterO
 
 		const resolvedSearchButtonTitle = React.useMemo(() => {
 			if (isSearchButtonDisabled && minSearchableTokenSize !== undefined) {
-				return localizedResource(RESOURCE_KEYS.overviewEngine.searchBar.searchButtonMinLengthTitle, {
-					count: { type: "plain", value: String(minSearchableTokenSize) }
-				});
+				const hint = minSearchTokenSizeHint(minSearchableTokenSize);
+
+				return localizedResource(hint.key, hint.args);
 			}
 
 			return searchButtonBaseTitle;
@@ -266,7 +259,6 @@ export const EnumeratedStringFilterOptionsView: React.FC<EnumeratedStringFilterO
 			[fieldPath, modelId, onSearchEnumeratedStringField]
 		);
 
-		// Reset input when switching between enumerated filter options views
 		React.useEffect(() => {
 			if (!keyword) {
 				setSearchText("");

@@ -33,6 +33,8 @@
 import { styled } from "styled-components";
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
 import {
@@ -41,7 +43,7 @@ import {
 } from "../../../../../main/view/components/filters/options-views/section-template.js";
 
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableList } from "../../../../test-utils.js";
+import { render, type QueriableList } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.option-views.section-template", () => {
 	const basicProps: SectionTemplate.Props = {
@@ -81,7 +83,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.option-views.sec
 				});
 
 				const filterSelectorTemplateSections: QueriableList = wrapper.queryAllByDataRole(
-					DataRoles.Filter.Selector.Section
+					DataRoles.FilterSelector.Section
 				);
 
 				expect(filterSelectorTemplateSections).toHaveLength(2);

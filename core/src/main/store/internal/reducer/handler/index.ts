@@ -38,3 +38,4 @@ export * from "./set-latest-selected-document-id.js";
 export * from "./set-latest-selected-document-ids.js";
 export * from "./set-query-parameters-changed.js";
 export * from "./set-row-state.js";
+export * from "./set-scroll-to-row.js";

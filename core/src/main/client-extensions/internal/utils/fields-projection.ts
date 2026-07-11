@@ -31,58 +31,208 @@
  */
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import { Expression, ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
+import type { Query, Attachment, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewModel } from "../../../overview-model.js";
+import { getModelIdFromColumn, getTargetDocumentModelIdByLink } from "../../../services/relationship/index.js";
 import {
 	DocumentModelUtils,
 	MultiSelectModelUtils,
+	type DocumentModelService,
 	createDocumentModelService
 } from "../../../models/internal/shared.js";
 
 /** @experimental */
-export function collectFieldsProjection(
+export function getProjectedFields(
 	overviewModel: OverviewModel,
-	documentModel: DocumentModel
+	documentModel: DocumentModel,
+	queryModel: QueryModel | undefined
 ): string[] | undefined {
-	const fields: string[] = [];
-	const { columns } = overviewModel.content;
+	// Exclude mode: root document fields are not projected
+	if (queryModel?.content.exclude) {
+		return undefined;
+	}
 
+	const fieldSet = new Set<string>();
 	const documentModelService = createDocumentModelService(documentModel);
 
+	collectRootColumnFields(overviewModel.content.columns, documentModelService, fieldSet);
+
+	return Array.from(fieldSet);
+}
+
+/** @experimental */
+export function getProjectedLinks(
+	overviewModel: OverviewModel,
+	documentModel: DocumentModel,
+	subDocumentModels: DocumentModel[] | undefined,
+	relationshipModels: RelationshipModel[],
+	queryModel: QueryModel
+): Query.QueryLink[] | undefined {
+	const firstLink = queryModel.content.links?.[0];
+	const links = queryModel.content.exclude && firstLink ? [firstLink] : queryModel.content.links;
+
+	if (!links?.length || !relationshipModels.length) {
+		return undefined;
+	}
+
+	const { columns } = overviewModel.content;
+	const documentModelService = createDocumentModelService(documentModel, subDocumentModels);
+	const modelFieldsMap = new Map<string, Set<string>>();
+
+	// Collect fields from linked columns, grouped by target document model
+	collectLinkedColumnFields(columns, relationshipModels, documentModelService, modelFieldsMap);
+
+	// Exclude mode: root columns resolve against the exclude link's target
+	if (queryModel.content.exclude) {
+		const fieldSet = getOrCreateFieldSet(modelFieldsMap, documentModel.header.id);
+		collectRootColumnFields(columns, documentModelService, fieldSet);
+	}
+
+	return projectLinksFields(links, modelFieldsMap, relationshipModels);
+}
+
+/** Collect linked column fields, grouped by target document model. */
+function collectLinkedColumnFields(
+	columns: readonly OverviewModel.Column[],
+	relationshipModels: RelationshipModel[],
+	documentModelService: DocumentModelService,
+	modelFieldsMap: Map<string, Set<string>>
+) {
 	for (const column of columns) {
-		if (OverviewModel.ReferenceColumn.isAssignableFrom(column)) {
-			const elementPath = documentModelService.getPathById(column.elementRef);
-			const element = documentModelService.getByPath(elementPath);
-
-			if (element.type === "Field") {
-				fields.push(ModelPath.toString(elementPath));
-			} else if (element.type === "Group") {
-				if (DocumentModelUtils.isAttachment(element)) {
-					fields.push(...expandAttachmentFields(elementPath).map(ModelPath.toString));
-				} else if (MultiSelectModelUtils.isInstance(element)) {
-					fields.push(...expandMultiselectFields(elementPath, element).map(ModelPath.toString));
-				}
-			}
-
-			if (column.suffixRef) {
-				const suffixElementPath = documentModelService.getPathById(column.suffixRef);
-				const suffixElement = documentModelService.getByPath(suffixElementPath);
-
-				if (suffixElement.type === "Field") {
-					fields.push(ModelPath.toString(suffixElementPath));
-				}
-			}
+		if (!OverviewModel.BaseLinkedColumn.isAssignableFrom(column)) {
+			continue;
 		}
 
-		if (OverviewModel.ExpressionColumn.isAssignableFrom(column)) {
-			fields.push(...collectFieldsFromExpression(column.expression).map(ModelPath.toString));
+		const modelId = getModelIdFromColumn(column, relationshipModels);
+
+		if (!modelId) {
+			continue;
+		}
+
+		const fieldSet = getOrCreateFieldSet(modelFieldsMap, modelId);
+
+		collectColumnFields(column, documentModelService, fieldSet, modelId);
+	}
+}
+
+/** Collect root (non-linked) column fields into a field set */
+function collectRootColumnFields(
+	columns: readonly OverviewModel.Column[],
+	documentModelService: DocumentModelService,
+	fieldSet: Set<string>
+) {
+	for (const column of columns) {
+		if (OverviewModel.BaseLinkedColumn.isAssignableFrom(column)) {
+			continue;
+		}
+
+		collectColumnFields(column, documentModelService, fieldSet);
+	}
+}
+
+/** Resolve a column's Reference/Expression fields into a field set */
+function collectColumnFields(
+	column: OverviewModel.Column,
+	documentModelService: DocumentModelService,
+	fieldSet: Set<string>,
+	modelId?: string
+) {
+	if (
+		OverviewModel.ReferenceColumn.isAssignableFrom(column) ||
+		OverviewModel.LinkColumn.Reference.isAssignableFrom(column)
+	) {
+		resolveElementRefFields(column.elementRef, documentModelService, modelId).forEach((f) => fieldSet.add(f));
+
+		if (column.suffixRef) {
+			resolveElementRefFields(column.suffixRef, documentModelService, modelId).forEach((f) => fieldSet.add(f));
 		}
 	}
 
-	return Array.from(new Set(fields));
+	if (
+		OverviewModel.ExpressionColumn.isAssignableFrom(column) ||
+		OverviewModel.LinkColumn.Expression.isAssignableFrom(column)
+	) {
+		collectFieldsFromExpression(column.expression)
+			.map(ModelPath.toString)
+			.forEach((f) => fieldSet.add(f));
+	}
+}
+
+function projectLinksFields(
+	qmLinks: Query.QueryLink[],
+	modelFieldsMap: Map<string, Set<string>>,
+	relationshipModels: RelationshipModel[]
+): Query.QueryLink[] {
+	return qmLinks.map((link) => {
+		const projectedChildren = link.links?.length
+			? projectLinksFields(link.links, modelFieldsMap, relationshipModels)
+			: link.links;
+
+		const targetModelId = getTargetDocumentModelIdByLink(relationshipModels, {
+			...link,
+			relationship: link.relationshipModel,
+			type: "CHILD"
+		});
+
+		const projectedFields = targetModelId ? modelFieldsMap.get(targetModelId) : undefined;
+
+		const linkDocumentModelId = getTargetDocumentModelIdByLink(relationshipModels, {
+			...link,
+			relationship: link.relationshipModel,
+			type: "LINK"
+		});
+		const projectedLinkDocumentFields = linkDocumentModelId ? modelFieldsMap.get(linkDocumentModelId) : undefined;
+
+		return {
+			...link,
+			fields: projectedFields?.size ? Array.from(projectedFields) : link.fields,
+			links: projectedChildren,
+			linkDocumentFields: projectedLinkDocumentFields?.size
+				? Array.from(projectedLinkDocumentFields)
+				: link.linkDocumentFields
+		};
+	});
+}
+
+/** Resolve an element reference (Field, Attachment, MultiSelect) to field paths */
+function resolveElementRefFields(
+	elementRef: string,
+	documentModelService: DocumentModelService,
+	modelId?: string
+): string[] {
+	const elementPath = documentModelService.getPathById(elementRef, modelId);
+	const element = documentModelService.getByPath(elementPath, modelId);
+
+	if (element.type === "Field") {
+		return [ModelPath.toString(elementPath)];
+	}
+
+	if (element.type === "Group") {
+		if (DocumentModelUtils.isAttachment(element)) {
+			return expandAttachmentFields(elementPath).map(ModelPath.toString);
+		}
+
+		if (MultiSelectModelUtils.isInstance(element)) {
+			return expandMultiselectFields(elementPath, element).map(ModelPath.toString);
+		}
+	}
+
+	return [];
+}
+
+function getOrCreateFieldSet(map: Map<string, Set<string>>, key: string): Set<string> {
+	let set = map.get(key);
+
+	if (!set) {
+		set = new Set();
+		map.set(key, set);
+	}
+
+	return set;
 }
 
 function collectFieldsFromExpression(expression: string): ModelPath[] {

@@ -30,13 +30,17 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type InfiniteScrollOptions as WidgetInfiniteScrollOptions } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { InfiniteScrollOptions as WidgetInfiniteScrollOptions } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../overview-model.js";
-import { type JSONDocument } from "../models/index.js";
+import type { JSONDocument } from "../models/index.js";
+import { DialogTypes } from "../shared/dialog-types.js";
 import { DocumentModelUtils } from "../models/internal/shared.js";
+import { buildRelationshipField, relationshipFieldEquals } from "../client-extensions/internal/shared.js";
 import {
+	type Events,
 	SortingOrder,
 	type UiState,
 	type Scrolling,
@@ -44,11 +48,11 @@ import {
 	type Sorting as StoreSorting
 } from "../store/index.js";
 
-import { type RowActionConfirmDialog } from "./components/dialogs/sub-components/row-action-confirm-dialog.js";
-import { type OverviewButtonConfirmDialog } from "./components/dialogs/sub-components/overview-button-confirm-dialog.js";
-import {
-	type DateViewSelection,
-	type DateTimeViewSelection
+import type { RowActionConfirmDialog } from "./components/dialogs/sub-components/row-action-confirm-dialog.js";
+import type { OverviewButtonConfirmDialog } from "./components/dialogs/sub-components/overview-button-confirm-dialog.js";
+import type {
+	DateViewSelection,
+	DateTimeViewSelection
 } from "./components/filters/options-views/date-time-filter-view.api.js";
 
 export namespace OverviewEngineApi {
@@ -74,8 +78,11 @@ export namespace OverviewEngineApi {
 				const columnIndex = columns.findIndex((column) => column.id === idref);
 				const column = columns[columnIndex];
 
-				if (!OverviewModel.ReferenceColumn.isAssignableFrom(column)) {
-					throw new Error("Expect a reference column. Got: " + JSON.stringify(column));
+				if (
+					!OverviewModel.ReferenceColumn.isAssignableFrom(column) &&
+					!OverviewModel.LinkColumn.Reference.isAssignableFrom(column)
+				) {
+					throw new Error("Expect a reference or link reference column. Got: " + JSON.stringify(column));
 				}
 
 				return {
@@ -399,19 +406,21 @@ export namespace OverviewEngineApi {
 		 * Handles a row click.
 		 *
 		 * @param params
-		 * @param params.documentID - of the row
+		 * @param params.documentId - of the row
+		 * @param params.linkId - exclude-mode rows only
 		 * @param params.customEvent - of the action, which is specified in the overview model
 		 */
-		onRowClick?(params: { documentId: string; customEvent?: string }): void;
+		onRowClick?(params: { documentId: string; linkId?: string; customEvent?: string }): void;
 
 		/**
 		 * Handles a row button click.
 		 *
 		 * @param params
 		 * @param params.documentId - the id of the document related to the row being clicked
+		 * @param params.linkId - exclude-mode rows only
 		 * @param params.rowActionModel - the action, which is specified in the overview model
 		 */
-		onRowButtonClick?(params: { documentId: string; rowActionModel: OverviewModel.Button }): void;
+		onRowButtonClick?(params: { documentId: string; linkId?: string; rowActionModel: OverviewModel.Button }): void;
 
 		/**
 		 * Handles a column click.
@@ -423,11 +432,12 @@ export namespace OverviewEngineApi {
 		/**
 		 * Handles overall checkbox click.
 		 *
-		 * @param params
-		 * @param params.affectedRowIds - the list of the affected document's id
-		 * @param params.selected - the next expected selection state of overall checkbox
+		 * @param params - array of per-row selection entries
+		 * @param params[].documentId - the id of the document related to the row being affected
+		 * @param params[].linkId - the link id for exclude-mode rows; `undefined` otherwise
+		 * @param params[].selected - next expected selection state of this row
 		 */
-		onOverallMultiSelectionButtonClick?(params: { affectedRowIds: string[]; selected: boolean }): void;
+		onOverallMultiSelectionButtonClick?(params: { documentId: string; linkId?: string; selected: boolean }[]): void;
 
 		/**
 		 * Handles multiple rows selection.
@@ -436,7 +446,7 @@ export namespace OverviewEngineApi {
 		 * @param params.documentId - the id of the document related to the row being affected
 		 * @param params.selected - next expected selection state of this row
 		 */
-		onRowsSelect?(params: { documentId: string; selected: boolean }[]): void;
+		onRowsSelect?(params: { documentId: string; linkId?: string; selected: boolean }[]): void;
 
 		/**
 		 * Handles clear selected document.
@@ -485,14 +495,18 @@ export namespace OverviewEngineApi {
 		 * Handle the latest multi-selected document id change
 		 * @param params.latestSelectedDocumentId - the id of the multi-selected document
 		 */
-		onLatestSelectedDocumentIdChange?(params: { latestSelectedDocumentId: string | null }): void;
+		onLatestSelectedDocumentIdChange?(params: {
+			latestSelectedDocumentId: { documentId: string; linkId?: string } | null;
+		}): void;
 
 		/**
 		 * @internal
 		 * Handle the range multi-selection document ids change
 		 * @param params.latestSelectedDocumentIds - the ids of the multi-selected documents
 		 */
-		onLatestSelectedDocumentIdsChange?(params: { latestSelectedDocumentIds: string[] | null }): void;
+		onLatestSelectedDocumentIdsChange?(params: {
+			latestSelectedDocumentIds: { documentId: string; linkId?: string }[] | null;
+		}): void;
 
 		/**
 		 * Handle clicking an Overview button with confirmation dialog
@@ -559,24 +573,133 @@ export namespace OverviewEngineApi {
 		 * Handle clicking the dialog close button
 		 */
 		onDialogClose?(): void;
+
+		/**
+		 * Handle toggling the mobile search bar (small-view heading button).
+		 *
+		 * @experimental until 40.0.0 - API may change without semver guarantees.
+		 */
+		onMobileSearchBarToggle?(params: Events.MobileSearchBarTogglePayload): void;
+
+		/**
+		 * Filter 2.0 event handlers.
+		 *
+		 * @experimental until 40.0.0 - API may change without semver guarantees.
+		 */
+		readonly newFilter?: {
+			/**
+			 * Handle changing a Filter Selector option via the popup menu.
+			 */
+			readonly onFilterSelectorOptionsChanged?: (params: Events.NewFilter.FilterSelectorOptionsChangedPayload) => void;
+
+			/**
+			 * Handle toggling the shared global filter options (`invert`, `joinOperator`).
+			 */
+			readonly onFilterOptionsChanged?: (params: Events.NewFilter.FilterOptionsChangedPayload) => void;
+
+			/**
+			 * Handle clicking "Apply All" in the Filter Selector footer.
+			 */
+			readonly onFilterSelectorAllApplied?: () => void;
+
+			/**
+			 * Handle clicking "Apply" in a Filter Bar dropdown.
+			 */
+			readonly onFilterItemEditApplied?: () => void;
+
+			/**
+			 * Handle opening or closing the Filter Selector panel.
+			 */
+			readonly onFilterSelectorVisibilityChanged?: (
+				params: Events.NewFilter.FilterSelectorVisibilityChangedPayload
+			) => void;
+
+			/**
+			 * Handle collapsing or expanding a filter section. Pass `filterId: null` to toggle all.
+			 */
+			readonly onFilterCollapsedChanged?: (params: Events.NewFilter.FilterCollapsedChangedPayload) => void;
+
+			/**
+			 * Handle changing a filter's type-specific options (typing, checkbox, date pick).
+			 */
+			readonly onFilterItemOptionsChanged?: <Option = object>(
+				params: Events.NewFilter.FilterItemOptionsChangedPayload<Option>
+			) => void;
+
+			/**
+			 * Handle clicking a per-filter reset button.
+			 */
+			readonly onFilterItemReset?: (params: Events.NewFilter.FilterItemResetPayload) => void;
+
+			/**
+			 * Handle clicking "Reset All" in the Filter Selector. Resets the global query
+			 * options to their modeled defaults
+			 */
+			readonly onFilterSelectorReset?: () => void;
+
+			/**
+			 * Handle clicking the reset icon in the Filter Bar.
+			 */
+			readonly onFilterBarReset?: () => void;
+
+			/**
+			 * Handle Filter Bar overflow change (which filters became hidden / visible).
+			 */
+			readonly onFilterBarItemsOverflowed?: (params: Events.NewFilter.FilterBarItemsOverflowedPayload) => void;
+
+			/**
+			 * Handle opening a Filter Bar dropdown to edit a filter.
+			 */
+			readonly onFilterItemEditStarted?: (params: Events.NewFilter.FilterItemEditStartedPayload) => void;
+
+			/**
+			 * Handle closing a Filter Bar dropdown without applying.
+			 */
+			readonly onFilterItemEditCanceled?: (params: Events.NewFilter.FilterItemEditCanceledPayload) => void;
+
+			/**
+			 * Handle opening the in-place filter settings view inside the Filter Selector.
+			 */
+			readonly onFilterItemSettingsOpened?: (params: Events.NewFilter.FilterItemSettingsOpenedPayload) => void;
+
+			/**
+			 * Handle closing the in-place filter settings view.
+			 */
+			readonly onFilterItemSettingsClosed?: () => void;
+		};
 	}
 
 	/**
 	 * The map that is used for specifying state of rows
 	 */
 	export interface RowState {
-		readonly [id: string]: {
+		readonly [docRef: string]: {
 			readonly selected?: boolean;
 			readonly useSecondaryColor?: boolean;
 			readonly disabled?: boolean;
+			/**
+			 * Per-linkId flag overrides for exclude-mode duplicate rows.
+			 * When present for a given `linkId`, these flags take precedence over the
+			 * outer-level flags for that specific `(docRef, linkId)` row.
+			 * Hosts that do not use exclude-mode duplicates can ignore this field.
+			 */
+			readonly byLink?: {
+				readonly [linkId: string]: {
+					readonly selected?: boolean;
+					readonly useSecondaryColor?: boolean;
+					readonly disabled?: boolean;
+				};
+			};
 		};
 	}
 
 	/**
 	 * The options for infinite-scroll. It is based on the options in Widget with a small difference.
 	 */
-	export interface InfiniteScrollOptions
-		extends Omit<WidgetInfiniteScrollOptions, "rowCount" | "rowHeight" | "loadData"> {
+	export interface InfiniteScrollOptions extends Omit<
+		WidgetInfiniteScrollOptions,
+		"rowCount" | "rowHeight" | "loadData"
+	> {
 		/**
 		 * The total number of rows available for infinite scrolling.
 		 * @default 100
@@ -599,26 +722,53 @@ export namespace OverviewEngineApi {
 
 	/**
 	 * This is used for specifying state of row actions
+	 * @deprecated Use the {@link RowActionStyling} instead.
 	 */
 	export interface RowActionState {
 		/**
 		 * To specify row action state for all rows
+		 * @deprecated Use the {@link RowActionStyling} instead.
 		 */
 		readonly rowActions?: {
-			readonly [event: string]: RowActionState.IndividualRowActionState;
+			readonly [event: string]: RowActionStyling.IndividualRowActionState;
 		};
 
 		/**
 		 * To specify row action state for each specific row
+		 * @deprecated Use the {@link RowActionStyling} instead.
 		 */
 		readonly rows?: {
 			readonly [id: string]: {
-				[event: string]: RowActionState.IndividualRowActionState;
+				[event: string]: RowActionStyling.IndividualRowActionState;
 			};
 		};
 	}
 
+	/**
+	 * @deprecated Use the {@link RowActionStyling} instead.
+	 */
 	export namespace RowActionState {
+		/**
+		 * @deprecated Use {@link RowActionStyling.IndividualRowActionState} instead.
+		 */
+		export type IndividualRowActionState = RowActionStyling.IndividualRowActionState;
+	}
+
+	/**
+	 * Callback variant of {@link RowActionState}. Called per row and per action;
+	 * returns the action state for that specific row.
+	 *
+	 * @remarks Wrap with `useCallback` to avoid unnecessary re-renders — the reference
+	 * is included in a dependency array inside the engine.
+	 */
+	export interface RowActionStyling {
+		(params: {
+			row: JSONDocument;
+			button: OverviewModel.Button;
+		}): RowActionStyling.IndividualRowActionState | undefined;
+	}
+
+	export namespace RowActionStyling {
 		export interface IndividualRowActionState {
 			readonly hidden?: boolean;
 			readonly disabled?: boolean;
@@ -637,10 +787,7 @@ export namespace OverviewEngineApi {
 		/**
 		 * Dialog types
 		 */
-		export enum Types {
-			ROW_ACTION_CONFIRM = "row_action_confirm",
-			OVERVIEW_BUTTON_CONFIRM = "overview_button_confirm"
-		}
+		export import Types = DialogTypes;
 
 		/**
 		 * Confirmation dialog for row actions
@@ -682,21 +829,34 @@ export namespace OverviewEngineApi {
 	export function getSortingProps(
 		sorting: UiState["sorting"] | undefined,
 		documentModel: DocumentModel,
-		{ content: { columns } }: OverviewModel
+		{ content: { columns } }: OverviewModel,
+		relationshipModels?: RelationshipModel[],
+		subDocumentModels?: DocumentModel[]
 	): Sorting[] | undefined {
 		if (sorting === undefined || sorting.length === 0) {
 			return undefined;
 		}
 
 		return sorting.map((sort) => {
-			const columnIndex = columns.findIndex(
-				(col) =>
-					OverviewModel.ReferenceColumn.isAssignableFrom(col) &&
-					DocumentModelUtils.getElementPathForId(col.elementRef, documentModel) === sort.path
-			);
+			const columnIndex = columns.findIndex((col) => {
+				if (typeof sort.path === "string") {
+					return (
+						OverviewModel.ReferenceColumn.isAssignableFrom(col) &&
+						DocumentModelUtils.getElementPathForId(col.elementRef, documentModel) === sort.path
+					);
+				}
+
+				if (OverviewModel.LinkColumn.Reference.isAssignableFrom(col)) {
+					const path = buildRelationshipField(col, documentModel, relationshipModels, subDocumentModels);
+
+					return path !== undefined && relationshipFieldEquals(path, sort.path);
+				}
+
+				return false;
+			});
 
 			if (columnIndex < 0) {
-				throw new Error(`No column could be found for the path "${sort.path}"`);
+				throw new Error(`No column could be found for the sorting path "${JSON.stringify(sort.path)}"`);
 			}
 
 			return { columnIndex, order: sort.order === "DESC" ? "desc" : "asc" };
@@ -710,7 +870,9 @@ export namespace OverviewEngineApi {
 	export function getUiStateSorting(
 		sorting: Sorting[] | undefined,
 		documentModel: DocumentModel,
-		{ content: { columns } }: OverviewModel
+		{ content: { columns } }: OverviewModel,
+		relationshipModels?: RelationshipModel[],
+		subDocumentModels?: DocumentModel[]
 	): UiState["sorting"] | undefined {
 		if (sorting === undefined || sorting.length === 0) {
 			return undefined;
@@ -718,6 +880,18 @@ export namespace OverviewEngineApi {
 
 		return sorting.map(({ columnIndex, order }) => {
 			const column = columns[columnIndex];
+			const sortingOrder = order === "desc" ? SortingOrder.DESC : SortingOrder.ASC;
+
+			if (OverviewModel.LinkColumn.Reference.isAssignableFrom(column)) {
+				const rf = buildRelationshipField(column, documentModel, relationshipModels, subDocumentModels);
+
+				if (!rf) {
+					throw new Error(`No relationship field could be built for column index "${columnIndex}"`);
+				}
+
+				return { path: rf, order: sortingOrder };
+			}
+
 			const path =
 				OverviewModel.ReferenceColumn.isAssignableFrom(column) &&
 				DocumentModelUtils.getElementPathForId(column.elementRef, documentModel);
@@ -726,7 +900,7 @@ export namespace OverviewEngineApi {
 				throw new Error(`No path could be found for column index "${columnIndex}"`);
 			}
 
-			return { path, order: order === "desc" ? SortingOrder.DESC : SortingOrder.ASC };
+			return { path, order: sortingOrder };
 		});
 	}
 

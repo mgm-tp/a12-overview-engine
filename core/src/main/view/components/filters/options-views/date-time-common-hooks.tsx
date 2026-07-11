@@ -32,20 +32,21 @@
 
 import * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type SelectItem } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { SelectItem } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIsRangeInputEmpty } from "../utils.js";
 import { focusNextElement } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { SectionType } from "./section-template.js";
 import { DateTimeUtils } from "./date-time-utils.js";
-import { type NumberFilterOptionsView } from "./number-filter-options-view.js";
-import { type DateTimeViewValue, type DateTimeViewSelection } from "./date-time-filter-view.api.js";
+import type { NumberFilterOptionsView } from "./number-filter-options-view.js";
+import type { DateTimeViewValue, DateTimeViewSelection } from "./date-time-filter-view.api.js";
 
 /** @internal */
 export function useHeadingElements(viewName: React.ReactNode, ariaLevel?: number): React.ReactNode {
@@ -158,8 +159,7 @@ export function useValueSelect(
 	);
 }
 
-/** @internal */
-export function useDatePadder(
+function useDatePadder(
 	path: ModelPath,
 	selectedView: DateTimeViewSelection,
 	sectionType: SectionType,

@@ -32,12 +32,14 @@
 
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
 
 import { noop } from "../utils.js";
+import { render, ClassNames } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
-import { render, DataRoles, ClassNames } from "../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.footer", () => {
 	const basicEngineProps: OverviewEngine.Props = defaultEngineProps;
@@ -68,7 +70,7 @@ describe("com.mgmtp.a12.overview-engine.view.footer", () => {
 			...basicEngineProps.overviewModel,
 			content: {
 				...basicEngineProps.overviewModel.content,
-				footerBox: { minorElements: buttons }
+				footerBox: { leftSlot: buttons }
 			}
 		};
 
@@ -95,13 +97,13 @@ describe("com.mgmtp.a12.overview-engine.view.footer", () => {
 			...basicEngineProps.overviewModel,
 			content: {
 				...basicEngineProps.overviewModel.content,
-				footerBox: { majorElements: [buttonB], minorElements: [buttonA] }
+				footerBox: { rightSlot: [buttonB], leftSlot: [buttonA] }
 			}
 		};
 
 		const props: OverviewEngine.Props = { ...basicEngineProps, overviewModel };
 		const wrapper = render(<OverviewEngine {...props} />);
-		const buttonGroupContainer = wrapper.queryByDataRoles(DataRoles.Contentbox.Footer, DataRoles.ButtonGroup.Container);
+		const buttonGroupContainer = wrapper.queryByDataRoles(DataRoles.Contentbox.Footer, DataRoles.ButtonGroupContainer);
 
 		expect(buttonGroupContainer?.element).toHaveClass(`${ClassNames.ButtonGroupContainer}--responsive`);
 

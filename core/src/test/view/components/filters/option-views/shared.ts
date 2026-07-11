@@ -30,7 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { QueriableElement } from "../../../../test-utils.js";
 
 export function getClearAllButton(wrapper: QueriableElement): HTMLElement {
 	return wrapper.getByDataRoles(DataRoles.Filter.Selector.ActionElement, DataRoles.Button).element;

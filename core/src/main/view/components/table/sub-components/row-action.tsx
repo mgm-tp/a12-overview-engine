@@ -32,10 +32,11 @@
 
 import * as React from "react";
 
-import { type JSONDocument } from "../../../../models/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
 import type { OverviewModel } from "../../../../overview-model.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { OverviewModelKeys } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { LocalizerHooks, OverviewModelKeys } from "../../../../services/localization/index.js";
 
 import hooks from "./hooks.js";
 import { RightClickContextMenuContext } from "./right-click-context-menu.js";
@@ -115,7 +116,7 @@ export const RowAction: React.ComponentType<RowAction.PropsType> = React.memo(fu
 					onRowButtonClickRequest?.({ row, rowActionModel, componentKey });
 				});
 			} else {
-				onRowButtonClick?.({ documentId: row.id, rowActionModel });
+				onRowButtonClick?.({ documentId: row.id, linkId: row.linkId, rowActionModel });
 			}
 		},
 		[

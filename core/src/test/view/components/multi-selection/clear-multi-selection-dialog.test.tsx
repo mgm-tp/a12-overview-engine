@@ -35,12 +35,14 @@ import "../../../setup/jsdom.js";
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import type { OverviewModel } from "../../../../main/overview-model.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
 
 import { noop } from "../../../utils.js";
 import { deLocale, enLocale } from "../../../basic.spec.js";
-import { DataRoles, type QueriableElement } from "../../../test-utils.js";
+import type { QueriableElement } from "../../../test-utils.js";
 
 import {
 	setupMultiSelection,
@@ -52,7 +54,7 @@ import {
 } from "./utils.js";
 
 const submitInput = (result: QueriableElement) => {
-	const input = result.getByDataRole(DataRoles.Textline.Input).element;
+	const input = result.getByDataRole(DataRoles.TextField.Input).element;
 	const keyDownEvent = { key: "Enter", target: { value: "Hello" } };
 	fireEvent.keyDown(input, keyDownEvent);
 };

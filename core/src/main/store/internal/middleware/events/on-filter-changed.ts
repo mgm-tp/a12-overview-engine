@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { Events, Commands } from "../../actions.js";
 import { UiStateSelector } from "../../selectors/ui-state.js";

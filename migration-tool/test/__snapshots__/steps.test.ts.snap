@@ -788,3 +788,868 @@ exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to th
   },
 ]
 `;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.1-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "footerBox": {
+          "leftSlot": [
+            {
+              "destructive": false,
+              "event": "save",
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Save",
+                },
+              ],
+              "primary": true,
+              "type": "button",
+            },
+          ],
+          "rightSlot": [
+            {
+              "destructive": false,
+              "event": "export",
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Export",
+                },
+              ],
+              "primary": false,
+              "type": "button",
+            },
+          ],
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "subHeaderBox": {
+          "leftSlot": [
+            {
+              "type": "multi_selection",
+            },
+            {
+              "destructive": false,
+              "event": "add",
+              "icon": {
+                "name": "add",
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Add",
+                },
+              ],
+              "primary": false,
+              "type": "button",
+            },
+          ],
+          "rightSlot": [
+            {
+              "type": "search",
+            },
+            {
+              "type": "filter",
+            },
+          ],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.1",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.2",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.1-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "footerBox": undefined,
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "subHeaderBox": undefined,
+      },
+      "header": {
+        "id": "39.0.0-pre.1-no-subheader-no-footer",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview No SubHeader No Footer",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.2",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.4-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "rowActivation": {
+          "event": "selectItem",
+          "type": "custom",
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.4-with-default-row-action",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview With Default Row Action",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.5",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.4-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.4-without-default-row-action",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview Without Default Row Action",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.5",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.5-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "rowActivation": {
+          "event": "selectItem",
+          "type": "event",
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.5-with-custom-row-activation",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview With Custom Row Activation",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.6",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.5-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.5-without-row-activation",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview Without Row Activation",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.6",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.5-3.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+        "rowActivation": {
+          "type": "non_interactive",
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.5-with-non-interactive-row-activation",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview With Non-Interactive Row Activation",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.6",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.6-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "newFilterConfiguration": {
+            "filterGroups": [
+              {
+                "filterItems": [
+                  {
+                    "id": "name",
+                    "options": {
+                      "caseSensitive": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "empty": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "exactMatch": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "fieldId": "F1",
+                      "invert": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "viewMode": "list",
+                    },
+                    "type": "string",
+                  },
+                ],
+                "id": "common",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Common",
+                  },
+                ],
+                "name": "common",
+              },
+            ],
+            "filterSelector": {
+              "initialVisibility": "show",
+              "searchBar": {
+                "enabled": true,
+                "value": false,
+              },
+              "showSetFiltersOnly": {
+                "enabled": true,
+                "value": false,
+              },
+              "viewMode": "docked",
+            },
+            "invert": {
+              "enabled": true,
+              "value": false,
+            },
+            "joinOperator": {
+              "enabled": true,
+              "value": "and",
+            },
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.5-with-filter-bar",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview With New Filter + Filter Bar",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.7",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.6-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.5-without-new-filter",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview Without New Filter Configuration",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.7",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.7-1.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "newFilterConfiguration": {
+            "filterGroups": [
+              {
+                "filterItems": [
+                  {
+                    "id": "name",
+                    "options": {
+                      "caseSensitive": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "empty": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "exactMatch": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "fieldId": "F1",
+                      "invert": {
+                        "enabled": true,
+                        "value": false,
+                      },
+                      "viewMode": "list",
+                    },
+                    "type": "string",
+                  },
+                ],
+                "id": "common",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Common",
+                  },
+                ],
+                "name": "common",
+              },
+            ],
+            "filterSelector": {
+              "initialVisibility": "show",
+              "searchBar": {
+                "enabled": true,
+                "value": false,
+              },
+              "showSetFiltersOnly": {
+                "enabled": true,
+                "value": false,
+              },
+              "viewMode": "docked",
+            },
+            "invert": {
+              "enabled": true,
+              "value": false,
+            },
+            "joinOperator": {
+              "enabled": true,
+              "value": "and",
+            },
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.7-with-group-collapsed",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview With Collapsed Group",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.8",
+      },
+    },
+    "status": "success",
+  },
+]
+`;
+
+exports[`com.mgmtp.a12.overview-model-migration.steps > can migrate models to the next version properly > 39.0.0-pre.7-2.json 1`] = `
+[
+  {
+    "model": {
+      "content": {
+        "columns": [
+          {
+            "elementRef": "F1",
+            "id": "column-1",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Name",
+              },
+            ],
+            "sortable": true,
+            "width": 1,
+          },
+        ],
+        "configuration": {
+          "enableFilter": true,
+          "filterConfiguration": {
+            "filterMode": "all",
+            "showFilterBar": true,
+            "showFilterButton": true,
+          },
+          "pagingSize": 10,
+        },
+        "rowActionGroup": {
+          "actions": [],
+        },
+      },
+      "header": {
+        "id": "39.0.0-pre.7-without-new-filter",
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Test Overview Without New Filter Configuration",
+          },
+        ],
+        "locales": [
+          {
+            "code": "en",
+          },
+        ],
+        "modelReferences": [
+          {
+            "alias": "DM",
+            "modelType": "document",
+            "purpose": "document-model-for-overview",
+            "reference": "TestDM",
+          },
+        ],
+        "modelType": "overview",
+        "modelVersion": "39.0.0-pre.8",
+      },
+    },
+    "status": "success",
+  },
+]
+`;

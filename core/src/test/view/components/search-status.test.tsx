@@ -32,16 +32,17 @@
 
 import { it, vi, expect, describe } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { type OverviewEngineApi } from "../../../main/view/api.js";
-import { type OverviewModel } from "../../../main/overview-model.js";
+import type { OverviewEngineApi } from "../../../main/view/api.js";
+import type { OverviewModel } from "../../../main/overview-model.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { en, de } from "../../../main/services/localization/internal/shared.js";
 
+import { render, type QueriableElement } from "../../test-utils.js";
 import { noop, type PartialOEInfiniteScrollProps } from "../../utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../test-utils.js";
 
 const getSearchResult = (searchLocale: string, searchString: string, rowCount?: number) => {
 	if (rowCount) {

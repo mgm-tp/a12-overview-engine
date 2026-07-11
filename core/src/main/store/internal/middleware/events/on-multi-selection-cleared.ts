@@ -30,10 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { Events, Commands } from "../../actions.js";
 import { UiStateSelector } from "../../selectors/ui-state.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
 
 /**
  * @internal
@@ -44,16 +45,30 @@ export const onMultiSelectionCleared: Middleware = (api) => (next) => (action) =
 	if (Events.onMultiSelectionCleared.match(action)) {
 		const rowState = UiStateSelector.rowState()(api.getState()) ?? {};
 
-		if (Object.values(rowState ?? {}).filter((row) => row.selected).length > 0) {
-			api.dispatch(
-				Commands.setRowState({
-					rowState: Object.keys(rowState).reduce((newRowState, documentId) => {
-						return { ...newRowState, [documentId]: { ...newRowState[documentId], selected: false } };
-					}, rowState)
-				})
-			);
+		const hasSelectedOuter = Object.values(rowState).some((entry) => entry.selected);
+		const hasSelectedByLink = Object.values(rowState).some(
+			(entry) => entry.byLink && Object.values(entry.byLink).some((linkEntry) => linkEntry.selected)
+		);
+
+		if (hasSelectedOuter || hasSelectedByLink) {
+			const clearedRowState = Object.fromEntries(Object.entries(rowState).map(clearRowStateEntry));
+
+			api.dispatch(Commands.setRowState({ rowState: clearedRowState }));
 		}
 	}
 
 	return result;
 };
+
+function clearRowStateEntry([documentId, entry]: [string, OverviewEngineApi.RowState[string]]): [
+	string,
+	OverviewEngineApi.RowState[string]
+] {
+	const clearedByLink = entry.byLink
+		? Object.fromEntries(
+				Object.entries(entry.byLink).map(([linkId, linkEntry]) => [linkId, { ...linkEntry, selected: false }])
+			)
+		: undefined;
+
+	return [documentId, { ...entry, selected: false, ...(clearedByLink !== undefined ? { byLink: clearedByLink } : {}) }];
+}

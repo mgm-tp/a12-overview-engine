@@ -32,6 +32,8 @@
 
 import { it, expect, describe } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { DefaultWidgetMap } from "../../../../../main/view/configuration/widget-map.js";
 import { DefaultSelectorMap } from "../../../../../main/view/configuration/selector-map.js";
@@ -43,7 +45,7 @@ import {
 } from "../../../../../main/view/context/overview-engine-context.js";
 
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.attachment-cell", () => {
 	const basicEngineProps = {

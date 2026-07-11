@@ -33,11 +33,12 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { type JSONDocument } from "../../../../main/models/index.js";
+import type { JSONDocument } from "../../../../main/models/index.js";
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { type OverviewEngine } from "../../../../main/view/overview-engine.js";
+import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { de } from "../../../../main/services/localization/internal/languages/de.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
 import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
@@ -49,7 +50,7 @@ import {
 	type OverviewEngineContextType
 } from "../../../../main/view/context/overview-engine-context.js";
 
-import { render, DataRoles } from "../../../test-utils.js";
+import { render } from "../../../test-utils.js";
 import { deLocale, defaultEngineProps } from "../../../basic.spec.js";
 import { mockType, createLocalizedModelText } from "../../../utils.js";
 

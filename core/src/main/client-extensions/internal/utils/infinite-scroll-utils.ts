@@ -30,9 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity, Modifier } from "@com.mgmtp.a12.client/client-core";
 
-import { type Scrolling } from "../../../store/index.js";
+import { Links } from "../../../models/index.js";
+import type { Scrolling } from "../../../store/index.js";
 import { OverviewEngineInternalConstants } from "../../../constants/overview-engine-internal-constants.js";
 
 /** @internal */
@@ -84,6 +85,23 @@ export namespace InfiniteScrollUtils {
 		});
 
 		return Array(start).concat(mergedDocuments.slice(start, end));
+	}
+
+	export function mergeLink(
+		incomingLinks: Links | undefined,
+		activeDocRefs: ReadonlySet<string> | undefined
+	): (existing: Links | undefined) => Links {
+		const newLinks = incomingLinks ?? Links.create();
+
+		return (existingLinks) => {
+			if (!existingLinks) {
+				return newLinks;
+			}
+
+			const clean: Modifier<Links> = activeDocRefs?.size ? Links.retain(activeDocRefs) : (links) => links;
+
+			return Links.merge(newLinks)(clean(existingLinks));
+		};
 	}
 
 	function calculateCacheRange(params: {

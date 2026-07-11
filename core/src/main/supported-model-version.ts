@@ -31,4 +31,4 @@
  */
 
 /** @internal */
-export const SUPPORTED_MODEL_VERSIONS = "^38.3.0";
+export const SUPPORTED_MODEL_VERSIONS = "^39.0.0";

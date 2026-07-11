@@ -30,9 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Model } from "@com.mgmtp.a12.base/base-model-api";
+
 import { handleSeed } from "./commands/seed.js";
 import { handleClean } from "./commands/clean.js";
 import { handleWaitOn } from "./commands/wait-on.js";
+import { handleUpdateModel } from "./commands/update-model.js";
 import { handleUploadModels } from "./commands/upload-models.js";
 
 /**
@@ -97,6 +100,16 @@ export interface UploadModelsOptions extends BaseOptions {
 	 * @default "resources/models"
 	 */
 	path?: string;
+}
+
+/**
+ * Options for the update-model command
+ */
+export interface UpdateModelOptions extends BaseOptions {
+	/**
+	 * The model to upload to the server
+	 */
+	model: Model;
 }
 
 /**
@@ -215,6 +228,30 @@ export async function uploadModels(options: UploadModelsOptions = {}): Promise<v
 	};
 
 	return handleUploadModels(opts);
+}
+
+/**
+ * Upload a single model configuration to the server
+ *
+ * @param options - Update model options
+ * @returns Promise that resolves when the model is updated
+ *
+ * @example
+ * ```typescript
+ * // Update a specific model configuration
+ * await updateModel({
+ *   baseUrl: 'http://localhost:8080',
+ *   model: myModelConfiguration
+ * });
+ * ```
+ */
+export async function updateModel(options: UpdateModelOptions): Promise<void> {
+	const opts = {
+		baseUrl: "http://localhost:8080",
+		...options
+	};
+
+	return handleUpdateModel(opts);
 }
 
 /**

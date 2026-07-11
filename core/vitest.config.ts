@@ -30,16 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-/// <reference types="@vitest/browser/providers/playwright" />
-
 import { defineConfig } from "vitest/config";
 import pluginReact from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
+
+const runStamp = new Date().toISOString().replace(/[:.]/g, "-");
 
 export default defineConfig({
 	test: {
+		reporters: process.env.CI ? ["dot"] : ["dot", "json"],
+		outputFile: { json: `./target/vitest/run-${runStamp}.json` },
 		setupFiles: ["./src/test/setup/vitest.ts"],
 		include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
-		deps: { optimizer: { web: { enabled: true } } },
+		deps: { optimizer: { client: { enabled: true } } },
 		maxWorkers: process.env.CI ? 2 : "50%",
 		minWorkers: process.env.CI ? 2 : "50%",
 		pool: "forks",
@@ -51,7 +54,7 @@ export default defineConfig({
 		},
 		browser: {
 			screenshotFailures: false,
-			provider: "playwright",
+			provider: playwright(),
 			enabled: true,
 			headless: true,
 			instances: [
@@ -66,6 +69,7 @@ export default defineConfig({
 			]
 		}
 	},
+	esbuild: { tsconfigRaw: { compilerOptions: { target: "esnext" } } },
 	define: {
 		global: "window",
 		SC_DISABLE_SPEEDY: false

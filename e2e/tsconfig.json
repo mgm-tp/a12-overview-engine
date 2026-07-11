@@ -1,16 +1,10 @@
 {
 	"extends": "../tsconfig.json",
+	"references": [{ "path": "../core/tsconfig.build.json" }, { "path": "../services-utils" }],
+	"include": ["tests/**/*.ts", "playwright.config.ts", "playwright-parallel.config.ts"],
 	"compilerOptions": {
-		"baseUrl": ".",
-		"target": "ESNext",
-		"module": "NodeNext",
-		"lib": ["es2020", "dom"],
+		"rootDir": "${configDir}",
 		"types": ["@playwright/test", "node"],
-		"sourceMap": false,
-		"declaration": false,
-		"declarationMap": false,
-		"allowJs": true,
-		"resolveJsonModule": true
-	},
-	"include": ["tests/**/*.ts", "global-setup.ts"]
+		"noEmit": true
+	}
 }

@@ -32,8 +32,10 @@
 
 import * as React from "react";
 
+import { pickRowState } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export namespace OverallCheckbox {
@@ -62,19 +64,8 @@ export const OverallCheckbox = React.memo(function OverallCheckbox() {
 		[localizedResource]
 	);
 
-	const affectedRowIds = React.useMemo(() => {
-		const ids: string[] = [];
-		data.forEach((row) => {
-			if (row?.id) {
-				ids.push(row.id);
-			}
-		});
-
-		return ids;
-	}, [data]);
-
 	const selected: boolean | "mixed" = React.useMemo(() => {
-		const currentSelectedRows = affectedRowIds.filter((id) => rowState?.[id]?.selected).length;
+		const currentSelectedRows = data.filter((row) => row && pickRowState(rowState, row)?.selected).length;
 
 		if (currentSelectedRows === 0) {
 			return false;
@@ -85,18 +76,23 @@ export const OverallCheckbox = React.memo(function OverallCheckbox() {
 		}
 
 		return "mixed";
-	}, [affectedRowIds, data.length, rowState]);
+	}, [data, rowState]);
+
+	const documentsSelection = React.useMemo(() => {
+		const nextSelected = selected !== true;
+
+		return data.flatMap((row) => (row?.id ? [{ documentId: row.id, linkId: row.linkId, selected: nextSelected }] : []));
+	}, [data, selected]);
 
 	const onChange = React.useCallback(() => {
-		onOverallMultiSelectionButtonClick?.({ affectedRowIds, selected: selected !== true });
+		onOverallMultiSelectionButtonClick?.(documentsSelection);
 		onLatestSelectedDocumentIdChange?.({ latestSelectedDocumentId: null });
 		onLatestSelectedDocumentIdsChange?.({ latestSelectedDocumentIds: null });
 	}, [
-		affectedRowIds,
+		documentsSelection,
 		onOverallMultiSelectionButtonClick,
 		onLatestSelectedDocumentIdChange,
-		onLatestSelectedDocumentIdsChange,
-		selected
+		onLatestSelectedDocumentIdsChange
 	]);
 
 	return (

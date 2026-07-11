@@ -1,0 +1,54 @@
+{
+	"header": {
+		"id": "39.0.0-pre.7-without-new-filter",
+		"modelType": "overview",
+		"modelVersion": "39.0.0-pre.7",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Test Overview Without New Filter Configuration"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "TestDM"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-1",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			},
+			"pagingSize": 10
+		}
+	}
+}

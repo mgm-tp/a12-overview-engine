@@ -31,3 +31,4 @@
  */
 
 export * from "./internal/index.js";
+export * from "./filter-model-utils.js";

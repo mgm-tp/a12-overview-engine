@@ -1,0 +1,86 @@
+{
+	"header": {
+		"id": "EquipmentEquipmentRM",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "parent",
+				"reference": "EquipmentDM"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "child",
+				"reference": "EquipmentDM"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"documentModel": "EquipmentDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Parent Equipment"
+					},
+					{
+						"locale": "de",
+						"text": "\u00dcbergeordnetes Ger\u00e4t"
+					}
+				],
+				"role": "parent",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			},
+			{
+				"documentModel": "EquipmentDM",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Child Equipment"
+					},
+					{
+						"locale": "de",
+						"text": "Untergeordnetes Ger\u00e4t"
+					}
+				],
+				"role": "child",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			}
+		]
+	}
+}

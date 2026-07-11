@@ -1,0 +1,3182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/OverviewModel",
+  "definitions": {
+    "OverviewModel": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Header"
+        },
+        "content": {
+          "$ref": "#/definitions/OverviewModel.Content"
+        }
+      },
+      "required": [
+        "header",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Header": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the model"
+        },
+        "modelType": {
+          "$ref": "#/definitions/ModelType",
+          "description": "The name of the meta model, e.g. application, document, form, overview, relationship, tree"
+        },
+        "modelVersion": {
+          "type": "string",
+          "description": "The version of the meta model"
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "additionalProperties": false
+          },
+          "description": "All supported locales of the model"
+        },
+        "labels": {
+          "$ref": "#/definitions/LocalizedModelText",
+          "description": "All labels of the model\n\nA label of a model is a text that can be used to display the model to users for a given locale"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional human-readable description of the model\n\nCan be used to provide additional information about the model, e.g. its usage, content, purpose, change history, etc."
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          },
+          "description": "All annotations of the model\n\nAn annotation is a key value pair of strings which can contain any project specific extension."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModelReference"
+          },
+          "description": "All references to other models"
+        }
+      },
+      "required": [
+        "id",
+        "modelType",
+        "modelVersion"
+      ],
+      "additionalProperties": false,
+      "description": "Contains common header information for all types of A12 models."
+    },
+    "ModelType": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "application",
+            "additive-document",
+            "combination",
+            "content",
+            "document",
+            "form",
+            "mapping",
+            "module-masterdetail",
+            "overview",
+            "print",
+            "relationship",
+            "structuralmapping",
+            "tree"
+          ]
+        }
+      ]
+    },
+    "LocalizedModelText": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LocalizedText"
+      },
+      "description": "An array containing the translations for a given model element (property), e.g. a label.\n\nEach array item contains the translation for a single (partial) locale."
+    },
+    "LocalizedText": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string",
+          "description": "The serialized representation of the (partial) locale.\n\nExpected format: \\<language\\>[_\\<COUNTRY\\>]\n\nValid examples: en_US, de_DE, fr\n\nInvalid examples: en-US, en_us, enUS, FR"
+        },
+        "text": {
+          "type": "string",
+          "description": "The localized text for the given locale."
+        }
+      },
+      "required": [
+        "locale",
+        "text"
+      ],
+      "additionalProperties": false,
+      "description": "An object representing a key-value mapping of locale -> localized text for a specific model property"
+    },
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The identifier of the annotation"
+        },
+        "value": {
+          "type": "string",
+          "description": "Optional value of the annotation"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "Additional (project-specific) information attached to a model for customization purposes"
+    },
+    "ModelReference": {
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "type": "string",
+          "description": "A string containing what the references is used for"
+        },
+        "modelType": {
+          "$ref": "#/definitions/ModelType",
+          "description": "A string containing what (meta) model type is referenced e.g. document, form, overview, application, tree, relationship"
+        },
+        "alias": {
+          "type": "string",
+          "description": "A string which can be used inside of the model to refer to this model reference"
+        },
+        "reference": {
+          "type": "string",
+          "description": "The actual reference to the other model"
+        }
+      },
+      "required": [
+        "modelType",
+        "reference"
+      ],
+      "additionalProperties": false,
+      "description": "A model reference contains information about references of a model to other models."
+    },
+    "OverviewModel.Content": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "$ref": "#/definitions/OverviewModel.Configuration"
+        },
+        "subHeaderBox": {
+          "$ref": "#/definitions/OverviewModel.SubHeaderBox"
+        },
+        "footerBox": {
+          "$ref": "#/definitions/OverviewModel.FooterBox"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Column"
+          }
+        },
+        "rowActionGroup": {
+          "$ref": "#/definitions/OverviewModel.RowActionGroup"
+        },
+        "rowActivation": {
+          "$ref": "#/definitions/OverviewModel.RowActivation"
+        },
+        "contextMenu": {
+          "$ref": "#/definitions/OverviewModel.ContextMenu"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        }
+      },
+      "required": [
+        "configuration",
+        "columns",
+        "rowActionGroup"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.Configuration": {
+      "type": "object",
+      "properties": {
+        "pagingSize": {
+          "type": "number"
+        },
+        "initialSorting": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.ColumnRef"
+          }
+        },
+        "screenReaderColumn": {
+          "$ref": "#/definitions/OverviewModel.ColumnRef"
+        },
+        "showFullTextSearch": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "showRowCount": {
+          "type": "boolean",
+          "const": true
+        },
+        "enableColumnsResize": {
+          "type": "boolean",
+          "const": true
+        },
+        "enableFilter": {
+          "type": "boolean"
+        },
+        "filterConfiguration": {
+          "$ref": "#/definitions/OverviewModel.FilterConfiguration"
+        },
+        "newFilterConfiguration": {
+          "$ref": "#/definitions/OverviewModel.NewFilterConfiguration"
+        },
+        "multiSelection": {
+          "$ref": "#/definitions/OverviewModel.MultiSelection"
+        },
+        "rowHeight": {
+          "type": "number"
+        },
+        "actionColumnWidth": {
+          "$ref": "#/definitions/OverviewModel.Width"
+        },
+        "enableInfiniteScroll": {
+          "type": "boolean",
+          "const": true
+        },
+        "subtitle": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "rowTitle": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "skipInitialLoad": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": [
+        "enableFilter"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.ColumnRef": {
+      "type": "object",
+      "properties": {
+        "idref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "idref"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.FilterConfiguration": {
+      "type": "object",
+      "properties": {
+        "showFilterButton": {
+          "type": "boolean"
+        },
+        "showFilterBar": {
+          "type": "boolean"
+        },
+        "filterMode": {
+          "$ref": "#/definitions/OverviewModel.FilterMode"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.FieldConfiguration"
+          }
+        },
+        "sectionData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.SectionItem"
+          }
+        },
+        "enumeratedStringFilter": {
+          "$ref": "#/definitions/OverviewModel.EnumeratedStringFilterConfiguration"
+        }
+      },
+      "required": [
+        "showFilterButton",
+        "showFilterBar",
+        "filterMode"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.FilterMode": {
+      "type": "string",
+      "enum": [
+        "all",
+        "all_with_meta",
+        "all_columns",
+        "custom_list"
+      ]
+    },
+    "OverviewModel.FieldConfiguration": {
+      "type": "object",
+      "properties": {
+        "fieldId": {
+          "type": "string"
+        },
+        "subModel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fieldId"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.SectionItem": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "id": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.FieldConfiguration"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.EnumeratedStringFilterConfiguration": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.FieldConfiguration"
+          }
+        },
+        "pagingSize": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.NewFilterConfiguration": {
+      "type": "object",
+      "properties": {
+        "filterGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.Group"
+          },
+          "description": "Ordered list of filter groups displayed in the Filter Selector."
+        },
+        "filterSelector": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.FilterSelectorConfiguration",
+          "description": "Filter Selector area: layout, visibility, header, trigger, kebab-menu options."
+        },
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E",
+          "description": "Global invert (NOT) applied to the combined result across the Filter Bar and the Filter Selector. Single source of truth — both UIs read and write the same value. Editable only from the Filter Selector kebab menu."
+        },
+        "joinOperator": {
+          "$ref": "#/definitions/Configurable%3C(%22and%22%7C%22or%22)%3E",
+          "description": "Global join operator (AND/OR) across all filters. Single source of truth — both UIs read and write the same value. Editable only from the Filter Selector kebab menu."
+        }
+      },
+      "required": [
+        "filterGroups",
+        "filterSelector",
+        "invert",
+        "joinOperator"
+      ],
+      "additionalProperties": false,
+      "description": "Top-level configuration for the Filter 2.0 system, typically derived from the OverviewModel."
+    },
+    "OverviewModel.NewFilter.Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "description": "Author-facing name (editor/debug; not localized)."
+        },
+        "filterItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.Item"
+          }
+        },
+        "relationshipPath": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "relationship": {
+                "type": "string"
+              },
+              "targetRole": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CHILD",
+                  "LINK"
+                ],
+                "description": "CHILD for parent-child, LINK for associative."
+              }
+            },
+            "required": [
+              "relationship",
+              "targetRole"
+            ],
+            "additionalProperties": false,
+            "description": "Relationship traversal path for filtering across related documents."
+          },
+          "description": "Relationship traversal path for cross-document filtering."
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "filterItems"
+      ],
+      "additionalProperties": false,
+      "description": "Logical group of filter items, rendered as a section in the Filter Selector."
+    },
+    "OverviewModel.NewFilter.Item": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Boolean.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Confirm.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Enumeration.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.MultiSelect.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.String.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Number.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Date.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Time.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateTime.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateFragment.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateRange.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Custom.Item"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Query.Item"
+        }
+      ],
+      "description": "Union of all supported filter item types."
+    },
+    "OverviewModel.NewFilter.Boolean.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22boolean%22%2COverviewModel.NewFilter.Boolean.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"boolean\",OverviewModel.NewFilter.Boolean.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Boolean.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.Icon": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "theme": {
+          "$ref": "#/definitions/OverviewModel.IconTheme"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.IconTheme": {
+      "type": "string",
+      "enum": [
+        "filled",
+        "outlined",
+        "rounded",
+        "custom"
+      ]
+    },
+    "OverviewModel.NewFilter.Boolean.Options": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          },
+          "description": "Default selected values (e.g. `[true]`, `[false]`, or `[true, false]`)."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "empty",
+        "fieldId"
+      ]
+    },
+    "Configurable<boolean>": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Discriminated config flag. `enabled` controls whether the toggle is presented; `value` carries its state when present."
+    },
+    "OverviewModel.NewFilter.Confirm.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22confirm%22%2COverviewModel.NewFilter.Confirm.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"confirm\",OverviewModel.NewFilter.Confirm.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "confirm"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Confirm.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Confirm.Options": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "criteria": {
+          "type": "boolean",
+          "const": true,
+          "description": "Default criteria. When `true`, filter starts checked."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "empty",
+        "fieldId"
+      ]
+    },
+    "OverviewModel.NewFilter.Enumeration.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22enumeration%22%2COverviewModel.NewFilter.Enumeration.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"enumeration\",OverviewModel.NewFilter.Enumeration.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "enumeration"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Enumeration.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Enumeration.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "viewMode": {
+          "type": "string",
+          "enum": [
+            "list",
+            "compact"
+          ],
+          "description": "Display mode: \"list\" = checkboxes, \"compact\" = multi-select widget."
+        },
+        "pinnedValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Values pinned at the top in defined order. Non-pinned go to \"show more\" if any pins exist."
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "viewMode"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.NewFilter.MultiSelect.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22multi-select%22%2COverviewModel.NewFilter.MultiSelect.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"multi-select\",OverviewModel.NewFilter.MultiSelect.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "multi-select"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.MultiSelect.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.MultiSelect.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "viewMode": {
+          "type": "string",
+          "enum": [
+            "list",
+            "compact"
+          ],
+          "description": "Display mode: \"list\" = checkboxes, \"compact\" = multi-select widget."
+        },
+        "matchOperator": {
+          "$ref": "#/definitions/Configurable%3C(%22and%22%7C%22or%22)%3E",
+          "description": "AND vs OR matching across selected values."
+        },
+        "pinnedValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Values pinned at the top in defined order. Non-pinned go to \"show more\" if any pins exist."
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "matchOperator",
+        "viewMode"
+      ],
+      "additionalProperties": false
+    },
+    "Configurable<(\"and\"|\"or\")>": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "type": "string",
+              "enum": [
+                "and",
+                "or"
+              ]
+            }
+          },
+          "required": [
+            "enabled",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Discriminated config flag. `enabled` controls whether the toggle is presented; `value` carries its state when present."
+    },
+    "OverviewModel.NewFilter.String.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22string%22%2COverviewModel.NewFilter.String.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"string\",OverviewModel.NewFilter.String.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.String.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.String.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "criteria": {
+          "type": "string",
+          "description": "Default search text (textField only)."
+        },
+        "viewMode": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.String.ViewMode",
+          "description": "Defaults to \"textField\" when omitted."
+        },
+        "caseSensitive": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E",
+          "description": "Only applies when viewMode = \"textField\"."
+        },
+        "exactMatch": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E",
+          "description": "Exact vs substring matching. Only applies when viewMode = \"textField\"."
+        }
+      },
+      "required": [
+        "caseSensitive",
+        "empty",
+        "exactMatch",
+        "fieldId",
+        "invert"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.NewFilter.String.ViewMode": {
+      "type": "string",
+      "enum": [
+        "textField",
+        "list"
+      ],
+      "description": "- \"textField\": free-text input (default). Case + Exact match configs apply.\n- \"list\": checkbox list of candidate values (server-fetched). Case/Exact N/A."
+    },
+    "OverviewModel.NewFilter.Number.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22number%22%2COverviewModel.NewFilter.Number.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"number\",OverviewModel.NewFilter.Number.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "number"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Number.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Number.Options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cnumber%3E"
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "ranges"
+      ]
+    },
+    "RangeOptionConfiguration<number>": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RangeOptionEntry%3Cnumber%3E"
+      },
+      "description": "List of selectable range options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "RangeOptionEntry<number>": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "default": {
+              "type": "boolean",
+              "const": true
+            },
+            "criteria": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "number"
+                    },
+                    "to": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "from",
+                    "to"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "from"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "to": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "to"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "exact": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "exact"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "option": {
+              "$ref": "#/definitions/OverviewModel.NewFilter.RangeOption"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "default",
+            "enabled",
+            "option"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "default": {
+              "type": "boolean",
+              "const": false
+            },
+            "option": {
+              "$ref": "#/definitions/OverviewModel.NewFilter.RangeOption"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "option"
+          ]
+        }
+      ],
+      "description": "Config entry: option + optional default flag and pre-set criteria. Distributes over RangeOption."
+    },
+    "OverviewModel.NewFilter.RangeOption": {
+      "type": "string",
+      "enum": [
+        "fromTo",
+        "fromOnly",
+        "toOnly",
+        "exact"
+      ],
+      "description": "Available range modes for numeric, date, and time filters."
+    },
+    "OverviewModel.NewFilter.Date.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22date%22%2COverviewModel.NewFilter.Date.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"date\",OverviewModel.NewFilter.Date.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "date"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Date.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Date.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cstring%3E"
+        },
+        "periods": {
+          "$ref": "#/definitions/ListOptionConfiguration%3COverviewModel.NewFilter.Date.PeriodOption%3E"
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "periods",
+        "ranges"
+      ],
+      "additionalProperties": false
+    },
+    "RangeOptionConfiguration<string>": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RangeOptionEntry%3Cstring%3E"
+      },
+      "description": "List of selectable range options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "RangeOptionEntry<string>": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "default": {
+              "type": "boolean",
+              "const": true
+            },
+            "criteria": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string"
+                    },
+                    "to": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "from",
+                    "to"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "from"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "to": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "to"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "exact": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "exact"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "option": {
+              "$ref": "#/definitions/OverviewModel.NewFilter.RangeOption"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "default",
+            "enabled",
+            "option"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "default": {
+              "type": "boolean",
+              "const": false
+            },
+            "option": {
+              "$ref": "#/definitions/OverviewModel.NewFilter.RangeOption"
+            },
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "option"
+          ]
+        }
+      ],
+      "description": "Config entry: option + optional default flag and pre-set criteria. Distributes over RangeOption."
+    },
+    "ListOptionConfiguration<OverviewModel.NewFilter.Date.PeriodOption>": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.Date.PeriodOption"
+          },
+          "default": {
+            "type": "boolean",
+            "const": true
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "option",
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "description": "List of selectable options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "OverviewModel.NewFilter.Date.PeriodOption": {
+      "type": "string",
+      "enum": [
+        "date",
+        "year",
+        "yearMonth",
+        "month"
+      ],
+      "description": "\"month\" = month within current year."
+    },
+    "OverviewModel.NewFilter.Time.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22time%22%2COverviewModel.NewFilter.Time.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"time\",OverviewModel.NewFilter.Time.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "time"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Time.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Time.Options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cstring%3E"
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "ranges"
+      ]
+    },
+    "OverviewModel.NewFilter.DateTime.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22dateTime%22%2COverviewModel.NewFilter.DateTime.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"dateTime\",OverviewModel.NewFilter.DateTime.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "dateTime"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateTime.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.DateTime.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cstring%3E"
+        },
+        "periods": {
+          "$ref": "#/definitions/ListOptionConfiguration%3COverviewModel.NewFilter.DateTime.PeriodOption%3E"
+        }
+      },
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "periods",
+        "ranges"
+      ],
+      "additionalProperties": false
+    },
+    "ListOptionConfiguration<OverviewModel.NewFilter.DateTime.PeriodOption>": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.DateTime.PeriodOption"
+          },
+          "default": {
+            "type": "boolean",
+            "const": true
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "option",
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "description": "List of selectable options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "OverviewModel.NewFilter.DateTime.PeriodOption": {
+      "type": "string",
+      "enum": [
+        "dateTime",
+        "date",
+        "year",
+        "yearMonth",
+        "time",
+        "month"
+      ],
+      "description": "\"month\" = month within current year."
+    },
+    "OverviewModel.NewFilter.DateFragment.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22dateFragment%22%2COverviewModel.NewFilter.DateFragment.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"dateFragment\",OverviewModel.NewFilter.DateFragment.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "dateFragment"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateFragment.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.DateFragment.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cstring%3E"
+        },
+        "periods": {
+          "$ref": "#/definitions/ListOptionConfiguration%3COverviewModel.NewFilter.DateFragment.PeriodOption%3E",
+          "description": "If only 1 entry (or omitted, falls back to the field's only allowed period), period section is hidden."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "ranges"
+      ]
+    },
+    "ListOptionConfiguration<OverviewModel.NewFilter.DateFragment.PeriodOption>": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.DateFragment.PeriodOption"
+          },
+          "default": {
+            "type": "boolean",
+            "const": true
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "option",
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "description": "List of selectable options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "OverviewModel.NewFilter.DateFragment.PeriodOption": {
+      "type": "string",
+      "enum": [
+        "year",
+        "month",
+        "yearMonth",
+        "monthDay"
+      ],
+      "description": "Allowed periods are constrained by the field's data-fragment format:\n- `\"yyyy\"` → `\"year\"`\n- `\"MM\"` → `\"month\"`\n- `\"yyyy-MM\"` → `\"year\" | \"month\" | \"yearMonth\"` (default `\"yearMonth\"`)\n- `\"MM-dd\"` → `\"monthDay\"` (custom format preview)"
+    },
+    "OverviewModel.NewFilter.DateRange.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22dateRange%22%2COverviewModel.NewFilter.DateRange.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"dateRange\",OverviewModel.NewFilter.DateRange.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "dateRange"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.DateRange.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.DateRange.Options": {
+      "type": "object",
+      "properties": {
+        "invert": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "empty": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        },
+        "ranges": {
+          "$ref": "#/definitions/RangeOptionConfiguration%3Cstring%3E"
+        },
+        "periods": {
+          "$ref": "#/definitions/ListOptionConfiguration%3COverviewModel.NewFilter.DateRange.PeriodOption%3E",
+          "description": "If only 1 entry (or omitted, falls back to the field's only allowed period), period section is hidden."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "empty",
+        "fieldId",
+        "invert",
+        "ranges"
+      ]
+    },
+    "ListOptionConfiguration<OverviewModel.NewFilter.DateRange.PeriodOption>": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option": {
+            "$ref": "#/definitions/OverviewModel.NewFilter.DateRange.PeriodOption"
+          },
+          "default": {
+            "type": "boolean",
+            "const": true
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "option",
+          "enabled"
+        ],
+        "additionalProperties": false
+      },
+      "description": "List of selectable options where exactly one may be marked as the default. Entries with `enabled: false` are skipped at runtime."
+    },
+    "OverviewModel.NewFilter.DateRange.PeriodOption": {
+      "type": "string",
+      "enum": [
+        "year",
+        "month",
+        "yearMonth",
+        "date",
+        "monthDay"
+      ]
+    },
+    "OverviewModel.NewFilter.Custom.Item": {
+      "$ref": "#/definitions/OverviewModel.NewFilter.FieldBasedItem%3C%22custom%22%2COverviewModel.NewFilter.Custom.Options%3E"
+    },
+    "OverviewModel.NewFilter.FieldBasedItem<\"custom\",OverviewModel.NewFilter.Custom.Options>": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "custom"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Custom.Options"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Filter item bound to a document field via `fieldId` in its options."
+    },
+    "OverviewModel.NewFilter.Custom.Options": {
+      "type": "object",
+      "properties": {
+        "fieldId": {
+          "type": "string",
+          "description": "Element ID of the document field (matches `DocumentModel.Element.id`). Engine resolves to slash-delimited `FilterItemState.fieldPath`; controllers consume via `FilterControllerContext.fieldPath`."
+        },
+        "subModel": {
+          "type": "string",
+          "description": "Sub-document model ID when filtering across sub-models."
+        }
+      },
+      "required": [
+        "fieldId"
+      ],
+      "additionalProperties": false,
+      "description": "Shared options for all field-based filters: field ID binding and optional sub-model target."
+    },
+    "OverviewModel.NewFilter.Query.Item": {
+      "type": "object",
+      "properties": {
+        "collapsed": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "const": "query"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "preferFilterBar": {
+          "type": "boolean",
+          "const": true,
+          "description": "When `true`, prefer to appear as a chip in the Filter Bar when having enough space"
+        },
+        "options": {
+          "$ref": "#/definitions/OverviewModel.NewFilter.Query.Options"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "required": [
+        "id",
+        "options",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.NewFilter.Query.Options": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/Query.Operator"
+        },
+        "enabled": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E",
+          "description": "Whether the query filter is active by default."
+        }
+      },
+      "required": [
+        "operator",
+        "enabled"
+      ],
+      "additionalProperties": false
+    },
+    "Query.Operator": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Query.AndOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.OrOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.NotOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.HasOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.DateRangeOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.DateFragmentRangeOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.DoubleRangeOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.ExactMatchOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.DocRefExactMatchOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.UndefinedMatchOperator"
+        },
+        {
+          "$ref": "#/definitions/Query.SimpleSearchOperator"
+        }
+      ],
+      "description": "Aggregated type for all Logic and Search operators."
+    },
+    "Query.AndOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "and",
+          "description": "The name of logic operator."
+        },
+        "operands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Query.Operator"
+          },
+          "description": "The collection of operands to be evaluated. Result will be true if and only if all the operands are true."
+        }
+      },
+      "required": [
+        "operands",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents an AND logic operator."
+    },
+    "Query.OrOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "or",
+          "description": "The name of logic operator."
+        },
+        "operands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Query.Operator"
+          },
+          "description": "The collection of operands to be evaluated. Result will be true if and only if one or more of its operands is true."
+        }
+      },
+      "required": [
+        "operands",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents an OR logic operator."
+    },
+    "Query.NotOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "not",
+          "description": "The name of logic operator."
+        },
+        "operand": {
+          "$ref": "#/definitions/Query.Operator",
+          "description": "The logic operator takes truth to falsity and vice versa."
+        }
+      },
+      "required": [
+        "operand",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a NOT logic operator."
+    },
+    "Query.HasOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "has",
+          "description": "The name of logic operator."
+        },
+        "relationshipModel": {
+          "type": "string",
+          "description": "Name of the relationship model."
+        },
+        "targetRole": {
+          "type": "string",
+          "description": "Target document role."
+        },
+        "constraint": {
+          "$ref": "#/definitions/Query.Operator",
+          "description": "Constraint applied on target document."
+        },
+        "linkDocumentConstraint": {
+          "$ref": "#/definitions/Query.Operator",
+          "description": "Constraint applied on link document."
+        },
+        "maxDepth": {
+          "type": "number",
+          "description": "Maximum depth of nesting."
+        }
+      },
+      "required": [
+        "operator",
+        "relationshipModel",
+        "targetRole"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a HAS logic operator. Operator for querying linked documents."
+    },
+    "Query.DateRangeOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "date_range",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of date field to be evaluated."
+        },
+        "from": {
+          "type": "string",
+          "description": "The starting date of range."
+        },
+        "to": {
+          "type": "string",
+          "description": "The ending date of range."
+        },
+        "value": {
+          "type": "string",
+          "description": "Date value used for reverse range"
+        },
+        "reverse": {
+          "type": "boolean",
+          "description": "If true, checks if the specified date or date range is within the range stored in the database. If false (default), checks if the database value is within the specified date range."
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a DATE_RANGE logic operator. Any date formats that are defined by `Kernel` are supported.\n- Both `from` and `to` are not mandatory but at least one is mandatory.\n- Boundaries are included in result."
+    },
+    "Query.DateFragmentRangeOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "datefragment_range",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of date fragment field to be evaluated."
+        },
+        "from": {
+          "type": "string",
+          "description": "The starting date of range."
+        },
+        "to": {
+          "type": "string",
+          "description": "The ending date of range."
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a DATE_FRAGMENT_RANGE logic operator. Any date formats that are defined by `Kernel` are supported.\n- Both `from` and `to` are not mandatory but at least one is mandatory.\n- Boundaries are included in result."
+    },
+    "Query.DoubleRangeOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "double_range",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of numeric field to be evaluated."
+        },
+        "from": {
+          "type": "number",
+          "description": "The starting number of range."
+        },
+        "to": {
+          "type": "number",
+          "description": "The ending number of range."
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a DOUBLE RANGE logic operator. Matches if the value in the field is within a range defined in the operator.\n- Both `from` and `to` are not mandatory but at least one is mandatory.\n- Boundaries are included in result."
+    },
+    "Query.ExactMatchOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "exact_match",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of field to be evaluated."
+        },
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "Value for comparison with field's value. For matching with number value please use numeric value here, for other types please use `string`. Either this or `values` must be provided."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "string"
+            ]
+          },
+          "description": "Multiple values to be compared with the field's value.\n\nThis is an alternative to the `value` parameter, allowing multiple values to be matched simultaneously. The behavior is similar to `value`, but it matches documents where the field equals any of the specified values (logical OR). Either this or `value` must be provided."
+        },
+        "caseSensitive": {
+          "type": "boolean",
+          "description": "Enable to match exact case-sensitive value.",
+          "default": true
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents an EXACT MATCH search operator. Returns all results that have fields with value that matches exactly the input value. This operator can be applied on types:\n- StringType\n- DateType\n- DateTimeType\n- DateFragmentType\n- NumberType\n- EnumerationType\n- BooleanType\n- ConfirmType"
+    },
+    "Query.DocRefExactMatchOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "exact_match",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "const": "/__meta/docRef",
+          "description": "Name of field to be evaluated."
+        },
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "Value for comparison with field's value. For matching with number value please use numeric value here, for other types please use `string`. Either this or `values` must be provided."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "string"
+            ]
+          },
+          "description": "Multiple values to be compared with the field's value.\n\nThis is an alternative to the `value` parameter, allowing multiple values to be matched simultaneously. The behavior is similar to `value`, but it matches documents where the field equals any of the specified values (logical OR). Either this or `value` must be provided."
+        },
+        "caseSensitive": {
+          "type": "boolean",
+          "description": "Enable to match exact case-sensitive value.",
+          "default": true
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Similar to an ExactMatchOperator but exclusively set field to `/__meta/docRef`."
+    },
+    "Query.UndefinedMatchOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "undefined_match",
+          "description": "The name of logic operator."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of field to be evaluated."
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "additionalProperties": false,
+      "description": "Represents the UNDEFINED_MATCH operator that checks if a given field has value `null` or if it is not present."
+    },
+    "Query.SimpleSearchOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "const": "simple_search",
+          "description": "The name of logic operator."
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of fields to be evaluated. If no fields are specified, the search ranges over all fields of the document."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value for comparison with field values."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Multiple values to be compared with all fields.\n\nProviding a list of values is faster than combining multiple conditions on the same field with an OR condition."
+        }
+      },
+      "required": [
+        "operator",
+        "value"
+      ],
+      "additionalProperties": false,
+      "description": "Represents a SIMPLE SEARCH search operator. Return all documents which have fields with a value that contains the input string. This operator can be applied on types:\n- StringType"
+    },
+    "OverviewModel.NewFilter.FilterSelectorConfiguration": {
+      "type": "object",
+      "properties": {
+        "viewMode": {
+          "type": "string",
+          "enum": [
+            "overlay",
+            "docked",
+            "modal"
+          ],
+          "description": "Layout mode.\n- `\"overlay\"` — floats above content (default).\n- `\"docked\"` — sits inline beside engine content.\n- `\"modal\"` — centered modal overlay (Dual Pane, Dashboard tiles).\n\nEditor constraints when `viewMode === \"modal\"` (Editor-enforced; runtime does not validate): Filter Bar must not be modeled, `initialVisibility` must not be `\"show\"`, Pin/Unpin not exposed."
+        },
+        "initialVisibility": {
+          "type": "string",
+          "enum": [
+            "show",
+            "hide"
+          ],
+          "description": "Visible on page load. Default: \"hide\"."
+        },
+        "headerSubtitle": {
+          "$ref": "#/definitions/LocalizedModelText",
+          "description": "Subtitle below the \"Filters\" title. Recommended for Dual Pane / Dashboard surfaces."
+        },
+        "trigger": {
+          "$ref": "#/definitions/Configurable%3Calias-98908478-74021-74155-98908478-0-218972%3Cdef-interface-890685016-9836-9982-890685016-1671-24601-890685016-1639-24601-890685016-0-26382%2C(%22label%22%7C%22icon%22%7C%22labelHidden%22)%3E%3E",
+          "description": "Filter trigger button. Omitted/`enabled: false` → default icon-only button."
+        },
+        "searchBar": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E"
+        },
+        "showSetFiltersOnly": {
+          "$ref": "#/definitions/Configurable%3Cboolean%3E",
+          "description": "\"Show only filters with active criteria\" mode in the selector."
+        }
+      },
+      "required": [
+        "viewMode",
+        "searchBar",
+        "showSetFiltersOnly"
+      ],
+      "additionalProperties": false,
+      "description": "Filter Selector area configuration. Layout, visibility, header, trigger, and kebab-menu toggles flattened into the same wrapper — mirrors `FilterState.filterSelectorOptions`."
+    },
+    "Configurable<alias-98908478-74021-74155-98908478-0-218972<def-interface-890685016-9836-9982-890685016-1671-24601-890685016-1639-24601-890685016-0-26382,(\"label\"|\"icon\"|\"labelHidden\")>>": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": false
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": true
+            },
+            "value": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "#/definitions/LocalizedModelText"
+                },
+                "icon": {
+                  "$ref": "#/definitions/OverviewModel.Icon"
+                },
+                "labelHidden": {
+                  "type": "boolean",
+                  "const": true
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "enabled",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Discriminated config flag. `enabled` controls whether the toggle is presented; `value` carries its state when present."
+    },
+    "OverviewModel.MultiSelection": {
+      "type": "object",
+      "properties": {
+        "collapseOption": {
+          "$ref": "#/definitions/OverviewModel.MultiSelection.CollapseOption"
+        },
+        "counterOption": {
+          "$ref": "#/definitions/OverviewModel.MultiSelection.CounterOption"
+        },
+        "selectionArea": {
+          "$ref": "#/definitions/OverviewModel.MultiSelection.SelectionArea"
+        },
+        "buttons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Button"
+          }
+        },
+        "clearConfirmation": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "const": true
+            },
+            "confirmation": {
+              "$ref": "#/definitions/OverviewModel.ConfirmationText"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "collapseOption",
+        "counterOption"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.MultiSelection.CollapseOption": {
+      "type": "string",
+      "enum": [
+        "collapsible_collapsed",
+        "collapsible_expanded",
+        "non_collapsible"
+      ]
+    },
+    "OverviewModel.MultiSelection.CounterOption": {
+      "type": "string",
+      "enum": [
+        "simple",
+        "none"
+      ]
+    },
+    "OverviewModel.MultiSelection.SelectionArea": {
+      "type": "string",
+      "enum": [
+        "checkbox",
+        "checkbox_and_row"
+      ]
+    },
+    "OverviewModel.Button": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/OverviewModel.ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "event"
+      ]
+    },
+    "OverviewModel.ConfirmationText": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "message": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.Styles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "OverviewModel.Width": {
+      "type": "number"
+    },
+    "OverviewModel.SubHeaderBox": {
+      "type": "object",
+      "properties": {
+        "leftSlot": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Element"
+          }
+        },
+        "rightSlot": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Element"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.Element": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/OverviewModel.ButtonElement"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.MultiSelectionElement"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.SearchElement"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.FilterElement"
+        }
+      ]
+    },
+    "OverviewModel.ButtonElement": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/OverviewModel.ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "type": {
+          "type": "string",
+          "const": "button"
+        }
+      },
+      "required": [
+        "event",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.MultiSelectionElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "multi_selection"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.SearchElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "search"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.FilterElement": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "filter"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.FooterBox": {
+      "type": "object",
+      "properties": {
+        "leftSlot": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.ButtonElement"
+          }
+        },
+        "rightSlot": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.ButtonElement"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.Column": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/OverviewModel.ReferenceColumn"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.ExpressionColumn"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.LinkColumn.Reference"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.LinkColumn.Expression"
+        }
+      ]
+    },
+    "OverviewModel.ReferenceColumn": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/OverviewModel.Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/OverviewModel.PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/OverviewModel.ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.ColumnStyles"
+        },
+        "elementRef": {
+          "type": "string"
+        },
+        "sortable": {
+          "type": "boolean",
+          "default": false
+        },
+        "preferredSorting": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "default": "ASC"
+        },
+        "attachmentDisplayMode": {
+          "$ref": "#/definitions/OverviewModel.AttachmentDisplayMode",
+          "default": "{@link OverviewModel.AttachmentDisplayMode.PREVIEW }"
+        },
+        "multiSelectDisplayMode": {
+          "$ref": "#/definitions/OverviewModel.MultiSelectDisplayMode"
+        },
+        "suffix": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "suffixRef": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Summary"
+          }
+        }
+      },
+      "required": [
+        "elementRef",
+        "id",
+        "width"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.PinDirection": {
+      "type": "string",
+      "enum": [
+        "RIGHT",
+        "LEFT"
+      ]
+    },
+    "OverviewModel.ColumnAlignment": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/OverviewModel.Alignment"
+        },
+        "content": {
+          "$ref": "#/definitions/OverviewModel.Alignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.Alignment": {
+      "type": "object",
+      "properties": {
+        "horizontal": {
+          "$ref": "#/definitions/OverviewModel.HorizontalAlignment"
+        },
+        "vertical": {
+          "$ref": "#/definitions/OverviewModel.VerticalAlignment"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.HorizontalAlignment": {
+      "type": "string",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "OverviewModel.VerticalAlignment": {
+      "type": "string",
+      "enum": [
+        "top",
+        "middle",
+        "bottom"
+      ]
+    },
+    "OverviewModel.ColumnStyles": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        },
+        "content": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.AttachmentDisplayMode": {
+      "type": "string",
+      "enum": [
+        "preview",
+        "icon",
+        "file_name",
+        "icon_with_file_name"
+      ]
+    },
+    "OverviewModel.MultiSelectDisplayMode": {
+      "type": "string",
+      "enum": [
+        "comma_separated",
+        "default"
+      ]
+    },
+    "OverviewModel.Summary": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "$ref": "#/definitions/OverviewModel.Summary.Operation"
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.Summary.Operation": {
+      "type": "string",
+      "const": "sum"
+    },
+    "OverviewModel.ExpressionColumn": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/OverviewModel.Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/OverviewModel.PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/OverviewModel.ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.ColumnStyles"
+        },
+        "name": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expression",
+        "id",
+        "name",
+        "width"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.LinkColumn.Reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linkReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.LinkReference"
+          }
+        },
+        "elementRef": {
+          "type": "string"
+        },
+        "sortable": {
+          "type": "boolean",
+          "default": false
+        },
+        "preferredSorting": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "default": "ASC"
+        },
+        "attachmentDisplayMode": {
+          "$ref": "#/definitions/OverviewModel.AttachmentDisplayMode",
+          "default": "{@link OverviewModel.AttachmentDisplayMode.PREVIEW }"
+        },
+        "multiSelectDisplayMode": {
+          "$ref": "#/definitions/OverviewModel.MultiSelectDisplayMode"
+        },
+        "suffix": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "suffixRef": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/OverviewModel.Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/OverviewModel.PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/OverviewModel.ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.ColumnStyles"
+        }
+      },
+      "required": [
+        "elementRef",
+        "id",
+        "linkReferences",
+        "width"
+      ]
+    },
+    "OverviewModel.LinkReference": {
+      "type": "object",
+      "properties": {
+        "relationship": {
+          "type": "string"
+        },
+        "targetRole": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "CHILD",
+            "LINK"
+          ]
+        }
+      },
+      "required": [
+        "relationship",
+        "targetRole",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.LinkColumn.Expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "linkReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.LinkReference"
+          }
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "width": {
+          "$ref": "#/definitions/OverviewModel.Width"
+        },
+        "fixedWidth": {
+          "type": "boolean",
+          "const": true
+        },
+        "pinDirection": {
+          "$ref": "#/definitions/OverviewModel.PinDirection"
+        },
+        "alignment": {
+          "$ref": "#/definitions/OverviewModel.ColumnAlignment"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.ColumnStyles"
+        },
+        "name": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expression",
+        "id",
+        "linkReferences",
+        "name",
+        "width"
+      ]
+    },
+    "OverviewModel.RowActionGroup": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.Button"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "OverviewModel.RowActivation": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/OverviewModel.EventRowActivation"
+        },
+        {
+          "$ref": "#/definitions/OverviewModel.NonInteractiveRowActivation"
+        }
+      ]
+    },
+    "OverviewModel.EventRowActivation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "event"
+        },
+        "event": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "event"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.NonInteractiveRowActivation": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "non_interactive"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.ContextMenu": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.ActionGroup"
+          }
+        }
+      },
+      "required": [
+        "groups"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.ActionGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OverviewModel.ContextMenuItem"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "actions"
+      ],
+      "additionalProperties": false
+    },
+    "OverviewModel.ContextMenuItem": {
+      "$ref": "#/definitions/OverviewModel.Triggerable"
+    },
+    "OverviewModel.Triggerable": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          }
+        },
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/OverviewModel.ConfirmationText"
+        },
+        "icon": {
+          "$ref": "#/definitions/OverviewModel.Icon"
+        },
+        "styles": {
+          "$ref": "#/definitions/OverviewModel.Styles"
+        }
+      },
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

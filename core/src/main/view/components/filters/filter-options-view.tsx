@@ -32,10 +32,10 @@
 
 import type * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type TimePickerProps, type FilterSelectorProps } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { FilterSelectorProps } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type OverviewEngineApi } from "../../api.js";
+import type { OverviewEngineApi } from "../../api.js";
 
 export namespace Filter {
 	export interface FilterData extends FilterSelectorProps.FilterData {
@@ -58,11 +58,6 @@ export namespace Filter {
 	}
 
 	export type Filters = (FilterData | SectionData)[];
-
-	/** Namespace for Components which manage the filters */
-	export interface PropsType {
-		readonly timeMode?: TimePickerProps.ClockMode;
-	}
 
 	/**
 	 * Define common props for FilterBar and FilterSelector, since they both contains list of filters

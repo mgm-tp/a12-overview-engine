@@ -34,9 +34,11 @@ import * as React from "react";
 
 import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
 
+import { pickRowState } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type JSONDocument } from "../../../../models/index.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import hooks from "./hooks.js";
@@ -54,8 +56,7 @@ export const RowCheckbox: React.ComponentType<RowCheckbox.Props> = React.memo(fu
 	const rowDisabledGetter = hooks.useRowDisabilityGetter();
 	const disabled = rowDisabledGetter(props.row);
 
-	const documentId = props.row.id;
-	const selected = React.useMemo(() => !!rowState?.[documentId]?.selected, [documentId, rowState]);
+	const selected = React.useMemo(() => !!pickRowState(rowState, props.row)?.selected, [props.row, rowState]);
 	const localizedResource = LocalizerHooks.useLocalizedResource();
 	const title = React.useMemo(
 		() => localizedResource(RESOURCE_KEYS.overviewEngine.multiSelection.rowCheckboxTitle),
@@ -78,10 +79,10 @@ export const RowCheckbox: React.ComponentType<RowCheckbox.Props> = React.memo(fu
 
 	const inputProps = React.useMemo(() => {
 		return {
-			onClick: (event: React.MouseEvent<HTMLElement>) => selectRows(event, documentId),
+			onClick: (event: React.MouseEvent<HTMLElement>) => selectRows(event, props.row.id, props.row.linkId),
 			...(ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : {})
 		};
-	}, [selectRows, documentId, ariaLabelledBy]);
+	}, [ariaLabelledBy, selectRows, props.row.id, props.row.linkId]);
 
 	return (
 		<Checkbox

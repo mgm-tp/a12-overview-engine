@@ -32,12 +32,14 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type OverviewModel } from "../../main/overview-model.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-import { OverviewContentBox } from "../../main/view/overviewContentBox.js";
+import { OverviewContentBox } from "../../main/view/overview-content-box.js";
 
 import { noop } from "../utils.js";
-import { render, DataRoles } from "../test-utils.js";
+import { render } from "../test-utils.js";
 import { defaultEngineProps } from "../basic.spec.js";
 import { resetWindowSize, setSmallWindowSize } from "../setup/widgets.js";
 

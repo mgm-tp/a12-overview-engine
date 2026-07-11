@@ -34,26 +34,26 @@ import * as React from "react";
 
 import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
-import { type YearRange, type DateInputProps } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { YearRange, DateInputProps, YearSelectorVariant } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import { type SectionType } from "./section-template.js";
+import type { SectionType } from "./section-template.js";
 import { useLocalizedLabels } from "./date-time-common-hooks.js";
 
 /** @internal */
 export namespace DateInputAdapter {
-	export interface Props
-		extends Pick<
-			DateInputProps,
-			"disabled" | "readonly" | "error" | "errorMessage" | "dateConverter" | "dateFormatter"
-		> {
+	export interface Props extends Pick<
+		DateInputProps,
+		"disabled" | "readonly" | "error" | "errorMessage" | "dateConverter" | "dateFormatter"
+	> {
 		readonly id: string;
 		readonly value?: Date;
 		readonly sectionType: SectionType;
 		readonly enableDatePicker?: boolean;
 		readonly yearRange?: YearRange;
+		readonly yearSelectorVariant?: YearSelectorVariant;
 		readonly clearHandlerRef: (clearHandler: () => void) => void;
 		readonly fieldFormatString?: string;
 		onValueSelect(date: Date | undefined): void;
@@ -66,6 +66,7 @@ export const DateInputAdapter: React.FC<DateInputAdapter.Props> = React.memo(fun
 	const {
 		sectionType,
 		yearRange,
+		yearSelectorVariant,
 		clearHandlerRef,
 		enableDatePicker,
 		onValueSubmit,
@@ -83,8 +84,8 @@ export const DateInputAdapter: React.FC<DateInputAdapter.Props> = React.memo(fun
 	const datePickerDialogProps: DateInputProps["datePickerDialogProps"] = React.useMemo(() => ({ okLabel }), [okLabel]);
 
 	const datePickerProps: DateInputProps["datePickerProps"] = React.useMemo(
-		() => ({ yearRange, timezone, locale: Locale.toString(locale) }),
-		[locale, timezone, yearRange]
+		() => ({ yearRange, yearSelectorVariant, timezone, locale: Locale.toString(locale) }),
+		[locale, timezone, yearRange, yearSelectorVariant]
 	);
 
 	return (

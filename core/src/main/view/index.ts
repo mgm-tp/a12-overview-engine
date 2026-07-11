@@ -32,8 +32,8 @@
 
 export * from "./api.js";
 export * from "./overview-engine.js";
-export * from "./overviewContentBox.js";
-export * from "./overviewTable.js";
+export * from "./overview-content-box.js";
+export * from "./overview-table.js";
 export * from "./utils.js";
 export * from "./components/index.js";
 export * from "./configuration/index.js";

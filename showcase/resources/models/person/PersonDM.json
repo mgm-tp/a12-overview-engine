@@ -2,7 +2,7 @@
 	"header": {
 		"id": "PersonDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": []
 	},
 	"content": {
@@ -155,7 +150,7 @@
 													},
 													{
 														"locale": "de",
-														"text": "Nationalität"
+														"text": "Nationalit\u00e4t"
 													}
 												],
 												"requirednessConfig": {

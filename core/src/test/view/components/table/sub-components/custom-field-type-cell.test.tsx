@@ -35,7 +35,7 @@ import "../../../../setup/jsdom.js";
 import * as TypeMoq from "typemoq";
 import { it, expect, describe } from "vitest";
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { CustomFieldTypeCell } from "../../../../../main/view/components/table/sub-components/custom-field-type-cell.js";

@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
-import {
-	type Query,
-	type QueryJsonRpc2Request,
-	type DocumentJsonRpc2Request,
-	type LoadThumbnailUrlsJsonRpc2
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type {
+	Query,
+	QueryJsonRpc2Request,
+	DocumentJsonRpc2Request,
+	LoadThumbnailUrlsJsonRpc2
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 let requestCounter = 0;

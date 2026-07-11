@@ -34,12 +34,13 @@ import * as React from "react";
 
 import { List } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { toCellId } from "../../../utils.js";
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
+import { toCellId, pickRowState } from "../../../utils.js";
 import { JSONDocument } from "../../../../models/index.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks, OverviewModelKeys } from "../../../../services/localization/index.js";
+import type { OverviewModel } from "../../../../overview-model.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { OverviewModelKeys } from "../../../../services/localization/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 function useRowDisabilityGetter() {
@@ -56,22 +57,29 @@ function useRowDisabilityGetter() {
 function useRowStateGetter<Property extends keyof OverviewEngineApi.RowState[string]>(property: Property) {
 	const rowState = useOverviewEngineState(UiStateSelector.rowState());
 
-	return React.useCallback(({ id }: JSONDocument) => rowState?.[id]?.[property], [property, rowState]);
+	return React.useCallback((row: JSONDocument) => pickRowState(rowState, row)?.[property], [property, rowState]);
 }
 
 function useRowActionStateGetter<Property extends keyof OverviewEngineApi.RowActionState.IndividualRowActionState>(
 	property: Property
 ) {
 	const rowActionState = useOverviewEngineContext((context) => context.rowActionState);
+	const rowActionStyling = useOverviewEngineContext((context) => context.rowActionStyling);
 
 	return React.useCallback(
 		(row: JSONDocument, button: OverviewModel.Button) => {
-			const state = rowActionState?.rowActions?.[button.event];
+			const callbackState = rowActionStyling?.({ row, button });
+
+			if (callbackState?.[property] !== undefined) {
+				return callbackState[property];
+			}
+
 			const specificState = rowActionState?.rows?.[row.id]?.[button.event];
+			const state = rowActionState?.rowActions?.[button.event];
 
 			return specificState?.[property] ?? state?.[property];
 		},
-		[property, rowActionState]
+		[property, rowActionState, rowActionStyling]
 	);
 }
 
@@ -165,27 +173,28 @@ function useRowsSelect() {
 	}, [onLatestSelectedDocumentIdChange, onLatestSelectedDocumentIdsChange]);
 
 	return React.useCallback(
-		(event: React.MouseEvent<HTMLElement>, documentId: string) => {
+		(event: React.MouseEvent<HTMLElement>, documentId: string, linkId?: string) => {
 			event.stopPropagation();
 			window.getSelection()?.removeAllRanges();
 
-			const selected = !!rowState?.[documentId]?.selected;
+			const selected = !!pickRowState(rowState, { id: documentId, linkId })?.selected;
 
 			// Disable shift+click range selection for infinite scroll mode
 			if (!event.shiftKey || !latestSelectedDocumentId || enableInfiniteScroll) {
 				if (selected) {
 					clear();
 				} else {
-					onLatestSelectedDocumentIdChange?.({ latestSelectedDocumentId: documentId });
+					onLatestSelectedDocumentIdChange?.({ latestSelectedDocumentId: { documentId, linkId } });
 				}
 
-				onRowsSelect?.([{ documentId, selected: !selected }]);
+				onRowsSelect?.([{ documentId, linkId, selected: !selected }]);
 
 				return;
 			}
 
-			const endpointIndices = [latestSelectedDocumentId, documentId].map((endpoint) =>
-				data.findIndex((row) => row?.id === endpoint)
+			const endpoints = [latestSelectedDocumentId, { documentId, linkId }];
+			const endpointIndices = endpoints.map((endpoint) =>
+				data.findIndex((row) => row?.id === endpoint.documentId && row?.linkId === endpoint.linkId)
 			);
 
 			if (endpointIndices.some((index) => index < 0)) {
@@ -206,24 +215,23 @@ function useRowsSelect() {
 			const enableRows = targetRows.filter((row) => !rowDisabledGetter(row));
 
 			const selectedRows = enableRows
-				.filter((row) => !rowState?.[row.id]?.selected)
-				.map((row) => ({ documentId: row.id, selected: true }));
+				.filter((row) => !pickRowState(rowState, row)?.selected)
+				.map((row) => ({ documentId: row.id, linkId: row.linkId, selected: true }));
 
-			const enableDocumentIds = enableRows.map((row) => row.id);
-			onLatestSelectedDocumentIdsChange?.({ latestSelectedDocumentIds: enableDocumentIds });
+			const enabledEntries = enableRows.map((row) => ({ documentId: row.id, linkId: row.linkId }));
+			onLatestSelectedDocumentIdsChange?.({ latestSelectedDocumentIds: enabledEntries });
 
-			const deselectedRows: { documentId: string; selected: boolean }[] = [];
+			const hasOverlap = enabledEntries.some((entry) =>
+				latestSelectedDocumentIds?.some((sel) => sel.documentId === entry.documentId && sel.linkId === entry.linkId)
+			);
 
-			if (enableDocumentIds.some((documentId) => latestSelectedDocumentIds?.includes(documentId))) {
-				latestSelectedDocumentIds
-					?.filter((documentId) => !enableDocumentIds?.includes(documentId))
-					.forEach((documentId) =>
-						deselectedRows.push({
-							documentId,
-							selected: false
-						})
-					);
-			}
+			const deselectedRows = hasOverlap
+				? (latestSelectedDocumentIds
+						?.filter(
+							(entry) => !enabledEntries.some((id) => id.documentId === entry.documentId && id.linkId === entry.linkId)
+						)
+						.map((entry) => ({ documentId: entry.documentId, linkId: entry.linkId, selected: false })) ?? [])
+				: [];
 
 			onRowsSelect?.(selectedRows.concat(deselectedRows));
 		},
@@ -253,7 +261,7 @@ function useScreenReaderCellId() {
 				return undefined;
 			}
 
-			return toCellId(row.id, screenReaderColumnRef.idref);
+			return toCellId(row, screenReaderColumnRef.idref);
 		},
 		[screenReaderColumnRef]
 	);

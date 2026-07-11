@@ -30,19 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { actionCreatorFactory } from "typescript-fsa";
+import { actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { type JSONDocument } from "../../models/index.js";
-import { type OverviewEngineApi } from "../../view/api.js";
-import type { OverviewModel } from "../../overview-model.js";
+import type { JSONDocument } from "../../models/index.js";
+import type { OverviewEngineApi } from "../../view/api.js";
+import type { Configurable, OverviewModel } from "../../overview-model.js";
 
-import {
-	type Sorting,
-	type Scrolling,
-	type ColumnWidths,
-	type PaginationState,
-	type ScrollToRowRequest
-} from "./store.js";
+import type { FilterState, FilterSelectorOptions } from "./filter-state.js";
+import type { Sorting, Scrolling, ColumnWidths, PaginationState, ScrollToRowRequest } from "./store.js";
 
 /**
  * Actions which get triggered by a UI Event.
@@ -77,6 +72,7 @@ export namespace Events {
 		/** Array of document ids and their modified selection states */
 		readonly documentsSelection: {
 			readonly documentId: string;
+			readonly linkId?: string;
 			readonly selected: boolean;
 		}[];
 	}
@@ -145,8 +141,11 @@ export namespace Events {
 		"onOverallMultiSelectionButtonClicked"
 	);
 	export interface OverallMultiSelectionButtonClickedPayload {
-		readonly affectedRowIds: string[];
-		readonly selected: boolean;
+		readonly documentsSelection: readonly {
+			readonly documentId: string;
+			readonly linkId?: string;
+			readonly selected: boolean;
+		}[];
 	}
 
 	/**
@@ -162,7 +161,7 @@ export namespace Events {
 		"onLatestSelectedDocumentIdChanged"
 	);
 	export interface LatestSelectedDocumentIdChangedPayload {
-		readonly latestSelectedDocumentId: string | null;
+		readonly latestSelectedDocumentId: { readonly documentId: string; readonly linkId?: string } | null;
 	}
 
 	/**
@@ -172,7 +171,7 @@ export namespace Events {
 		"onLatestSelectedDocumentIdsChanged"
 	);
 	export interface LatestSelectedDocumentIdsChangedPayload {
-		readonly latestSelectedDocumentIds: string[] | null;
+		readonly latestSelectedDocumentIds: readonly { readonly documentId: string; readonly linkId?: string }[] | null;
 	}
 
 	/**
@@ -213,6 +212,7 @@ export namespace Events {
 	export const onRowButtonClicked = factory<RowButtonClickedPayload>("onRowButtonClicked");
 	export interface RowButtonClickedPayload {
 		readonly documentId: string;
+		readonly linkId?: string;
 		readonly rowActionModel: OverviewModel.Button;
 	}
 
@@ -223,6 +223,7 @@ export namespace Events {
 	export const onRowClicked = factory<RowClickedPayload>("onRowClicked");
 	export interface RowClickedPayload {
 		readonly documentId: string;
+		readonly linkId?: string;
 		readonly customEvent?: string;
 	}
 
@@ -256,6 +257,87 @@ export namespace Events {
 	export const onExport = factory<ExportPayload>("onExport");
 	/** @internal */
 	export interface ExportPayload {}
+
+	export const onMobileSearchBarToggle = factory<MobileSearchBarTogglePayload>("onMobileSearchBarToggle");
+	export interface MobileSearchBarTogglePayload {
+		readonly visible: boolean;
+	}
+
+	/** @experimental until 40.0.0 - API may change without semver guarantees. */
+	export namespace NewFilter {
+		const filterFactory = actionCreatorFactory("EVENT/newFilter");
+
+		export const onFilterSelectorOptionsChanged = filterFactory<FilterSelectorOptionsChangedPayload>(
+			"onFilterSelectorOptionsChanged"
+		);
+		export interface FilterSelectorOptionsChangedPayload {
+			readonly options: Partial<FilterSelectorOptions>;
+		}
+
+		export const onFilterOptionsChanged = filterFactory<FilterOptionsChangedPayload>("onFilterOptionsChanged");
+		export interface FilterOptionsChangedPayload {
+			readonly invert?: Configurable<boolean>;
+			readonly joinOperator?: Configurable<"and" | "or">;
+		}
+
+		export const onFilterItemOptionsChanged =
+			filterFactory<FilterItemOptionsChangedPayload>("onFilterItemOptionsChanged");
+		export interface FilterItemOptionsChangedPayload<Options = object> {
+			readonly filterId: string;
+			readonly options: Options;
+		}
+
+		export const onFilterCollapsedChanged = filterFactory<FilterCollapsedChangedPayload>("onFilterCollapsedChanged");
+		export interface FilterCollapsedChangedPayload {
+			readonly filterId: string | null;
+			readonly collapsed: boolean;
+		}
+
+		export const onFilterSelectorAllApplied = filterFactory("onFilterSelectorAllApplied");
+
+		export const onFilterItemReset = filterFactory<FilterItemResetPayload>("onFilterItemReset");
+
+		export interface FilterItemResetPayload {
+			readonly filterId: string;
+		}
+
+		export const onFilterSelectorReset = filterFactory("onFilterSelectorReset");
+
+		export const onFilterBarReset = filterFactory("onFilterBarReset");
+
+		export const onFilterSelectorVisibilityChanged = filterFactory<FilterSelectorVisibilityChangedPayload>(
+			"onFilterSelectorVisibilityChanged"
+		);
+		export interface FilterSelectorVisibilityChangedPayload {
+			readonly visible: boolean;
+		}
+
+		export const onFilterItemEditStarted = filterFactory<FilterItemEditStartedPayload>("onFilterItemEditStarted");
+		export interface FilterItemEditStartedPayload {
+			readonly filterId: string;
+		}
+
+		export const onFilterItemEditCanceled = filterFactory<FilterItemEditCanceledPayload>("onFilterItemEditCanceled");
+		export interface FilterItemEditCanceledPayload {}
+
+		export const onFilterItemEditApplied = filterFactory("onFilterItemEditApplied");
+
+		export const onFilterItemSettingsOpened =
+			filterFactory<FilterItemSettingsOpenedPayload>("onFilterItemSettingsOpened");
+		export interface FilterItemSettingsOpenedPayload {
+			readonly filterId: string;
+		}
+
+		export const onFilterItemSettingsClosed =
+			filterFactory<FilterItemSettingsClosedPayload>("onFilterItemSettingsClosed");
+		export interface FilterItemSettingsClosedPayload {}
+
+		export const onFilterBarItemsOverflowed =
+			filterFactory<FilterBarItemsOverflowedPayload>("onFilterBarItemsOverflowed");
+		export interface FilterBarItemsOverflowedPayload {
+			readonly filterIds: string[];
+		}
+	}
 }
 
 /**
@@ -296,7 +378,7 @@ export namespace Commands {
 	 */
 	export const setLatestSelectedDocumentId = factory<SetLatestSelectedDocumentIdPayload>("setLatestSelectedDocumentId");
 	export interface SetLatestSelectedDocumentIdPayload {
-		readonly latestSelectedDocumentId: string | null;
+		readonly latestSelectedDocumentId: { readonly documentId: string; readonly linkId?: string } | null;
 	}
 
 	/**
@@ -305,7 +387,7 @@ export namespace Commands {
 	export const setLatestSelectedDocumentIds =
 		factory<SetLatestSelectedDocumentIdsPayload>("setLatestSelectedDocumentIds");
 	export interface SetLatestSelectedDocumentIdsPayload {
-		readonly latestSelectedDocumentIds: string[] | null;
+		readonly latestSelectedDocumentIds: readonly { readonly documentId: string; readonly linkId?: string }[] | null;
 	}
 
 	/**
@@ -326,15 +408,11 @@ export namespace Commands {
 		readonly disabled: boolean;
 	}
 
-	/** @internal */
-	export const setQueryParametersName = "setQueryParameters";
-	/** @internal */
-	export const setQueryParametersCommandName = ["COMMAND", setQueryParametersName].join("/");
 	/**
 	 *
 	 *
 	 */
-	export const setQueryParameters = factory<SetQueryParametersPayload>(setQueryParametersName);
+	export const setQueryParameters = factory<SetQueryParametersPayload>("setQueryParameters");
 	export interface SetQueryParametersPayload {
 		readonly searchString?: string;
 		readonly pagination?: PaginationState;
@@ -349,6 +427,22 @@ export namespace Commands {
 	export const setScrollToRow = factory<SetScrollToRowPayload>("setScrollToRow");
 	export interface SetScrollToRowPayload {
 		readonly scrollToRow?: ScrollToRowRequest;
+	}
+
+	export const setMobileSearchBar = factory<SetMobileSearchBarPayload>("setMobileSearchBar");
+	export interface SetMobileSearchBarPayload {
+		readonly visible: boolean;
+	}
+
+	export const setFilterState = factory<SetFilterStatePayload>("setFilterState");
+	export interface SetFilterStatePayload {
+		readonly state: FilterState;
+	}
+
+	export const setFilterOptions = factory<SetFilterOptionsPayload>("setFilterOptions");
+	export interface SetFilterOptionsPayload<Options = object> {
+		readonly filterId: string;
+		readonly options: Options;
 	}
 }
 

@@ -34,14 +34,16 @@ import * as React from "react";
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
-import { type OverviewEngineApi } from "../../../../../main/view/api.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { OverviewEngineInternalConstants } from "../../../../../main/shared/constants.js";
 import { EnumeratedStringFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumerated-string-filter-options-view.js";
 
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type TestReduxState } from "../../../../test-utils.js";
+import { render, type TestReduxState } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.enumerated-string-filter-options-view", () => {
 	const viewName = "Enumerated String Filter Options View";
@@ -186,7 +188,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.enu
 					eventHandlers: { onSearchEnumeratedStringField: onSearchEnumeratedStringField }
 				});
 
-				const searchInput = wrapper.getByDataRole(DataRoles.Textline.Input);
+				const searchInput = wrapper.getByDataRole(DataRoles.TextField.Input);
 				fireEvent.change(searchInput.element, { target: { value: "em" } });
 
 				expect(onSearchEnumeratedStringField).toHaveBeenCalledOnce();

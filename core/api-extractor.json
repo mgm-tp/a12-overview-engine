@@ -1,17 +1,21 @@
 {
-	"$schema": "./node_modules/@microsoft/api-extractor/lib/schemas/api-extractor.schema.json",
-	"projectFolder": ".",
-	"mainEntryPointFilePath": "./lib/main/index.d.ts",
-	"bundledPackages": [],
+	"$schema": "./node_modules/@microsoft/api-extractor/lib-esm/schemas/api-extractor.schema.json",
+	"mainEntryPointFilePath": "<projectFolder>/lib/index.d.ts",
 	"newlineKind": "lf",
 	"compiler": {
-		"tsconfigFilePath": "./tsconfig.json"
+		"tsconfigFilePath": "<projectFolder>/tsconfig.build.json",
+		"overrideTsconfig": {
+			"compilerOptions": {
+				"target": "ES2024",
+				"lib": ["DOM", "DOM.Iterable", "ES2024"],
+				"skipLibCheck": true
+			}
+		}
 	},
 	"apiReport": {
 		"enabled": true,
-		"reportFolder": ".",
-		"reportFileName": "overviewengine-core",
-		"reportTempFolder": "./target/api"
+		"reportFolder": "<projectFolder>",
+		"reportTempFolder": "<projectFolder>/target/api"
 	},
 	"tsdocMetadata": {
 		"enabled": false

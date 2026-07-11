@@ -35,11 +35,13 @@ import "../../../../setup/jsdom.js";
 import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type OverviewEngineApi } from "../../../../../main/view/api.js";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { CustomFieldFilterOptionsView } from "../../../../../main/view/components/filters/options-views/custom-field-filter-options-view.js";
 
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 
 import { getClearAllButton } from "./shared.js";
@@ -78,7 +80,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.cus
 
 				const wrapper = setupTest({ onChange: onChangeSpy });
 
-				fireEvent.input(wrapper.getByDataRole(DataRoles.Textline.Input).element, { target: { value: "mock-value" } });
+				fireEvent.input(wrapper.getByDataRole(DataRoles.TextField.Input).element, { target: { value: "mock-value" } });
 
 				const stringFilterOption: OverviewEngineApi.Filter.StringOptions = {
 					filterType: "String",

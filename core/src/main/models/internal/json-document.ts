@@ -30,14 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { DocumentUtils } from "./utils/document-utils.js";
 
 export interface JSONDocument extends GroupInstance {
 	readonly id: string;
+	readonly modelId: string;
+	readonly linkId?: string;
 }
-
 export namespace JSONDocument {
 	export function isInstance(element: unknown): element is JSONDocument {
 		return DocumentUtils.isGroupInstance(element) && typeof element.id === "string";

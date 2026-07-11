@@ -1,0 +1,209 @@
+{
+	"header": {
+		"id": "EmployeeProjectOM",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Project"
+			},
+			{
+				"locale": "de",
+				"text": "Projekt"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "EmployeeDM"
+			},
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"alias": "QM",
+				"reference": "EmployeeProjectQM"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"rightSlot": [],
+			"leftSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"event": "event_cancel",
+					"destructive": true,
+					"primary": false
+				}
+			],
+			"rightSlot": []
+		},
+		"columns": [
+			{
+				"id": "column-proj-name",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Project Name"
+					},
+					{
+						"locale": "de",
+						"text": "Projektname"
+					}
+				],
+				"width": 1.4,
+				"elementRef": "field_proj_name",
+				"linkReferences": [
+					{
+						"relationship": "EmployeeProjectRM",
+						"targetRole": "project",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-proj-status",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Status"
+					},
+					{
+						"locale": "de",
+						"text": "Status"
+					}
+				],
+				"width": 0.8,
+				"elementRef": "field_proj_status",
+				"linkReferences": [
+					{
+						"relationship": "EmployeeProjectRM",
+						"targetRole": "project",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-proj-budget",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Budget"
+					},
+					{
+						"locale": "de",
+						"text": "Budget"
+					}
+				],
+				"width": 1,
+				"elementRef": "field_proj_budget",
+				"linkReferences": [
+					{
+						"relationship": "EmployeeProjectRM",
+						"targetRole": "project",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-proj-deadline",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Deadline"
+					},
+					{
+						"locale": "de",
+						"text": "Frist"
+					}
+				],
+				"width": 1,
+				"elementRef": "field_proj_deadline",
+				"linkReferences": [
+					{
+						"relationship": "EmployeeProjectRM",
+						"targetRole": "project",
+						"type": "CHILD"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"title": [
+							{
+								"locale": "en",
+								"text": "Confirmation"
+							},
+							{
+								"locale": "de",
+								"text": "Bestätigung"
+							}
+						],
+						"message": [
+							{
+								"locale": "en",
+								"text": "Do you really want to remove this project?"
+							},
+							{
+								"locale": "de",
+								"text": "Möchten Sie dieses Projekt wirklich entfernen?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "en",
+							"text": "Delete"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": true,
+			"showRowCount": true,
+			"enableColumnsResize": true,
+			"enableInfiniteScroll": true,
+			"rowHeight": 80
+		}
+	}
+}

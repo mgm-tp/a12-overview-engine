@@ -32,21 +32,21 @@
 
 import * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type YearRange } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { YearRange, YearSelectorVariant } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIdGenerator } from "../../../utils.js";
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import { DateTimeUtils } from "./date-time-utils.js";
 import { DateInputAdapter } from "./date-input-adapter.js";
-import { type DateTimeViewValue } from "./date-time-filter-view.api.js";
+import type { DateTimeViewValue } from "./date-time-filter-view.api.js";
 import { SectionTemplate, type SectionType } from "./section-template.js";
 import {
 	useClearHandlerRegistry,
@@ -67,6 +67,7 @@ export namespace DateRangeFilterOptionsView {
 		readonly uiValue: DateTimeViewValue;
 		readonly readonly?: boolean;
 		readonly yearRange?: YearRange;
+		readonly yearSelectorVariant?: YearSelectorVariant;
 	}
 }
 
@@ -185,7 +186,17 @@ namespace DateRangeInput {
 }
 
 const DateRangeInput: React.FC<DateRangeInput.Props> = React.memo(function DateRangeInput(props) {
-	const { readonly, yearRange, sectionType, uiValue, path, triggerChange, enableDatePicker, clearHandlerRef } = props;
+	const {
+		readonly,
+		yearRange,
+		yearSelectorVariant,
+		sectionType,
+		uiValue,
+		path,
+		triggerChange,
+		enableDatePicker,
+		clearHandlerRef
+	} = props;
 	const disabled = useOverviewEngineState(UiStateSelector.disabled());
 	const converter = useOverviewEngineInternalContext((context) => context.converter);
 	const fieldFormatString = LocalizerHooks.useLocalizedDateFieldFormat();
@@ -232,7 +243,8 @@ const DateRangeInput: React.FC<DateRangeInput.Props> = React.memo(function DateR
 			onValueSubmit,
 			sectionType,
 			fieldFormatString: fieldFormatString(path, props.modelId),
-			value: uiValue[sectionType].value ?? undefined
+			value: uiValue[sectionType].value ?? undefined,
+			yearSelectorVariant
 		};
 	}, [
 		clearHandlerRef,
@@ -245,7 +257,8 @@ const DateRangeInput: React.FC<DateRangeInput.Props> = React.memo(function DateR
 		path,
 		props.modelId,
 		sectionType,
-		uiValue
+		uiValue,
+		yearSelectorVariant
 	]);
 
 	return <DateInputAdapter {...baseProps} {...dateInputAdapterProps} />;

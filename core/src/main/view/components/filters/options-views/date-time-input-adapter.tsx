@@ -36,7 +36,7 @@ import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
 	type YearRange,
-	type TimePickerProps,
+	type YearSelectorVariant,
 	type DateTimePickerProps,
 	provider as DeviceDetector,
 	type DateTimePickerInputProps
@@ -45,22 +45,21 @@ import {
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import { type SectionType } from "./section-template.js";
+import type { SectionType } from "./section-template.js";
 import { useLocalizedLabels } from "./date-time-common-hooks.js";
 
 /** @internal */
 export namespace DateTimeInputAdapter {
-	export interface Props
-		extends Pick<
-			DateTimePickerInputProps<DateTimePickerProps>,
-			"readonly" | "disabled" | "error" | "dateTimeFormatter" | "dateTimeConverter"
-		> {
+	export interface Props extends Pick<
+		DateTimePickerInputProps<DateTimePickerProps>,
+		"readonly" | "disabled" | "error" | "dateTimeFormatter" | "dateTimeConverter"
+	> {
 		readonly id: string;
 		readonly clearHandlerRef: (clearHandler: () => void) => void;
 		readonly value?: Date;
 		readonly sectionType: SectionType;
 		readonly yearRange?: YearRange;
-		readonly timeMode?: TimePickerProps.ClockMode;
+		readonly yearSelectorVariant?: YearSelectorVariant;
 		readonly enableDatePicker?: boolean;
 		readonly errorMessage?: string;
 		readonly fieldFormatString?: string;
@@ -76,8 +75,8 @@ export const DateTimeInputAdapter: React.FC<DateTimeInputAdapter.Props> = React.
 			id,
 			value,
 			onValueSubmit,
-			timeMode,
 			yearRange,
+			yearSelectorVariant,
 			enableDatePicker,
 			getLocalizedDateString,
 			clearHandlerRef,
@@ -113,10 +112,10 @@ export const DateTimeInputAdapter: React.FC<DateTimeInputAdapter.Props> = React.
 				value,
 				timeRequired: true,
 				locale: Locale.toString(locale),
-				timeMode,
 				timezone,
 				customTimeEditLabel: editTimeLabel,
 				yearRange,
+				yearSelectorVariant,
 				hidePickerButton: !enableDatePicker,
 				customHeaderElement,
 				customHeaderTitle,
@@ -137,10 +136,10 @@ export const DateTimeInputAdapter: React.FC<DateTimeInputAdapter.Props> = React.
 			mobileMode,
 			okLabel,
 			selectedDate,
-			timeMode,
 			timezone,
 			value,
-			yearRange
+			yearRange,
+			yearSelectorVariant
 		]);
 
 		return (

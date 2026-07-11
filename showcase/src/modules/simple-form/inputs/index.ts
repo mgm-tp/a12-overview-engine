@@ -32,4 +32,3 @@
 
 export { NumberInput } from "./number-input.js";
 export { StringInput } from "./string-input.js";
-export { SelectInput } from "./select-input.js";

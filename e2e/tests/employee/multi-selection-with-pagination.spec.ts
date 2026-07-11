@@ -37,6 +37,8 @@ import { allRowsShouldBeCheck, overallCheckboxStatusShouldBe } from "../helper.j
 test.describe("Multi-Selection Feature - With pagination", () => {
 	test.describe("Using Employee showcase", () => {
 		test.beforeAll(async ({ seed }) => {
+			// Seeding data can be slow in CI
+			test.slow();
 			await seed("employee");
 		});
 		test.beforeEach(async ({ page }) => {
@@ -47,12 +49,12 @@ test.describe("Multi-Selection Feature - With pagination", () => {
 			await expect(page.locator(Selector.FILTER_BAR).locator(Selector.FILTER_OPTIONS)).toContainText("≥ 20,000 EUR");
 			await page.locator(Selector.BUTTON_SEARCH).click();
 			await overallCheckboxStatusShouldBe(page, "false");
-			await allRowsShouldBeCheck(page, false, 7);
+			await allRowsShouldBeCheck(page, false, 6);
 			await expect(page.locator(Selector.PAGINATION)).not.toBeVisible();
 
 			await page.locator(Selector.TABLE_HEADER_CELL).first().locator(Selector.CHECKBOX_INPUT).click();
 			await overallCheckboxStatusShouldBe(page, "true");
-			await allRowsShouldBeCheck(page, true, 7);
+			await allRowsShouldBeCheck(page, true, 6);
 
 			await page.locator(Selector.FILTER_BAR).locator(Selector.BUTTON_DELETE).click();
 			await expect(page.locator(Selector.PORTAL).locator(Selector.MODAL_OVERLAY)).toContainText("Warning");
@@ -63,7 +65,7 @@ test.describe("Multi-Selection Feature - With pagination", () => {
 				.click();
 			await expect(page.locator(Selector.FILTER_BAR)).not.toBeVisible();
 			await overallCheckboxStatusShouldBe(page, "false");
-			await allRowsShouldBeCheck(page, false);
+			await allRowsShouldBeCheck(page, false, 8);
 			await expect(page.locator(Selector.PAGINATION)).toContainText("1 / 3");
 		});
 	});

@@ -1,0 +1,14 @@
+// Solution-style config for `tsc --build`. References all packages.
+{
+	"files": [],
+	"references": [
+		{ "path": "./query-model" },
+		{ "path": "./core/tsconfig.build.json" },
+		{ "path": "./migration-tool" },
+		{ "path": "./services-utils" },
+		{ "path": "./codemod" },
+		{ "path": "./showcase" },
+		{ "path": "./e2e" },
+		{ "path": "./documentation" }
+	]
+}

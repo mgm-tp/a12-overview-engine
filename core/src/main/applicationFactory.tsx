@@ -59,11 +59,15 @@ const MODEL_TYPE = "overview";
  * we must use the "internal" path as TS does not support module augmentation for re-exported types
  * See https://github.com/microsoft/TypeScript/issues/12607
  */
-declare module "@com.mgmtp.a12.client/client-core/lib/core/application/internal/factories/applicationConfig.js" {
+declare module "@com.mgmtp.a12.client/client-core" {
 	interface A12ApplicationConfig {
+		/** Overview Engine configuration. Omit to skip Overview Engine integration entirely. */
 		readonly overviewEngine?: {
+			/** Engine-wide settings consumed by data providers and middleware (e.g. `filterStateSelectors`). */
 			readonly moduleConfig?: OverviewEngineFactories.ModuleConfig;
+			/** Default props applied to every `OverviewEngine` view rendered by the host app. */
 			readonly viewConfig?: Partial<Omit<OverviewEngineFactories.ViewComponentProps, keyof View>>;
+			/** Custom data loader. Falls back to the engine's default loader when omitted. */
 			readonly dataLoader?: OverviewEngineDataLoader;
 		};
 	}
@@ -102,7 +106,7 @@ export const withOverviewEnginePlatformSagas = <T extends ApplicationWithOvervie
  * @experimental
  */
 export const withOverviewEngineMiddlewares = <T extends ApplicationWithOverviewEngineConfig>(cfg: T) =>
-	addAdditionalMiddlewares<T>(...OverviewEngineFactories.createMiddlewares())(cfg);
+	addAdditionalMiddlewares<T>(...OverviewEngineFactories.createMiddlewares(cfg.overviewEngine?.moduleConfig))(cfg);
 
 /**
  * @experimental

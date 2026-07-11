@@ -33,12 +33,15 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { StringFilterOptionsView } from "../../../../../main/view/components/filters/options-views/string-filter-options-view.js";
 
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { modifyDocumentModel, type DocumentModelModifier } from "../../new-filters/setup.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.string-filter-options-view", () => {
 	const onChangeSpy = vi.fn();
@@ -61,9 +64,9 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.str
 	describe("onChange", () => {
 		describe("when the user enters something in the input", () => {
 			it("calls the given onChange callback with value: ['input value']", () => {
-				const textLine = setupTest().getByDataRole(DataRoles.Textline.Input);
+				const textField = setupTest().getByDataRole(DataRoles.TextField.Input);
 
-				fireEvent.change(textLine.element, { target: { value: "Test" } });
+				fireEvent.change(textField.element, { target: { value: "Test" } });
 
 				expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith({ filterType: "String", criteria: { value: "Test" } });
 			});
@@ -71,9 +74,9 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.str
 
 		describe("when the user delete everything in the input", () => {
 			it("call the given onChange callback with no criteria", () => {
-				const textLine = setupTest({ uiValue: { value: "initialValue" } }).getByDataRole(DataRoles.Textline.Input);
+				const textField = setupTest({ uiValue: { value: "initialValue" } }).getByDataRole(DataRoles.TextField.Input);
 
-				fireEvent.change(textLine.element, { target: { value: "" } });
+				fireEvent.change(textField.element, { target: { value: "" } });
 
 				expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith({ filterType: "String" });
 			});
@@ -103,15 +106,17 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.str
 		describe("filters", () => {
 			describe("given initialFilterOptions with a value", () => {
 				it("shows the string in the input", () => {
-					expect(setupTest({ uiValue: { value: "Test" } }).getByDataRole(DataRoles.Textline.Input).element).toHaveValue(
-						"Test"
-					);
+					expect(
+						setupTest({ uiValue: { value: "Test" } }).getByDataRole(DataRoles.TextField.Input).element
+					).toHaveValue("Test");
 				});
 			});
 
 			describe("given initialFilterOptions with empty value", () => {
 				it("shows an empty input", () => {
-					expect(setupTest({ uiValue: { value: "" } }).getByDataRole(DataRoles.Textline.Input).element).toHaveValue("");
+					expect(setupTest({ uiValue: { value: "" } }).getByDataRole(DataRoles.TextField.Input).element).toHaveValue(
+						""
+					);
 				});
 			});
 		});
@@ -125,7 +130,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.str
 						wrapper.getByDataRoles(DataRoles.Filter.Selector.ActionElement, DataRoles.Button).element
 					).toBeDisabled();
 
-					expect(wrapper.getByDataRole(DataRoles.Textline.Input).element).toBeDisabled();
+					expect(wrapper.getByDataRole(DataRoles.TextField.Input).element).toBeDisabled();
 				});
 			});
 
@@ -154,8 +159,128 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.str
 
 				it("enables the input", () => {
 					expect(
-						setupTest(undefined, { uiState: { disabled: false } }).getByDataRole(DataRoles.Textline.Input).element
+						setupTest(undefined, { uiState: { disabled: false } }).getByDataRole(DataRoles.TextField.Input).element
 					).toBeEnabled();
+				});
+			});
+		});
+
+		describe("minimum searchable token size", () => {
+			const stringFieldPath = [{ elementName: "root" }, { elementName: "string" }];
+			const minTokenSizeState = {
+				dataservices: {
+					configuration: {
+						"mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize": "3"
+					}
+				}
+			};
+
+			const withApproximateMatchSearch: DocumentModelModifier = (element) =>
+				element.type === "Field" && element.name === "string"
+					? { ...element, annotations: [{ name: "enable_approximate_match_search", value: "true" }] }
+					: null;
+
+			function setupMinTokenSizeTest(annotated: boolean) {
+				const documentModel = annotated
+					? modifyDocumentModel(defaultEngineProps.documentModel, withApproximateMatchSearch)
+					: defaultEngineProps.documentModel;
+
+				return render(<StringFilterOptionsView {...basicProps} path={stringFieldPath} />, {
+					wrappingComponent: OverviewEngine,
+					wrappingComponentProps: { ...defaultEngineProps, documentModel },
+					reduxState: minTokenSizeState
+				});
+			}
+
+			describe("given the field uses approximate match search", () => {
+				it("flags the option as errored for a value shorter than the minimum and shows a hint", () => {
+					const wrapper = setupMinTokenSizeTest(true);
+
+					fireEvent.change(wrapper.getByDataRole(DataRoles.TextField.Input).element, { target: { value: "te" } });
+
+					expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith(
+						{ filterType: "String", error: true, modelId: undefined },
+						{ value: "te" }
+					);
+					expect(wrapper.getByText("Enter at least 3 characters").element).toBeInTheDocument();
+				});
+
+				it("flags the option as errored when any word is shorter than the minimum", () => {
+					const wrapper = setupMinTokenSizeTest(true);
+
+					fireEvent.change(wrapper.getByDataRole(DataRoles.TextField.Input).element, {
+						target: { value: "test a" }
+					});
+
+					expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith(
+						{ filterType: "String", error: true, modelId: undefined },
+						{ value: "test a" }
+					);
+					expect(wrapper.getByText("Enter at least 3 characters").element).toBeInTheDocument();
+				});
+
+				it("propagates a value meeting the minimum", () => {
+					const wrapper = setupMinTokenSizeTest(true);
+
+					fireEvent.change(wrapper.getByDataRole(DataRoles.TextField.Input).element, { target: { value: "test" } });
+
+					expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith({
+						filterType: "String",
+						criteria: { value: "test" }
+					});
+					expect(wrapper.queryByText("Enter at least 3 characters").element).toBeNull();
+				});
+
+				it("does not show the hint while typing, only after submitting the value", () => {
+					const wrapper = setupMinTokenSizeTest(true);
+					const input = wrapper.getByDataRole(DataRoles.TextField.Input).element;
+
+					input.focus();
+					fireEvent.change(input, { target: { value: "te" } });
+
+					expect(wrapper.queryByText("Enter at least 3 characters").element).toBeNull();
+
+					fireEvent.blur(input);
+
+					expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith(
+						{ filterType: "String", error: true, modelId: undefined },
+						{ value: "te" }
+					);
+					expect(wrapper.getByText("Enter at least 3 characters").element).toBeInTheDocument();
+				});
+
+				it("clears the hint when the corrected value is submitted", () => {
+					const wrapper = setupMinTokenSizeTest(true);
+					const input = wrapper.getByDataRole(DataRoles.TextField.Input).element;
+
+					input.focus();
+					fireEvent.change(input, { target: { value: "te" } });
+					fireEvent.blur(input);
+
+					expect(wrapper.getByText("Enter at least 3 characters").element).toBeInTheDocument();
+
+					input.focus();
+					fireEvent.change(input, { target: { value: "test" } });
+					fireEvent.blur(input);
+
+					expect(wrapper.queryByText("Enter at least 3 characters").element).toBeNull();
+					expect(onChangeSpy).toHaveBeenLastCalledWith({
+						filterType: "String",
+						criteria: { value: "test" }
+					});
+				});
+			});
+
+			describe("given the field does not use approximate match search", () => {
+				it("propagates a value shorter than the minimum", () => {
+					const wrapper = setupMinTokenSizeTest(false);
+
+					fireEvent.change(wrapper.getByDataRole(DataRoles.TextField.Input).element, { target: { value: "te" } });
+
+					expect(onChangeSpy).toHaveBeenCalledExactlyOnceWith({
+						filterType: "String",
+						criteria: { value: "te" }
+					});
 				});
 			});
 		});

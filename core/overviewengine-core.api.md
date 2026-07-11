@@ -5,25 +5,26 @@
 ```ts
 
 import { A12ApplicationConfig } from '@com.mgmtp.a12.client/client-core';
-import { Action } from 'typescript-fsa';
-import { ActionCreator } from 'typescript-fsa';
+import { Action } from '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat';
+import { ActionCreator } from '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat';
 import { Activity } from '@com.mgmtp.a12.client/client-core';
 import { ActivityActions } from '@com.mgmtp.a12.client/client-core';
-import { ActivityReducers } from '@com.mgmtp.a12.client/client-core';
-import { Annotation } from '@com.mgmtp.a12.base/base-model-api';
-import { AnyAction } from 'typescript-fsa';
-import { ApplicationSaga } from '@com.mgmtp.a12.client/client-core';
+import type { ActivityReducers } from '@com.mgmtp.a12.client/client-core';
+import type { Annotation } from '@com.mgmtp.a12.base/base-model-api';
+import type { ApplicationSaga } from '@com.mgmtp.a12.client/client-core';
 import { ApplicationWithConfiguredFeature } from '@com.mgmtp.a12.client/client-core';
 import { AttachedPortalProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Attachment } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { Attachment } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import { BadgeProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { BaseColumnType } from '@com.mgmtp.a12.widgets/widgets-core';
 import { BulletListProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ButtonGroupContainerProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ButtonGroupProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ButtonProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import { CheckboxGroupProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import { CheckboxItemProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { CheckboxProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Column } from '@com.mgmtp.a12.widgets/widgets-core';
+import type { Column } from '@com.mgmtp.a12.widgets/widgets-core';
 import { Container } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ContentBoxProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { Context } from 'react';
@@ -31,54 +32,58 @@ import { CounterProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { CssEllipsisProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { DataProvider } from '@com.mgmtp.a12.client/client-core';
 import { DateInputProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import { DateTimePickerHeaderProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { DateTimePickerInputProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { DateTimePickerProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Dispatch } from 'redux';
+import type { Dispatch } from 'redux';
 import type { DocumentJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { DocumentModel } from '@com.mgmtp.a12.kernel/kernel-md-facade';
-import { DocumentService } from '@com.mgmtp.a12.kernel/kernel-md-facade';
-import { Expression } from '@com.mgmtp.a12.expression/expression-core';
-import { FieldInstanceValue } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { DocumentModel } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { DocumentService } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { Expression } from '@com.mgmtp.a12.expression/expression-core';
+import type { FieldInstanceValue } from '@com.mgmtp.a12.kernel/kernel-md-facade';
 import { FilterBarMobileProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { FilterBarProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { FilterProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import { FilterSelectorListModeProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { FilterSelectorMobileProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { FilterSelectorProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { FilterSelectorTemplateProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { GroupInstance } from '@com.mgmtp.a12.kernel/kernel-md-facade';
-import { Header } from '@com.mgmtp.a12.base/base-model-api';
-import { HeaderProps } from '@com.mgmtp.a12.widgets/widgets-core/lib/date-time-picker/main/date-time-picker.internal.js';
+import { GlobalMessageBoxProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import type { GroupInstance } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { Header } from '@com.mgmtp.a12.base/base-model-api';
 import { HiddenTextProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { IconProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { IndeterminateCheckboxProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { InfiniteScrollOptions } from '@com.mgmtp.a12.widgets/widgets-core';
+import type { InfiniteScrollOptions } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ListItemProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ListProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ListSubHeaderProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Locale } from '@com.mgmtp.a12.utils/utils-localization';
+import type { Locale } from 'date-fns/locale';
 import { Localizable } from '@com.mgmtp.a12.utils/utils-localization';
 import { LocalizableArgs } from '@com.mgmtp.a12.utils/utils-localization';
 import { LocalizedModelText } from '@com.mgmtp.a12.utils/utils-localization';
 import { MessageBoxProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { MessageProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Middleware } from 'redux';
+import type { Middleware } from 'redux';
 import { ModalNotificationProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { ModalOverlayProps } from '@com.mgmtp.a12.widgets/widgets-core';
-import { Model } from '@com.mgmtp.a12.client/client-core';
-import { Model as Model_2 } from '@com.mgmtp.a12.base/base-model-api';
+import type { Model } from '@com.mgmtp.a12.base/base-model-api';
+import type { ModelGraph } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import { ModelPath } from '@com.mgmtp.a12.base/base-model-api';
-import { Module } from '@com.mgmtp.a12.client/client-core';
+import type { Module } from '@com.mgmtp.a12.client/client-core';
 import { MonthSelector } from '@com.mgmtp.a12.widgets/widgets-core';
 import { PaginationProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { PopUpMenuProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { Query } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import type { QueryJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { QueryJsonRpc2Response } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { QueryModel } from '@com.mgmtp.a12.querymodel/querymodel-core';
+import type { QueryJsonRpc2Response } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { QueryModel } from '@com.mgmtp.a12.querymodel/querymodel-core';
 import { RadioItemProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { RadioProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import * as React_2 from 'react';
 import { default as React_3 } from 'react';
+import { ReactNode } from 'react';
+import type { RelationshipModel } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import { RequireFeatures } from '@com.mgmtp.a12.client/client-core';
 import { ResponsiveImageContainerProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { RowStyleGetter } from '@com.mgmtp.a12.widgets/widgets-core';
@@ -86,14 +91,20 @@ import { SagaGenerator } from 'typed-redux-saga';
 import { Selector as Selector_2 } from '@com.mgmtp.a12.client/client-core';
 import { SelectProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { SubActionBarTplProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import type { SupportedRequest } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import { Switch } from '@com.mgmtp.a12.widgets/widgets-core';
 import { TableProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { TableRenderPropsType } from '@com.mgmtp.a12.widgets/widgets-core';
+import { TextFieldProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { TextOutputProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { TimePickerProps } from '@com.mgmtp.a12.widgets/widgets-core';
+import { Typography } from '@com.mgmtp.a12.widgets/widgets-core';
+import { UnknownAction } from 'redux';
 import { View } from '@com.mgmtp.a12.client/client-core';
 import { YearMonthSelectorProps } from '@com.mgmtp.a12.widgets/widgets-core';
 import { YearRange } from '@com.mgmtp.a12.widgets/widgets-core';
 import { YearSelector } from '@com.mgmtp.a12.widgets/widgets-core';
+import { YearSelectorVariant } from '@com.mgmtp.a12.widgets/widgets-core';
 
 // @public (undocumented)
 export interface AggregationResolver {
@@ -129,6 +140,12 @@ export namespace AttachmentCell {
     }
 }
 
+// @public
+export interface BooleanFilterEditorProps {
+    // (undocumented)
+    readonly state: BooleanFilterState;
+}
+
 // @public (undocumented)
 export namespace BooleanFilterOptionsView {
     // (undocumented)
@@ -141,6 +158,51 @@ export namespace BooleanFilterOptionsView {
         // (undocumented)
         uiValue: BooleanUiValueType;
     }
+}
+
+// @public
+export interface BooleanFilterSettingProps {
+    // (undocumented)
+    readonly state: BooleanFilterState;
+}
+
+// @public
+export type BooleanFilterState = BooleanFilterState.State;
+
+// @public
+export namespace BooleanFilterState {
+    // (undocumented)
+    export type Criteria = Record<"true" | "false", boolean>;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Boolean.Item, DocumentModelTypedField<DocumentModel.BooleanType>, Options, Options>;
+}
+
+// @public
+export type BoundarySegment = Exclude<SegmentOption, "exact">;
+
+// @public (undocumented)
+export interface BuildRequestsParams {
+    // (undocumented)
+    activityId: string;
+    // (undocumented)
+    dataHolderDescriptor?: Activity.DataHolderDescriptor;
+    // (undocumented)
+    documentModel: DocumentModel;
+    // (undocumented)
+    documentService: DocumentService;
+    // (undocumented)
+    overviewModel: OverviewModel;
+    // (undocumented)
+    queries: DataOperation.Query[];
+    // (undocumented)
+    requestSelectorMap: RequestSelectorMap;
 }
 
 // @public (undocumented)
@@ -179,7 +241,7 @@ export namespace ButtonPanel {
         // (undocumented)
         readonly element: React_2.ReactNode;
         // (undocumented)
-        readonly rank: "major" | "minor";
+        readonly rank: "left" | "right";
     }
     // (undocumented)
     export interface PropsType {
@@ -200,9 +262,6 @@ export namespace ClearMultiSelectionDialog {
         onConfirm(): void;
     }
 }
-
-// @public (undocumented)
-export function collectFieldsProjection(overviewModel: OverviewModel, documentModel: DocumentModel): string[] | undefined;
 
 // @public (undocumented)
 export interface ColumnWidths {
@@ -239,19 +298,46 @@ export namespace Commands {
         readonly expandedMultiSelection: boolean;
     }
     // (undocumented)
-    export interface SetLatestSelectedDocumentIdPayload {
+    export interface SetFilterOptionsPayload<Options = object> {
         // (undocumented)
-        readonly latestSelectedDocumentId: string | null;
+        readonly filterId: string;
+        // (undocumented)
+        readonly options: Options;
     }
     const // (undocumented)
     setDialog: ActionCreator<SetDialogPayload>;
     // (undocumented)
-    export interface SetLatestSelectedDocumentIdsPayload {
+    export interface SetFilterStatePayload {
         // (undocumented)
-        readonly latestSelectedDocumentIds: string[] | null;
+        readonly state: FilterState;
     }
     const // (undocumented)
     setDisabled: ActionCreator<SetDisabledPayload>;
+    // (undocumented)
+    export interface SetLatestSelectedDocumentIdPayload {
+        // (undocumented)
+        readonly latestSelectedDocumentId: {
+            readonly documentId: string;
+            readonly linkId?: string;
+        } | null;
+    }
+    const // (undocumented)
+    setQueryParameters: ActionCreator<SetQueryParametersPayload>;
+    // (undocumented)
+    export interface SetLatestSelectedDocumentIdsPayload {
+        // (undocumented)
+        readonly latestSelectedDocumentIds: readonly {
+            readonly documentId: string;
+            readonly linkId?: string;
+        }[] | null;
+    }
+    // (undocumented)
+    export interface SetMobileSearchBarPayload {
+        // (undocumented)
+        readonly visible: boolean;
+    }
+    const // (undocumented)
+    setMobileSearchBar: ActionCreator<SetMobileSearchBarPayload>;
     // (undocumented)
     export interface SetQueryParametersPayload {
         // (undocumented)
@@ -266,11 +352,13 @@ export namespace Commands {
         readonly sorting?: Sorting[];
     }
     const // (undocumented)
-    setQueryParameters: ActionCreator<SetQueryParametersPayload>;
+    setFilterState: ActionCreator<SetFilterStatePayload>;
     export interface SetRowStatePayload {
         // (undocumented)
         readonly rowState: OverviewEngineApi.RowState;
     }
+    const // (undocumented)
+    setFilterOptions: ActionCreator<SetFilterOptionsPayload<object>>;
     // (undocumented)
     export interface SetScrollToRowPayload {
         // (undocumented)
@@ -313,6 +401,10 @@ export interface ComponentMap {
     // (undocumented)
     readonly InfiniteScrollTableBody: React_2.ComponentType<InfiniteScrollTableBody.Props>;
     // (undocumented)
+    readonly LinkedExpressionCell: React_2.ComponentType<LinkedExpressionCell.Props>;
+    // (undocumented)
+    readonly LinkedReferenceCell: React_2.ComponentType<LinkedReferenceCell.Props>;
+    // (undocumented)
     readonly MobileActionBar: React_2.ComponentType<MobileActionBar.PropsType>;
     // (undocumented)
     readonly MultiSelectCell: React_2.ComponentType<MultiSelectCell.Props>;
@@ -324,6 +416,7 @@ export interface ComponentMap {
     readonly MultiSelectionCounter: React_2.FC;
     // (undocumented)
     readonly MultiSelectionPanel: React_2.FC;
+    readonly newFilter: NewFilterComponentMap;
     // (undocumented)
     readonly OverallCheckbox: React_2.ComponentType<OverallCheckbox.Props>;
     // (undocumented)
@@ -372,6 +465,20 @@ export interface ComponentMap {
     readonly TableHeadCell: React_2.ComponentType<TableHeadCell.Props>;
 }
 
+// @public
+export type Configurable<T> = {
+    readonly enabled: false;
+} | {
+    readonly enabled: true;
+    readonly value: T;
+};
+
+// @public
+export interface ConfirmFilterEditorProps {
+    // (undocumented)
+    readonly state: ConfirmFilterState;
+}
+
 // @public (undocumented)
 export namespace ConfirmFilterOptionsView {
     // (undocumented)
@@ -386,6 +493,32 @@ export namespace ConfirmFilterOptionsView {
     }
 }
 
+// @public
+export interface ConfirmFilterSettingProps {
+    // (undocumented)
+    readonly state: ConfirmFilterState;
+}
+
+// @public
+export type ConfirmFilterState = ConfirmFilterState.State;
+
+// @public
+export namespace ConfirmFilterState {
+    // (undocumented)
+    export type Criteria = true | null;
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Confirm.Item, DocumentModelTypedField<DocumentModel.ConfirmType>, Options, Options>;
+}
+
 // @public (undocumented)
 export namespace ContextMenu {
     // (undocumented)
@@ -398,10 +531,7 @@ export namespace ContextMenu {
 }
 
 // @public (undocumented)
-export function createEngineMiddlewares(): Middleware[];
-
-// @public (undocumented)
-export function createNotFoundError(modelType: string, modelName?: string): Model.Error;
+export function createEngineMiddlewares(options?: MiddlewareOptions): Middleware[];
 
 // @public (undocumented)
 export namespace CustomFieldFilterOptionsView {
@@ -418,6 +548,44 @@ export namespace CustomFieldTypeCell {
         // (undocumented)
         readonly uiValue: string;
     }
+}
+
+// @public
+export interface DataGraph {
+    // (undocumented)
+    readonly documents: (JSONDocument | undefined)[];
+    // (undocumented)
+    readonly links?: Links;
+}
+
+// @public (undocumented)
+export namespace DataGraph {
+    export interface EntityPair {
+        // (undocumented)
+        readonly relationship: string;
+        // (undocumented)
+        readonly source: {
+            readonly role: string;
+            readonly docRef: string;
+        };
+        // (undocumented)
+        readonly target: {
+            readonly role: string;
+            readonly docRef: string;
+        };
+    }
+    export function findDocuments(predicate: (docRef: string, document: JSONDocument) => boolean): (dataGraph: DataGraph) => readonly JSONDocument[];
+    export function findEntryByEntities(pair: EntityPair): (dataGraph: DataGraph) => {
+        readonly entry: JSONLinkRef;
+        readonly targetRole: string;
+        readonly document?: JSONDocument;
+    } | undefined;
+    export function patchDocuments(documents: readonly JSONDocument[]): (dataGraph: DataGraph) => DataGraph;
+    export function patchLinkDocuments(entries: readonly {
+        readonly docRef: string;
+        readonly document: JSONDocument;
+    }[]): (dataGraph: DataGraph) => DataGraph;
+    export function patchLinks(pointer: Links.EntryPointer, entry: JSONLinkRef): (dataGraph: DataGraph) => DataGraph;
 }
 
 // @public (undocumented)
@@ -447,9 +615,9 @@ export namespace DataOperation {
     // (undocumented)
     export namespace Export {
         // (undocumented)
-        export interface Query extends BaseQuery {
+        export interface Query<Operator extends Query.Operator = Query.Operator> extends BaseQuery {
             // (undocumented)
-            constraint?: Query.Operator;
+            constraint?: Operator;
             // (undocumented)
             sort?: Query.Order[];
             // (undocumented)
@@ -481,17 +649,23 @@ export namespace DataOperation {
             pageSize: number;
         }
         // (undocumented)
-        export interface Query extends BaseQuery {
+        export interface Query<Operator extends Query.Operator = Query.Operator> extends BaseQuery {
             // (undocumented)
             aggregation?: Query.AggregationProjector;
             // (undocumented)
-            constraint?: Query.Operator;
+            constraint?: Operator;
+            // (undocumented)
+            exclude?: boolean;
             // (undocumented)
             fields?: string[];
+            // (undocumented)
+            links?: Query.QueryLink[];
             // (undocumented)
             paging: Paging;
             // (undocumented)
             sort?: Query.Order[];
+            // (undocumented)
+            targetDocumentModel?: string;
             // (undocumented)
             type: "LIST_DOCUMENTS";
         }
@@ -505,9 +679,10 @@ export namespace DataOperation {
             // (undocumented)
             aggregationResult?: QueryJsonRpc2Response.AggregationEntry[];
             // (undocumented)
-            documents: Activity.Data.Document[];
+            documents: JSONDocument[];
             // (undocumented)
             fullSize: number;
+            links?: Links;
             // (undocumented)
             thumbnails?: Record<string, string>;
         }
@@ -520,11 +695,11 @@ export namespace DataOperation {
     // (undocumented)
     export namespace ListStringFilterOptions {
         // (undocumented)
-        export interface Query extends BaseQuery {
+        export interface Query<Operator extends Query.Operator = Query.Operator> extends BaseQuery {
             // (undocumented)
             aggregation?: Query.AggregationProjector;
             // (undocumented)
-            constraint?: Query.Operator;
+            constraint?: Operator;
             // (undocumented)
             fields?: string[];
             // (undocumented)
@@ -570,6 +745,7 @@ export namespace DataOperation {
 
 // @public (undocumented)
 export interface DataProvidersConfig {
+    readonly filterStateSelectors?: FilterStateSelectors;
     // (undocumented)
     readonly infiniteScroll?: {
         readonly cachePages?: number;
@@ -577,6 +753,12 @@ export interface DataProvidersConfig {
     };
     // (undocumented)
     requestSelectorMap?: RequestSelectorMap;
+}
+
+// @public
+export interface DateFilterEditorProps {
+    // (undocumented)
+    readonly state: DateFilterState;
 }
 
 // @public (undocumented)
@@ -593,7 +775,100 @@ export namespace DateFilterOptionsView {
         readonly uiValue: DateTimeUiValueType;
         // (undocumented)
         readonly yearRange?: YearRange;
+        // (undocumented)
+        readonly yearSelectorVariant?: YearSelectorVariant;
     }
+}
+
+// @public
+export interface DateFilterSettingProps {
+    // (undocumented)
+    readonly state: DateFilterState;
+}
+
+// @public
+export type DateFilterState = DateFilterState.State;
+
+// @public
+export namespace DateFilterState {
+    // (undocumented)
+    export interface BaseOptions extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange, SelectedPeriod<OverviewModel.NewFilter.Date.PeriodOption> {
+    }
+    const // (undocumented)
+    DefaultDateViewInputState: DateViewInputState;
+    // (undocumented)
+    export type Criteria = PeriodCriteria<OverviewModel.NewFilter.Date.PeriodOption, DatePeriodInputMap>;
+    const // (undocumented)
+    DefaultYearViewInputState: YearViewInputState;
+    // (undocumented)
+    export interface DatePeriodInputMap {
+        // (undocumented)
+        readonly date: DateViewInputState;
+        // (undocumented)
+        readonly month: MonthViewInputState;
+        // (undocumented)
+        readonly year: YearViewInputState;
+        // (undocumented)
+        readonly yearMonth: YearMonthViewInputState;
+    }
+    const // (undocumented)
+    DefaultYearMonthViewInputState: YearMonthViewInputState;
+    // (undocumented)
+    export interface DateViewInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly input: string;
+        // (undocumented)
+        readonly value: Date | null;
+    }
+    const // (undocumented)
+    DefaultMonthViewInputState: MonthViewInputState;
+    // (undocumented)
+    export interface EffectiveOptions extends BaseOptions {
+        // (undocumented)
+        readonly criteria: NonNullable<RangeCriteria<DatePeriodInputMap[OverviewModel.NewFilter.Date.PeriodOption]>[OverviewModel.NewFilter.RangeOption]>;
+    }
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    // (undocumented)
+    export interface MonthViewInputState {
+        // (undocumented)
+        readonly value: number | null;
+    }
+    // (undocumented)
+    export interface Options extends BaseOptions {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Date.Item, DocumentModelTypedField<DocumentModel.DateType>, Options, EffectiveOptions>;
+    // (undocumented)
+    export interface YearMonthViewInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly value: {
+            year: number | null;
+            month: number | null;
+        };
+    }
+    // (undocumented)
+    export interface YearViewInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly value: number | null;
+    }
+    export {};
+}
+
+// @public
+export interface DateFragmentFilterEditorProps {
+    // (undocumented)
+    readonly state: DateFragmentFilterState;
 }
 
 // @public (undocumented)
@@ -603,6 +878,85 @@ export namespace DateFragmentFilterOptionsView {
         // (undocumented)
         readonly uiValue: DateTimeViewValue;
     }
+}
+
+// @public
+export interface DateFragmentFilterSettingProps {
+    // (undocumented)
+    readonly state: DateFragmentFilterState;
+}
+
+// @public
+export type DateFragmentFilterState = DateFragmentFilterState.State;
+
+// @public
+export namespace DateFragmentFilterState {
+    // (undocumented)
+    export interface BaseOptions extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange, SelectedPeriod<OverviewModel.NewFilter.DateFragment.PeriodOption> {
+    }
+    // (undocumented)
+    export type Criteria = PeriodCriteria<OverviewModel.NewFilter.DateFragment.PeriodOption, PeriodInputMap>;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface MonthDayInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly input: string;
+        // (undocumented)
+        readonly value: {
+            month: number;
+            day: number;
+        } | null;
+    }
+    // (undocumented)
+    export interface MonthInputState {
+        // (undocumented)
+        readonly value: number | null;
+    }
+    // (undocumented)
+    export interface Options extends BaseOptions {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export interface PeriodInputMap {
+        // (undocumented)
+        readonly month: MonthInputState;
+        // (undocumented)
+        readonly monthDay: MonthDayInputState;
+        // (undocumented)
+        readonly year: YearInputState;
+        // (undocumented)
+        readonly yearMonth: YearMonthInputState;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.DateFragment.Item, DocumentModelTypedField<FormatTypedDateFragmentType>, Options, Options>;
+    // (undocumented)
+    export interface YearInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly value: number | null;
+    }
+    // (undocumented)
+    export interface YearMonthInputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly value: {
+            year: number | null;
+            month: number | null;
+        };
+    }
+    export {};
+}
+
+// @public
+export interface DateRangeFilterEditorProps {
+    // (undocumented)
+    readonly state: DateRangeFilterState;
 }
 
 // @public (undocumented)
@@ -615,7 +969,60 @@ export namespace DateRangeFilterOptionsView {
         readonly uiValue: DateTimeViewValue;
         // (undocumented)
         readonly yearRange?: YearRange;
+        // (undocumented)
+        readonly yearSelectorVariant?: YearSelectorVariant;
     }
+}
+
+// @public
+export interface DateRangeFilterSettingProps {
+    // (undocumented)
+    readonly state: DateRangeFilterState;
+}
+
+// @public
+export type DateRangeFilterState = DateRangeFilterState.State;
+
+// @public
+export namespace DateRangeFilterState {
+    // (undocumented)
+    export interface BaseOptions extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange, SelectedPeriod<OverviewModel.NewFilter.DateRange.PeriodOption> {
+    }
+    // (undocumented)
+    export type Criteria = PeriodCriteria<OverviewModel.NewFilter.DateRange.PeriodOption, PeriodInputMap>;
+    // (undocumented)
+    export type DateInputState = DateFilterState.DateViewInputState;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export type MonthDayInputState = DateFragmentFilterState.MonthDayInputState;
+    // (undocumented)
+    export type MonthInputState = DateFragmentFilterState.MonthInputState;
+    // (undocumented)
+    export interface Options extends BaseOptions {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export interface PeriodInputMap {
+        // (undocumented)
+        readonly date: DateInputState;
+        // (undocumented)
+        readonly month: MonthInputState;
+        // (undocumented)
+        readonly monthDay: MonthDayInputState;
+        // (undocumented)
+        readonly year: YearInputState;
+        // (undocumented)
+        readonly yearMonth: YearMonthInputState;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.DateRange.Item, DocumentModelTypedField<FormatTypedDateRangeType>, Options, Options>;
+    // (undocumented)
+    export type YearInputState = DateFragmentFilterState.YearInputState;
+    // (undocumented)
+    export type YearMonthInputState = DateFragmentFilterState.YearMonthInputState;
+    export {};
 }
 
 // @public (undocumented)
@@ -632,6 +1039,12 @@ export enum DateRangeFormat {
     YEAR_MONTH = "yyyy-MM"
 }
 
+// @public
+export interface DateTimeFilterEditorProps {
+    // (undocumented)
+    readonly state: DateTimeFilterState;
+}
+
 // @public (undocumented)
 export namespace DateTimeFilterOptionsView {
     // (undocumented)
@@ -645,13 +1058,86 @@ export namespace DateTimeFilterOptionsView {
         // (undocumented)
         readonly readonly?: boolean;
         // (undocumented)
-        readonly timeMode?: TimePickerProps.ClockMode;
-        // (undocumented)
         readonly uiValue: DateTimeUiValueType;
         // (undocumented)
         readonly yearRange?: YearRange;
+        // (undocumented)
+        readonly yearSelectorVariant?: YearSelectorVariant;
     }
 }
+
+// @public
+export interface DateTimeFilterSettingProps {
+    // (undocumented)
+    readonly state: DateTimeFilterState;
+}
+
+// @public
+export type DateTimeFilterState = DateTimeFilterState.State;
+
+// @public
+export namespace DateTimeFilterState {
+    // (undocumented)
+    export interface BaseOptions extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange, SelectedPeriod<OverviewModel.NewFilter.DateTime.PeriodOption> {
+    }
+    const // (undocumented)
+    DefaultTimeViewInputState: TimeViewInputState;
+    // (undocumented)
+    export type Criteria = PeriodCriteria<OverviewModel.NewFilter.DateTime.PeriodOption, PeriodInputMap>;
+    const // (undocumented)
+    DefaultDateViewInputState: DateViewInputState;
+    // (undocumented)
+    export type DateTimeViewInputState = DateFilterState.DateViewInputState;
+    const // (undocumented)
+    DefaultDateTimeViewInputState: DateTimeViewInputState;
+    // (undocumented)
+    export type DateViewInputState = DateFilterState.DateViewInputState;
+    const // (undocumented)
+    DefaultYearViewInputState: YearViewInputState;
+    // (undocumented)
+    export interface EffectiveOptions extends BaseOptions {
+        // (undocumented)
+        readonly criteria: NonNullable<RangeCriteria<PeriodInputMap[OverviewModel.NewFilter.DateTime.PeriodOption]>[OverviewModel.NewFilter.RangeOption]>;
+    }
+    const // (undocumented)
+    DefaultYearMonthViewInputState: YearMonthViewInputState;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends BaseOptions {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    // (undocumented)
+    export interface PeriodInputMap {
+        // (undocumented)
+        readonly date: DateViewInputState;
+        // (undocumented)
+        readonly dateTime: DateTimeViewInputState;
+        // (undocumented)
+        readonly month: DateFilterState.MonthViewInputState;
+        // (undocumented)
+        readonly time: TimeViewInputState;
+        // (undocumented)
+        readonly year: YearViewInputState;
+        // (undocumented)
+        readonly yearMonth: YearMonthViewInputState;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.DateTime.Item, DocumentModelTypedField<DocumentModel.DateTimeType>, Options, EffectiveOptions>;
+    // (undocumented)
+    export type TimeViewInputState = DateFilterState.DateViewInputState;
+    // (undocumented)
+    export type YearMonthViewInputState = DateFilterState.YearMonthViewInputState;
+    // (undocumented)
+    export type YearViewInputState = DateFilterState.YearViewInputState;
+    export {};
+}
+
+// @public
+export type DateTimeFormatKind = "date" | "monthYear" | "year" | "dateTime" | "time";
 
 // @public (undocumented)
 export interface DateTimeUiValueType extends FilterOptionsView.UiValueType {
@@ -737,6 +1223,12 @@ export type DateViewSelection = "date" | "monthYear" | "year";
 // @public (undocumented)
 export const DefaultComponentMap: ComponentMap;
 
+// @public
+export const DefaultFilterState: FilterState;
+
+// @public
+export const DefaultFilterStateSelectors: FilterStateSelectors;
+
 // @public (undocumented)
 export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewEngineApi.EventHandlers;
 
@@ -748,6 +1240,15 @@ export const DefaultSelectorMap: SelectorMap;
 
 // @public (undocumented)
 export const DefaultWidgetMap: WidgetMap;
+
+// @public
+export type DocumentModelTypedField<T extends DocumentModel.FieldType> = DocumentModel.Field & {
+    fieldType: T;
+};
+
+// @public
+export interface EmptyFilterProps {
+}
 
 // @public (undocumented)
 export namespace EnumeratedStringDataHolder {
@@ -786,6 +1287,12 @@ export namespace EnumeratedStringFilterOptionsView {
     }
 }
 
+// @public
+export interface EnumerationFilterEditorProps {
+    // (undocumented)
+    readonly state: EnumerationFilterState;
+}
+
 // @public (undocumented)
 export namespace EnumerationFilterOptionsView {
     // (undocumented)
@@ -808,6 +1315,30 @@ export namespace EnumerationFilterOptionsView {
         // (undocumented)
         readonly uiValue?: EnumerationUiValueType;
     }
+}
+
+// @public
+export interface EnumerationFilterSettingProps {
+    // (undocumented)
+    readonly state: EnumerationFilterState;
+}
+
+// @public
+export type EnumerationFilterState = EnumerationFilterState.State;
+
+// @public
+export namespace EnumerationFilterState {
+    // (undocumented)
+    export type Criteria = string[];
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Enumeration.Item, DocumentModelTypedField<DocumentModel.EnumerationType>, Options, Options>;
 }
 
 // @public (undocumented)
@@ -880,58 +1411,166 @@ export namespace Events {
     // (undocumented)
     export interface LatestSelectedDocumentIdChangedPayload {
         // (undocumented)
-        readonly latestSelectedDocumentId: string | null;
+        readonly latestSelectedDocumentId: {
+            readonly documentId: string;
+            readonly linkId?: string;
+        } | null;
     }
     const // (undocumented)
     onSorted: ActionCreator<SortedPayload>;
     // (undocumented)
     export interface LatestSelectedDocumentIdsChangedPayload {
         // (undocumented)
-        readonly latestSelectedDocumentIds: string[] | null;
+        readonly latestSelectedDocumentIds: readonly {
+            readonly documentId: string;
+            readonly linkId?: string;
+        }[] | null;
     }
     const // (undocumented)
     onMultiSelectionButtonClicked: ActionCreator<MultiSelectionButtonClickedPayload>;
     // (undocumented)
-    export interface MultiSelectionButtonClickedPayload {
+    export interface MobileSearchBarTogglePayload {
+        // (undocumented)
+        readonly visible: boolean;
     }
     const // (undocumented)
     onOverallMultiSelectionButtonClicked: ActionCreator<OverallMultiSelectionButtonClickedPayload>;
     // (undocumented)
-    export interface MultiSelectionClearedPayload {
+    export interface MultiSelectionButtonClickedPayload {
     }
     const // (undocumented)
     onMultiSelectionCleared: ActionCreator<MultiSelectionClearedPayload>;
     // (undocumented)
+    export interface MultiSelectionClearedPayload {
+    }
+    export namespace NewFilter {
+        const // (undocumented)
+        onFilterSelectorOptionsChanged: ActionCreator<FilterSelectorOptionsChangedPayload>;
+        // (undocumented)
+        export interface FilterBarItemsOverflowedPayload {
+            // (undocumented)
+            readonly filterIds: string[];
+        }
+        const // (undocumented)
+        onFilterOptionsChanged: ActionCreator<FilterOptionsChangedPayload>;
+        // (undocumented)
+        export interface FilterCollapsedChangedPayload {
+            // (undocumented)
+            readonly collapsed: boolean;
+            // (undocumented)
+            readonly filterId: string | null;
+        }
+        const // (undocumented)
+        onFilterItemOptionsChanged: ActionCreator<FilterItemOptionsChangedPayload<object>>;
+        // (undocumented)
+        export interface FilterItemEditCanceledPayload {
+        }
+        const // (undocumented)
+        onFilterCollapsedChanged: ActionCreator<FilterCollapsedChangedPayload>;
+        // (undocumented)
+        export interface FilterItemEditStartedPayload {
+            // (undocumented)
+            readonly filterId: string;
+        }
+        const // (undocumented)
+        onFilterSelectorAllApplied: ActionCreator<void>;
+        const // (undocumented)
+        onFilterItemReset: ActionCreator<FilterItemResetPayload>;
+        // (undocumented)
+        export interface FilterItemOptionsChangedPayload<Options = object> {
+            // (undocumented)
+            readonly filterId: string;
+            // (undocumented)
+            readonly options: Options;
+        }
+        const // (undocumented)
+        onFilterSelectorReset: ActionCreator<void>;
+        const // (undocumented)
+        onFilterBarReset: ActionCreator<void>;
+        const // (undocumented)
+        onFilterSelectorVisibilityChanged: ActionCreator<FilterSelectorVisibilityChangedPayload>;
+        // (undocumented)
+        export interface FilterItemResetPayload {
+            // (undocumented)
+            readonly filterId: string;
+        }
+        const // (undocumented)
+        onFilterItemEditStarted: ActionCreator<FilterItemEditStartedPayload>;
+        // (undocumented)
+        export interface FilterItemSettingsClosedPayload {
+        }
+        const // (undocumented)
+        onFilterItemEditCanceled: ActionCreator<FilterItemEditCanceledPayload>;
+        // (undocumented)
+        export interface FilterItemSettingsOpenedPayload {
+            // (undocumented)
+            readonly filterId: string;
+        }
+        const // (undocumented)
+        onFilterItemEditApplied: ActionCreator<void>;
+        const // (undocumented)
+        onFilterItemSettingsOpened: ActionCreator<FilterItemSettingsOpenedPayload>;
+        // (undocumented)
+        export interface FilterOptionsChangedPayload {
+            // (undocumented)
+            readonly invert?: Configurable<boolean>;
+            // (undocumented)
+            readonly joinOperator?: Configurable<"and" | "or">;
+        }
+        const // (undocumented)
+        onFilterItemSettingsClosed: ActionCreator<FilterItemSettingsClosedPayload>;
+        // (undocumented)
+        export interface FilterSelectorOptionsChangedPayload {
+            // (undocumented)
+            readonly options: Partial<FilterSelectorOptions>;
+        }
+        const // (undocumented)
+        onFilterBarItemsOverflowed: ActionCreator<FilterBarItemsOverflowedPayload>;
+        // (undocumented)
+        export interface FilterSelectorVisibilityChangedPayload {
+            // (undocumented)
+            readonly visible: boolean;
+        }
+    }
+    // (undocumented)
     export interface NextPageClickedPayload {
     }
+    const // (undocumented)
+    onEventButtonClickedRequest: ActionCreator<EventButtonClickedRequestPayload>;
     // (undocumented)
     export interface OverallMultiSelectionButtonClickedPayload {
         // (undocumented)
-        readonly affectedRowIds: string[];
-        // (undocumented)
-        readonly selected: boolean;
+        readonly documentsSelection: readonly {
+            readonly documentId: string;
+            readonly linkId?: string;
+            readonly selected: boolean;
+        }[];
     }
+    const // (undocumented)
+    onEventButtonClicked: ActionCreator<EventButtonClickedPayload>;
     // (undocumented)
     export interface PageClickedPayload {
         // (undocumented)
         readonly pageNumber: number;
     }
     const // (undocumented)
-    onEventButtonClickedRequest: ActionCreator<EventButtonClickedRequestPayload>;
+    onRowButtonClickedRequest: ActionCreator<RowButtonClickedRequestPayload>;
     // (undocumented)
     export interface PreviousPageClickedPayload {
     }
     const // (undocumented)
-    onEventButtonClicked: ActionCreator<EventButtonClickedPayload>;
+    onRowButtonClicked: ActionCreator<RowButtonClickedPayload>;
     // (undocumented)
     export interface RowButtonClickedPayload {
         // (undocumented)
         readonly documentId: string;
         // (undocumented)
+        readonly linkId?: string;
+        // (undocumented)
         readonly rowActionModel: OverviewModel.Button;
     }
     const // (undocumented)
-    onRowButtonClickedRequest: ActionCreator<RowButtonClickedRequestPayload>;
+    onRowClicked: ActionCreator<RowClickedPayload>;
     // (undocumented)
     export interface RowButtonClickedRequestPayload {
         // (undocumented)
@@ -942,25 +1581,28 @@ export namespace Events {
         readonly rowActionModel: OverviewModel.Button;
     }
     const // (undocumented)
-    onRowButtonClicked: ActionCreator<RowButtonClickedPayload>;
+    onColumnWidthsChanged: ActionCreator<ColumnWidthsChangedPayload>;
     // (undocumented)
     export interface RowClickedPayload {
         // (undocumented)
         readonly customEvent?: string;
         // (undocumented)
         readonly documentId: string;
+        // (undocumented)
+        readonly linkId?: string;
     }
     const // (undocumented)
-    onRowClicked: ActionCreator<RowClickedPayload>;
+    onDialogConfirmed: ActionCreator<DialogConfirmedPayload>;
     // (undocumented)
     export interface RowsSelectedPayload {
         readonly documentsSelection: {
             readonly documentId: string;
+            readonly linkId?: string;
             readonly selected: boolean;
         }[];
     }
     const // (undocumented)
-    onColumnWidthsChanged: ActionCreator<ColumnWidthsChangedPayload>;
+    onDialogClosed: ActionCreator<DialogClosedPayload>;
     // (undocumented)
     export type ScrollToRowPayload = {
         readonly docRef?: string;
@@ -970,20 +1612,21 @@ export namespace Events {
         readonly autoFocus?: boolean;
     };
     const // (undocumented)
-    onDialogConfirmed: ActionCreator<DialogConfirmedPayload>;
+    onMobileSearchBarToggle: ActionCreator<MobileSearchBarTogglePayload>;
     // (undocumented)
     export interface SearchedPayload {
         // (undocumented)
         readonly searchString: string;
     }
-    const // (undocumented)
-    onDialogClosed: ActionCreator<DialogClosedPayload>;
     // (undocumented)
     export interface SortedPayload {
         // (undocumented)
         readonly sorting?: Sorting[];
     }
 }
+
+// @public (undocumented)
+export function executeQueryPlan(activityId: string, plans: ReadonlyArray<QueryExecutionPlan>): SagaGenerator<UpdatedDataHolder[]>;
 
 // @public (undocumented)
 export namespace ExpressionCell {
@@ -999,13 +1642,15 @@ export namespace ExpressionCell {
 // @public (undocumented)
 export namespace FieldBasedFiltering {
     // (undocumented)
-    export function toOperators(fieldBasedFilters: OverviewEngineApi.FilterMap, modelsState: ModelsState, locale: Locale): Query.Operator[];
+    export function toOperators(fieldBasedFilters: OverviewEngineApi.FilterMap, modelsState: ModelsState): Query.Operator[];
 }
 
 // @public (undocumented)
 export interface FieldFormatterParams {
     // (undocumented)
     field: DocumentModel.Field;
+    // (undocumented)
+    modelId?: string;
     // (undocumented)
     modelPath: ModelPath;
     // (undocumented)
@@ -1035,10 +1680,6 @@ export namespace Filter {
     }
     // (undocumented)
     export type Filters = (FilterData | SectionData)[];
-    export interface PropsType {
-        // (undocumented)
-        readonly timeMode?: TimePickerProps.ClockMode;
-    }
     // (undocumented)
     export interface SectionData {
         // (undocumented)
@@ -1055,10 +1696,13 @@ export namespace Filter {
     }
 }
 
+// @public
+export type FilterArea = "filterBar" | "filterSelector";
+
 // @public (undocumented)
 export namespace FilterBar {
     // (undocumented)
-    export interface Props extends Filter.PropsType, Filter.FilterListPropType {
+    export interface Props extends Filter.FilterListPropType {
         // (undocumented)
         activeFilters: Filter.FilterData[];
         // (undocumented)
@@ -1066,6 +1710,22 @@ export namespace FilterBar {
         // (undocumented)
         onEditClick?(): void;
     }
+}
+
+// @public
+export interface FilterBarItemDropdownProps {
+    // (undocumented)
+    readonly filterState: FilterItemState;
+    // (undocumented)
+    readonly referenceElement?: HTMLDivElement;
+}
+
+// @public
+export interface FilterBarItemProps {
+    // (undocumented)
+    readonly filter: FilterItemState;
+    // (undocumented)
+    readonly filterRef: (el: HTMLDivElement | null) => void;
 }
 
 // @public (undocumented)
@@ -1086,6 +1746,86 @@ export namespace FilterButton {
         // (undocumented)
         showBadge?: boolean;
     }
+}
+
+// @public
+export interface FilterControllerContext {
+    readonly documentModel: DocumentModel;
+    readonly fieldPath: string;
+}
+
+// @public
+export interface FilterEditorContentProps {
+    // (undocumented)
+    readonly filterState: FilterItemState;
+}
+
+// @public
+export interface FilterEditorProps extends Container {
+    // (undocumented)
+    readonly filterState: FilterItemState;
+}
+
+// @public
+export interface FilterItemState<Definition extends OverviewModel.NewFilter.Item = OverviewModel.NewFilter.Item, Element extends DocumentModel.Element | undefined = DocumentModel.Element | undefined, Options = object, EffectiveOptions = object> {
+    // (undocumented)
+    readonly appliedOptions: Options;
+    // (undocumented)
+    readonly area: FilterArea;
+    // (undocumented)
+    readonly collapsed: boolean;
+    // (undocumented)
+    readonly element: Element;
+    // (undocumented)
+    readonly fieldPath: string | undefined;
+    // (undocumented)
+    readonly groupId: string;
+    // (undocumented)
+    readonly initialOptions: EffectiveOptions;
+    // (undocumented)
+    readonly model: Definition;
+    // (undocumented)
+    readonly options: Options;
+    // (undocumented)
+    readonly resetCounter: number;
+}
+
+// @public
+export interface FilterLabelContext extends FilterControllerContext {
+    readonly formatValue: (params: {
+        value: FieldInstanceValue | object;
+        fieldPath: string;
+        subModel?: string;
+    }) => string;
+    readonly getDateTimeFormat: (params: {
+        kind: DateTimeFormatKind;
+    }) => string;
+    readonly getElementByPath: (params: {
+        fieldPath: string;
+        subModel?: string;
+    }) => DocumentModel.Element | undefined;
+    readonly locale: Locale;
+    readonly localizeResource: (params: {
+        key: string;
+        values?: LocalizableArgs;
+    }) => string;
+    readonly localizeValue: (params: {
+        value: FieldInstanceValue | object;
+        fieldPath: string;
+        subModel?: string;
+    }) => string;
+}
+
+// @public
+export interface FilterListOption {
+    // (undocumented)
+    readonly label: string;
+    // (undocumented)
+    readonly pinned: boolean;
+    // (undocumented)
+    readonly selected: boolean;
+    // (undocumented)
+    readonly value: string;
 }
 
 // @public (undocumented)
@@ -1123,9 +1863,9 @@ export namespace FilterOptionsView {
 // @public (undocumented)
 export namespace FilterOptionsViewRouter {
     // (undocumented)
-    export interface Props extends Filter.PropsType {
+    export interface Props {
         // (undocumented)
-        readonly filterData?: FilterData;
+        readonly filterData?: Filter.FilterData;
         // (undocumented)
         readonly id: string;
         // (undocumented)
@@ -1169,10 +1909,16 @@ export namespace FilterOptionsViews {
     defaultInstance: FilterOptionsViews;
 }
 
+// @public
+export interface FilterResetButtonProps {
+    // (undocumented)
+    readonly filterId: string;
+}
+
 // @public (undocumented)
 export namespace FilterSelector {
     // (undocumented)
-    export interface Props extends Filter.PropsType, Filter.FilterListPropType {
+    export interface Props extends Filter.FilterListPropType {
         // (undocumented)
         currentFilterId?: string;
         // (undocumented)
@@ -1213,6 +1959,105 @@ export namespace FilterSelectorContentHeader {
     }
 }
 
+// @public
+export interface FilterSelectorFooterProps {
+}
+
+// @public
+export interface FilterSelectorModalProps {
+}
+
+// @public
+export interface FilterSelectorOptions {
+    // (undocumented)
+    readonly open: boolean;
+    // (undocumented)
+    readonly searchBar: Configurable<boolean>;
+    // (undocumented)
+    readonly showSetFiltersOnly: Configurable<boolean>;
+    // (undocumented)
+    readonly viewMode: "overlay" | "docked" | "modal";
+}
+
+// @public
+export interface FilterSelectorSearchBarProps {
+    // (undocumented)
+    readonly onTextChange: (newText: string) => void;
+    // (undocumented)
+    readonly text: string;
+}
+
+// @public
+export interface FilterSelectorSettingProps {
+}
+
+// @public
+export interface FilterSelectorTriggerButtonProps {
+}
+
+// @public
+export interface FilterSettingButtonProps {
+    // (undocumented)
+    readonly filterState: FilterItemState;
+}
+
+// @public
+export interface FilterSettingProps {
+    // (undocumented)
+    readonly filterState: FilterItemState;
+}
+
+// @public
+export interface FilterSettingSectionProps extends Container {
+    // (undocumented)
+    readonly label: string;
+}
+
+// @public
+export interface FilterState {
+    readonly editingFilter: null | {
+        readonly filterId: string;
+        readonly options: object;
+        readonly resetCounter: number;
+    };
+    readonly editingFilterSettingsId: string | null;
+    readonly filters: Record<string, FilterItemState>;
+    readonly filterSelectorOptions: FilterSelectorOptions;
+    readonly queryOptions: QueryOptions;
+    readonly snapshot: string;
+}
+
+// @public
+export interface FilterStateSelectors {
+    // (undocumented)
+    createInitialOptions(filterModel: OverviewModel.NewFilter.Item, element: DocumentModel.Element | undefined): object;
+    // (undocumented)
+    hasAnySetFilter(filters: Record<string, FilterItemState>, context: {
+        documentModel: DocumentModel;
+    }): boolean;
+    // (undocumented)
+    hasErrors(filterState: FilterItemState): boolean;
+    // (undocumented)
+    isConfigurable(filterState: FilterItemState): boolean;
+    // (undocumented)
+    isResettable(filterState: FilterItemState): boolean;
+    // (undocumented)
+    toEffectiveOptions(filterModel: OverviewModel.NewFilter.Item, options: object): object;
+    // (undocumented)
+    toGeneralError(filterState: FilterItemState): Localizable | null;
+    // (undocumented)
+    toLabel(filterState: FilterItemState, context: FilterLabelContext): string | readonly string[] | null;
+    // (undocumented)
+    toOperator(filterState: FilterItemState, context: {
+        documentModel: DocumentModel;
+    }): Query.Operator | undefined;
+    // (undocumented)
+    toResetOptions(filterState: FilterItemState): object;
+}
+
+// @public
+export type FilterTriggerPlacement = "none" | "filter-bar" | "header-suffix" | "search-adjacent" | "action-bar";
+
 // @public (undocumented)
 export namespace Footer {
     // (undocumented)
@@ -1224,6 +2069,44 @@ export namespace Footer {
         // (undocumented)
         readonly pagination: React_2.ReactNode;
     }
+}
+
+// @public
+export interface FormatTypedDateFragmentType extends DocumentModel.DateFragmentType {
+    // (undocumented)
+    formatOfFragment: "yyyy-MM" | "yyyy" | "MM" | "MM-dd";
+}
+
+// @public
+export interface FormatTypedDateRangeType extends DocumentModel.DateRangeType {
+    // (undocumented)
+    format: "yyyy-MM" | "yyyy" | "MM" | "MM-dd" | "yyyy-MM-dd";
+}
+
+// @public (undocumented)
+export function getProjectedFields(overviewModel: OverviewModel, documentModel: DocumentModel, queryModel: QueryModel | undefined): string[] | undefined;
+
+// @public (undocumented)
+export function getProjectedLinks(overviewModel: OverviewModel, documentModel: DocumentModel, subDocumentModels: DocumentModel[] | undefined, relationshipModels: RelationshipModel[], queryModel: QueryModel): Query.QueryLink[] | undefined;
+
+// @public (undocumented)
+export interface HandleResponsesParams {
+    // (undocumented)
+    activityId: string;
+    // (undocumented)
+    dataHolderDescriptor?: Activity.DataHolderDescriptor;
+    // (undocumented)
+    documentModel: DocumentModel;
+    // (undocumented)
+    documentService: DocumentService;
+    // (undocumented)
+    overviewModel: OverviewModel;
+    // (undocumented)
+    queries: DataOperation.Query[];
+    // (undocumented)
+    responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response>;
+    // (undocumented)
+    thumbnails?: Record<string, string>;
 }
 
 // @public (undocumented)
@@ -1259,13 +2142,59 @@ export namespace InfiniteScrollTableBody {
     export type Props = TableRenderPropsType.InfiniteScrollBodyProps<JSONDocument>;
 }
 
+// @public
+export function isBooleanFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Boolean.Item;
+
+// @public
+export function isConfirmFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Confirm.Item;
+
+// @public
+export function isCustomFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Custom.Item;
+
+// @public
+export function isDateFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Date.Item;
+
+// @public
+export function isDateFragmentFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.DateFragment.Item;
+
+// @public
+export function isDateRangeFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.DateRange.Item;
+
+// @public
+export function isDateTimeFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.DateTime.Item;
+
+// @public
+export function isEnumerationFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Enumeration.Item;
+
+// @public
+export function isFieldBasedFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is Exclude<OverviewModel.NewFilter.Item, OverviewModel.NewFilter.Query.Item>;
+
+// @public
+export function isMultiSelectFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.MultiSelect.Item;
+
+// @public
+export function isNumberFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Number.Item;
+
 // @public (undocumented)
-export function isOverviewModel(model: Model_2): model is OverviewModel;
+export function isOverviewModel(model: Model): model is OverviewModel;
+
+// @public
+export function isQueryFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Query.Item;
+
+// @public
+export function isStringFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.String.Item;
+
+// @public
+export function isTimeFilterModelItem(item: OverviewModel.NewFilter.BaseItem): item is OverviewModel.NewFilter.Time.Item;
 
 // @public (undocumented)
 export interface JSONDocument extends GroupInstance {
     // (undocumented)
     readonly id: string;
+    // (undocumented)
+    readonly linkId?: string;
+    // (undocumented)
+    readonly modelId: string;
 }
 
 // @public (undocumented)
@@ -1273,6 +2202,117 @@ export namespace JSONDocument {
     // (undocumented)
     export function isInstance(element: unknown): element is JSONDocument;
 }
+
+// @public
+export interface JSONLink extends JSONLinkRef {
+    // (undocumented)
+    readonly document: JSONDocument;
+}
+
+// @public (undocumented)
+export namespace JSONLink {
+    // (undocumented)
+    export function isInstance(object: unknown): object is JSONLink;
+}
+
+// @public
+export interface JSONLinkRef {
+    // (undocumented)
+    readonly documentModelName: string;
+    // (undocumented)
+    readonly linkId: string;
+    // (undocumented)
+    readonly targetDocRef: string;
+}
+
+// @public (undocumented)
+export namespace JSONLinkRef {
+    // (undocumented)
+    export function isInstance(object: unknown): object is JSONLinkRef;
+}
+
+// @public (undocumented)
+export namespace LinkedExpressionCell {
+    // (undocumented)
+    export interface Props {
+        // (undocumented)
+        readonly columnModel: OverviewModel.LinkColumn.Expression;
+        // (undocumented)
+        readonly fieldFormatter?: (params: FieldFormatterParams) => string;
+        // (undocumented)
+        readonly link: JSONLink;
+    }
+}
+
+// @public (undocumented)
+export namespace LinkedReferenceCell {
+    // (undocumented)
+    export interface Props {
+        // (undocumented)
+        columnModel: OverviewModel.LinkColumn.Reference;
+        // (undocumented)
+        fieldFormatter?: (params: FieldFormatterParams) => string;
+        // (undocumented)
+        link: JSONLink;
+    }
+}
+
+// @public
+export interface Links {
+    // (undocumented)
+    readonly documentsById: Partial<Record<string, JSONDocument>>;
+    // (undocumented)
+    readonly linksBySourceId: {
+        readonly [sourceDocRef: string]: Links.ByRelationship | undefined;
+    };
+}
+
+// @public (undocumented)
+export namespace Links {
+    // (undocumented)
+    export interface ByEntries {
+        // (undocumented)
+        readonly [linkId: string]: JSONLinkRef | undefined;
+    }
+    // (undocumented)
+    export interface ByRelationship {
+        // (undocumented)
+        readonly [relationship: string]: ByTargetRole | undefined;
+    }
+    // (undocumented)
+    export interface BySlot {
+        // (undocumented)
+        readonly childEntries?: ByEntries;
+        // (undocumented)
+        readonly linkEntries?: ByEntries;
+    }
+    // (undocumented)
+    export interface ByTargetRole {
+        // (undocumented)
+        readonly [targetRole: string]: BySlot | undefined;
+    }
+    export function create(): Links;
+    export interface EntryPointer {
+        // (undocumented)
+        readonly linkId?: string;
+        // (undocumented)
+        readonly relationship: string;
+        // (undocumented)
+        readonly sourceDocRef: string;
+        // (undocumented)
+        readonly targetRole: string;
+        // (undocumented)
+        readonly type: "CHILD" | "LINK";
+    }
+    export function getSourceDocRefsForRelationship(relationship: string): (links: Links) => ReadonlySet<string>;
+}
+
+// @public
+export type ListOptionConfiguration<OptionType> = {
+    option: OptionType;
+    default?: true;
+    enabled: boolean;
+}[];
 
 // @public (undocumented)
 export namespace LocalizableFactory {
@@ -1307,6 +2347,12 @@ export type MaybeAsync<T> = T | Promise<T> | SagaGenerator<T>;
 // @public
 export function maybeAsyncFnWrapper<ReturnType, Params extends unknown[]>(fn: (...params: Params) => MaybeAsync<ReturnType>): (...params: Params) => SagaGenerator<ReturnType>;
 
+// @public
+export interface MiddlewareOptions {
+    // (undocumented)
+    readonly filterStateSelectors?: FilterStateSelectors;
+}
+
 // @public (undocumented)
 export namespace MobileActionBar {
     // (undocumented)
@@ -1322,6 +2368,8 @@ export namespace MobileActionBar {
 export interface ModelsState {
     // (undocumented)
     readonly documentModel: DocumentModel;
+    // (undocumented)
+    readonly modelGraph?: ModelGraph;
     // (undocumented)
     readonly overviewModel: OverviewModel;
     // (undocumented)
@@ -1360,6 +2408,12 @@ export interface MultiSelectField extends DocumentModel.Field {
     fieldType: DocumentModel.EnumerationType;
 }
 
+// @public
+export interface MultiSelectFilterEditorProps {
+    // (undocumented)
+    readonly state: MultiSelectFilterState;
+}
+
 // @public (undocumented)
 export namespace MultiSelectFilterOptionsView {
     // (undocumented)
@@ -1387,6 +2441,34 @@ export namespace MultiSelectFilterOptionsView {
     }
 }
 
+// @public
+export interface MultiSelectFilterSettingProps {
+    // (undocumented)
+    readonly state: MultiSelectFilterState;
+}
+
+// @public
+export type MultiSelectFilterState = MultiSelectFilterState.State;
+
+// @public
+export namespace MultiSelectFilterState {
+    // (undocumented)
+    export type Criteria = string[];
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export type MatchOperator = "and" | "or";
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert {
+        // (undocumented)
+        readonly criteria: Criteria;
+        // (undocumented)
+        readonly matchOperator: Configurable<MatchOperator>;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.MultiSelect.Item, MultiSelectGroup, Options, Options>;
+}
+
 // @public (undocumented)
 export interface MultiSelectGroup extends DocumentModel.Group {
     // (undocumented)
@@ -1399,6 +2481,132 @@ export interface MultiSelectGroup extends DocumentModel.Group {
 export namespace MultiSelectUtils {
     // (undocumented)
     export function flatten(groupInstances: ReadonlyArray<GroupInstance>, groupModel: MultiSelectGroup): string[];
+}
+
+// @public
+export interface NewFilterBarProps {
+}
+
+// @public
+export interface NewFilterComponentMap {
+    // (undocumented)
+    readonly BooleanFilterEditor: React_2.ComponentType<BooleanFilterEditorProps>;
+    // (undocumented)
+    readonly BooleanFilterSetting: React_2.ComponentType<BooleanFilterSettingProps>;
+    // (undocumented)
+    readonly ConfirmFilterEditor: React_2.ComponentType<ConfirmFilterEditorProps>;
+    // (undocumented)
+    readonly ConfirmFilterSetting: React_2.ComponentType<ConfirmFilterSettingProps>;
+    // (undocumented)
+    readonly DateFilterEditor: React_2.ComponentType<DateFilterEditorProps>;
+    // (undocumented)
+    readonly DateFilterSetting: React_2.ComponentType<DateFilterSettingProps>;
+    // (undocumented)
+    readonly DateFragmentFilterEditor: React_2.ComponentType<DateFragmentFilterEditorProps>;
+    // (undocumented)
+    readonly DateFragmentFilterSetting: React_2.ComponentType<DateFragmentFilterSettingProps>;
+    // (undocumented)
+    readonly DateRangeFilterEditor: React_2.ComponentType<DateRangeFilterEditorProps>;
+    // (undocumented)
+    readonly DateRangeFilterSetting: React_2.ComponentType<DateRangeFilterSettingProps>;
+    // (undocumented)
+    readonly DateTimeFilterEditor: React_2.ComponentType<DateTimeFilterEditorProps>;
+    // (undocumented)
+    readonly DateTimeFilterSetting: React_2.ComponentType<DateTimeFilterSettingProps>;
+    // (undocumented)
+    readonly EmptyFilter: React_2.ComponentType<EmptyFilterProps>;
+    // (undocumented)
+    readonly EnumerationFilterEditor: React_2.ComponentType<EnumerationFilterEditorProps>;
+    // (undocumented)
+    readonly EnumerationFilterSetting: React_2.ComponentType<EnumerationFilterSettingProps>;
+    // (undocumented)
+    readonly FilterBar: React_2.ComponentType<NewFilterBarProps>;
+    // (undocumented)
+    readonly FilterBarItem: React_2.ComponentType<FilterBarItemProps>;
+    // (undocumented)
+    readonly FilterBarItemDropdown: React_2.ComponentType<FilterBarItemDropdownProps>;
+    // (undocumented)
+    readonly FilterEditor: React_2.ComponentType<FilterEditorProps>;
+    // (undocumented)
+    readonly FilterResetButton: React_2.ComponentType<FilterResetButtonProps>;
+    // (undocumented)
+    readonly FilterSelector: React_2.ComponentType<NewFilterSelectorProps>;
+    // (undocumented)
+    readonly FilterSelectorFooter: React_2.ComponentType<FilterSelectorFooterProps>;
+    // (undocumented)
+    readonly FilterSelectorSearchBar: React_2.ComponentType<FilterSelectorSearchBarProps>;
+    // (undocumented)
+    readonly FilterSelectorSetting: React_2.ComponentType<FilterSelectorSettingProps>;
+    // (undocumented)
+    readonly FilterSelectorTriggerButton: React_2.ComponentType<FilterSelectorTriggerButtonProps>;
+    // (undocumented)
+    readonly FilterSetting: React_2.ComponentType<FilterSettingProps>;
+    // (undocumented)
+    readonly FilterSettingButton: React_2.ComponentType<FilterSettingButtonProps>;
+    // (undocumented)
+    readonly MultiSelectFilterEditor: React_2.ComponentType<MultiSelectFilterEditorProps>;
+    // (undocumented)
+    readonly MultiSelectFilterSetting: React_2.ComponentType<MultiSelectFilterSettingProps>;
+    // (undocumented)
+    readonly NumberFilterEditor: React_2.ComponentType<NumberFilterEditorProps>;
+    // (undocumented)
+    readonly NumberFilterSetting: React_2.ComponentType<NumberFilterSettingProps>;
+    // (undocumented)
+    readonly OverviewHeading: React_2.ComponentType<NewOverviewHeadingProps>;
+    // (undocumented)
+    readonly OverviewSubheaderBox: React_2.ComponentType<NewOverviewSubheaderBoxProps>;
+    // (undocumented)
+    readonly QueryFilterEditor: React_2.ComponentType<QueryFilterEditorProps>;
+    // (undocumented)
+    readonly RangeFilterEditorTemplate: React_2.ComponentType<RangeFilterEditorTemplateProps>;
+    // (undocumented)
+    readonly StringFilterEditor: React_2.ComponentType<StringFilterEditorProps>;
+    // (undocumented)
+    readonly StringFilterSetting: React_2.ComponentType<StringFilterSettingProps>;
+    // (undocumented)
+    readonly SubHeader: React_2.ComponentType<NewSubHeaderProps>;
+    // (undocumented)
+    readonly TimeFilterEditor: React_2.ComponentType<TimeFilterEditorProps>;
+    // (undocumented)
+    readonly TimeFilterSetting: React_2.ComponentType<TimeFilterSettingProps>;
+}
+
+// @public
+export interface NewFilterSelectorProps {
+}
+
+// @public
+export interface NewOverviewHeadingProps {
+    // (undocumented)
+    readonly headingAriaLevel: number;
+}
+
+// @public
+export interface NewOverviewSubheaderBoxProps {
+}
+
+// @public
+export interface NewSubHeaderProps {
+    // (undocumented)
+    readonly filterBar?: React_2.ReactNode;
+    // (undocumented)
+    readonly filterTrigger?: React_2.ReactElement;
+    // (undocumented)
+    readonly filterTriggerPlacement?: Extract<FilterTriggerPlacement, "search-adjacent" | "action-bar">;
+    // (undocumented)
+    readonly mobileSearchBar?: React_2.ReactNode;
+    // (undocumented)
+    readonly multiSelectionPanel?: React_2.ReactNode;
+    // (undocumented)
+    readonly searchBar?: React_2.ReactNode;
+    // (undocumented)
+    readonly showMobileSearchBar?: boolean;
+}
+
+// @public
+export interface NumberFilterEditorProps {
+    // (undocumented)
+    readonly state: NumberFilterState;
 }
 
 // @public (undocumented)
@@ -1433,6 +2641,50 @@ export namespace NumberFilterOptionsView {
     }
 }
 
+// @public
+export interface NumberFilterSettingProps {
+    // (undocumented)
+    readonly state: NumberFilterState;
+}
+
+// @public
+export type NumberFilterState = NumberFilterState.State;
+
+// @public
+export namespace NumberFilterState {
+    // (undocumented)
+    export type Criteria = PeriodCriteria<"default", InputMap>;
+    const // (undocumented)
+    DefaultInputState: InputState;
+    // (undocumented)
+    export type EffectiveOptions = OverviewModel.NewFilter.Options.Empty & OverviewModel.NewFilter.Options.Invert & SelectedRangeCriteriaEntry<InputState>;
+    // (undocumented)
+    export interface InputMap {
+        // (undocumented)
+        readonly default: InputState;
+    }
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    // (undocumented)
+    export interface InputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly input: string;
+        // (undocumented)
+        readonly value: number | null;
+    }
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Number.Item, DocumentModelTypedField<DocumentModel.NumberType>, Options, EffectiveOptions>;
+}
+
 // @public (undocumented)
 export namespace OverallCheckbox {
     // (undocumented)
@@ -1445,8 +2697,7 @@ export namespace OverviewActivity {
     // (undocumented)
     export namespace Data {
         // (undocumented)
-        export interface DocumentListData {
-            readonly documents: (Activity.Data.Document | undefined)[];
+        export interface DocumentListData extends DataGraph {
             readonly summaryResult?: OverviewEngineApi.SummaryResult;
             readonly totalDocumentsCount: number | undefined;
         }
@@ -1541,16 +2792,20 @@ export namespace OverviewEngine {
         readonly documentModel: DocumentModel;
         readonly embedded?: boolean;
         readonly eventHandlers?: OverviewEngineApi.EventHandlers;
+        readonly filterStateSelectors?: FilterStateSelectors;
+        readonly links?: Links;
         readonly loadingState?: "without" | "missing" | "loading" | "loaded" | "error";
+        readonly modelGraph?: ModelGraph;
         readonly overviewModel: OverviewModel;
+        // @deprecated
         readonly rowActionState?: OverviewEngineApi.RowActionState;
+        readonly rowActionStyling?: OverviewEngineApi.RowActionStyling;
         readonly rowStyling?: RowStyleGetter<JSONDocument>;
         // (undocumented)
         readonly selectorMap?: SelectorMap;
         readonly subDocumentModels?: DocumentModel[];
         readonly summaryResult?: OverviewEngineApi.SummaryResult;
         readonly thumbnails?: Record<string, string>;
-        readonly timeMode?: TimePickerProps.ClockMode;
         readonly totalDocumentsCount?: number;
         readonly uiIdPrefix?: string;
         readonly uiState?: UiState;
@@ -1572,11 +2827,15 @@ export namespace OverviewEngine {
 // @public (undocumented)
 export namespace OverviewEngineActions {
     // (undocumented)
-    export interface CommandPayload<T = AnyAction> {
+    export interface CommandPayload<T = UnknownAction> {
         // (undocumented)
         activityId: string;
         // (undocumented)
+        dataHolderDescriptor?: Activity.DataHolderDescriptor;
+        // (undocumented)
         engineAction: T;
+        // (undocumented)
+        overviewModelName?: string;
     }
     const // (undocumented)
     command: ActionCreator<CommandPayload>;
@@ -1612,11 +2871,15 @@ export namespace OverviewEngineActions {
     const // (undocumented)
     enumeratedStringQueryParametersChanged: ActionCreator<EnumeratedStringQueryParametersChangedPayload>;
     // (undocumented)
-    export interface EventPayload<T = AnyAction> {
+    export interface EventPayload<T = UnknownAction> {
         // (undocumented)
         activityId: string;
         // (undocumented)
+        dataHolderDescriptor?: Activity.DataHolderDescriptor;
+        // (undocumented)
         engineAction: T;
+        // (undocumented)
+        overviewModelName?: string;
     }
     const // (undocumented)
     setEnumeratedStringCandidates: ActionCreator<SetEnumeratedStringCandidatesPayload>;
@@ -1646,6 +2909,7 @@ export namespace OverviewEngineApi {
     }
     // (undocumented)
     export namespace Dialog {
+        import Types = DialogTypes;
         export interface OverviewButtonConfirm extends Dialog, OverviewButtonConfirmDialog.Props {
             // (undocumented)
             readonly type: Dialog.Types.OVERVIEW_BUTTON_CONFIRM;
@@ -1663,12 +2927,6 @@ export namespace OverviewEngineApi {
         export namespace RowActionConfirm {
             // (undocumented)
             export function isInstance(dialog: Dialog): dialog is RowActionConfirm;
-        }
-        export enum Types {
-            // (undocumented)
-            OVERVIEW_BUTTON_CONFIRM = "overview_button_confirm",
-            // (undocumented)
-            ROW_ACTION_CONFIRM = "row_action_confirm"
         }
     }
     // (undocumented)
@@ -1689,6 +2947,23 @@ export namespace OverviewEngineApi {
     }
     // (undocumented)
     export interface EventHandlers {
+        readonly newFilter?: {
+            readonly onFilterSelectorOptionsChanged?: (params: Events.NewFilter.FilterSelectorOptionsChangedPayload) => void;
+            readonly onFilterOptionsChanged?: (params: Events.NewFilter.FilterOptionsChangedPayload) => void;
+            readonly onFilterSelectorAllApplied?: () => void;
+            readonly onFilterItemEditApplied?: () => void;
+            readonly onFilterSelectorVisibilityChanged?: (params: Events.NewFilter.FilterSelectorVisibilityChangedPayload) => void;
+            readonly onFilterCollapsedChanged?: (params: Events.NewFilter.FilterCollapsedChangedPayload) => void;
+            readonly onFilterItemOptionsChanged?: <Option = object>(params: Events.NewFilter.FilterItemOptionsChangedPayload<Option>) => void;
+            readonly onFilterItemReset?: (params: Events.NewFilter.FilterItemResetPayload) => void;
+            readonly onFilterSelectorReset?: () => void;
+            readonly onFilterBarReset?: () => void;
+            readonly onFilterBarItemsOverflowed?: (params: Events.NewFilter.FilterBarItemsOverflowedPayload) => void;
+            readonly onFilterItemEditStarted?: (params: Events.NewFilter.FilterItemEditStartedPayload) => void;
+            readonly onFilterItemEditCanceled?: (params: Events.NewFilter.FilterItemEditCanceledPayload) => void;
+            readonly onFilterItemSettingsOpened?: (params: Events.NewFilter.FilterItemSettingsOpenedPayload) => void;
+            readonly onFilterItemSettingsClosed?: () => void;
+        };
         onColumnClick?(columnIndex: number): void;
         onColumnWidthsChange?(params: {
             columnWidths: ColumnWidths;
@@ -1704,17 +2979,20 @@ export namespace OverviewEngineApi {
         onInfiniteScroll?(params: {
             scrolling: Scrolling;
         }): void;
+        onMobileSearchBarToggle?(params: Events.MobileSearchBarTogglePayload): void;
         onMultiSelectionButtonClick?(): void;
         onMultiSelectionClear?(): void;
         onNextPageClick?(): void;
         onOverallMultiSelectionButtonClick?(params: {
-            affectedRowIds: string[];
+            documentId: string;
+            linkId?: string;
             selected: boolean;
-        }): void;
+        }[]): void;
         onPageChange?(page: number): void;
         onPreviousPageClick?(): void;
         onRowButtonClick?(params: {
             documentId: string;
+            linkId?: string;
             rowActionModel: OverviewModel.Button;
         }): void;
         onRowButtonClickRequest?(params: {
@@ -1724,10 +3002,12 @@ export namespace OverviewEngineApi {
         }): void;
         onRowClick?(params: {
             documentId: string;
+            linkId?: string;
             customEvent?: string;
         }): void;
         onRowsSelect?(params: {
             documentId: string;
+            linkId?: string;
             selected: boolean;
         }[]): void;
         onSearch?(searchString: string): void;
@@ -1910,13 +3190,13 @@ export namespace OverviewEngineApi {
         export namespace StringOptions {
             export function isInstance(obj: Options): obj is StringOptions;
         }
-            {};
+        export {};
     }
     export interface FilterMap {
         // (undocumented)
         readonly [fieldPath: string]: Filter.Options | Filter.StringOptions | Filter.BooleanOptions | Filter.ConfirmOptions | Filter.DateOptions | Filter.NumberOptions | Filter.EnumerationOptions | Filter.MultiSelectOptions | Filter.CustomFieldOptions | Filter.EnumeratedStringOptions | undefined;
     }
-    export function getSortingProps(sorting: UiState["sorting"] | undefined, documentModel: DocumentModel, { content: { columns } }: OverviewModel): Sorting[] | undefined;
+    export function getSortingProps(sorting: UiState["sorting"] | undefined, documentModel: DocumentModel, input: OverviewModel, relationshipModels?: RelationshipModel[], subDocumentModels?: DocumentModel[]): Sorting[] | undefined;
     export interface InfiniteScrollOptions extends Omit<InfiniteScrollOptions, "rowCount" | "rowHeight" | "loadData"> {
         loadData(params: {
             startPage: number;
@@ -1935,18 +3215,33 @@ export namespace OverviewEngineApi {
     export namespace Pagination {
         export function getInitialValue(overviewModel: OverviewModel): Pagination | undefined;
     }
+    // @deprecated
     export interface RowActionState {
+        // @deprecated
         readonly rowActions?: {
-            readonly [event: string]: RowActionState.IndividualRowActionState;
+            readonly [event: string]: RowActionStyling.IndividualRowActionState;
         };
+        // @deprecated
         readonly rows?: {
             readonly [id: string]: {
-                [event: string]: RowActionState.IndividualRowActionState;
+                [event: string]: RowActionStyling.IndividualRowActionState;
             };
         };
     }
-    // (undocumented)
+    // @deprecated (undocumented)
     export namespace RowActionState {
+        // @deprecated (undocumented)
+        export type IndividualRowActionState = RowActionStyling.IndividualRowActionState;
+    }
+    export interface RowActionStyling {
+        // (undocumented)
+        (params: {
+            row: JSONDocument;
+            button: OverviewModel.Button;
+        }): RowActionStyling.IndividualRowActionState | undefined;
+    }
+    // (undocumented)
+    export namespace RowActionStyling {
         // (undocumented)
         export interface IndividualRowActionState {
             // (undocumented)
@@ -1957,10 +3252,17 @@ export namespace OverviewEngineApi {
     }
     export interface RowState {
         // (undocumented)
-        readonly [id: string]: {
+        readonly [docRef: string]: {
             readonly selected?: boolean;
             readonly useSecondaryColor?: boolean;
             readonly disabled?: boolean;
+            readonly byLink?: {
+                readonly [linkId: string]: {
+                    readonly selected?: boolean;
+                    readonly useSecondaryColor?: boolean;
+                    readonly disabled?: boolean;
+                };
+            };
         };
     }
     // (undocumented)
@@ -1981,11 +3283,19 @@ export namespace OverviewEngineApi {
 // @public (undocumented)
 export namespace OverviewEngineContainer {
     // (undocumented)
-    export type OmitProps = "documentModel" | "overviewModel" | "data" | "totalDocumentsCount" | "summaryResult" | "uiState";
+    export type OmitProps = "documentModel" | "overviewModel" | "modelGraph" | "data" | "links" | "totalDocumentsCount" | "summaryResult" | "uiState";
     // (undocumented)
     export interface Props extends View, Omit<OverviewEngine.Props, OmitProps> {
         // (undocumented)
+        readonly data?: OverviewEngine.Props["data"];
+        // (undocumented)
+        readonly dataHolderDescriptor?: Activity.DataHolderDescriptor;
+        // (undocumented)
+        readonly links?: OverviewEngine.Props["links"];
+        // (undocumented)
         readonly minimumBatchSize?: number;
+        // (undocumented)
+        readonly overviewModelName?: string;
         // (undocumented)
         readonly threshold?: number;
     }
@@ -2006,6 +3316,7 @@ export namespace OverviewEngineContextType {
         // (undocumented)
         readonly eventHandlers: OverviewEngineApi.EventHandlers;
         readonly expressionTrees?: Record<string, Expression.RootNode | undefined>;
+        readonly filterStateSelectors?: FilterStateSelectors;
         readonly referenceColumns?: Record<string, OverviewModel.ReferenceColumn | undefined>;
         // (undocumented)
         readonly selectorMap: SelectorMap;
@@ -2035,7 +3346,38 @@ export namespace OverviewEngineContextType {
 // @public (undocumented)
 export interface OverviewEngineDataLoader {
     // (undocumented)
-    provideData(params: ProvideDataParams): ProvideDataResults;
+    buildRequests(params: BuildRequestsParams): MaybeAsync<SupportedRequest[]>;
+    // (undocumented)
+    handleResponses(params: HandleResponsesParams): MaybeAsync<DataOperation.ResultSet>;
+}
+
+// @public (undocumented)
+export class OverviewEngineDataProvider implements DataProvider {
+    constructor(dataLoader: OverviewEngineDataLoader, config?: DataProvidersConfig | undefined);
+    // (undocumented)
+    protected applyUpdates(activityId: string, updates: UpdatedDataHolder[]): SagaGenerator<void>;
+    // (undocumented)
+    canHandle(input: DataProvider.CanHandleConfig): boolean;
+    // (undocumented)
+    protected config?: DataProvidersConfig | undefined;
+    // (undocumented)
+    protected createExecutionPlan(config: DataProvider.LoadConfig, dataHolder: Activity.DataHolder): SagaGenerator<QueryExecutionPlan>;
+    // (undocumented)
+    protected dataLoader: OverviewEngineDataLoader;
+    // (undocumented)
+    protected deleteData(config: DataProvider.DeleteConfig, dataHolder?: Activity.DataHolder): SagaGenerator<void>;
+    // (undocumented)
+    protected executeQueryPlan(activityId: string, plans: ReadonlyArray<QueryExecutionPlan>): SagaGenerator<UpdatedDataHolder[]>;
+    // (undocumented)
+    protected exportData(config: DataProvider.LoadConfig, dataHolder?: Activity.DataHolder): SagaGenerator<void>;
+    // (undocumented)
+    protected getModels(activityId: string, _dataHolder?: Activity.DataHolder): SagaGenerator<ModelsState>;
+    // (undocumented)
+    protected loadData(config: DataProvider.LoadConfig, dataHolder: Activity.DataHolder): SagaGenerator<void>;
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void>;
 }
 
 // @public (undocumented)
@@ -2046,7 +3388,7 @@ export namespace OverviewEngineFactories {
     // (undocumented)
     export type ModuleConfig = DataProvidersConfig;
     const // (undocumented)
-    createMiddlewares: () => Middleware[];
+    createMiddlewares: (options?: MiddlewareOptions) => Middleware[];
     const createDataProviders: (dataLoader?: OverviewEngineDataLoader, config?: DataProvidersConfig) => DataProvider[];
     const // (undocumented)
     dataLoader: OverviewEngineDataLoader;
@@ -2069,11 +3411,15 @@ export namespace OverviewEngineSelectors {
     // (undocumented)
     export function enumeratedStringFilterMap(activityId: string): Selector_2<OverviewEngineApi.EnumeratedStringFilterMap | undefined>;
     // (undocumented)
-    export function modelsState(activityId: string): Selector_2<ModelsState | undefined>;
+    export function modelsState(activityId: string, overviewModelName?: string): Selector_2<ModelsState | undefined>;
     // (undocumented)
-    export function uiState(activityId: string): Selector_2<UiState>;
+    export function uiState(activityId: string, options?: {
+        filterStateSelectors?: FilterStateSelectors;
+        descriptor?: Activity.DataHolderDescriptor;
+        overviewModelName?: string;
+    }): Selector_2<UiState>;
     // (undocumented)
-    export function uiStateWithoutDefaults(activityId: string): Selector_2<UiState | undefined>;
+    export function uiStateWithoutDefaults(activityId: string, descriptor?: Activity.DataHolderDescriptor): Selector_2<UiState | undefined>;
 }
 
 // @public (undocumented)
@@ -2154,6 +3500,16 @@ export namespace OverviewModel {
         readonly type: ElementType;
     }
     // (undocumented)
+    export interface BaseLinkedColumn {
+        // (undocumented)
+        readonly linkReferences: LinkReference[];
+    }
+    // (undocumented)
+    export namespace BaseLinkedColumn {
+        // (undocumented)
+        export function isAssignableFrom(column: object): column is BaseLinkedColumn;
+    }
+    // (undocumented)
     export interface Button extends Triggerable {
         // (undocumented)
         readonly destructive?: boolean;
@@ -2173,7 +3529,7 @@ export namespace OverviewModel {
         export function isAssignableFrom(element: object): element is ButtonElement;
     }
     // (undocumented)
-    export type Column = ReferenceColumn | ExpressionColumn;
+    export type Column = ReferenceColumn | ExpressionColumn | LinkColumn.Reference | LinkColumn.Expression;
     // (undocumented)
     export interface ColumnAlignment {
         // (undocumented)
@@ -2212,6 +3568,8 @@ export namespace OverviewModel {
         // (undocumented)
         readonly multiSelection?: MultiSelection;
         // (undocumented)
+        readonly newFilterConfiguration?: NewFilterConfiguration;
+        // (undocumented)
         readonly pagingSize?: number;
         // (undocumented)
         readonly rowHeight?: number;
@@ -2223,6 +3581,8 @@ export namespace OverviewModel {
         readonly showFullTextSearch?: boolean;
         // (undocumented)
         readonly showRowCount?: true;
+        // (undocumented)
+        readonly skipInitialLoad?: true;
         // (undocumented)
         readonly subtitle?: LocalizedModelText;
     }
@@ -2242,11 +3602,11 @@ export namespace OverviewModel {
         // (undocumented)
         readonly contextMenu?: ContextMenu;
         // (undocumented)
-        readonly defaultRowAction?: DefaultRowAction;
-        // (undocumented)
         readonly footerBox?: FooterBox;
         // (undocumented)
         readonly rowActionGroup: RowActionGroup;
+        // (undocumented)
+        readonly rowActivation?: RowActivation;
         // (undocumented)
         readonly styles?: Styles;
         // (undocumented)
@@ -2259,13 +3619,6 @@ export namespace OverviewModel {
     }
     // (undocumented)
     export type ContextMenuItem = Triggerable;
-    // (undocumented)
-    export interface DefaultRowAction {
-        // (undocumented)
-        readonly custom: true;
-        // (undocumented)
-        readonly event: string;
-    }
     // (undocumented)
     export type Element = ButtonElement | MultiSelectionElement | SearchElement | FilterElement;
     // (undocumented)
@@ -2285,6 +3638,18 @@ export namespace OverviewModel {
         readonly fields: ReadonlyArray<FieldConfiguration>;
         // (undocumented)
         readonly pagingSize?: number;
+    }
+    // (undocumented)
+    export interface EventRowActivation {
+        // (undocumented)
+        readonly event: string;
+        // (undocumented)
+        readonly type: "event";
+    }
+    // (undocumented)
+    export namespace EventRowActivation {
+        // (undocumented)
+        export function isAssignableFrom(activation: object): activation is EventRowActivation;
     }
     // (undocumented)
     export interface ExpressionColumn extends BaseColumn {
@@ -2344,9 +3709,9 @@ export namespace OverviewModel {
     // (undocumented)
     export interface FooterBox {
         // (undocumented)
-        readonly majorElements?: ReadonlyArray<ButtonElement>;
+        readonly leftSlot?: ReadonlyArray<ButtonElement>;
         // (undocumented)
-        readonly minorElements?: ReadonlyArray<ButtonElement>;
+        readonly rightSlot?: ReadonlyArray<ButtonElement>;
     }
     // (undocumented)
     export enum HorizontalAlignment {
@@ -2366,6 +3731,34 @@ export namespace OverviewModel {
     }
     // (undocumented)
     export type IconTheme = "filled" | "outlined" | "rounded" | "custom";
+    // (undocumented)
+    export namespace LinkColumn {
+        // (undocumented)
+        export interface Expression extends ExpressionColumn, BaseLinkedColumn {
+        }
+        // (undocumented)
+        export namespace Expression {
+            // (undocumented)
+            export function isAssignableFrom(column: object): column is Expression;
+        }
+        // (undocumented)
+        export interface Reference extends Omit<ReferenceColumn, "summary">, BaseLinkedColumn {
+        }
+        // (undocumented)
+        export namespace Reference {
+            // (undocumented)
+            export function isAssignableFrom(column: object): column is Reference;
+        }
+    }
+    // (undocumented)
+    export interface LinkReference {
+        // (undocumented)
+        readonly relationship: string;
+        // (undocumented)
+        readonly targetRole: string;
+        // (undocumented)
+        readonly type: "CHILD" | "LINK";
+    }
     // (undocumented)
     export enum MultiSelectDisplayMode {
         // (undocumented)
@@ -2425,6 +3818,222 @@ export namespace OverviewModel {
         // (undocumented)
         export function isAssignableFrom(element: object): element is MultiSelectionElement;
     }
+    export namespace NewFilter {
+        export interface BaseItem extends OverviewModel.NewFilter.Options.Collapsed {
+            // (undocumented)
+            readonly icon?: Icon;
+            // (undocumented)
+            readonly id: string;
+            // (undocumented)
+            readonly label?: LocalizedModelText;
+            readonly preferFilterBar?: true;
+            // (undocumented)
+            readonly type: ItemType;
+        }
+        export namespace Boolean {
+            // (undocumented)
+            export type Item = FieldBasedItem<"boolean", Options>;
+            // (undocumented)
+            export interface Options extends FieldBasedOption, Options.Empty {
+                readonly criteria?: boolean[];
+            }
+        }
+        export namespace Confirm {
+            // (undocumented)
+            export type Item = FieldBasedItem<"confirm", Options>;
+            // (undocumented)
+            export interface Options extends FieldBasedOption, Options.Empty {
+                readonly criteria?: true;
+            }
+        }
+        export namespace Custom {
+            // (undocumented)
+            export type Item = FieldBasedItem<"custom", Options>;
+            // (undocumented)
+            export type Options = FieldBasedOption;
+        }
+        export namespace Date {
+            // (undocumented)
+            export type Item = FieldBasedItem<"date", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<string>, FieldBasedOption, Options.Empty, Options.Invert {
+                // (undocumented)
+                readonly periods: ListOptionConfiguration<PeriodOption>;
+            }
+            export type PeriodOption = "date" | "year" | "yearMonth" | "month";
+        }
+        export namespace DateFragment {
+            // (undocumented)
+            export type Item = FieldBasedItem<"dateFragment", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<string>, FieldBasedOption, Options.Empty, Options.Invert {
+                readonly periods?: ListOptionConfiguration<PeriodOption>;
+            }
+            export type PeriodOption = "year" | "month" | "yearMonth" | "monthDay";
+        }
+        export namespace DateRange {
+            // (undocumented)
+            export type Item = FieldBasedItem<"dateRange", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<string>, FieldBasedOption, Options.Empty, Options.Invert {
+                readonly periods?: ListOptionConfiguration<PeriodOption>;
+            }
+            // (undocumented)
+            export type PeriodOption = "year" | "month" | "yearMonth" | "date" | "monthDay";
+        }
+        export namespace DateTime {
+            // (undocumented)
+            export type Item = FieldBasedItem<"dateTime", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<string>, FieldBasedOption, Options.Empty, Options.Invert {
+                // (undocumented)
+                readonly periods: ListOptionConfiguration<PeriodOption>;
+            }
+            export type PeriodOption = "dateTime" | "date" | "year" | "yearMonth" | "time" | "month";
+        }
+        export namespace Enumeration {
+            // (undocumented)
+            export type Item = FieldBasedItem<"enumeration", Options>;
+            // (undocumented)
+            export interface Options extends FieldBasedOption, Options.Empty, Options.Invert {
+                // (undocumented)
+                readonly criteria?: string[];
+                readonly pinnedValues?: readonly string[];
+                readonly viewMode: "list" | "compact";
+            }
+        }
+        export interface FieldBasedItem<DataType extends ItemType, Options> extends BaseItem {
+            // (undocumented)
+            readonly options: Options;
+            // (undocumented)
+            readonly type: DataType;
+        }
+        export interface FieldBasedOption {
+            readonly fieldId: string;
+            readonly subModel?: string;
+        }
+        export interface FilterSelectorConfiguration {
+            readonly headerSubtitle?: LocalizedModelText;
+            readonly initialVisibility?: "show" | "hide";
+            // (undocumented)
+            readonly searchBar: Configurable<boolean>;
+            readonly showSetFiltersOnly: Configurable<boolean>;
+            readonly trigger?: Configurable<Pick<Button, "label" | "icon" | "labelHidden">>;
+            readonly viewMode: "overlay" | "docked" | "modal";
+        }
+        export interface Group {
+            // (undocumented)
+            readonly filterItems: Item[];
+            // (undocumented)
+            readonly icon?: Icon;
+            // (undocumented)
+            readonly id: string;
+            // (undocumented)
+            readonly label?: LocalizedModelText;
+            readonly name: string;
+            readonly relationshipPath?: RelationshipContext[];
+        }
+        export type Item = Boolean.Item | Confirm.Item | Enumeration.Item | MultiSelect.Item | String.Item | Number.Item | Date.Item | Time.Item | DateTime.Item | DateFragment.Item | DateRange.Item | Custom.Item | Query.Item;
+        export type ItemType = "boolean" | "confirm" | "enumeration" | "multi-select" | "string" | "number" | "date" | "time" | "dateTime" | "dateFragment" | "dateRange" | "custom" | "query";
+        export namespace MultiSelect {
+            // (undocumented)
+            export type Item = FieldBasedItem<"multi-select", Options>;
+            // (undocumented)
+            export interface Options extends FieldBasedOption, Options.Empty, Options.Invert {
+                // (undocumented)
+                readonly criteria?: string[];
+                readonly matchOperator: Configurable<"and" | "or">;
+                readonly pinnedValues?: readonly string[];
+                readonly viewMode: "list" | "compact";
+            }
+        }
+        export namespace Number {
+            // (undocumented)
+            export type Item = FieldBasedItem<"number", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<number>, FieldBasedOption, Options.Empty, Options.Invert {
+            }
+        }
+        export namespace Options {
+            export interface Collapsed {
+                // (undocumented)
+                readonly collapsed?: true;
+            }
+            export interface Empty {
+                // (undocumented)
+                readonly empty: Configurable<boolean>;
+            }
+            export interface Invert {
+                // (undocumented)
+                readonly invert: Configurable<boolean>;
+            }
+        }
+        export namespace Query {
+            // (undocumented)
+            export interface Item extends BaseItem {
+                // (undocumented)
+                readonly description?: LocalizedModelText;
+                // (undocumented)
+                readonly options: Options;
+                // (undocumented)
+                readonly type: "query";
+            }
+            // (undocumented)
+            export interface Options {
+                readonly enabled: Configurable<boolean>;
+                // (undocumented)
+                readonly operator: Query.Operator;
+            }
+        }
+        export interface RangeConfiguration<Criteria> {
+            // (undocumented)
+            readonly ranges: RangeOptionConfiguration<Criteria>;
+        }
+        export type RangeOption = keyof RangeOptionCriteria<unknown>;
+        export interface RelationshipContext {
+            // (undocumented)
+            readonly relationship: string;
+            // (undocumented)
+            readonly targetRole: string;
+            readonly type?: "CHILD" | "LINK";
+        }
+        export namespace String {
+            // (undocumented)
+            export type Item = FieldBasedItem<"string", Options>;
+            // (undocumented)
+            export interface Options extends FieldBasedOption, Options.Empty, Options.Invert {
+                readonly caseSensitive: Configurable<boolean>;
+                readonly criteria?: string;
+                readonly exactMatch: Configurable<boolean>;
+                readonly viewMode?: ViewMode;
+            }
+            export type ViewMode = "textField" | "list";
+        }
+        export namespace Time {
+            // (undocumented)
+            export type Item = FieldBasedItem<"time", Options>;
+            // (undocumented)
+            export interface Options extends RangeConfiguration<string>, FieldBasedOption, Options.Empty, Options.Invert {
+            }
+        }
+        export {};
+    }
+    export interface NewFilterConfiguration {
+        readonly filterGroups: NewFilter.Group[];
+        readonly filterSelector: NewFilter.FilterSelectorConfiguration;
+        readonly invert: Configurable<boolean>;
+        readonly joinOperator: Configurable<"and" | "or">;
+    }
+    // (undocumented)
+    export interface NonInteractiveRowActivation {
+        // (undocumented)
+        readonly type: "non_interactive";
+    }
+    // (undocumented)
+    export namespace NonInteractiveRowActivation {
+        // (undocumented)
+        export function isAssignableFrom(activation: object): activation is NonInteractiveRowActivation;
+    }
     // (undocumented)
     export type PinDirection = "RIGHT" | "LEFT";
     // (undocumented)
@@ -2455,6 +4064,8 @@ export namespace OverviewModel {
         readonly actions?: ReadonlyArray<Button>;
     }
     // (undocumented)
+    export type RowActivation = EventRowActivation | NonInteractiveRowActivation;
+    // (undocumented)
     export interface SearchElement extends BaseElement {
         // (undocumented)
         readonly type: ElementType.SEARCH;
@@ -2478,9 +4089,9 @@ export namespace OverviewModel {
     // (undocumented)
     export interface SubHeaderBox {
         // (undocumented)
-        readonly majorElements?: ReadonlyArray<Element>;
+        readonly leftSlot?: ReadonlyArray<Element>;
         // (undocumented)
-        readonly minorElements?: ReadonlyArray<Element>;
+        readonly rightSlot?: ReadonlyArray<Element>;
     }
     // (undocumented)
     export interface Summary {
@@ -2604,24 +4215,154 @@ export interface PaginationState {
     readonly pageSize: number;
 }
 
-// @public (undocumented)
-export interface ProvideDataParams {
+// @public
+export type PeriodCriteria<P extends string, M extends Record<P, unknown>> = {
+    readonly [K in P]: RangeCriteria<M[K]>;
+};
+
+// @public
+export namespace PeriodCriteria {
     // (undocumented)
-    activityId: string;
+    export function requirePeriod<P extends string, M extends Record<P, unknown>, K extends P>(criteria: PeriodCriteria<P, M>, period: K): RangeCriteria<M[K]>;
     // (undocumented)
-    documentModel: DocumentModel;
+    export function requireRange<P extends string, M extends Record<P, unknown>, K extends P, R extends OverviewModel.NewFilter.RangeOption>(criteria: PeriodCriteria<P, M>, period: K, range: R): NonNullable<RangeCriteria<M[K]>[R]>;
     // (undocumented)
-    documentService: DocumentService;
-    // (undocumented)
-    overviewModel: OverviewModel;
-    // (undocumented)
-    queries: DataOperation.Query[];
-    // (undocumented)
-    requestSelectorMap: RequestSelectorMap;
+    export function resolve<P extends string, M extends Record<P, unknown>, K extends P>(criteria: PeriodCriteria<P, M>, period: K, range: OverviewModel.NewFilter.RangeOption): RangeCriteria.ResolveResult<M[K]>;
 }
 
-// @public (undocumented)
-export type ProvideDataResults = MaybeAsync<DataOperation.ResultSet>;
+// @public
+export interface PlanApplyContext {
+    // (undocumented)
+    readonly thumbnails?: Record<string, string>;
+}
+
+// @public
+export interface QueryExecutionPlan {
+    // (undocumented)
+    readonly applyResponse: (responses: ReadonlyArray<QueryJsonRpc2Response>, context: PlanApplyContext) => SagaGenerator<UpdatedDataHolder[]>;
+    // (undocumented)
+    readonly dataHolder: Activity.DataHolder;
+    // (undocumented)
+    readonly id: string;
+    // (undocumented)
+    readonly requests: ReadonlyArray<SupportedRequest>;
+}
+
+// @public
+export interface QueryFilterEditorProps {
+    // (undocumented)
+    readonly state: QueryFilterState;
+}
+
+// @public
+export type QueryFilterState = QueryFilterState.State;
+
+// @public
+export namespace QueryFilterState {
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options {
+        // (undocumented)
+        readonly enabled: Configurable<boolean>;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Query.Item, undefined, Options, Options>;
+}
+
+// @public
+export interface QueryOption<T> {
+    // (undocumented)
+    readonly applied: Configurable<T>;
+    // (undocumented)
+    readonly current: Configurable<T>;
+    // (undocumented)
+    readonly default: Configurable<T>;
+}
+
+// @public
+export interface QueryOptions {
+    readonly invert: QueryOption<boolean>;
+    readonly joinOperator: QueryOption<"and" | "or">;
+}
+
+// @public
+export type RangeCriteria<T> = Partial<RangeOptionCriteria<T>>;
+
+// @public
+export namespace RangeCriteria {
+    // (undocumented)
+    export function create<T>(defaultValue: T, creator?: (params: {
+        range: OverviewModel.NewFilter.RangeOption;
+        segment: SegmentOption;
+    }) => T | undefined, availableRanges?: readonly OverviewModel.NewFilter.RangeOption[]): Partial<RangeOptionCriteria<T>>;
+    // (undocumented)
+    export function getValue<T>(criteria: RangeCriteria<T>, range: OverviewModel.NewFilter.RangeOption, segment: SegmentOption): T | undefined;
+    // (undocumented)
+    export function requireSlot<C extends RangeCriteria<unknown>, R extends keyof C & OverviewModel.NewFilter.RangeOption>(criteria: C, range: R): NonNullable<C[R]>;
+    // (undocumented)
+    export function resolve<T>(criteria: RangeCriteria<T>, range: OverviewModel.NewFilter.RangeOption): ResolveResult<T>;
+    // (undocumented)
+    export interface ResolvedEntry<T> {
+        // (undocumented)
+        readonly segment: BoundarySegment;
+        // (undocumented)
+        readonly value: T | undefined;
+    }
+    // (undocumented)
+    export interface ResolveResult<T> {
+        // (undocumented)
+        asMap(): readonly [ResolvedEntry<T>, ResolvedEntry<T>];
+        // (undocumented)
+        asValues(): [T | undefined, T | undefined];
+    }
+    // (undocumented)
+    export function selectCurrentCriteria<C extends Partial<RangeOptionCriteria<unknown>>>(options: {
+        readonly selectedRange: OverviewModel.NewFilter.RangeOption;
+        readonly criteria: C;
+    }): NonNullable<C[OverviewModel.NewFilter.RangeOption]>;
+}
+
+// @public
+export interface RangeFilterEditorTemplateProps {
+    // (undocumented)
+    readonly overallErrorMessage?: string;
+    // (undocumented)
+    readonly range: OverviewModel.NewFilter.RangeOption;
+    // (undocumented)
+    readonly renderInput: (segment: SegmentOption) => ReactNode;
+}
+
+// @public
+export type RangeOptionConfiguration<Criteria = unknown> = RangeOptionEntry<Criteria>[];
+
+// @public
+export type RangeOptionCriteria<T> = {
+    fromTo: {
+        from: T;
+        to: T;
+    };
+    fromOnly: {
+        from: T;
+    };
+    toOnly: {
+        to: T;
+    };
+    exact: {
+        exact: T;
+    };
+};
+
+// @public
+export type RangeOptionEntry<Criteria, O extends OverviewModel.NewFilter.RangeOption = OverviewModel.NewFilter.RangeOption> = O extends OverviewModel.NewFilter.RangeOption ? {
+    option: O;
+    enabled: boolean;
+} & ({
+    default: true;
+    criteria?: RangeOptionCriteria<Criteria>[O];
+} | {
+    default?: false;
+}) : never;
 
 // @public (undocumented)
 export namespace ReferenceCell {
@@ -2634,14 +4375,24 @@ export namespace ReferenceCell {
     }
 }
 
+// @public (undocumented)
+export interface RelationshipField {
+    // (undocumented)
+    readonly relationshipModel: string;
+    // (undocumented)
+    readonly sortBy: string | RelationshipField;
+    // (undocumented)
+    readonly targetRole: string;
+}
+
 // @public
-export interface RequestSelectorMap {
+export interface RequestSelectorMap<Operator extends Query.Operator = Query.Operator> {
     deleteDocument: (config: RequestSelectorMap.DeleteDocumentConfig) => Selector_2<DocumentJsonRpc2Request.DeleteJsonRpc2Request>;
     deleteMultiDocuments: (config: RequestSelectorMap.DeleteMultiDocumentsConfig) => Selector_2<DocumentJsonRpc2Request.MultiDeleteJsonRpc2Request>;
-    export: (config: RequestSelectorMap.ExportConfig) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.ExportQueryRoot>>;
-    loadListDocuments: (config: RequestSelectorMap.LoadListDocumentsConfig) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadDocumentEntries>[]>;
-    loadListStringFilterOptions: (config: RequestSelectorMap.LoadListStringFilterOptionsConfig) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
-    loadSummary: (config: RequestSelectorMap.LoadSummaryConfig) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
+    export: (config: RequestSelectorMap.ExportConfig<Operator>) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.ExportQueryRoot>>;
+    loadListDocuments: (config: RequestSelectorMap.LoadListDocumentsConfig<Operator>) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadDocumentEntries>[]>;
+    loadListStringFilterOptions: (config: RequestSelectorMap.LoadListStringFilterOptionsConfig<Operator>) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
+    loadSummary: (config: RequestSelectorMap.LoadSummaryConfig<Operator>) => Selector_2<QueryJsonRpc2Request<RequestSelectorMap.LoadAggregationEntries>>;
 }
 
 // @public (undocumented)
@@ -2666,9 +4417,9 @@ export namespace RequestSelectorMap {
         docRefs: string[];
     }
     // (undocumented)
-    export interface ExportConfig extends BaseRequestConfig {
+    export interface ExportConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
         // (undocumented)
-        query: DataOperation.Export.Query;
+        query: DataOperation.Export.Query<Operator>;
     }
     // (undocumented)
     export type ExportQueryRoot = Omit<Query.QueryRoot, "aggregation"> & {
@@ -2684,19 +4435,19 @@ export namespace RequestSelectorMap {
         projectionName: "cdd" | "document";
     };
     // (undocumented)
-    export interface LoadListDocumentsConfig extends BaseRequestConfig {
+    export interface LoadListDocumentsConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
         // (undocumented)
-        query: DataOperation.ListDocuments.Query;
+        query: DataOperation.ListDocuments.Query<Operator>;
     }
     // (undocumented)
-    export interface LoadListStringFilterOptionsConfig extends BaseRequestConfig {
+    export interface LoadListStringFilterOptionsConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
         // (undocumented)
-        query: DataOperation.ListStringFilterOptions.Query;
+        query: DataOperation.ListStringFilterOptions.Query<Operator>;
     }
     // (undocumented)
-    export interface LoadSummaryConfig extends BaseRequestConfig {
+    export interface LoadSummaryConfig<Operator extends Query.Operator = Query.Operator> extends BaseRequestConfig {
         // (undocumented)
-        query: DataOperation.ListDocuments.Query;
+        query: DataOperation.ListDocuments.Query<Operator>;
     }
 }
 
@@ -2726,10 +4477,78 @@ export const RESOURCE_KEYS: {
             clearAll: string;
             selectAll: string;
             noFilterFound: string;
+            noSetFilters: string;
+            noSearchResults: string;
             selectDeselectAllCheckboxLabel: string;
             errorIconTitle: string;
+            errorBanner: string;
             section: {
                 other: string;
+            };
+        };
+        newFilter: {
+            selector: {
+                closeButtonTitle: string;
+                searchPlaceholder: string;
+            };
+            selectorOptions: {
+                viewHeader: string;
+                showSearch: string;
+                expandAll: string;
+                collapseAll: string;
+                showSetFiltersOnly: string;
+                pinFilterList: string;
+                matchHeader: string;
+                any: string;
+                all: string;
+                resultHeader: string;
+                invert: string;
+            };
+            optionsButton: {
+                a11yLabel: string;
+            };
+            barItemDropdown: {
+                settingsTitle: string;
+                resetLabel: string;
+                applyLabel: string;
+            };
+            footer: {
+                resetAllLabel: string;
+                applyAllLabel: string;
+            };
+            setting: {
+                empty: string;
+                match: string;
+                range: string;
+                period: string;
+                invertResult: string;
+                fromTo: string;
+                fromOnly: string;
+                toOnly: string;
+                exact: string;
+                any: string;
+                all: string;
+                caseSensitive: string;
+                exactMatch: string;
+                periodDate: string;
+                periodYear: string;
+                periodYearMonth: string;
+                periodMonth: string;
+                periodTime: string;
+                periodDateTime: string;
+                yes: string;
+                no: string;
+            };
+            rangeEditor: {
+                fromLabel: string;
+                toLabel: string;
+            };
+            queryEnable: string;
+            queryEnabledValue: string;
+            emptyValue: string;
+            fieldLabel: {
+                year: string;
+                month: string;
             };
         };
         searchButton: {
@@ -2746,6 +4565,8 @@ export const RESOURCE_KEYS: {
         };
         enumerationFilterOptionView: {
             noOptionFound: string;
+            showMore: string;
+            showLess: string;
         };
         enumeratedStringFilterOptionView: {
             loadMore: string;
@@ -2782,6 +4603,8 @@ export const RESOURCE_KEYS: {
             };
             error: {
                 startGreaterThanEnd: string;
+                partialYearMonth: string;
+                invalidYear: string;
             };
             picker: {
                 ok: string;
@@ -2832,6 +4655,9 @@ export const RESOURCE_KEYS: {
             overallCheckboxTitle: string;
             rowCheckboxTitle: string;
         };
+        table: {
+            linkNotFound: string;
+        };
         noResultFound: string;
         noInitQuery: string;
         footer: {
@@ -2839,6 +4665,10 @@ export const RESOURCE_KEYS: {
         };
         error: {
             requestLimitExceeded: {
+                title: string;
+                message: string;
+            };
+            serverError: {
                 title: string;
                 message: string;
             };
@@ -2976,6 +4806,38 @@ export enum SectionType {
     START = "start"
 }
 
+// @public
+export type SegmentOption = "from" | "to" | "exact";
+
+// @public
+export interface SelectedPeriod<P> {
+    // (undocumented)
+    readonly selectedPeriod: P;
+}
+
+// @public
+export interface SelectedRange {
+    // (undocumented)
+    readonly selectedRange: OverviewModel.NewFilter.RangeOption;
+}
+
+// @public
+export type SelectedRangeCriteriaEntry<T> = {
+    [K in OverviewModel.NewFilter.RangeOption]: {
+        readonly selectedRange: K;
+        readonly criteria: K extends "fromTo" ? {
+            from: T;
+            to: T;
+        } : K extends "fromOnly" ? {
+            from: T;
+        } : K extends "toOnly" ? {
+            to: T;
+        } : K extends "exact" ? {
+            exact: T;
+        } : never;
+    };
+}[OverviewModel.NewFilter.RangeOption];
+
 // @public (undocumented)
 export interface Selector<R, S = object> {
     // (undocumented)
@@ -2992,7 +4854,7 @@ export interface Sorting {
     // (undocumented)
     readonly order: SortingOrder;
     // (undocumented)
-    readonly path: string;
+    readonly path: string | RelationshipField;
 }
 
 // @public (undocumented)
@@ -3001,6 +4863,12 @@ export enum SortingOrder {
     ASC = "ASC",
     // (undocumented)
     DESC = "DESC"
+}
+
+// @public
+export interface StringFilterEditorProps {
+    // (undocumented)
+    readonly state: StringFilterState;
 }
 
 // @public (undocumented)
@@ -3015,6 +4883,56 @@ export namespace StringFilterOptionsView {
         // (undocumented)
         value?: string;
     }
+}
+
+// @public
+export interface StringFilterSettingProps {
+    // (undocumented)
+    readonly state: StringFilterState;
+}
+
+// @public
+export type StringFilterState = StringFilterState.State;
+
+// @public
+export namespace StringFilterState {
+    // (undocumented)
+    export type Criteria = InputState;
+    const // (undocumented)
+    DefaultInputState: InputState;
+    // (undocumented)
+    export type EffectiveOptions = Omit<Options, "criteria"> & {
+        readonly criteria: string | undefined;
+    };
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    export interface InputState {
+        // (undocumented)
+        readonly error?: string;
+        // (undocumented)
+        readonly value: string | undefined;
+    }
+    const // (undocumented)
+    DefaultViewMode: ViewMode;
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert {
+        // (undocumented)
+        readonly caseSensitive: Configurable<boolean>;
+        // (undocumented)
+        readonly criteria: Criteria;
+        // (undocumented)
+        readonly exactMatch: Configurable<boolean>;
+        // (undocumented)
+        readonly selectedValues: readonly string[];
+        // (undocumented)
+        readonly viewMode: ViewMode;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.String.Item, DocumentModelTypedField<DocumentModel.StringType>, Options, EffectiveOptions>;
+    // (undocumented)
+    export type ViewMode = OverviewModel.NewFilter.String.ViewMode;
 }
 
 // @public (undocumented)
@@ -3095,6 +5013,12 @@ export namespace TableHeadCell {
     }
 }
 
+// @public
+export interface TimeFilterEditorProps {
+    // (undocumented)
+    readonly state: TimeFilterState;
+}
+
 // @public (undocumented)
 export namespace TimeFilterOptionsView {
     // (undocumented)
@@ -3106,10 +5030,52 @@ export namespace TimeFilterOptionsView {
         // (undocumented)
         readonly readonly?: boolean;
         // (undocumented)
-        readonly timeMode?: TimePickerProps.ClockMode;
-        // (undocumented)
         readonly uiValue: DateTimeViewValue;
     }
+}
+
+// @public
+export interface TimeFilterSettingProps {
+    // (undocumented)
+    readonly state: TimeFilterState;
+}
+
+// @public
+export type TimeFilterState = TimeFilterState.State;
+
+// @public
+export namespace TimeFilterState {
+    // (undocumented)
+    export type Criteria = PeriodCriteria<"default", InputMap>;
+    const // (undocumented)
+    DefaultInputState: InputState;
+    // (undocumented)
+    export type EffectiveOptions = OverviewModel.NewFilter.Options.Empty & OverviewModel.NewFilter.Options.Invert & SelectedRangeCriteriaEntry<InputState>;
+    // (undocumented)
+    export interface InputMap {
+        // (undocumented)
+        readonly default: InputState;
+    }
+    const // (undocumented)
+    DefaultCriteria: Criteria;
+    // (undocumented)
+    export interface InputState {
+        // (undocumented)
+        readonly error: string | null;
+        // (undocumented)
+        readonly input: string;
+        // (undocumented)
+        readonly value: Date | null;
+    }
+    // (undocumented)
+    export function isInstance(filterState: FilterItemState): filterState is State;
+    // (undocumented)
+    export interface Options extends OverviewModel.NewFilter.Options.Empty, OverviewModel.NewFilter.Options.Invert, SelectedRange {
+        // (undocumented)
+        readonly criteria: Criteria;
+    }
+    // (undocumented)
+    export type State = FilterItemState<OverviewModel.NewFilter.Time.Item, DocumentModelTypedField<DocumentModel.TimeType>, Options, EffectiveOptions>;
 }
 
 // @public (undocumented)
@@ -3127,6 +5093,8 @@ export interface UiState {
     // (undocumented)
     readonly expandedMultiSelection?: boolean;
     // (undocumented)
+    readonly newFilter?: FilterState;
+    // (undocumented)
     readonly pagination?: PaginationState;
     // (undocumented)
     readonly rowState?: OverviewEngineApi.RowState;
@@ -3137,13 +5105,15 @@ export interface UiState {
     // (undocumented)
     readonly searchString?: string;
     // (undocumented)
+    readonly showMobileSearchBar?: boolean;
+    // (undocumented)
     readonly sorting?: Sorting[];
 }
 
 // @public (undocumented)
-export function uiStateReducer(state: UiState | undefined, action: AnyAction): UiState;
+export function uiStateReducer(state: UiState | undefined, action: UnknownAction): UiState;
 
-// @public
+// @public (undocumented)
 export namespace UiStateSelector {
     // (undocumented)
     export function activeFilters(): Selector<OverviewEngineApi.FilterMap | undefined, UiState>;
@@ -3159,6 +5129,38 @@ export namespace UiStateSelector {
     export function expandedMultiSelection(): Selector<boolean, UiState>;
     // (undocumented)
     export function hasSelectedRow(): Selector<boolean, UiState>;
+    export namespace NewFilter {
+        // (undocumented)
+        export function computeFiltersSnapshot(filters: Record<string, FilterItemState>, queryOptions: QueryOptions | undefined, selectors: FilterStateSelectors): string;
+        // (undocumented)
+        export function editingFilter(): Selector<FilterItemState | null, UiState>;
+        // (undocumented)
+        export function editingFilterSettings(): Selector<FilterItemState | null, UiState>;
+        // (undocumented)
+        export function filterById(filterId: string): Selector<FilterItemState | undefined, UiState>;
+        // (undocumented)
+        export function filtersByArea(area: FilterArea): Selector<FilterItemState[], UiState>;
+        // (undocumented)
+        export function filtersSnapshot(selectors?: FilterStateSelectors): Selector<string, UiState>;
+        // (undocumented)
+        export function filterState(): Selector<FilterState | undefined, UiState>;
+        // (undocumented)
+        export function hasErrorById(filterId: string, selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function hasFilterSelectorErrors(selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isApplicable(selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isConfigurable(filterId: string, selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isEditingFilterApplicable(selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isFilterBarResettable(selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isFilterSelectorResettable(selectors: FilterStateSelectors): Selector<boolean, UiState>;
+        // (undocumented)
+        export function isResettableById(filterId: string, selectors: FilterStateSelectors): Selector<boolean, UiState>;
+    }
     // (undocumented)
     export function pagination(): Selector<PaginationState | undefined, UiState>;
     // (undocumented)
@@ -3173,6 +5175,16 @@ export namespace UiStateSelector {
     export function sorting(): Selector<Sorting[] | undefined, UiState>;
     // (undocumented)
     export function totalSelectedRows(): Selector<number, UiState>;
+}
+
+// @public
+export interface UpdatedDataHolder {
+    // (undocumented)
+    readonly data?: object;
+    // (undocumented)
+    readonly descriptor: Activity.DataHolderDescriptor;
+    // (undocumented)
+    readonly thumbnails?: Record<string, string>;
 }
 
 // @public (undocumented)
@@ -3219,6 +5231,10 @@ export interface WidgetMap {
     // (undocumented)
     readonly Checkbox: React_2.ComponentType<CheckboxProps>;
     // (undocumented)
+    readonly CheckboxGroup: React_2.ComponentType<CheckboxGroupProps>;
+    // (undocumented)
+    readonly CheckboxGroupItem: React_2.ComponentType<CheckboxItemProps>;
+    // (undocumented)
     readonly CheckboxIndeterminate: React_2.ComponentType<IndeterminateCheckboxProps>;
     // (undocumented)
     readonly ContentBox: React_2.ComponentType<ContentBoxProps>;
@@ -3229,7 +5245,7 @@ export interface WidgetMap {
     // (undocumented)
     readonly DateInput: React_2.ComponentType<DateInputProps>;
     // (undocumented)
-    readonly DateTimePickerHeader: React_2.ComponentType<HeaderProps>;
+    readonly DateTimePickerHeader: React_2.ComponentType<DateTimePickerHeaderProps>;
     // (undocumented)
     readonly DateTimePickerInput: React_2.ComponentType<DateTimePickerInputProps<DateTimePickerProps>>;
     // (undocumented)
@@ -3240,6 +5256,8 @@ export interface WidgetMap {
     readonly FilterBarMobile: React_2.ComponentType<FilterBarMobileProps>;
     // (undocumented)
     readonly FilterSelector: React_2.ComponentType<FilterSelectorProps>;
+    // (undocumented)
+    readonly FilterSelectorListMode: React_2.ComponentType<FilterSelectorListModeProps>;
     // (undocumented)
     readonly FilterSelectorMobile: React_2.ComponentType<FilterSelectorMobileProps>;
     // (undocumented)
@@ -3260,6 +5278,8 @@ export interface WidgetMap {
     readonly FilterSelectorTemplateSection: React_2.ComponentType<FilterSelectorTemplateProps.SectionProps>;
     // (undocumented)
     readonly Footer: React_2.ComponentType<ContentBoxProps.FooterProps>;
+    // (undocumented)
+    readonly GlobalMessageBox: React_2.ComponentType<GlobalMessageBoxProps>;
     // (undocumented)
     readonly Heading: React_2.ComponentType<ContentBoxProps.HeadingProps>;
     // (undocumented)
@@ -3307,13 +5327,19 @@ export interface WidgetMap {
     // (undocumented)
     readonly Subtitle: React_2.ComponentType<ContentBoxProps.TitleProps>;
     // (undocumented)
+    readonly Switch: typeof Switch;
+    // (undocumented)
     readonly Table: React_2.ComponentType<TableProps<JSONDocument>>;
+    // (undocumented)
+    readonly TextField: React_2.ComponentType<TextFieldProps>;
     // (undocumented)
     readonly TextOutput: React_2.ComponentType<TextOutputProps>;
     // (undocumented)
     readonly TimePicker: React_2.ComponentType<TimePickerProps>;
     // (undocumented)
     readonly Title: React_2.ComponentType<ContentBoxProps.TitleProps>;
+    // (undocumented)
+    readonly Typography: typeof Typography;
     // (undocumented)
     readonly YearMonthSelector: React_2.ComponentType<YearMonthSelectorProps>;
     // (undocumented)

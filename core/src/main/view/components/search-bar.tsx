@@ -31,15 +31,14 @@
  */
 
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { TextLineStateless } from "@com.mgmtp.a12.widgets/widgets-core";
-import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { TextField } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useIdGenerator } from "../utils.js";
 import { UiStateSelector } from "../../store/index.js";
-import { OverviewEngineInternalConstants } from "../../shared/constants.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../services/localization/index.js";
+import { LocalizerHooks } from "../hooks/localizer-hooks.js";
+import { RESOURCE_KEYS } from "../../services/localization/index.js";
+import { useMinSearchTokenSize, minSearchTokenSizeHint } from "../hooks/use-search-token-validation.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
 import { useClearMultiSelectionDialogVisible } from "./multi-selection/clear-multi-selection-dialog.js";
@@ -58,19 +57,17 @@ export const SearchBar: React.ComponentType<SearchBar.PropsType> = React.memo(fu
 	const [showDialog, setShowDialog] = React.useState(false);
 	const [searchString, setSearchString] = React.useState(storeSearchString ?? "");
 
-	const minSearchableTokenSize = useSelector(
-		DataServicesSelectors.configurationByKey(OverviewEngineInternalConstants.MIN_SEARCH_TOKEN_SIZE_KEY)
-	);
+	React.useEffect(() => {
+		setSearchString(storeSearchString ?? "");
+	}, [storeSearchString]);
+
+	const minSearchableTokenSize = useMinSearchTokenSize();
 	const disabledSearch = React.useMemo(() => {
-		if (minSearchableTokenSize === undefined) {
+		if (minSearchableTokenSize === undefined || searchString.length === 0) {
 			return false;
 		}
 
-		if (searchString.length === 0) {
-			return false;
-		}
-
-		return searchString.length < Number(minSearchableTokenSize);
+		return searchString.length < minSearchableTokenSize;
 	}, [minSearchableTokenSize, searchString]);
 
 	const shouldShowClearMultiSelectionDialog = useClearMultiSelectionDialogVisible();
@@ -132,9 +129,9 @@ export const SearchBar: React.ComponentType<SearchBar.PropsType> = React.memo(fu
 
 	const searchButtonTitleWithRequirement = React.useMemo(() => {
 		if (disabledSearch && minSearchableTokenSize !== undefined) {
-			return localizedResource(RESOURCE_KEYS.overviewEngine.searchBar.searchButtonMinLengthTitle, {
-				count: { type: "plain", value: String(minSearchableTokenSize) }
-			});
+			const hint = minSearchTokenSizeHint(minSearchableTokenSize);
+
+			return localizedResource(hint.key, hint.args);
 		}
 
 		return searchButtonTitle;
@@ -145,7 +142,7 @@ export const SearchBar: React.ComponentType<SearchBar.PropsType> = React.memo(fu
 
 	return (
 		<>
-			<TextLineStateless
+			<TextField
 				id={id}
 				fitToParent={!!fitToParent}
 				disabled={disabled}

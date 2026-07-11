@@ -33,11 +33,13 @@
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { OverviewModel } from "../../../../../main/overview-model.js";
-import { type OverviewEngineApi } from "../../../../../main/view/api.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
 
-import { DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import type { QueriableElement } from "../../../../test-utils.js";
 import { StringColumnModel, NumberColumnModel, defaultEngineProps } from "../../../../basic.spec.js";
 import {
 	setupMultiSelection,
@@ -194,6 +196,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.row
 
 			const customData = Array.from({ length: 10 }, (_, id) => ({
 				id: String(id),
+				modelId: "test-model",
 				root: { string: "ABC", number: 1, multiSelectGroup: [{ value: "1" }] }
 			}));
 			let wrapper: QueriableElement;

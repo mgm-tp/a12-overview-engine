@@ -32,7 +32,7 @@
 
 import * as React from "react";
 
-import { type TableTemplateProps } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { TableTemplateProps } from "@com.mgmtp.a12.widgets/widgets-core";
 import { OverviewEngine, type JSONDocument } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 // tag::row-styles-interface[]

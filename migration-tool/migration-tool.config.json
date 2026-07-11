@@ -1,6 +1,7 @@
 {
 	"$schema": "./node_modules/@com.mgmtp.a12.migrationtool/migrationtool-utils/config.schema.json",
 	"stepsDirPath": "./src/internal/steps",
+	"tsConfigPath": "./tsconfig.schema.json",
 	"referenceModelPath": "../core/src/main/overview-model.ts",
 	"stepModelFileName": "overview-model.ts",
 	"modelInterfaceName": "OverviewModel",

@@ -31,8 +31,8 @@
  */
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
 	type Localizable,
 	type LocalizableArgs,
@@ -44,7 +44,7 @@ import {
 	localizableFromLocalizationTreeMap
 } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { DateTimeUtils } from "../../../view/components/filters/options-views/date-time-utils.js";
+import { getDateTimeFormat } from "../../converter/index.js";
 import {
 	DocumentModelUtils,
 	MultiSelectModelUtils,
@@ -75,13 +75,13 @@ export namespace LocalizableFactory {
 		const element = createDocumentModelService(documentModel).getByPath(path, modelId);
 
 		if (element.type === "Field") {
-			const format = DateTimeUtils.getDateTimeFormat(element.fieldType);
+			const format = getDateTimeFormat(element.fieldType);
 
 			return createDateFormatLocalizables(format);
 		}
 
 		if (MultiSelectModelUtils.isInstance(element)) {
-			const format = DateTimeUtils.getDateTimeFormat(MultiSelectModelUtils.getField(element).fieldType);
+			const format = getDateTimeFormat(MultiSelectModelUtils.getField(element).fieldType);
 
 			return createDateFormatLocalizables(format);
 		}

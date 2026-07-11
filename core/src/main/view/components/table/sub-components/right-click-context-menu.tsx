@@ -34,7 +34,7 @@ import * as React from "react";
 
 import { List, type TableRenderPropsType } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../../../models/index.js";
+import type { JSONDocument } from "../../../../models/index.js";
 import type { OverviewModel } from "../../../../overview-model.js";
 
 import hooks from "./hooks.js";

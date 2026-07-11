@@ -51,7 +51,8 @@ import {
 	getA11yResource,
 	useContextSelector,
 	type A11yDefinition,
-	A11YLanguageContext
+	A11YLanguageContext,
+	type TimePickerProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { SHOWCASE_RESOURCES } from "./resources.js";
@@ -64,8 +65,13 @@ export const LOCALES: LocalizedLocale[] = [
 ];
 
 const LOCALE_KEY = "locale";
+const TIME_MODE_KEY = "timeMode";
 
-export function useLocale() {
+export type TimeMode = TimePickerProps.ClockMode;
+
+export const TIME_MODES: readonly TimeMode[] = ["12h", "24h"] as const;
+
+function useLocale() {
 	const [locale, setLocale] = React.useState<Locale>(
 		() => Locale.fromString(localStorage.getItem(LOCALE_KEY) ?? "en_US") as Locale
 	);
@@ -78,12 +84,31 @@ export function useLocale() {
 	return [locale, onChangeLocale] as const;
 }
 
+function useTimeMode() {
+	const [timeMode, setTimeMode] = React.useState<TimeMode>(() => {
+		const stored = localStorage.getItem(TIME_MODE_KEY);
+
+		return stored === "12h" || stored === "24h" ? stored : "12h";
+	});
+
+	const onChangeTimeMode = React.useCallback((next: TimeMode) => {
+		setTimeMode(next);
+		localStorage.setItem(TIME_MODE_KEY, next);
+	}, []);
+
+	return [timeMode, onChangeTimeMode] as const;
+}
+
 interface LocalizationContextType {
+	timeMode: TimeMode;
 	setLocale(locale: Locale): void;
+	setTimeMode(timeMode: TimeMode): void;
 }
 
 const LocalizationContext = createContext<LocalizationContextType>({
-	setLocale: noop
+	timeMode: "12h",
+	setLocale: noop,
+	setTimeMode: noop
 });
 LocalizationContext.displayName = "LocalizationContext";
 
@@ -93,6 +118,7 @@ export function useLocalizationContext<T>(selector: (value: LocalizationContextT
 
 export const LocalizationContextProvider: React.FC<Container> = ({ children }) => {
 	const [locale, setLocale] = useLocale();
+	const [timeMode, setTimeMode] = useTimeMode();
 
 	const localizerContextValue = React.useMemo(() => {
 		const dataFormats = defaultDataFormats(locale);
@@ -109,15 +135,18 @@ export const LocalizationContextProvider: React.FC<Container> = ({ children }) =
 		};
 	}, [locale]);
 
-	const localizationContextValue: LocalizationContextType = React.useMemo(() => ({ setLocale }), [setLocale]);
+	const localizationContextValue: LocalizationContextType = React.useMemo(
+		() => ({ timeMode, setLocale, setTimeMode }),
+		[timeMode, setLocale, setTimeMode]
+	);
 
 	const a11yLanguageContextValue = React.useMemo<A11yDefinition>(() => {
 		return getA11yResource(["en", "de"].includes(locale.language) ? locale.language : "en");
 	}, [locale.language]);
 
 	const dateTimeContextValue = React.useMemo(
-		() => ({ locale: locale.language === "en" ? enUS : de }),
-		[locale.language]
+		() => ({ locale: locale.language === "en" ? enUS : de, timeMode }),
+		[locale.language, timeMode]
 	);
 
 	return (

@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
+import type { ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 import { DocumentServiceFactory, type DocumentModelSearchService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
@@ -58,7 +58,9 @@ export function createDocumentModelService(
 		const path = searchServiceMap.get(modelId ?? documentModel.header.id)?.getPathById(id);
 
 		if (!path) {
-			throw new Error(`Can not find the element with id: "${id}"`);
+			throw new Error(
+				`Can not find the element with id: "${id}" in model with id: "${modelId ?? documentModel.header.id}"`
+			);
 		}
 
 		return path;
@@ -68,7 +70,9 @@ export function createDocumentModelService(
 		const element = searchServiceMap.get(modelId ?? documentModel.header.id)?.getByPath(path);
 
 		if (!element) {
-			throw new Error(`Can not find the element with path: "${JSON.stringify(path)}"`);
+			throw new Error(
+				`Can not find the element with path: "${JSON.stringify(path)}" in model with id: "${modelId ?? documentModel.header.id}"`
+			);
 		}
 
 		return element;

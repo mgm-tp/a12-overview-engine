@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 /** @internal */
 export namespace RequestValidator {

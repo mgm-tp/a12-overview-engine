@@ -30,21 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
-import {
-	TextField,
-	BufferedInput,
-	HTMLInputAdapter,
-	type TextLineStatelessProps
-} from "@com.mgmtp.a12.widgets/widgets-core";
+import { TextField, BufferedInput, HTMLInputAdapter, type TextFieldProps } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useValue } from "../hooks.js";
 
-import { type BaseInput } from "./base-input.js";
+import type { BaseInput } from "./base-input.js";
 
 export namespace NumberInput {
-	export interface Props extends TextLineStatelessProps, BaseInput.Props {}
+	export interface Props extends TextFieldProps, BaseInput.Props {}
 }
 
 const ControlledTextField = BufferedInput(HTMLInputAdapter(TextField));

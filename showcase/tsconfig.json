@@ -1,10 +1,10 @@
 {
-	"extends": "../tsconfig",
-	"exclude": ["./target"],
-	"include": ["src", "rsbuild.config.ts"],
+	"extends": "../tsconfig.json",
+	"include": ["src", "rsbuild.config.ts", "scripts", "package.json", "resources/**/*.json"],
+	"references": [{ "path": "../core/tsconfig.build.json" }],
 	"compilerOptions": {
+		"rootDir": "${configDir}",
 		"noEmit": true,
-		"allowJs": true,
-		"skipLibCheck": true
+		"noUncheckedSideEffectImports": false
 	}
 }

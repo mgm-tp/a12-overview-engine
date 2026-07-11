@@ -33,13 +33,14 @@
 import * as React from "react";
 
 import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
 import { UiStateSelector } from "../../../../store/index.js";
-import { type FilterOptionsView } from "../filter-options-view.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { FilterOperation, type OverviewEngineApi } from "../../../api.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useIdGenerator, nullFistComparator, toConditionalArray } from "../../../utils.js";
-import { RESOURCE_KEYS, LocalizerHooks } from "../../../../services/localization/index.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../../models/internal/shared.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";

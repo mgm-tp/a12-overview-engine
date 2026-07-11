@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 
-import { type JSONDocument } from "../../../../models/index.js";
-import { type OverviewModel } from "../../../../overview-model.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 import hooks from "./hooks.js";

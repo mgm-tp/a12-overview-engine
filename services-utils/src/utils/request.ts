@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import Chance from "chance";
-
-import {
-	type JsonRpc2Request,
-	type JsonRpc2Response,
-	type DocumentJsonRpc2Request
+import type {
+	Relationship,
+	JsonRpc2Request,
+	JsonRpc2Response,
+	DocumentJsonRpc2Request,
+	RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type BaseUrlOption } from "./common.js";
+import type { BaseUrlOption } from "./common.js";
 
 export async function rpcRequest(options: BaseUrlOption, requests: JsonRpc2Request[]): Promise<JsonRpc2Response[]> {
 	let res: Response;
@@ -51,7 +51,7 @@ export async function rpcRequest(options: BaseUrlOption, requests: JsonRpc2Reque
 		});
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		throw new Error(`Network error while calling the JSON RPC request: ${message}`);
+		throw new Error(`Network error while calling the JSON RPC request: ${message}`, { cause: error });
 	}
 
 	if (res.status >= 400) {
@@ -76,12 +76,17 @@ export function addRequest(
 	};
 }
 
-export function createRequests(
-	size: number,
-	documentName: string,
-	documentGenerator: (chance: Chance.Chance) => Document
-) {
-	return Array.from({ length: size }, (_, index) => {
-		return addRequest(documentName, documentGenerator(new Chance(index)), index);
-	});
+export function linkEntities(
+	suffix: string,
+	relationshipModel: string,
+	entities: Relationship.LinkEntitySpec[],
+	linkDocument?: { [key: string]: object },
+	position?: Relationship.LinkPosition
+): RelationshipJsonRpc2request.AddLinkJsonRpc2request {
+	return {
+		jsonrpc: "2.0",
+		id: `${relationshipModel}-${suffix}`,
+		method: "ADD_LINK",
+		params: { linkDescriptor: { entities, relationshipModel, position }, linkDocument }
+	};
 }

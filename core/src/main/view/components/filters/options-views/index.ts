@@ -43,7 +43,6 @@ export * from "./date-time-filter-view.api.js";
 export * from "./date-time-input-adapter.js";
 export * from "./date-time-utils.js";
 export * from "./empty-filter-options-view.js";
-export * from "./empty-label.js";
 export * from "./enumerated-string-filter-options-view.js";
 export * from "./enumeration-filter-options-view.js";
 export * from "./enumeration-suffix-selector.js";

@@ -33,12 +33,15 @@
 import * as TypeMoq from "typemoq";
 
 import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
+import type { Query, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewModel } from "../main/overview-model.js";
-import { type OverviewEngine } from "../main/view/overview-engine.js";
+import type { ModelsState } from "../main/store/index.js";
+import type { OverviewEngine } from "../main/view/overview-engine.js";
 import { type ComponentMap, DefaultComponentMap } from "../main/view/configuration/component-map.js";
 
 import { deLocale, enLocale } from "./basic.spec.js";
@@ -63,15 +66,16 @@ type RecursivePartial<T> = {
 	[K in keyof T]?: T[K] extends string ? string : RecursivePartial<T[K]>;
 };
 
-export function createDocumentModel(elements: ReadonlyArray<DocumentModel.Element>): DocumentModel {
+export function createDocumentModel(elements: ReadonlyArray<DocumentModel.Element>, id?: string): DocumentModel {
 	return {
 		header: {
-			id: "DocumentModelWithLabels",
+			id: id ?? "DocumentModelWithLabels",
 			locales: [{ code: "en" }, { code: "de" }],
 			modelType: "document",
 			modelVersion: "24.0.0"
 		},
 		content: {
+			documentUniquenessCriteria: [],
 			modelConfig: { timeZone: "UTC" },
 			modelInfo: {},
 			modelRoot: {
@@ -90,6 +94,24 @@ export function createDocumentModel(elements: ReadonlyArray<DocumentModel.Elemen
 				repeatability: 1
 			}
 		}
+	};
+}
+
+export function createModelsState(overrides?: Partial<ModelsState>): ModelsState {
+	const overviewModel: OverviewModel = {
+		header: { id: "TestOM", modelType: "overview" } as unknown as OverviewModel["header"],
+		content: { configuration: { enableFilter: false }, columns: [], rowActionGroup: {} }
+	};
+
+	const documentModel: DocumentModel = {
+		header: { id: "TestDM", modelType: "document" } as unknown as DocumentModel["header"]
+	} as DocumentModel;
+
+	return {
+		overviewModel,
+		documentModel,
+		subDocumentModels: [],
+		...overrides
 	};
 }
 
@@ -131,7 +153,7 @@ export function createOverviewModel(
 		},
 		content: {
 			subHeaderBox: {
-				majorElements: [{ type: OverviewModel.ElementType.SEARCH }, { type: OverviewModel.ElementType.FILTER }]
+				rightSlot: [{ type: OverviewModel.ElementType.SEARCH }, { type: OverviewModel.ElementType.FILTER }]
 			},
 			footerBox: {},
 			columns: [...columns],
@@ -149,6 +171,35 @@ export function createOverviewModel(
 			}
 		}
 	};
+}
+
+export function createLinkedColumn(
+	ref: string,
+	linkReferences: ReadonlyArray<OverviewModel.LinkReference>
+): OverviewModel.Column {
+	return { ...createColumn(ref, false, `link-${ref}`), linkReferences: [...linkReferences] };
+}
+
+export function createExpressionColumn(name: string, expression: string): OverviewModel.Column {
+	return { id: name, name, expression, width: 1 } as OverviewModel.Column;
+}
+
+export function createRelationshipModel(id: string, role: string, documentModel: string): RelationshipModel {
+	return {
+		header: { id, modelType: "relationship" } as unknown as RelationshipModel["header"],
+		content: { entityCharacteristics: [{ role, documentModel }] }
+	} as RelationshipModel;
+}
+
+export function createQueryModel(overrides?: Partial<QueryModel["content"]>): QueryModel {
+	return {
+		header: { id: "QM", modelType: "query" } as unknown as QueryModel["header"],
+		content: { ...overrides }
+	} as QueryModel;
+}
+
+export function createQueryLink(rm: string, role: string, overrides?: Partial<Query.QueryLink>): Query.QueryLink {
+	return { relationshipModel: rm, targetRole: role, ...overrides } as Query.QueryLink;
 }
 
 export function createField(
@@ -203,6 +254,16 @@ export function createField(
 			return {
 				...baseField,
 				fieldType: { type, format: "yyyy-MM-DD" }
+			};
+		case "DateRangeType":
+			return {
+				...baseField,
+				fieldType: { type, format: "yyyy", rangeSeparator: "/" }
+			};
+		case "DateFragmentType":
+			return {
+				...baseField,
+				fieldType: { type, formatOfFragment: "yyyy-MM" }
 			};
 		default:
 			throw new Error("Unknown Type: " + type);

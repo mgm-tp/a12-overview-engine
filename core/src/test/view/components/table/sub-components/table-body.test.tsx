@@ -33,16 +33,18 @@
 import * as TypeMoq from "typemoq";
 import { it, vi, expect, describe, beforeAll, type MockInstance } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type JSONDocument } from "../../../../../main/models/index.js";
+import type { JSONDocument } from "../../../../../main/models/index.js";
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { de, en } from "../../../../../main/services/localization/internal/shared.js";
 import { TableBody } from "../../../../../main/view/components/table/sub-components/table-body.js";
 
 import { deLocale, defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.table-body", () => {
 	const basicEngineProps: OverviewEngine.Props = defaultEngineProps;
@@ -53,12 +55,16 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.tab
 		data: [jsonDocument.object]
 	};
 
-	function setupTest(props?: TableBody.Props, locale?: Locale): QueriableElement {
+	function setupTest(
+		props?: TableBody.Props,
+		locale?: Locale,
+		engineProps?: Partial<OverviewEngine.Props>
+	): QueriableElement {
 		return render(
 			<TableBody {...basicProps} {...props} />,
 			{
 				wrappingComponent: OverviewEngine,
-				wrappingComponentProps: { ...basicEngineProps }
+				wrappingComponentProps: { ...basicEngineProps, ...engineProps }
 			},
 			locale
 		);
@@ -100,6 +106,41 @@ describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.tab
 				const wrapper = setupTest().element;
 
 				expect(wrapper).toHaveTextContent(text);
+			});
+		});
+
+		describe("given skipInitialLoad is enabled", () => {
+			const skipInitialLoadModel: OverviewModel = {
+				...basicEngineProps.overviewModel,
+				content: {
+					...basicEngineProps.overviewModel.content,
+					configuration: {
+						...basicEngineProps.overviewModel.content.configuration,
+						skipInitialLoad: true
+					}
+				}
+			};
+
+			it("should render noInitQuery message when dataLoadTriggered is not set", () => {
+				const wrapper = setupTest({ data: [] }, undefined, {
+					overviewModel: skipInitialLoadModel,
+					uiState: { ...basicEngineProps.uiState }
+				});
+
+				const message = wrapper.getByDataRole(DataRoles.Message).element;
+
+				expect(message).toHaveTextContent(en.overviewEngine.noInitQuery);
+			});
+
+			it("should render noResultFound message when dataLoadTriggered is true and no data", () => {
+				const wrapper = setupTest({ data: [] }, undefined, {
+					overviewModel: skipInitialLoadModel,
+					uiState: { ...basicEngineProps.uiState, dataLoadTriggered: true }
+				});
+
+				const message = wrapper.getByDataRole(DataRoles.Message).element;
+
+				expect(message).toHaveTextContent(en.overviewEngine.noResultFound);
 			});
 		});
 	});

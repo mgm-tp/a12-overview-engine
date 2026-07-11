@@ -33,10 +33,11 @@
 import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { type OverviewEngine } from "../../../../main/view/overview-engine.js";
+import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { de, en } from "../../../../main/services/localization/internal/shared.js";
 import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
 import { DefaultSelectorMap } from "../../../../main/view/configuration/selector-map.js";
@@ -47,7 +48,7 @@ import {
 } from "../../../../main/view/context/overview-engine-context.js";
 import { OverviewButtonConfirmDialog } from "../../../../main/view/components/dialogs/sub-components/overview-button-confirm-dialog.js";
 
-import { render, DataRoles } from "../../../test-utils.js";
+import { render } from "../../../test-utils.js";
 import { createLocalizedModelText } from "../../../utils.js";
 import { deLocale, defaultEngineProps } from "../../../basic.spec.js";
 

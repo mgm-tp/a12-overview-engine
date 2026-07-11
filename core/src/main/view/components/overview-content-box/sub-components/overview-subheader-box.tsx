@@ -32,12 +32,12 @@
 
 import * as React from "react";
 
-import { type OverviewEngineApi } from "../../../api.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { useShouldAllowSearch } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { OverviewModel } from "../../../../overview-model.js";
 import { FilterContext } from "../../../context/filter-context.js";
-import { type Filter } from "../../filters/filter-options-view.js";
+import type { Filter } from "../../filters/filter-options-view.js";
+import { useMultiSelectionPanel } from "../../multi-selection/use-multi-selection-panel.js";
 import { useOverviewContentBoxContext } from "../../../context/overview-content-box-context.js";
 import { getActiveFilters, useFlattenedFilters, useExcludedFilterIds } from "../../filters/utils.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
@@ -54,33 +54,21 @@ export const OverviewSubheaderBox: React.FC<OverviewSubheaderBoxProps> = React.m
 
 		const activeFilters = useOverviewEngineState(UiStateSelector.activeFilters());
 		const enumeratedStringFilterMap = useOverviewEngineState(UiStateSelector.enumeratedStringFilterMap());
-		const timeMode = useOverviewEngineContext((context) => context.timeMode);
-		const onRowsSelect = useOverviewEngineContext((context) => context.eventHandlers.onRowsSelect);
-		const onMultiSelectionClear = useOverviewEngineContext((context) => context.eventHandlers.onMultiSelectionClear);
 		const shouldDisplayInSmallView = useOverviewEngineContext((context) => !!context.smallView);
 		const SubHeader = useOverviewEngineContext((context) => context.componentMap.SubHeader);
 		const FilterBar = useOverviewEngineContext((context) => context.componentMap.FilterBar);
 		const SearchBar = useOverviewEngineContext((context) => context.componentMap.SearchBar);
 		const OverviewFilterButton = useOverviewEngineContext((context) => context.componentMap.OverviewFilterButton);
-		const MultiSelectionPanel = useOverviewEngineContext((context) => context.componentMap.MultiSelectionPanel);
 		const enableFilter = useOverviewEngineContext(
 			(context) => context.overviewModel.content.configuration.enableFilter
 		);
 		const showMobileSearchBar = useOverviewContentBoxContext((context) => context.showMobileSearchBar);
 		const showMobileFilterBar = useOverviewContentBoxContext((context) => context.showMobileFilterBar);
 
-		const onOverallMultiSelectionButtonClick = useOverviewEngineContext(
-			(context) => context.eventHandlers.onOverallMultiSelectionButtonClick
-		);
-
 		const shouldAllowSearch = useShouldAllowSearch();
 
 		const filterConfiguration = useOverviewEngineContext(
 			(context) => context.overviewModel.content.configuration.filterConfiguration
-		);
-
-		const multiSelection = useOverviewEngineContext(
-			(context) => context.overviewModel.content.configuration.multiSelection
 		);
 
 		const onFilterSelectorVisibilityChange = useOverviewContentBoxContext(
@@ -90,22 +78,7 @@ export const OverviewSubheaderBox: React.FC<OverviewSubheaderBoxProps> = React.m
 		const filters = useFlattenedFilters();
 		const excludedFilterIds = useExcludedFilterIds();
 
-		const renderMultiSelectionPanel = React.useCallback(() => {
-			if (multiSelection === undefined) {
-				return null;
-			}
-
-			const { buttons, collapseOption, counterOption } = multiSelection;
-
-			const isEmpty =
-				collapseOption === OverviewModel.MultiSelection.CollapseOption.NON_COLLAPSIBLE &&
-				counterOption === OverviewModel.MultiSelection.CounterOption.NONE &&
-				(buttons === undefined || buttons.length === 0);
-
-			return !isEmpty && onOverallMultiSelectionButtonClick && onMultiSelectionClear && onRowsSelect ? (
-				<MultiSelectionPanel key="multiSelectionPanel" />
-			) : null;
-		}, [MultiSelectionPanel, multiSelection, onMultiSelectionClear, onOverallMultiSelectionButtonClick, onRowsSelect]);
+		const multiSelectionPanel = useMultiSelectionPanel();
 
 		return (
 			<SubHeader
@@ -131,7 +104,6 @@ export const OverviewSubheaderBox: React.FC<OverviewSubheaderBoxProps> = React.m
 							<FilterBar
 								key="filterBar"
 								activeFilters={getActiveFilters(filters, excludedFilterIds)}
-								timeMode={timeMode}
 								onFilterChange={handleFilterChange}
 								onClickFilter={onCurrentFilterChange}
 								onEditClick={() => onFilterSelectorVisibilityChange?.(true)}
@@ -139,7 +111,7 @@ export const OverviewSubheaderBox: React.FC<OverviewSubheaderBoxProps> = React.m
 						</FilterContext.Provider>
 					)
 				}
-				multiSelectionPanel={!shouldDisplayInSmallView && renderMultiSelectionPanel()}
+				multiSelectionPanel={!shouldDisplayInSmallView && multiSelectionPanel}
 				showMobileFilterBar={showMobileFilterBar}
 				mobile={shouldDisplayInSmallView}
 			/>

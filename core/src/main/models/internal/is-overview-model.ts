@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Model } from "@com.mgmtp.a12.base/base-model-api";
+import type { Model } from "@com.mgmtp.a12.base/base-model-api";
 
-import { type OverviewModel } from "../../overview-model.js";
+import type { OverviewModel } from "../../overview-model.js";
 
 export function isOverviewModel(model: Model): model is OverviewModel {
 	return model.header.modelType === "overview";

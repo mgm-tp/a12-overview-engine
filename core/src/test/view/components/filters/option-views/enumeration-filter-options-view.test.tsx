@@ -33,14 +33,15 @@
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { type OverviewEngineApi } from "../../../../../main/view/api.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { EnumerationFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumeration-filter-options-view.js";
 
-import { render, DataRoles } from "../../../../test-utils.js";
+import { render } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
 import { createDocumentModel, createEnumerationField } from "../../../../utils.js";
 
@@ -444,7 +445,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.enu
 				const wrapper = setupTest();
 
 				// No matched value
-				const searchInput = wrapper.getByDataRole(DataRoles.Textline.Input).element;
+				const searchInput = wrapper.getByDataRole(DataRoles.TextField.Input).element;
 				fireEvent.change(searchInput, { target: { value: "Abc" } });
 				const noMatchedItems = wrapper
 					.getByDataRole(DataRoles.Filter.Selector.List)

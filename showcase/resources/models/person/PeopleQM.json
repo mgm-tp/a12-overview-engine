@@ -1,0 +1,114 @@
+{
+	"header": {
+		"id": "PeopleQM",
+		"modelType": "query",
+		"modelVersion": "0.1.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"modelType": "document",
+				"alias": "DM",
+				"purpose": "document-model-for-query",
+				"reference": "PersonDM"
+			},
+			{
+				"modelType": "relationship",
+				"alias": "RM",
+				"purpose": "relationship-model-for-query",
+				"reference": "PersonContractRM"
+			},
+			{
+				"modelType": "relationship",
+				"alias": "RM",
+				"purpose": "relationship-model-for-query",
+				"reference": "PersonDepartmentRM"
+			},
+			{
+				"modelType": "relationship",
+				"alias": "RM",
+				"purpose": "relationship-model-for-query",
+				"reference": "DepartmentLeaderRM"
+			}
+		]
+	},
+	"content": {
+		"projectionName": "document",
+		"targetDocumentModel": "PersonDM",
+		"constraint": {
+			"field": "/Person/PersonalData/Salary",
+			"operator": "double_range",
+			"from": 2000
+		},
+		"fields": [
+			"/Person/PersonalData/FirstName",
+			"/Person/PersonalData/LastName",
+			"/Person/PersonalData/PlaceOfBirth",
+			"/Person/PersonalData/Nationality",
+			"/Person/PersonalData/Salary"
+		],
+		"links": [
+			{
+				"relationshipModel": "PersonContractRM",
+				"targetRole": "contract",
+				"fields": [
+					"/Contract/Weekly_Work_Hours",
+					"/Contract/computationTarget",
+					"/Contract/domainTest/date",
+					"/Contract/domainTest/dateTime",
+					"/Contract/domainTest/time"
+				]
+			},
+			{
+				"relationshipModel": "PersonDepartmentRM",
+				"targetRole": "department",
+				"fields": ["/Department/Name", "/Department/Code", "/Department/Floor"],
+				"links": [
+					{
+						"relationshipModel": "DepartmentDepartmentRM",
+						"targetRole": "parent",
+						"fields": ["/Department/Name"],
+						"maxDepth": 1
+					},
+					{
+						"relationshipModel": "DepartmentDepartmentRM",
+						"targetRole": "child",
+						"fields": ["/Department/Name"],
+						"maxDepth": 1
+					},
+					{
+						"relationshipModel": "DepartmentLeaderRM",
+						"targetRole": "leader",
+						"fields": ["/Person/PersonalData/FirstName"]
+					}
+				]
+			}
+		],
+		"paging": {
+			"pageNumber": 0,
+			"pageSize": 4
+		},
+		"sort": [
+			{
+				"direction": "ASC",
+				"field": "/Person/PersonalData/PlaceOfBirth",
+				"ignoreCase": true,
+				"nullHandling": "NULLS_LAST"
+			},
+			{
+				"direction": "DESC",
+				"field": "/Person/PersonalData/FirstName",
+				"ignoreCase": true,
+				"nullHandling": "NULLS_LAST"
+			}
+		]
+	}
+}

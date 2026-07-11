@@ -19,6 +19,14 @@
 			},
 			"problemMatcher": [
 				{
+					"owner": "application-failure",
+					"pattern": {
+						"regexp": "^.*(Application run failed).*$",
+						"message": 1
+					},
+					"severity": "error"
+				},
+				{
 					"owner": "spring-boot",
 					"pattern": {
 						"regexp": "^(\\[.*?\\])?\\s*(ERROR|WARNING)\\s+(.*)$",
@@ -60,11 +68,11 @@
 			]
 		},
 		{
-			"label": "Start Core",
+			"label": "Start TSC",
 			"type": "shell",
 			"command": "pnpm",
-			"args": ["run", "start"],
-			"options": { "cwd": "${workspaceFolder}/core" },
+			"args": ["run", "start:typescript"],
+			"options": { "cwd": "${workspaceFolder}" },
 			"icon": { "id": "symbol-module" },
 			"isBackground": true,
 			"presentation": {
@@ -115,24 +123,6 @@
 			]
 		},
 		{
-			"label": "Start Services Utils",
-			"type": "shell",
-			"command": "pnpm",
-			"args": ["run", "start"],
-			"options": { "cwd": "${workspaceFolder}/services-utils" },
-			"icon": { "id": "tools" },
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "new",
-				"showReuseMessage": true,
-				"clear": false
-			},
-			"problemMatcher": ["$tsc-watch"]
-		},
-		{
 			"label": "Compile",
 			"type": "shell",
 			"command": "pnpm",
@@ -149,6 +139,15 @@
 				"clear": false
 			},
 			"problemMatcher": ["$tsc", "$eslint-stylish"]
+		},
+		{
+			"label": "Playwright Dev",
+			"type": "shell",
+			"command": "pnpm",
+			"args": ["run", "playwright", "test", "--ui-host", "0.0.0.0"],
+			"options": { "cwd": "${workspaceFolder}/e2e" },
+			"icon": { "id": "gear" },
+			"group": { "kind": "test" }
 		},
 		{
 			"label": "Clean",
@@ -168,9 +167,27 @@
 			}
 		},
 		{
+			"label": "Seed - Reset",
+			"type": "shell",
+			"command": "pnpm",
+			"args": ["run", "start:seed"],
+			"options": { "cwd": "${workspaceFolder}/showcase" },
+			"icon": { "id": "check" },
+			"problemMatcher": []
+		},
+		{
+			"label": "Showcase Model - Reupload",
+			"type": "shell",
+			"command": "pnpm",
+			"args": ["run", "upload-models"],
+			"options": { "cwd": "${workspaceFolder}/showcase" },
+			"icon": { "id": "check" },
+			"problemMatcher": []
+		},
+		{
 			"label": "Start",
 			"dependsOrder": "parallel",
-			"dependsOn": ["Start Server", "Start Core", "Start Showcase"],
+			"dependsOn": ["Start Server", "Start TSC", "Start Showcase"],
 			"icon": { "id": "rocket" },
 			"problemMatcher": []
 		}

@@ -30,12 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewEngineApi } from "../main/view/api.js";
 import { OverviewModel } from "../main/overview-model.js";
-import { type JSONDocument } from "../main/models/index.js";
-import { type OverviewEngine } from "../main/view/overview-engine.js";
+import type { JSONDocument } from "../main/models/index.js";
+import type { OverviewEngine } from "../main/view/overview-engine.js";
 import { DefaultWidgetMap } from "../main/view/configuration/widget-map.js";
 import { DefaultComponentMap } from "../main/view/configuration/component-map.js";
 
@@ -47,6 +48,7 @@ export const deLocale: Locale = { language: "de", country: "DE" };
 const documents: JSONDocument[] = [
 	{
 		id: "1",
+		modelId: "test-model",
 		root: {
 			string: "ABC",
 			number: 1,
@@ -55,6 +57,7 @@ const documents: JSONDocument[] = [
 	},
 	{
 		id: "2",
+		modelId: "test-model",
 		root: {
 			string: "XYZ",
 			number: 2,
@@ -102,7 +105,6 @@ export const AttachmentColumnModel: OverviewModel.Column = {
 	sortable: false,
 	width: 1.0
 };
-
 const defaultOverviewModel: OverviewModel = {
 	header: {
 		id: "BasicOverviewModel",
@@ -123,7 +125,7 @@ const defaultOverviewModel: OverviewModel = {
 	},
 	content: {
 		subHeaderBox: {
-			majorElements: [{ type: OverviewModel.ElementType.FILTER }, { type: OverviewModel.ElementType.SEARCH }]
+			rightSlot: [{ type: OverviewModel.ElementType.FILTER }, { type: OverviewModel.ElementType.SEARCH }]
 		},
 		columns: [StringColumnModel, NumberColumnModel, MultiSelectColumnModel, AttachmentColumnModel],
 		rowActionGroup: {},
@@ -139,9 +141,16 @@ const defaultOverviewModel: OverviewModel = {
 	}
 };
 const documentModel = await getDocumentModel("unit-test", "DomainTest");
+const defaultModelGraph: ModelGraph = {
+	documentModels: [{ modelId: documentModel.header.id, relations: null, subTypes: [] }],
+	composeDocumentModels: [],
+	genericModels: [{ modelId: defaultOverviewModel.header.id, type: "overview" }],
+	relationshipModels: []
+};
 export const defaultEngineProps: OverviewEngine.PaginatedProps = {
 	documentModel,
 	overviewModel: defaultOverviewModel,
+	modelGraph: defaultModelGraph,
 	data: documents,
 	widgetMap: DefaultWidgetMap,
 	componentMap: DefaultComponentMap,
@@ -150,7 +159,9 @@ export const defaultEngineProps: OverviewEngine.PaginatedProps = {
 		sorting: OverviewEngineApi.getUiStateSorting(
 			OverviewEngineApi.Sorting.getInitialValue(defaultOverviewModel),
 			documentModel,
-			defaultOverviewModel
+			defaultOverviewModel,
+			defaultModelGraph.relationshipModels,
+			[]
 		)
 	}
 };

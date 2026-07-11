@@ -32,7 +32,8 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
@@ -43,7 +44,7 @@ import {
 
 import { mockType } from "../../../../utils.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.attachment-cell-content", () => {
 	const basicEngineProps = defaultEngineProps;

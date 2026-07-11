@@ -32,12 +32,12 @@
 
 import * as React from "react";
 
-import { type Column } from "@com.mgmtp.a12.widgets/widgets-core";
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { Column } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
 import { OverviewModel } from "../../../../overview-model.js";
-import { type MultiSelect } from "../../../../models/index.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { MultiSelect } from "../../../../models/index.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import { MultiSelectUtils, DocumentModelUtils, MultiSelectModelUtils } from "../../../../models/internal/shared.js";

@@ -37,11 +37,11 @@ import { inspect } from "node:util";
 
 import JSZip from "jszip";
 import { sync as globSync } from "glob";
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
 import { type Model, isModelInstance } from "@com.mgmtp.a12.base/base-model-api";
 
-import { BaseUrlOption } from "../utils/index.js";
+import { BaseUrlOption, applyRoleAnnotation } from "../utils/index.js";
 
 interface UploadModelsOptions extends BaseUrlOption {
 	path: string;
@@ -70,7 +70,7 @@ export async function handleUploadModels(options: UploadModelsOptions) {
 		const fileContent = JSON.parse(Fs.readFileSync(fullPath, "utf8"));
 
 		if (isModelInstance(fileContent)) {
-			models.push(fileContent);
+			models.push(applyRoleAnnotation(fileContent));
 		}
 	}
 
@@ -78,7 +78,8 @@ export async function handleUploadModels(options: UploadModelsOptions) {
 	console.log("Preparing the bulk upload process...");
 
 	try {
-		await bulkModelUploadRequest(options, models);
+		const results = await bulkModelUploadRequest(options, models);
+		console.log("Successfully uploaded", results.length, "models.");
 	} catch (e) {
 		console.error(inspect(e, { depth: 10 }));
 		process.exit(1);

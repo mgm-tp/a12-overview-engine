@@ -1,0 +1,182 @@
+{
+	"header": {
+		"id": "ProjectDM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProjectDM",
+			"immutable": false
+		},
+		"modelConfig": {
+			"timeZone": "Europe/Berlin",
+			"decimalSeparator": ".",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_proj",
+					"name": "Project",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_proj_name",
+								"name": "ProjectName",
+								"annotations": [
+									{
+										"name": "enable_approximate_match_search",
+										"value": "true"
+									}
+								],
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Project Name"
+										},
+										{
+											"locale": "de",
+											"text": "Projektname"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_proj_status",
+								"name": "Status",
+								"Field": {
+									"fieldType": {
+										"type": "EnumerationType",
+										"EnumerationType": {
+											"values": [
+												{
+													"value": "active",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Active"
+														},
+														{
+															"locale": "de",
+															"text": "Aktiv"
+														}
+													]
+												},
+												{
+													"value": "completed",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Completed"
+														},
+														{
+															"locale": "de",
+															"text": "Abgeschlossen"
+														}
+													]
+												},
+												{
+													"value": "planned",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Planned"
+														},
+														{
+															"locale": "de",
+															"text": "Geplant"
+														}
+													]
+												}
+											],
+											"alphabeticalSorting": true
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Status"
+										},
+										{
+											"locale": "de",
+											"text": "Status"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_proj_budget",
+								"name": "Budget",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"trait": "amount",
+											"maxFractionalDigits": 2
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Budget"
+										},
+										{
+											"locale": "de",
+											"text": "Budget"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_proj_deadline",
+								"name": "Deadline",
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Deadline"
+										},
+										{
+											"locale": "de",
+											"text": "Frist"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

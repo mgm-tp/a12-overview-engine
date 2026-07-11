@@ -40,7 +40,32 @@ import {
 
 const enResourceTree = {
 	application: {
-		title: "Overview Engine Showcase"
+		title: "Overview Engine Showcase",
+		menu: {
+			cdm: "CDM",
+			employee: "Employee",
+			bundle: {
+				label: "Bundle",
+				default: "Default",
+				withLink: "With Linked Entity Columns"
+			},
+			person: {
+				label: "Person",
+				default: "Default",
+				withLink: "With Linked Entity Columns"
+			},
+			mobileSupport: {
+				label: "Mobile Support",
+				expression: "With Expression",
+				cardView: "With Card View"
+			},
+			product: {
+				label: "Product",
+				pagination: "Pagination",
+				presetFilter: "Preset Filter",
+				newFilter: "New Filter"
+			}
+		}
 	},
 	server: {
 		connection: {
@@ -70,6 +95,33 @@ const enResourceTree = {
 };
 
 const deResourceTree: LocalizationTree = {
+	application: {
+		menu: {
+			cdm: "CDM",
+			employee: "Angestellter",
+			bundle: {
+				label: "Bündel",
+				default: "Standard",
+				withLink: "Mit verknüpften Entitätsspalten"
+			},
+			person: {
+				label: "Person",
+				default: "Standard",
+				withLink: "Mit verknüpften Entitätsspalten"
+			},
+			mobileSupport: {
+				label: "Mobile Unterstützung",
+				expression: "Mit Expression",
+				cardView: "Mit Kartenansicht"
+			},
+			product: {
+				label: "Produkt",
+				pagination: "Seitennummerierung",
+				presetFilter: "Voreingestellter Filter",
+				newFilter: "Neuer Filter"
+			}
+		}
+	},
 	showcase: {
 		error: {
 			server: {

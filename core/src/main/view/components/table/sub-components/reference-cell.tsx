@@ -32,16 +32,12 @@
 
 import * as React from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	type GroupInstance,
-	type FieldInstanceValue
-} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { JSONLink } from "../../../../models/index.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import {
@@ -51,7 +47,8 @@ import {
 	MultiSelectModelUtils
 } from "../../../../models/internal/shared.js";
 
-import { type TableBodyCell } from "./table-body-cell.js";
+import type { TableBodyCell } from "./table-body-cell.js";
+import { FieldReferenceCell, type FieldFormatterParams } from "./field-reference-cell.js";
 
 export namespace ReferenceCell {
 	export interface Props extends TableBodyCell.Props {
@@ -66,9 +63,6 @@ export const ReferenceCell: React.FC<ReferenceCell.Props> = React.memo(function 
 
 	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
 
-	const AttachmentCell = useOverviewEngineContext((context) => context.componentMap.AttachmentCell);
-	const MultiSelectCell = useOverviewEngineContext((context) => context.componentMap.MultiSelectCell);
-
 	const { modelPath, element, value } = React.useMemo(() => {
 		const modelPath = documentModelService.getPathById(columnModel.elementRef);
 		const element = documentModelService.getByPath(modelPath);
@@ -77,17 +71,90 @@ export const ReferenceCell: React.FC<ReferenceCell.Props> = React.memo(function 
 		return { modelPath, element, value };
 	}, [columnModel.elementRef, documentModelService, row]);
 
-	const alignment = columnModel.alignment?.content?.horizontal;
+	return (
+		<ElementCellByType
+			columnModel={columnModel}
+			row={row}
+			element={element}
+			modelPath={modelPath}
+			value={value}
+			documentId={row.id}
+			fieldFormatter={props.fieldFormatter}
+		/>
+	);
+});
+
+export namespace LinkedReferenceCell {
+	export interface Props {
+		columnModel: OverviewModel.LinkColumn.Reference;
+		link: JSONLink;
+		fieldFormatter?: (params: FieldFormatterParams) => string;
+	}
+}
+
+/** @internal */
+export const LinkedReferenceCell: React.FC<LinkedReferenceCell.Props> = React.memo(function LinkedReferenceCell(props) {
+	const { columnModel, link } = props;
+
+	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
+
+	const { row, modelPath, element, value } = React.useMemo(() => {
+		const modelPath = documentModelService.getPathById(columnModel.elementRef, link.documentModelName);
+		const element = documentModelService.getByPath(modelPath, link.documentModelName);
+		const value = DocumentUtils.getValue(link.document, DocumentModelUtils.toEntityInstancePath(element, modelPath));
+
+		return { row: { ...link.document, id: link.linkId }, modelPath, element, value };
+	}, [columnModel.elementRef, documentModelService, link]);
+
+	return (
+		<ElementCellByType
+			columnModel={columnModel}
+			row={row}
+			element={element}
+			modelPath={modelPath}
+			value={value}
+			documentId={link.documentModelName}
+			modelId={link.documentModelName}
+			fieldFormatter={props.fieldFormatter}
+		/>
+	);
+});
+
+interface ElementCellByTypeProps {
+	columnModel: OverviewModel.ReferenceColumn | OverviewModel.LinkColumn.Reference;
+	row: TableBodyCell.Props["row"];
+	element: DocumentModel.Element;
+	modelPath: ModelPath;
+	value: ReturnType<typeof DocumentUtils.getValue>;
+	documentId: string;
+	modelId?: string;
+	fieldFormatter?: (params: FieldFormatterParams) => string;
+}
+
+/**
+ * Renders the appropriate cell component based on the resolved document model element type:
+ * - Field -> FieldReferenceCell
+ * - Attachment -> AttachmentCell
+ * - MultiSelect -> MultiSelectCell
+ *
+ * Shared by both {@link ReferenceCell} and {@link LinkedReferenceCell} to avoid duplicating
+ * the element-type branching logic.
+ */
+function ElementCellByType(props: ElementCellByTypeProps) {
+	const { columnModel, element, modelPath, value } = props;
+
+	const AttachmentCell = useOverviewEngineContext((context) => context.componentMap.AttachmentCell);
+	const MultiSelectCell = useOverviewEngineContext((context) => context.componentMap.MultiSelectCell);
 
 	if (element.type === "Field") {
-		return <FieldReferenceCell {...props} field={element} modelPath={modelPath} value={value} />;
+		return <FieldReferenceCell {...props} field={element} />;
 	}
 
 	if (DocumentModelUtils.isAttachment(element)) {
 		const attachment = value ?? {};
 
 		if (Attachment.isInstance(attachment)) {
-			return <AttachmentCell documentId={row.id} attachment={attachment} columnModel={columnModel} />;
+			return <AttachmentCell {...props} attachment={attachment} />;
 		}
 
 		return null;
@@ -99,7 +166,7 @@ export const ReferenceCell: React.FC<ReferenceCell.Props> = React.memo(function 
 				<MultiSelectCell
 					elementPath={modelPath}
 					data={MultiSelectUtils.from(value)}
-					alignment={alignment}
+					alignment={columnModel.alignment?.content?.horizontal}
 					displayMode={columnModel.multiSelectDisplayMode}
 				/>
 			);
@@ -109,110 +176,4 @@ export const ReferenceCell: React.FC<ReferenceCell.Props> = React.memo(function 
 	}
 
 	throw new Error("Unsupported element in cell content" + element);
-});
-
-namespace FieldReferenceCell {
-	export interface Props extends ReferenceCell.Props {
-		field: DocumentModel.Field;
-		modelPath: ModelPath;
-		value: ReturnType<typeof DocumentUtils.getValue>;
-		fieldFormatter?: (params: FieldFormatterParams) => string;
-	}
-}
-
-const FieldReferenceCell: React.FC<FieldReferenceCell.Props> = React.memo(function FieldReferenceBodyCell(props) {
-	const { columnModel, field, modelPath, value, row } = props;
-
-	const StringTypeCell = useOverviewEngineContext((context) => context.componentMap.StringTypeCell);
-	const CustomFieldTypeCell = useOverviewEngineContext((context) => context.componentMap.CustomFieldTypeCell);
-	const BodyCellContent = useOverviewEngineContext((context) => context.componentMap.TableBodyCellContent);
-
-	const documentModelService = useOverviewEngineInternalContext((context) => context.documentModelService);
-
-	const defaultFieldFormatter = useFieldFormatter();
-	const fieldFormatter = props.fieldFormatter ?? defaultFieldFormatter;
-
-	const suffix = React.useMemo(() => {
-		if (!columnModel.suffixRef) {
-			return undefined;
-		}
-
-		const modelPath = documentModelService.getPathById(columnModel.suffixRef);
-		const element = documentModelService.getByPath(modelPath);
-		const value = DocumentUtils.getValue(row, DocumentModelUtils.toEntityInstancePath(element, modelPath));
-
-		if (!DocumentUtils.isFieldInstanceValue(value) || element.type !== "Field") {
-			return undefined;
-		}
-
-		return fieldFormatter({ field: element, modelPath, value });
-	}, [columnModel.suffixRef, documentModelService, fieldFormatter, row]);
-
-	const content = React.useMemo(() => {
-		const { fieldType } = field;
-		const uiValue = fieldFormatter({ field, modelPath, value, referenceColumn: columnModel, suffix });
-
-		if (fieldType.type === "StringType") {
-			return <StringTypeCell uiValue={uiValue} dataType={fieldType} />;
-		}
-
-		if (fieldType.type === "CustomFieldType") {
-			return <CustomFieldTypeCell uiValue={uiValue} dataType={fieldType} />;
-		}
-
-		return uiValue;
-	}, [field, fieldFormatter, modelPath, value, columnModel, suffix, StringTypeCell, CustomFieldTypeCell]);
-
-	const alignment = React.useMemo(() => {
-		return (
-			columnModel.alignment?.content?.horizontal ??
-			(field.fieldType.type === "NumberType"
-				? OverviewModel.HorizontalAlignment.RIGHT
-				: OverviewModel.HorizontalAlignment.LEFT)
-		);
-	}, [columnModel.alignment?.content?.horizontal, field.fieldType.type]);
-
-	return <BodyCellContent alignment={alignment}>{content}</BodyCellContent>;
-});
-
-/** @public */
-export interface FieldFormatterParams {
-	field: DocumentModel.Field;
-	modelPath: ModelPath;
-	value: GroupInstance[] | GroupInstance | FieldInstanceValue;
-	suffix?: FieldInstanceValue;
-	referenceColumn?: OverviewModel.ReferenceColumn;
-}
-
-/** @public */
-export function useFieldFormatter() {
-	const converter = useOverviewEngineInternalContext((context) => context.converter);
-	const localizedFieldValue = LocalizerHooks.useLocalizedFieldValue();
-	const localizedNumberSuffix = LocalizerHooks.useLocalizedNumberSuffix();
-	const referenceColumns = useOverviewEngineContext((context) =>
-		context.overviewModel.content.columns.filter(OverviewModel.ReferenceColumn.isAssignableFrom)
-	);
-
-	const selectReferenceColumn = React.useCallback(
-		(field: DocumentModel.Field) => referenceColumns.find((column) => column.elementRef === field.id),
-		[referenceColumns]
-	);
-
-	return React.useCallback(
-		(params: FieldFormatterParams) => {
-			const { field, modelPath, value, suffix } = params;
-			const referenceColumn = params.referenceColumn ?? selectReferenceColumn(field);
-
-			const formattedValue = DocumentModelUtils.isLocalizableFieldType(field.fieldType.type)
-				? localizedFieldValue(modelPath, value)
-				: converter.formatValue(modelPath, value);
-
-			if (field.fieldType.type === "NumberType") {
-				return formattedValue + localizedNumberSuffix(referenceColumn, suffix, { withSpace: true });
-			}
-
-			return formattedValue;
-		},
-		[converter, localizedFieldValue, localizedNumberSuffix, selectReferenceColumn]
-	);
 }

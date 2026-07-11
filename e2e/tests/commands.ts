@@ -32,7 +32,7 @@
 
 import { expect, type Page, test as base } from "@playwright/test";
 
-import { seed as seedData } from "../../services-utils/src/api.js";
+import { seed as seedData } from "@com.mgmtp.a12.overviewengine/overviewengine-services-utils";
 
 import { Selector } from "./utils.js";
 

@@ -33,7 +33,8 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
@@ -41,8 +42,8 @@ import { SectionType } from "../../../../../main/view/components/filters/options
 import { TimeFilterOptionsView } from "../../../../../main/view/components/filters/options-views/time-filter-options-view.js";
 
 import { getDocumentModel } from "../../../../setup/models.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.time-filter-options-view", () => {
 	const onChangeSpy = vi.fn();
@@ -81,7 +82,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 		const createFireEvent = (sectionType: SectionType) => (value: string) => {
 			const func = sectionType === SectionType.START ? "first" : "last";
 			fireEvent.change(
-				wrapper.getAllByDataRole(DataRoles.TimePicker.Input)[func]().getByDataRole(DataRoles.Textline.Input).element,
+				wrapper.getAllByDataRole(DataRoles.TimePicker.Input)[func]().getByDataRole(DataRoles.TextField.Input).element,
 				{ target: { value } }
 			);
 		};
@@ -286,7 +287,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 				onChangeSpy.mockReset();
 
 				const startInput = wrapper.getAllByDataRole(DataRoles.TimePicker.Input).first();
-				fireEvent.change(startInput.getByDataRole(DataRoles.Textline.Input).element, {
+				fireEvent.change(startInput.getByDataRole(DataRoles.TextField.Input).element, {
 					target: { value: "03:34 PM" }
 				});
 
@@ -384,7 +385,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 						}
 					});
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 
@@ -397,7 +398,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 				it("sets nothing in the inputs", async () => {
 					const wrapper = await setupTest();
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 
@@ -477,7 +478,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 
 					expect(inputs).toHaveLength(2);
 
-					expect(inputs.first().getByDataRole(DataRoles.Textline.ErrorMessage).element).toHaveTextContent(
+					expect(inputs.first().getByDataRole(DataRoles.TextField.ErrorMessage).element).toHaveTextContent(
 						"Invalid date format in start input"
 					);
 				});
@@ -501,7 +502,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 
 					expect(inputs).toHaveLength(2);
 
-					expect(inputs.last().getByDataRole(DataRoles.Textline.ErrorMessage).element).toHaveTextContent(
+					expect(inputs.last().getByDataRole(DataRoles.TextField.ErrorMessage).element).toHaveTextContent(
 						"Invalid date format in end input"
 					);
 				});
@@ -541,7 +542,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 						const wrapper = await setupTest({
 							initialDate: date
 						});
-						const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+						const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 						expect(inputs.first().element).toHaveValue("05:00 PM");
 						expect(inputs.last().element).toHaveValue("05:00 PM");
@@ -558,7 +559,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 								end: { value: endValue, input: String(endValue) }
 							}
 						});
-						const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+						const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 						expect(inputs.first().element).toHaveValue("05:00 PM");
 						expect(inputs.last().element).toHaveValue("06:00 PM");
@@ -568,7 +569,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 				describe("given no initial date or values", () => {
 					it("leaves the current date in the pickers undefined", async () => {
 						const wrapper = await setupTest();
-						const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+						const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 						expect(inputs.first().element).toHaveValue("");
 						expect(inputs.last().element).toHaveValue("");
@@ -591,7 +592,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 						}
 					});
 
-					expect(wrapper.getAllByDataRole(DataRoles.Textline.Input).first().element).toHaveValue("06:00 PM");
+					expect(wrapper.getAllByDataRole(DataRoles.TextField.Input).first().element).toHaveValue("06:00 PM");
 				});
 
 				it("sets the end typed value from the end value in the state", async () => {
@@ -600,7 +601,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 						uiValue: { start: { input: "" }, end: { value: endValue, input: String(endValue) } }
 					});
 
-					expect(wrapper.getAllByDataRole(DataRoles.Textline.Input).last().element).toHaveValue("06:00 PM");
+					expect(wrapper.getAllByDataRole(DataRoles.TextField.Input).last().element).toHaveValue("06:00 PM");
 				});
 			});
 
@@ -615,7 +616,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 					});
 
 					expect(
-						wrapper.getAllByDataRole(DataRoles.TimePicker.Input).first().getByDataRole(DataRoles.Textline.ErrorMessage)
+						wrapper.getAllByDataRole(DataRoles.TimePicker.Input).first().getByDataRole(DataRoles.TextField.ErrorMessage)
 							.element
 					).toHaveTextContent("MyFancyError");
 				});
@@ -630,7 +631,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 					});
 
 					expect(
-						wrapper.getAllByDataRole(DataRoles.TimePicker.Input).last().getByDataRole(DataRoles.Textline.ErrorMessage)
+						wrapper.getAllByDataRole(DataRoles.TimePicker.Input).last().getByDataRole(DataRoles.TextField.ErrorMessage)
 							.element
 					).toHaveTextContent("MyFancyError");
 				});
@@ -662,8 +663,8 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 				const date = new Date("2001-03-31T17:00:00.000Z");
 				const wrapper = await setupTest({ ...props, initialDate: date }, await engineProps);
 
-				expect(wrapper.getAllByDataRole(DataRoles.Textline.Input).first().element).toHaveValue(expectedTime);
-				expect(wrapper.getAllByDataRole(DataRoles.Textline.Input).last().element).toHaveValue(expectedTime);
+				expect(wrapper.getAllByDataRole(DataRoles.TextField.Input).first().element).toHaveValue(expectedTime);
+				expect(wrapper.getAllByDataRole(DataRoles.TextField.Input).last().element).toHaveValue(expectedTime);
 			});
 
 			it.each([
@@ -717,7 +718,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 			] as const)("disabled = %s", async (disabled, matcher) => {
 				const wrapper = await setupTest(undefined, { uiState: { disabled } });
 
-				const timePickers = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+				const timePickers = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 				expect(timePickers.first().element)[matcher]();
 				expect(timePickers.last().element)[matcher]();
@@ -730,7 +731,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.tim
 			] as const)("readonly = %s", async (readonly, expectedReadonly) => {
 				const wrapper = await setupTest({ readonly });
 
-				const timePickers = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+				const timePickers = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 				expect(timePickers.first().element.getAttribute("readonly")).toBe(expectedReadonly);
 				expect(timePickers.last().element.getAttribute("readonly")).toBe(expectedReadonly);

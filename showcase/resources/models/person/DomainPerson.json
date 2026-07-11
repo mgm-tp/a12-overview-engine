@@ -2,7 +2,7 @@
 	"header": {
 		"id": "DomainPerson",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": []
 	},
 	"content": {
@@ -139,7 +134,7 @@
 																	},
 																	{
 																		"locale": "de",
-																		"text": "Männlich"
+																		"text": "M\u00e4nnlich"
 																	}
 																]
 															},
@@ -228,7 +223,7 @@
 													},
 													{
 														"locale": "de",
-														"text": "Nationalität"
+														"text": "Nationalit\u00e4t"
 													}
 												],
 												"requirednessConfig": {
@@ -301,7 +296,7 @@
 																				},
 																				{
 																					"locale": "de",
-																					"text": "Rumänien"
+																					"text": "Rum\u00e4nien"
 																				}
 																			]
 																		},
@@ -353,7 +348,7 @@
 																				},
 																				{
 																					"locale": "de",
-																					"text": "Ägypten"
+																					"text": "\u00c4gypten"
 																				}
 																			]
 																		},
@@ -366,7 +361,7 @@
 																				},
 																				{
 																					"locale": "de",
-																					"text": "Österreich"
+																					"text": "\u00d6sterreich"
 																				}
 																			]
 																		}
@@ -595,7 +590,7 @@
 													},
 													{
 														"locale": "de",
-														"text": "Straße"
+														"text": "Stra\u00dfe"
 													}
 												],
 												"requirednessConfig": {

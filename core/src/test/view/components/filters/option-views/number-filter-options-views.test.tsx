@@ -33,14 +33,15 @@
 import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
 
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { NumberFilterOptionsView } from "../../../../../main/view/components/filters/options-views/number-filter-options-view.js";
 
+import { render, type QueriableElement } from "../../../../test-utils.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
-import { render, DataRoles, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.number-filter-options-view", () => {
 	const onChangeSpy = vi.fn();
@@ -70,7 +71,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.num
 	}
 
 	function changeInput(wrapper: QueriableElement) {
-		const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+		const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 		return {
 			start: (value: string) => fireEvent.change(inputs.first().element, { target: { value } }),
@@ -219,7 +220,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.num
 				it("sets them in the inputs", () => {
 					const wrapper = setupTest({ uiValue: { start: { value: 2, input: "2" }, end: { value: 4, input: "4" } } });
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 					expect(inputs.first().element).toHaveValue("2");
@@ -231,7 +232,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.num
 				it("sets nothing in the inputs", () => {
 					const wrapper = setupTest();
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 					expect(inputs.first().element).toHaveValue("");
@@ -265,7 +266,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.num
 				it("disables the inputs", () => {
 					const wrapper = setupTest(undefined, { uiState: { disabled: true } });
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 
@@ -297,7 +298,7 @@ describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.num
 				it("enables the inputs", () => {
 					const wrapper = setupTest(undefined, { uiState: { disabled: false } });
 
-					const inputs = wrapper.getAllByDataRole(DataRoles.Textline.Input);
+					const inputs = wrapper.getAllByDataRole(DataRoles.TextField.Input);
 
 					expect(inputs).toHaveLength(2);
 					expect(inputs.first().element).toBeEnabled();

@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 import { get } from "lodash-es";
 import { useDispatch, useSelector } from "react-redux";
 

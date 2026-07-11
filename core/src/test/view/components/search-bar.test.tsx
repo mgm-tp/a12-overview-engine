@@ -33,17 +33,19 @@
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import { en } from "../../../main/services/localization/internal/languages/en.js";
 import { de } from "../../../main/services/localization/internal/languages/de.js";
 import { OverviewEngineInternalConstants } from "../../../main/shared/constants.js";
 
 import { deLocale, enLocale } from "../../basic.spec.js";
-import { DataRoles, type QueriableElement } from "../../test-utils.js";
+import type { QueriableElement } from "../../test-utils.js";
 
 import { setupMultiSelection, defaultClearConfirmationMultiSelection } from "./multi-selection/utils.js";
 
 const findInput = (wrapper: QueriableElement) => {
-	return wrapper.getByDataRole(DataRoles.Textline.Input).element;
+	return wrapper.getByDataRole(DataRoles.TextField.Input).element;
 };
 
 describe("com.mgmtp.a12.overview-engine.view.components.search-bar", () => {

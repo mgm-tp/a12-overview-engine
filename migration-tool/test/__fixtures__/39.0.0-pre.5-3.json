@@ -1,0 +1,57 @@
+{
+	"header": {
+		"id": "39.0.0-pre.5-with-non-interactive-row-activation",
+		"modelType": "overview",
+		"modelVersion": "39.0.0-pre.5",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Test Overview With Non-Interactive Row Activation"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "TestDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			},
+			"pagingSize": 10
+		},
+		"columns": [
+			{
+				"id": "column-1",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"rowActivation": {
+			"type": "non_interactive"
+		}
+	}
+}

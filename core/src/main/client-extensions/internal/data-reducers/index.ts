@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import type { ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
 import { uiStateDataReducer } from "./ui-state.js";
 import { setEnumeratedStringCandidatesReducer } from "./set-enumerated-string-candidates.js";

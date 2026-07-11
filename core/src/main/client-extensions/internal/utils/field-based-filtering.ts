@@ -31,15 +31,18 @@
  */
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { formatDate } from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
-import { Locale, type LocalizedText } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngineApi } from "../../../view/api.js";
-import { type ModelsState } from "../../../store/index.js";
-import { toConditionalArray } from "../../../view/utils.js";
+import type { ModelsState } from "../../../store/index.js";
+import { getDateTimeFormat } from "../../../services/index.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../models/internal/shared.js";
-import { DateTimeUtils } from "../../../view/components/filters/options-views/date-time-utils.js";
+import {
+	ENABLE_CASE_INSENSITIVE_SEARCH_ANNOTATION,
+	ENABLE_APPROXIMATE_MATCH_SEARCH_ANNOTATION
+} from "../../../shared/constants.js";
 
 import { assertCondition } from "./assertion.js";
 import { getTargetDocumentModel } from "./document-model-utils.js";
@@ -48,8 +51,7 @@ import { getTargetDocumentModel } from "./document-model-utils.js";
 export namespace FieldBasedFiltering {
 	export function toOperators(
 		fieldBasedFilters: OverviewEngineApi.FilterMap,
-		modelsState: ModelsState,
-		locale: Locale
+		modelsState: ModelsState
 	): Query.Operator[] {
 		const filters: (Query.Operator | undefined)[] = [];
 
@@ -67,9 +69,9 @@ export namespace FieldBasedFiltering {
 			} else if (OverviewEngineApi.Filter.NumberOptions.isInstance(filter)) {
 				filters.push(convertNumberFilterOptions(key, filter));
 			} else if (OverviewEngineApi.Filter.EnumerationOptions.isInstance(filter)) {
-				filters.push(convertEnumerationFilterOptions(key, filter, targetDocumentModel, locale));
+				filters.push(convertEnumerationFilterOptions(key, filter));
 			} else if (OverviewEngineApi.Filter.MultiSelectOptions.isInstance(filter)) {
-				filters.push(convertMultiSelectFilterOptions(key, filter, targetDocumentModel, locale));
+				filters.push(convertMultiSelectFilterOptions(key, filter, targetDocumentModel));
 			} else if (OverviewEngineApi.Filter.BooleanOptions.isInstance(filter)) {
 				filters.push(convertBooleanFilterOptions(key, filter));
 			} else if (OverviewEngineApi.Filter.ConfirmOptions.isInstance(filter)) {
@@ -92,59 +94,38 @@ export namespace FieldBasedFiltering {
 		documentModel: DocumentModel
 	): Query.Operator | undefined {
 		if (undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
 		if (!criteria) {
 			return undefined;
 		}
 
-		const field = DocumentModelUtils.findElementByFilterId(documentModel, key);
+		const field = DocumentModelUtils.findElementByPath(documentModel, key);
 
 		const substringSearch =
-			field?.annotations?.find(({ name }) => name === "enable_approximate_match_search")?.value === "true";
+			field?.annotations?.find(({ name }) => name === ENABLE_APPROXIMATE_MATCH_SEARCH_ANNOTATION)?.value === "true";
 		const caseInsensitiveSearch =
-			field?.annotations?.find(({ name }) => name === "enable_case_insensitive_search")?.value === "true";
-
-		const caseSensitive = !caseInsensitiveSearch;
+			field?.annotations?.find(({ name }) => name === ENABLE_CASE_INSENSITIVE_SEARCH_ANNOTATION)?.value === "true";
 
 		if (substringSearch) {
-			return {
-				operator: Query.OPERATORS.AND_OPERATOR,
-				operands: criteria.value.split(/\s+/).map((subValue) => {
-					return {
-						operator: Query.OPERATORS.SIMPLE_SEARCH_OPERATOR,
-						fields: [key],
-						value: subValue
-					} satisfies Query.SimpleSearchOperator;
-				})
-			};
+			return QueryBuilder.and(
+				...criteria.value.split(/\s+/).map((word) => QueryBuilder.simpleSearch(word, [key]))
+			).build();
 		}
 
-		return {
-			operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
-			field: key,
-			value: criteria.value,
-			caseSensitive
-		} satisfies Query.ExactMatchOperator;
-	}
-
-	function getRange<T>({ start, end }: { readonly start?: T | null; readonly end?: T | null }): {
-		from: T | undefined;
-		to: T | undefined;
-	} {
-		return { from: start ?? undefined, to: end ?? undefined };
+		return QueryBuilder.exactMatch(key, criteria.value, !caseInsensitiveSearch).build();
 	}
 
 	function convertDateFilterOptions(
 		key: string,
 		dateOptions: OverviewEngineApi.Filter.DateOptions,
 		documentModel: DocumentModel
-	): Query.DateRangeOperator | Query.DateFragmentRangeOperator | Query.UndefinedMatchOperator | undefined {
+	): Query.Operator | undefined {
 		const { criteria, undefinedMatch } = dateOptions;
 
 		if (undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
 		if (!criteria?.start && !criteria?.end) {
@@ -153,14 +134,12 @@ export namespace FieldBasedFiltering {
 
 		const timeZone = documentModel.content.modelConfig.timeZone;
 		const formatString = getFormatString(key, documentModel);
-		const convertedStart = criteria?.start ? formatDate(criteria.start, formatString, timeZone) : undefined;
-		const convertedEnd = criteria?.end ? formatDate(criteria.end, formatString, timeZone) : undefined;
-		const operator =
-			dateOptions.type === "DateFragment"
-				? Query.OPERATORS.DATE_FRAGMENT_RANGE_OPERATOR
-				: Query.OPERATORS.DATE_RANGE_OPERATOR;
+		const from = criteria?.start ? formatDate(criteria.start, formatString, timeZone) : undefined;
+		const to = criteria?.end ? formatDate(criteria.end, formatString, timeZone) : undefined;
 
-		return { operator, field: key, ...getRange({ start: convertedStart, end: convertedEnd }) };
+		return dateOptions.type === "DateFragment"
+			? QueryBuilder.dateFragmentRange(key, from, to).build()
+			: QueryBuilder.dateRange(key, from, to).build();
 	}
 
 	function convertNumberFilterOptions(
@@ -168,94 +147,48 @@ export namespace FieldBasedFiltering {
 		{ criteria, undefinedMatch }: OverviewEngineApi.Filter.NumberOptions
 	): Query.Operator | undefined {
 		if (undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
 		return criteria !== undefined
-			? { operator: Query.OPERATORS.DOUBLE_RANGE_OPERATOR, field: key, ...getRange(criteria) }
+			? QueryBuilder.doubleRange(key, criteria.start ?? undefined, criteria.end ?? undefined).build()
 			: undefined;
 	}
 
 	function convertEnumerationFilterOptions(
 		key: string,
-		{ criteria, undefinedMatch }: OverviewEngineApi.Filter.EnumerationOptions,
-		documentModel: DocumentModel,
-		locale: Locale
+		{ criteria, undefinedMatch }: OverviewEngineApi.Filter.EnumerationOptions
 	): Query.Operator | undefined {
 		if (criteria === undefined) {
-			return undefinedMatch ? { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key } : undefined;
+			return undefinedMatch ? QueryBuilder.undefinedMatch(key).build() : undefined;
 		}
 
-		if (criteria.selectedValues.length === 1 && !undefinedMatch) {
-			const value = criteria.selectedValues[0];
-			const label = toLabel(documentModel, key, locale, value) ?? value;
-
-			return {
-				operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
-				field: key,
-				value: label,
-				caseSensitive: true
-			} satisfies Query.ExactMatchOperator;
-		}
-
-		if (criteria.selectedValues.length === 0 && undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
-		}
-
-		const selectedValuesOperands: Query.ExactMatchOperator[] = criteria.selectedValues.map((value) => {
-			const label = toLabel(documentModel, key, locale, value) ?? value;
-
-			return { operator: Query.OPERATORS.EXACT_MATCH_OPERATOR, field: key, value: label, caseSensitive: true };
-		});
-
-		return {
-			operator: Query.OPERATORS.OR_OPERATOR,
-			operands: [
-				...selectedValuesOperands,
-				...toConditionalArray(!!undefinedMatch, { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key })
-			]
-		};
+		return QueryBuilder.or(
+			...criteria.selectedValues.map((value) => QueryBuilder.exactMatch(key, value)),
+			undefinedMatch ? QueryBuilder.undefinedMatch(key) : undefined
+		).build();
 	}
 
 	function convertMultiSelectFilterOptions(
 		key: string,
 		{ criteria, undefinedMatch }: OverviewEngineApi.Filter.MultiSelectOptions,
-		documentModel: DocumentModel,
-		locale: Locale
+		documentModel: DocumentModel
 	): Query.Operator | undefined {
-		const multiSelectGroup = DocumentModelUtils.findElementByFilterId(documentModel, key);
+		const multiSelectGroup = DocumentModelUtils.findElementByPath(documentModel, key);
 		assertCondition(MultiSelectModelUtils.isInstance(multiSelectGroup));
 
 		const field = `${key}/${MultiSelectModelUtils.getField(multiSelectGroup).name}`;
 
-		if (!criteria) {
-			return undefinedMatch ? { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field } : undefined;
+		if (!criteria || criteria.selectedValues.length === 0) {
+			return undefinedMatch ? QueryBuilder.undefinedMatch(field).build() : undefined;
 		}
 
-		const selectedValuesOperands = criteria.selectedValues.map((value) => {
-			return {
-				operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
-				field,
-				value: toLabel(documentModel, field, locale, value) ?? value,
-				caseSensitive: true
-			};
-		});
+		const selectedOperands = criteria.selectedValues.map((value) => QueryBuilder.exactMatch(field, value));
+		const undefinedOperand = undefinedMatch ? QueryBuilder.undefinedMatch(field) : undefined;
 
-		if (selectedValuesOperands.length === 1 && !undefinedMatch) {
-			return selectedValuesOperands[0];
-		}
+		const combine = criteria.operation === Query.OPERATORS.AND_OPERATOR ? QueryBuilder.and : QueryBuilder.or;
 
-		if (selectedValuesOperands.length === 0 && undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field };
-		}
-
-		return {
-			operator: criteria.operation,
-			operands: [
-				...selectedValuesOperands,
-				...toConditionalArray(!!undefinedMatch, { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field })
-			]
-		};
+		return combine(...selectedOperands, undefinedOperand).build();
 	}
 
 	function convertBooleanFilterOptions(
@@ -266,21 +199,11 @@ export namespace FieldBasedFiltering {
 			return undefined;
 		}
 
-		const { value } = criteria;
-		const [matchTrueOperator, matchFalseOperator]: Query.ExactMatchOperator[] = [true, false].map((value) => {
-			return {
-				operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
-				field: key,
-				value: String(value),
-				caseSensitive: true
-			};
-		});
-
-		if (value === null) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+		if (criteria.value === null) {
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
-		return value ? matchTrueOperator : matchFalseOperator;
+		return QueryBuilder.exactMatch(key, String(criteria.value)).build();
 	}
 
 	function convertConfirmFilterOptions(
@@ -291,19 +214,12 @@ export namespace FieldBasedFiltering {
 			return undefined;
 		}
 
-		const matchTrueOperator: Query.ExactMatchOperator = {
-			operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
-			field: key,
-			value: "true",
-			caseSensitive: true
-		};
-
 		if (criteria.value === null) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
 		if (criteria.value) {
-			return matchTrueOperator;
+			return QueryBuilder.exactMatch(key, "true").build();
 		}
 
 		throw new Error(`Confirm filter value is not supported for "${key}". Got: ${criteria.value}`);
@@ -314,49 +230,23 @@ export namespace FieldBasedFiltering {
 		{ criteria, undefinedMatch }: OverviewEngineApi.Filter.CustomFieldOptions
 	): Query.Operator | undefined {
 		if (undefinedMatch) {
-			return { operator: Query.OPERATORS.UNDEFINED_MATCH_OPERATOR, field: key };
+			return QueryBuilder.undefinedMatch(key).build();
 		}
 
 		if (!criteria) {
 			return undefined;
 		}
 
-		return { operator: Query.OPERATORS.EXACT_MATCH_OPERATOR, field: key, value: criteria.value, caseSensitive: true };
-	}
-
-	/**
-	 * Convert the value into localized filterable text
-	 */
-	function toLabel(documentModel: DocumentModel, fieldKey: string, locale: Locale, value: string): string | undefined {
-		const enumeratedField = DocumentModelUtils.findElementByFilterId(documentModel, fieldKey);
-
-		if (enumeratedField.type === "Field" && enumeratedField.fieldType.type === "EnumerationType") {
-			const values = enumeratedField.fieldType.values;
-			const label = values.find((candidate) => candidate.value === value)?.label;
-
-			return label?.find(localizedTextMatcher(locale))?.text;
-		}
-
-		return value;
-	}
-
-	/**
-	 * Checks if the given `locale` matches the `localizedText`,
-	 * it also performs additional check against the `PartialLocale`
-	 */
-	function localizedTextMatcher(locale: Locale) {
-		return (localizedText: LocalizedText) => {
-			return locale.language === localizedText.locale || Locale.toString(locale) === localizedText.locale;
-		};
+		return QueryBuilder.exactMatch(key, criteria.value).build();
 	}
 
 	function getFormatString(filterId: string, documentModel: DocumentModel) {
-		const field = DocumentModelUtils.findElementByFilterId(documentModel, filterId);
+		const field = DocumentModelUtils.findElementByPath(documentModel, filterId);
 
 		if (field.type !== "Field") {
 			throw new Error(`Cannot get formatString, element ${filterId} is not a field.`);
 		}
 
-		return DateTimeUtils.getDateTimeFormat(field.fieldType);
+		return getDateTimeFormat(field.fieldType);
 	}
 }

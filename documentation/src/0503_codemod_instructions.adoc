@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -9,7 +9,7 @@ You may redistribute and/or modify this file under the terms of the European Uni
 Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
 
 Please contact a12-license@mgm-tp.com for more information.
-    
+
 You must select and comply with exactly one of the above license options.
 
 Warranty Disclaimer (applies to either option)
@@ -39,51 +39,13 @@ pnpm dlx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest <recipe-id-
 
 == Usage
 
-The codemod supports two primary modes of operation:
+The codemod supports two modes of operation, plus an interactive variant:
 
-1. **Recipe-based execution** — Run a specific codemod recipe by its identifier
-2. **Version-based migration** — Run all applicable recipes for a target engine version
+1. **Recipe-based execution** — run a specific recipe by its identifier: `<recipe-id> <tsconfig-path>`.
+2. **Version-based migration** — run all recipes whose supported range includes a target version: `<target-version> <tsconfig-path>`. The tool selects the applicable recipes automatically.
+3. **Interactive mode** (`--interactive`) — pick a recipe or target version through guided prompts.
 
-=== Running a Specific Recipe
-
-To execute a single codemod recipe, provide the recipe identifier and the path to your TypeScript configuration:
-
-[source,bash]
-----
-npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest <recipe-id> <tsconfig-path>
-----
-
-.Example: Running a specific recipe
-[source,bash]
-----
-npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest rename-deprecated-props ./tsconfig.json
-----
-
-=== Migrating to a Target Version
-
-To run all codemods applicable for migrating to a specific library version, provide the target version number instead of a recipe identifier:
-
-[source,bash]
-----
-npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest <target-version> <tsconfig-path>
-----
-
-The tool automatically identifies and executes all recipes whose supported version range includes the specified target version.
-
-.Example: Migrating to version 38.0.0
-[source,bash]
-----
-npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest 38.0.0 ./tsconfig.json
-----
-
-=== Interactive Mode
-
-For guided execution, use interactive mode to select recipes or specify the target version through prompts:
-
-[source,bash]
-----
-npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest --interactive
-----
+See <<_examples>> for concrete commands and <<_arguments>> / <<_options>> for the full CLI surface.
 
 == Arguments
 
@@ -179,4 +141,41 @@ After running codemods, it is recommended to:
 3. **Execute tests** — Run your test suite to verify that the transformations did not introduce regressions.
 
 4. **Commit incrementally** — If running multiple recipes or migrating across versions, consider committing after each successful transformation for easier rollback if issues arise.
+
+== Recipes
+
+This section documents what each recipe changes in a consumer project — the categories of transformation it applies, with at least one named example per category — so you can map the resulting diff to the documented intent rather than reverse-engineering it. Run `--list` for the authoritative set of recipes and their supported version ranges.
+
+[[recipe-prefer-top-level-imports]]
+=== `prefer-top-level-imports`
+
+[cols="1,3"]
+|===
+| Supported versions | `^39.0.0` (2026.06)
+| Required / optional | *Required* — nested `lib` imports and the removed type aliases are compile errors in 39.0.0.
+|===
+
+Transforms TypeScript source so that all Overview Engine API is consumed through the top-level package entry point. Change categories:
+
+*Rewrite import paths.* Nested deep imports are rewritten to the top-level entry.
+
+[source,typescript]
+----
+// before
+import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/overview-model.js";
+// after
+import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+----
+
+*Rewrite removed type aliases.* Deprecated top-level `OverviewModel` aliases (e.g. `Content`, `Column`, `FilterMode`) are rewritten to the `OverviewModel` namespace, and `Pagination` to `PaginationState`.
+
+[source,typescript]
+----
+// before
+const content: Content = { /* ... */ };
+const pagination: Pagination = { pageNumber: 0, pageSize: 10 };
+// after
+const content: OverviewModel.Content = { /* ... */ };
+const pagination: PaginationState = { pageNumber: 0, pageSize: 10 };
+----
 

@@ -1,0 +1,54 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+= Multi-Selection
+
+Overview Engine provides a *multi-selection* feature that allows users to select multiple rows and perform actions on those selected rows.
+
+The *multi-selection area* is a dedicated part of each row that users can click to toggle the row's selection state.
+It is configurable through the model and supports the following options:
+
+- *Rows and checkboxes* (default) — both row clicks and checkboxes can toggle selection.
+- *Checkboxes only* — selection is managed exclusively via checkboxes.
+
+Users can select rows in two ways:
+
+- *Single selection*: Click on a row’s selection area to toggle its selection.
+- *Range selection*: Hold Shift and click another row’s selection area to select a consecutive range of rows.
++
+NOTE: Range selection via Shift+Click is not supported when infinite scrolling is enabled.
+
+To enable it, first it is required to turn on the feature in the model. Please see the link:/docs/SME/sme-om-ba-docs/index.html#_multi_selection[SME docs] for more details about modelling it.
+This section will only focus on the implementation aspect.
+
+== API
+
+As mentioned before, one or multiple rows can be marked as selected by using <<row/row-state, row state>> and listen to the event when one or multiple rows is selected by using <<row/event-handlers/onRowsSelect, onRowsSelect>>.
+
+Besides, there are two other event handlers related to multi-selection:
+
+- link:./assets/generated/typedoc/interfaces/view_api.OverviewEngineApi.EventHandlers.html#onmultiselectionclear[onMultiSelectionClear]: This will be triggered when the selections are supposed to be cleared.
+Specifically, it is called when the filtering or searching changes or the multi-selection panel collapses while there are still selected rows.
+
+- link:./assets/generated/typedoc/interfaces/view_api.OverviewEngineApi.EventHandlers.html#onoverallmultiselectionbuttonclick[onOverallMultiSelectionButtonClick]: will be triggered when the overall multi-selection is clicked. It will be called with a parameter which is an object with two elements:
+* `affectedRowIds` -- document ids of the rows that are affected.
+* `selected` -- indicate whether these rows are selected or deselected.
+
+== Delete Multiple Documents
+
+It is possible to delete multi-selected documents by modeling a button on multi-selection panel, see link:/docs/SME/sme-om-ba-docs/index.html#_multi_selection[SME docs], with the event name of `delete_selected`.
+This feature only works with user roles that have the access right of `DOCUMENT_MULTI_DELETE`, see link:/docs/DATA_SERVICES/dataservices-documentation-src/index.html#_data_services_authorization[Data Services docs].

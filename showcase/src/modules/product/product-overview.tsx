@@ -34,10 +34,11 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import { Icon, Button, Message, addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
 	Events,
+	Commands,
 	type Heading,
 	type TableBody,
 	UiStateSelector,
@@ -55,7 +56,7 @@ import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
 import { customEnumeratedStringQuery } from "./saga.js";
 
-export const ProductOverview = (props: View) => {
+export const ProductOverview = (props: ViewNGProps) => {
 	// tag::customOnSearchEnumeratedStringFieldEvent[]
 	const { activityId } = props;
 	const dispatch = useDispatch();
@@ -110,8 +111,6 @@ export const ProductOverview = (props: View) => {
 		/>
 	);
 };
-
-ProductOverview.handleProgressIndicator = ShowcaseOverview.handleProgressIndicator;
 
 const CustomSelectorMap: SelectorMap = {
 	...DefaultSelectorMap,
@@ -218,6 +217,8 @@ const HeadingButtonsWrapper = styled.div`
 	gap: 0.5rem;
 `;
 
+const QUICK_SEARCH_STRING = "Snowboard";
+
 const CustomHeadingButtons = (props: { onEventButtonClick?(event: string): void; activityId: string }) => {
 	const { onEventButtonClick, activityId } = props;
 
@@ -225,6 +226,7 @@ const CustomHeadingButtons = (props: { onEventButtonClick?(event: string): void;
 		<HeadingButtonsWrapper>
 			<LikeButton onEventButtonClick={onEventButtonClick} />
 			<ScrollToRowButton activityId={activityId} />
+			<QuickSearchButton activityId={activityId} />
 		</HeadingButtonsWrapper>
 	);
 };
@@ -262,6 +264,33 @@ const ScrollToRowButton = (props: { activityId: string }) => {
 			onClick={onClick}
 			label={`Scroll to top`}
 			title={`Demonstrate programmatic scrolling to row number 1`}
+		/>
+	);
+};
+
+const QuickSearchButton = (props: { activityId: string }) => {
+	const { activityId } = props;
+	const dispatch = useDispatch();
+	const disabled = useOverviewEngineState(UiStateSelector.disabled());
+
+	const onClick = React.useCallback(() => {
+		dispatch(
+			OverviewEngineActions.command({
+				activityId,
+				engineAction: Commands.setQueryParameters({
+					searchString: QUICK_SEARCH_STRING
+				})
+			})
+		);
+	}, [activityId, dispatch]);
+
+	return (
+		<Button
+			disabled={disabled}
+			icon={<Icon>search</Icon>}
+			label={QUICK_SEARCH_STRING}
+			title={`Search products containing "${QUICK_SEARCH_STRING}"`}
+			onClick={onClick}
 		/>
 	);
 };

@@ -32,10 +32,18 @@
 
 // tag::time-mode-in-overview-engine-component[]
 import * as React from "react";
+import { enUS } from "date-fns/locale";
 
+import { DateTimeContext } from "@com.mgmtp.a12.widgets/widgets-core";
 import { OverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
+const dateTimeContextValue = { locale: enUS, timeMode: "24h" as const };
+
 export const CustomOverviewEngine: React.ComponentType<OverviewEngine.Props> = (props) => {
-	return <OverviewEngine {...props} timeMode="24h" />;
+	return (
+		<DateTimeContext.Provider value={dateTimeContextValue}>
+			<OverviewEngine {...props} />
+		</DateTimeContext.Provider>
+	);
 };
 // end::time-mode-in-overview-engine-component[]

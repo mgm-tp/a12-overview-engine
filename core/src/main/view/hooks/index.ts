@@ -33,3 +33,6 @@
 export * from "./use-table-columns.js";
 export * from "./use-table-options.js";
 export * from "./use-table-styles.js";
+export * from "./localizer-hooks.js";
+export * from "./use-footer-box-buttons.js";
+export * from "./use-heading-metadata.js";

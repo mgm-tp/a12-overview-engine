@@ -32,7 +32,7 @@
 
 import * as React from "react";
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 export namespace StringTypeCell {
 	export interface Props {

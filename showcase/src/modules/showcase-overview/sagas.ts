@@ -34,34 +34,33 @@
  * @packageDocumentation
  * @module extensions/crud
  */
-import { type AnyAction } from "redux";
-import { type Action } from "typescript-fsa";
-import { type SagaIterator } from "redux-saga";
-import { put, select, takeLatest } from "typed-redux-saga";
+import { put, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { ActivityActions, NotificationActions } from "@com.mgmtp.a12.client/client-core";
 import {
 	Events,
 	Commands,
 	OverviewEngineActions,
-	OverviewEngineSelectors
+	OverviewEngineSelectors,
+	DefaultFilterStateSelectors
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { SHOWCASE_RESOURCE_KEYS } from "../../config/resources.js";
 
 export const ShowcaseOverviewSagas = [rowButtonClickSaga, eventButtonClickSaga, searchNotificationSaga];
 
-function* rowButtonClickSaga(): SagaIterator<void> {
+function* rowButtonClickSaga(): SagaGenerator<void> {
 	yield* takeLatest(
-		(anyAction: AnyAction) =>
-			OverviewEngineActions.event.match(anyAction) && Events.onRowButtonClicked.match(anyAction.payload.engineAction),
+		(action: unknown) =>
+			OverviewEngineActions.event.match(action) && Events.onRowButtonClicked.match(action.payload.engineAction),
 		handleRowButtonClick
 	);
 }
 
 function* handleRowButtonClick(
 	action: Action<OverviewEngineActions.EventPayload<Action<Events.RowButtonClickedPayload>>>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId, engineAction } = action.payload;
 	const { documentId, rowActionModel } = engineAction.payload;
 
@@ -85,20 +84,22 @@ function* handleRowButtonClick(
 	);
 }
 
-function* eventButtonClickSaga(): SagaIterator<void> {
+function* eventButtonClickSaga(): SagaGenerator<void> {
 	yield* takeLatest(
-		(anyAction: AnyAction) =>
-			OverviewEngineActions.event.match(anyAction) && Events.onEventButtonClicked.match(anyAction.payload.engineAction),
+		(action: unknown) =>
+			OverviewEngineActions.event.match(action) && Events.onEventButtonClicked.match(action.payload.engineAction),
 		handleEventButtonClick
 	);
 }
 
 function* handleEventButtonClick(
 	action: Action<OverviewEngineActions.EventPayload<Action<Events.EventButtonClickedPayload>>>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId, engineAction } = action.payload;
 	const { button, event } = engineAction.payload;
-	const { rowState = {} } = yield* select(OverviewEngineSelectors.uiState(activityId));
+	const { rowState = {} } = yield* select(
+		OverviewEngineSelectors.uiState(activityId, { filterStateSelectors: DefaultFilterStateSelectors })
+	);
 
 	// This is the limitation of the current overview engine implementation
 	// where we can not distinguish the button is normal button or multi-selection button
@@ -126,20 +127,21 @@ function* handleEventButtonClick(
 	);
 }
 
-function* searchNotificationSaga(): SagaIterator<void> {
+function* searchNotificationSaga(): SagaGenerator<void> {
 	yield* takeLatest(
-		(anyAction: AnyAction) =>
-			OverviewEngineActions.command.match(anyAction) &&
-			Commands.setQueryParameters.match(anyAction.payload.engineAction),
+		(action: unknown) =>
+			OverviewEngineActions.command.match(action) && Commands.setQueryParameters.match(action.payload.engineAction),
 		handleSearchNotificationSaga
 	);
 }
 
 function* handleSearchNotificationSaga(
 	action: Action<OverviewEngineActions.EventPayload<Action<Commands.SetQueryParametersPayload>>>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId } = action.payload;
-	const { searchString } = yield* select(OverviewEngineSelectors.uiState(activityId));
+	const { searchString } = yield* select(
+		OverviewEngineSelectors.uiState(activityId, { filterStateSelectors: DefaultFilterStateSelectors })
+	);
 
 	if (searchString) {
 		yield* put(

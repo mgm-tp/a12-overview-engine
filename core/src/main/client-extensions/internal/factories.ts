@@ -31,24 +31,20 @@
  */
 
 import type React from "react";
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
-import {
-	type View,
-	type Module,
-	type DataProvider,
-	type ApplicationSaga,
-	type ActivityReducers
-} from "@com.mgmtp.a12.client/client-core";
+import type { View, Module, DataProvider, ApplicationSaga, ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+
+import type { MiddlewareOptions } from "../../store/index.js";
 
 import { OverviewEngineContainer } from "./view/container.js";
 import { defaultDataLoader } from "./data-loader/default-data-loader.js";
 import { createOverviewEngineDataReducers } from "./data-reducers/index.js";
-import { type OverviewEngineDataLoader } from "./data-loader/data-loader.js";
+import type { OverviewEngineDataLoader } from "./data-loader/data-loader.js";
 import { createApplicationSagas as createApplicationSagasInternal } from "./sagas.js";
 import { OverviewEngineDataProvider } from "./providers/overview-engine-data-provider.js";
 import { EnumeratedStringDataProvider } from "./providers/enumerated-string-data-provider.js";
-import { type DataProvidersConfig as InternalDataProvidersConfig } from "./providers/types.js";
+import type { DataProvidersConfig as InternalDataProvidersConfig } from "./providers/types.js";
 import {
 	createOverviewEngineAdapterMiddleware,
 	createOverviewEngineDataServicesMonitoredPropertiesMiddleware
@@ -71,13 +67,13 @@ export namespace OverviewEngineFactories {
 			id: "OverviewEngineClientModule",
 			dataProviders: () => createDataProviders(undefined, config),
 			dataReducers: createDataReducers,
-			middlewares: createMiddlewares,
+			middlewares: () => createMiddlewares(config),
 			views: () => viewComponentProvider
 		};
 	}
 
-	export const createMiddlewares: () => Middleware[] = () => [
-		createOverviewEngineAdapterMiddleware(),
+	export const createMiddlewares: (options?: MiddlewareOptions) => Middleware[] = (options) => [
+		createOverviewEngineAdapterMiddleware(options),
 		createOverviewEngineDataServicesMonitoredPropertiesMiddleware()
 	];
 
@@ -88,7 +84,7 @@ export namespace OverviewEngineFactories {
 		dataLoader?: OverviewEngineDataLoader,
 		config?: InternalDataProvidersConfig
 	) => DataProvider[] = (dataLoader = defaultDataLoader, config) => [
-		new EnumeratedStringDataProvider(dataLoader),
+		new EnumeratedStringDataProvider(dataLoader, config),
 		new OverviewEngineDataProvider(dataLoader, config)
 	];
 

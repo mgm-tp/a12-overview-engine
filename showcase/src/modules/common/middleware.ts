@@ -33,16 +33,19 @@
 // tag::presetFilterMiddleware[]
 
 import { isEqual } from "lodash-es";
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { type Activity, ActivityActions } from "@com.mgmtp.a12.client/client-core";
-import { OverviewEngineActions, type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import {
+	type UiState,
+	OverviewEngineActions,
+	type OverviewEngineApi
+} from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-export const createPresetFilterMiddleware: (
-	presetFilter: OverviewEngineApi.FilterMap,
-	targetDescriptor: Activity.Descriptor,
-	skipInitialLoad?: boolean
-) => Middleware = (presetFilter, targetDescriptor, skipInitialLoad) => () => (next) => (action) => {
+export const createInitialUiStateMiddleware: (
+	initialUiState: UiState,
+	targetDescriptor: Activity.Descriptor
+) => Middleware = (initialUiState, targetDescriptor) => () => (next) => (action) => {
 	if (ActivityActions.push.match(action)) {
 		const { activity } = action.payload;
 
@@ -54,16 +57,20 @@ export const createPresetFilterMiddleware: (
 			OverviewEngineActions.createActivity(
 				{
 					activityId: activity.id,
-					activityDescriptor: activity.descriptor,
-					loadingState: skipInitialLoad ? "without" : "missing"
+					activityDescriptor: activity.descriptor
 				},
-				{ activeFilters: presetFilter }
+				initialUiState
 			)
 		);
 	}
 
 	return next(action);
 };
+
+export const createPresetFilterMiddleware = (
+	presetFilter: OverviewEngineApi.FilterMap,
+	targetDescriptor: Activity.Descriptor
+): Middleware => createInitialUiStateMiddleware({ activeFilters: presetFilter }, targetDescriptor);
 
 function isTargetOverviewActivity(activity: Activity, targetDescriptor: Activity.Descriptor) {
 	return isEqual(activity.descriptor, targetDescriptor);

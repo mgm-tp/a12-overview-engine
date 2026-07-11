@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { View } from "@com.mgmtp.a12.client/client-core";
 import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 // tag::main[]

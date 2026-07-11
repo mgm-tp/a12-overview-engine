@@ -30,9 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type OverviewModel } from "../../overview-model.js";
+import type { OverviewModel } from "../../overview-model.js";
 
 const DEFAULT_ERROR_MESSAGE = `OverviewEngineServicesContext is not initiated.`;
 
@@ -57,6 +58,18 @@ export const defaultOverviewModel: OverviewModel = {
 };
 
 /** @internal */
-export function defaultDialogSetter() {
-	throw new Error(DEFAULT_ERROR_MESSAGE);
-}
+export const defaultModelGraph: ModelGraph = {
+	get documentModels(): ModelGraph["documentModels"] {
+		return [];
+	},
+
+	get composeDocumentModels(): ModelGraph["composeDocumentModels"] {
+		return [];
+	},
+	get relationshipModels(): ModelGraph["relationshipModels"] {
+		return [];
+	},
+	get genericModels(): ModelGraph["genericModels"] {
+		return [];
+	}
+};

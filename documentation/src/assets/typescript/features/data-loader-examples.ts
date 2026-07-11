@@ -31,7 +31,7 @@
  */
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DataOperation } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { DataOperation } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 // @ts-expect-error documentation
 // tag::ListDocuments[]

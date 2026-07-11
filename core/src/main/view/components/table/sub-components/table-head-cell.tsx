@@ -32,8 +32,9 @@
 
 import * as React from "react";
 
-import { type OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../../services/localization/index.js";
+import type { OverviewModel } from "../../../../overview-model.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useModelIdFromColumn } from "../../../hooks/use-relationship.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export namespace TableHeadCell {
@@ -48,9 +49,12 @@ export const TableHeadCell: React.ComponentType<TableHeadCell.Props> = React.mem
 	const HiddenText = useOverviewEngineContext((context) => context.widgetMap.HiddenText);
 
 	const { icon, labelHidden } = props.columnModel;
-
+	const modelId = useModelIdFromColumn(props.columnModel);
 	const localizedColumnLabel = LocalizerHooks.useLocalizedColumnLabel();
-	const label = React.useMemo(() => localizedColumnLabel(props.columnModel), [props.columnModel, localizedColumnLabel]);
+	const label = React.useMemo(
+		() => localizedColumnLabel(props.columnModel, modelId),
+		[localizedColumnLabel, props.columnModel, modelId]
+	);
 	const showLabel = React.useMemo(() => {
 		if (!label) {
 			return undefined;

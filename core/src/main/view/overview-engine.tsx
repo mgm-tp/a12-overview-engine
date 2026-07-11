@@ -31,31 +31,32 @@
  */
 
 import * as React from "react";
+import type { FC } from "react";
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
-import {
-	useWindowSize,
-	type Container,
-	type RowStyleGetter,
-	type TimePickerProps
-} from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { useWindowSize, type Container, type RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { type UiState } from "../store/index.js";
+import type { UiState } from "../store/index.js";
 import { OverviewModel } from "../overview-model.js";
-import { type JSONDocument } from "../models/index.js";
 import { DocumentUtils } from "../models/internal/shared.js";
+import type { Links, JSONDocument } from "../models/index.js";
 import { OverviewEngineInternalConstants } from "../shared/constants.js";
+import { getModelIdFromColumn } from "../services/relationship/index.js";
+import { type FilterStateSelectors, DefaultFilterStateSelectors } from "../store/index.js";
 
-import { type OverviewEngineApi } from "./api.js";
-import { OverviewTable } from "./overviewTable.js";
-import { OverviewContentBox } from "./overviewContentBox.js";
+import type { OverviewEngineApi } from "./api.js";
+import { OverviewTable } from "./overview-table.js";
 import { SearchStatus } from "./components/search-status.js";
+import { useRelationshipModels } from "./hooks/use-relationship.js";
 import { OverviewDialog } from "./components/dialogs/overview-dialog.js";
 import { OverviewEngineContext } from "./context/overview-engine-context.js";
 import { type WidgetMap, DefaultWidgetMap } from "./configuration/widget-map.js";
 import { type SelectorMap, DefaultSelectorMap } from "./configuration/selector-map.js";
+import { OverviewContentBox as OldOverviewContentBox } from "./overview-content-box.js";
 import { type ComponentMap, DefaultComponentMap } from "./configuration/component-map.js";
+import { OverviewContentBox as NewOverviewContentBox } from "./components/new-filters/overview-content-box.js";
 import { useInternalContextValue, OverviewEngineInternalContext } from "./context/overview-engine-internal-context.js";
 
 export const OverviewEngine: React.ComponentType<OverviewEngine.Props> = React.memo(function OverviewEngine(props) {
@@ -75,10 +76,19 @@ export const OverviewEngine: React.ComponentType<OverviewEngine.Props> = React.m
 
 	const { breakPoint } = useWindowSize();
 	const internalContextValue = useInternalContextValue(props);
+	const allRelationshipModels = useRelationshipModels();
 
 	const expressionTrees = React.useMemo(() => {
-		const valueParser: ExpressionBuilder.ValueParser = (path, uiValue) => {
-			const parsedValue = internalContextValue.converter.parseValue(path, uiValue);
+		const getValueParser: (
+			column: OverviewModel.ExpressionColumn | OverviewModel.LinkColumn.Expression
+		) => ExpressionBuilder.ValueParser = (column) => (path, uiValue) => {
+			let modelId: string | undefined = undefined;
+
+			if (OverviewModel.LinkColumn.Expression.isAssignableFrom(column)) {
+				modelId = getModelIdFromColumn(column, allRelationshipModels);
+			}
+
+			const parsedValue = internalContextValue.converter.parseValue(path, uiValue, undefined, modelId);
 
 			if (parsedValue.error) {
 				throw new Error("Can not parse string: " + uiValue);
@@ -93,10 +103,17 @@ export const OverviewEngine: React.ComponentType<OverviewEngine.Props> = React.m
 
 		return Object.fromEntries(
 			props.overviewModel.content.columns
-				.filter(OverviewModel.ExpressionColumn.isAssignableFrom)
-				.map((column) => [column.id, ExpressionBuilder.build(column.expression, { rootPath: [], valueParser })])
+				.filter(
+					(column): column is OverviewModel.ExpressionColumn | OverviewModel.LinkColumn.Expression =>
+						OverviewModel.ExpressionColumn.isAssignableFrom(column) ||
+						OverviewModel.LinkColumn.Expression.isAssignableFrom(column)
+				)
+				.map((column) => [
+					column.id,
+					ExpressionBuilder.build(column.expression, { rootPath: [], valueParser: getValueParser(column) })
+				])
 		);
-	}, [internalContextValue.converter, props.overviewModel.content.columns]);
+	}, [internalContextValue.converter, props.overviewModel.content.columns, allRelationshipModels]);
 
 	const referenceColumns = React.useMemo(
 		() =>
@@ -124,20 +141,33 @@ export const OverviewEngine: React.ComponentType<OverviewEngine.Props> = React.m
 				eventHandlers,
 				expressionTrees,
 				referenceColumns,
+				filterStateSelectors: props.filterStateSelectors ?? DefaultFilterStateSelectors,
 				smallView: (breakPoint?.size === "sm" || breakPoint?.size === "xs") && !props.embedded
 			}}>
 			<OverviewEngineInternalContext.Provider value={internalContextValue}>
 				{props.children || (
 					<>
-						<OverviewContentBox ariaLevel={props.ariaLevel}>
-							<SearchStatus />
-							<OverviewTable />
-						</OverviewContentBox>
+						<OverviewContentBox
+							ariaLevel={props.ariaLevel}
+							useNewFilter={!!props.overviewModel.content.configuration.newFilterConfiguration}
+						/>
 						<OverviewDialog />
 					</>
 				)}
 			</OverviewEngineInternalContext.Provider>
 		</OverviewEngineContext.Provider>
+	);
+});
+
+const OverviewContentBox: FC<{ ariaLevel?: number; useNewFilter: boolean }> = React.memo((props) => {
+	const { ariaLevel, useNewFilter } = props;
+	const ContentBox = useNewFilter ? NewOverviewContentBox : OldOverviewContentBox;
+
+	return (
+		<ContentBox ariaLevel={ariaLevel}>
+			<SearchStatus />
+			<OverviewTable />
+		</ContentBox>
 	);
 });
 
@@ -176,6 +206,13 @@ export namespace OverviewEngine {
 		readonly subDocumentModels?: DocumentModel[];
 
 		/**
+		 * Resolved relationships across the document and sub-document models. Used by
+		 * link/reference columns to traverse data without re-resolving relationships per
+		 * row.
+		 */
+		readonly modelGraph?: ModelGraph;
+
+		/**
 		 * The UI model which is used to render overview engine
 		 */
 		readonly overviewModel: OverviewModel;
@@ -187,8 +224,19 @@ export namespace OverviewEngine {
 
 		/**
 		 * This map is to define state for row actions
+		 * @deprecated Use {@link rowActionStyling} instead.
 		 */
 		readonly rowActionState?: OverviewEngineApi.RowActionState;
+
+		/**
+		 * Callback variant of {@link OverviewEngineApi.RowActionState}.
+		 * Called per row and per action; returns the action state for that specific row.
+		 *
+		 * Prefer this over {@link OverviewEngineApi.RowActionState.rows} when rows may share `id` (exclude-mode duplicates).
+		 *
+		 * @remarks Wrap with `useCallback` to avoid unnecessary re-renders.
+		 */
+		readonly rowActionStyling?: OverviewEngineApi.RowActionStyling;
 
 		/**
 		 * The callback controls the style (e.g: interactive,...) of a row
@@ -235,6 +283,13 @@ export namespace OverviewEngine {
 		readonly selectorMap?: SelectorMap;
 
 		/**
+		 * Filter state selectors. Defaults to {@link DefaultFilterStateSelectors}.
+		 *
+		 * @experimental until 40.0.0 - API may change without semver guarantees.
+		 */
+		readonly filterStateSelectors?: FilterStateSelectors;
+
+		/**
 		 * The results of statistical operation for each column
 		 */
 		readonly summaryResult?: OverviewEngineApi.SummaryResult;
@@ -244,10 +299,6 @@ export namespace OverviewEngine {
 		 */
 		readonly uiIdPrefix?: string;
 
-		/**
-		 * A property defines the time mode (12h or 24h) which is used in the date time and time picker
-		 */
-		readonly timeMode?: TimePickerProps.ClockMode;
 		/**
 		 * A property which defines the thumbnail map
 		 */
@@ -274,5 +325,10 @@ export namespace OverviewEngine {
 		 * This is an experimental feature, so use it with caution.
 		 */
 		readonly loadingState?: "without" | "missing" | "loading" | "loaded" | "error";
+
+		/**
+		 * Resolved document links and their associated documents for reference columns.
+		 */
+		readonly links?: Links;
 	}
 }

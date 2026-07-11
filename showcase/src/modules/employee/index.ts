@@ -30,23 +30,81 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { Dispatch } from "redux";
+
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
 
 import { createPresetFilterMiddleware } from "../common/middleware.js";
-import EmployeeAM from "../../../resources/models/employee/EmployeeAM.json" with { type: "json" };
+import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
-export const EmployeeModule: Module = {
+import { EmployeeSagas } from "./sagas.js";
+
+const DESCRIPTOR = { showcase: "employee", feature: "preset-filter" };
+
+function onClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR }),
+			descriptor: {}
+		})
+	);
+}
+
+export const EmployeeModule: DynamicConfiguration = {
 	id: "Employee",
-	model: () => EmployeeAM as ApplicationModel,
-	middlewares: () => [
-		createPresetFilterMiddleware(
-			employeePresetFilter,
+	sagas: () => EmployeeSagas,
+	middlewares: () => [createPresetFilterMiddleware(employeePresetFilter, DESCRIPTOR)],
+	menus: (state) => {
+		const activity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR)(state).at(0);
+
+		return [
 			{
-				showcase: "employee",
-				feature: "preset-filter"
-			},
-			true
-		)
+				id: "menu.employee",
+				label: { key: "application.menu.employee" },
+				selected: activity !== undefined,
+				action: onClick
+			}
+		];
+	},
+	flows: [
+		{
+			name: "EmployeeFlow",
+			scenes: [
+				{
+					name: "ShowcaseOverview",
+					matches: (d) => d.showcase === DESCRIPTOR.showcase && d.feature === DESCRIPTOR.feature && !d.selectedEmployee,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: "EmployeeOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "EmployeeProjectOverview",
+					matches: (d) => d.model === "EmployeeDM" && !!d.selectedEmployee,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: "EmployeeProjectOM" }]
+							}
+						]
+					}
+				}
+			]
+		}
 	]
 };
 

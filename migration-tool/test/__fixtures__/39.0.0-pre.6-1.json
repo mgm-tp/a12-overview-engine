@@ -1,0 +1,119 @@
+{
+	"header": {
+		"id": "39.0.0-pre.5-with-filter-bar",
+		"modelType": "overview",
+		"modelVersion": "39.0.0-pre.6",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Test Overview With New Filter + Filter Bar"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "TestDM"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-1",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"pagingSize": 10,
+			"newFilterConfiguration": {
+				"filterGroups": [
+					{
+						"id": "common",
+						"name": "common",
+						"label": [
+							{
+								"locale": "en",
+								"text": "Common"
+							}
+						],
+						"filterItems": [
+							{
+								"id": "name",
+								"type": "string",
+								"options": {
+									"fieldId": "F1",
+									"viewMode": "list",
+									"empty": {
+										"enabled": true,
+										"value": false
+									},
+									"caseSensitive": {
+										"enabled": true,
+										"value": false
+									},
+									"exactMatch": {
+										"enabled": true,
+										"value": false
+									},
+									"invert": {
+										"enabled": true,
+										"value": false
+									}
+								}
+							}
+						]
+					}
+				],
+				"filterSelector": {
+					"viewMode": "docked",
+					"initialVisibility": "show",
+					"searchBar": {
+						"enabled": true,
+						"value": false
+					},
+					"invert": {
+						"enabled": true,
+						"value": false
+					},
+					"joinOperator": {
+						"enabled": true,
+						"value": "and"
+					},
+					"showSetFiltersOnly": {
+						"enabled": true,
+						"value": false
+					}
+				},
+				"filterBar": {
+					"invert": {
+						"enabled": true,
+						"value": true
+					},
+					"joinOperator": {
+						"enabled": true,
+						"value": "or"
+					}
+				}
+			}
+		}
+	}
+}

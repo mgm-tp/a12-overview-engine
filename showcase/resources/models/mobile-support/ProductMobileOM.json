@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductMobileOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Liste aller Produkte"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,6 +32,61 @@
 		]
 	},
 	"content": {
+		"subHeaderBox": {
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				}
+			]
+		},
+		"footerBox": {
+			"rightSlot": [],
+			"leftSlot": []
+		},
+		"columns": [
+			{
+				"id": "column-752d19",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Expression"
+					},
+					{
+						"locale": "de",
+						"text": "Expression"
+					}
+				],
+				"width": 1,
+				"name": "Expression",
+				"expression": "kontext(product) { \n    \"<p style='color: gray;'>\"[dateField]\"</p>\"\n    \"<p style='color: blue; font-weight: 600;'>\" [name] \"</p>\"\n    case [targetGroup] = \"women\" {\n        \"<p style='font-weight: 600'>\"[description]\"</p>\"\n    }\n    case [targetGroup] != \"women\" {\n        \"<p style='color: gray;'>\"[description]\"</p>\"\n    }      \n}"
+			},
+			{
+				"id": "column-6aac6",
+				"labelHidden": true,
+				"width": 0.3,
+				"alignment": {
+					"content": {
+						"horizontal": "center",
+						"vertical": "middle"
+					}
+				},
+				"styles": {},
+				"elementRef": "F54",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
 		"configuration": {
 			"enableFilter": true,
 			"multiSelection": {
@@ -163,61 +213,6 @@
 					}
 				]
 			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
-		"columns": [
-			{
-				"id": "column-752d19",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Expression"
-					},
-					{
-						"locale": "de",
-						"text": "Expression"
-					}
-				],
-				"width": 1,
-				"name": "Expression",
-				"expression": "kontext(product) { \n    \"<p style='color: gray;'>\"[dateField]\"</p>\"\n    \"<p style='color: blue; font-weight: 600;'>\" [name] \"</p>\"\n    case [targetGroup] = \"women\" {\n        \"<p style='font-weight: 600'>\"[description]\"</p>\"\n    }\n    case [targetGroup] != \"women\" {\n        \"<p style='color: gray;'>\"[description]\"</p>\"\n    }      \n}"
-			},
-			{
-				"id": "column-6aac6",
-				"labelHidden": true,
-				"width": 0.3,
-				"alignment": {
-					"content": {
-						"horizontal": "center",
-						"vertical": "middle"
-					}
-				},
-				"styles": {},
-				"elementRef": "F54",
-				"sortable": false
-			}
-		],
-		"rowActionGroup": {
-			"actions": []
-		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"]
+		}
 	}
 }

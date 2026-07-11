@@ -31,10 +31,9 @@
  */
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel, type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { MultiSelectModelUtils } from "../multi-select.js";
-import { toFilterId } from "../../../view/components/filters/utils.js";
 import { createDocumentModelService } from "../document-model-service.js";
 
 /** @internal */
@@ -82,18 +81,24 @@ export namespace DocumentModelUtils {
 	}
 
 	export function getElementPathForId(elementRef: string, documentModel: DocumentModel): string {
-		return toFilterId(getElementPath(elementRef, documentModel));
+		return ModelPath.toString(getElementPath(elementRef, documentModel));
 	}
 
 	export function getElementPath(elementRef: string, documentModel: DocumentModel): ModelPath {
 		return createDocumentModelService(documentModel).getPathById(elementRef);
 	}
 
-	export function findElementByFilterId(documentModel: DocumentModel, filterId: string): DocumentModel.Element {
-		if (filterId === "") {
+	/**
+	 * Resolve a `DocumentModel.Element` from a stringified `ModelPath` (e.g. `"/product/name"`).
+	 *
+	 * Empty string short-circuits to `modelRoot`, so callers that pass `""` for a top-level
+	 * filter still get a valid element back.
+	 */
+	export function findElementByPath(documentModel: DocumentModel, path: string): DocumentModel.Element {
+		if (path === "") {
 			return documentModel.content.modelRoot;
 		}
 
-		return createDocumentModelService(documentModel).getByPath(ModelPath.fromString(filterId));
+		return createDocumentModelService(documentModel).getByPath(ModelPath.fromString(path));
 	}
 }

@@ -1,0 +1,163 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+[[link-columns]]
+= Link Columns
+
+Link columns display data from a *related document* reached via an outgoing relationship, rather than from the row's own document.
+They are configured in the Overview Model exactly like regular columns, with an additional `linkReferences` array that describes the relationship path to traverse.
+
+Link columns only work when the Overview Model is used together with a *Query Model* (referenced via `modelReferences` with `purpose: "query-model-for-overview"`), and the corresponding links must be declared in that Query Model's `content.links`.
+Linked document data is fetched exclusively through the query, so a link column whose `linkReferences` have no matching link in the Query Model renders the `overviewEngine.table.linkNotFound` resource ("Link not found.").
+
+Two link column types are available:
+
+* `LinkColumn.Reference` — displays a field value from the related document (like a regular reference column, but across a link).
+* `LinkColumn.Expression` — evaluates an expression against the related document's data.
+
+== Configuration
+
+=== `linkReferences`
+
+Every link column must include a `linkReferences` array with at least one entry describing the relationship to follow.
+
+[cols="1,1,3"]
+|===
+| Property | Type | Description
+
+| `relationship`
+| `string`
+| The model ID of the Relationship Model connecting the source document to the target.
+
+| `targetRole`
+| `string`
+| The role name of the target document within that relationship.
+
+| `type`
+| `"CHILD"` \| `"LINK"`
+| Relationship cardinality type.
+`CHILD` — the target is a child document (outgoing-to-1).
+`LINK` — the target is a linked document.
+|===
+
+[WARNING]
+====
+The engine displays only *one* link per document (row).
+Link reference data is returned as an array, and the engine always uses the *first* entry.
+
+For this reason a link reference should resolve to a *to-1* relationship.
+Technically a to-many relationship can also be used, but the order of links is not guaranteed, so the first entry — and therefore the displayed value — may change between loads, producing unstable results.
+The SME only offers to-1 relationships when configuring a link reference.
+====
+
+=== `LinkColumn.Reference`
+
+A `LinkColumn.Reference` has the same properties as a `ReferenceColumn` (except `summary`), plus `linkReferences`.
+
+[source,json,title="Overview Model — Link reference column"]
+----
+{
+  "id": "column-dept-name",
+  "elementRef": "field_dept_name",
+  "width": 1.2,
+  "linkReferences": [
+    {
+      "relationship": "PersonDepartmentRM",
+      "targetRole": "department",
+      "type": "CHILD"
+    }
+  ]
+}
+----
+
+=== `LinkColumn.Expression`
+
+A `LinkColumn.Expression` has the same properties as an `ExpressionColumn`, plus `linkReferences`.
+The `expression` is evaluated in the context of the related document.
+
+[source,json,title="Overview Model — Link expression column"]
+----
+{
+  "id": "column-weekly-hours",
+  "name": "weekly_hours_expression",
+  "linkReferences": [
+		{
+			"relationship": "PersonContractRM",
+			"targetRole": "contract",
+			"type": "CHILD"
+		}
+	],
+  "expression": "kontext(Contract) {\n [Weekly_Work_Hours] \" hours\"\n }",
+  "width": 1.5
+}
+----
+
+== Sorting
+
+`LinkColumn.Reference` supports sorting.
+Add `sortable: true` and optionally `preferredSorting` to enable it:
+
+[source,json,title="Overview Model — Link reference column with sorting"]
+----
+{
+  "id": "column-dept-name",
+  "elementRef": "field_dept_name",
+  "width": 1.2,
+  "linkReferences": [
+    {
+      "relationship": "PersonDepartmentRM",
+      "targetRole": "department",
+      "type": "CHILD"
+    }
+  ],
+  "sortable": true,
+  "preferredSorting": "ASC"
+}
+----
+
+When a linked column is sorted, the `path` in the `Sorting` state is a `RelationshipField` instead of a plain string:
+
+[source,typescript,title="Narrowing Sorting.path for link columns"]
+----
+import type { RelationshipField } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+overviewState.sorting?.forEach(({ path, order }) => {
+    if (typeof path === "string") {
+        // plain column sort
+    } else {
+        // RelationshipField — path through a relationship
+        console.log(path.relationshipModel, path.targetRole, path.sortBy);
+    }
+});
+----
+
+If your application reads sort state (e.g. in a custom `onColumnClick` handler), pass `RelationshipModel[]` and sub-document `DocumentModel[]` to `getSortingProps` so linked sort paths resolve correctly:
+
+[source,typescript,title="getSortingProps with relationship models"]
+----
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+const sorting = getSortingProps(
+    uiState.sorting,
+    documentModel,
+    overviewModel,
+    relationshipModels,    // RelationshipModel[] from data services state
+    subDocumentModels      // DocumentModel[] for the linked target documents
+);
+----
+
+NOTE: Sorting is not available in *exclude mode*. When `queryModel.content.exclude` is `true`, column headers are rendered as non-sortable and clicking them has no effect, regardless of the `sortable` flag on the column.

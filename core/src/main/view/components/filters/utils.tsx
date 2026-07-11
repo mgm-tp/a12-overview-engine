@@ -34,30 +34,26 @@ import * as React from "react";
 import { uniqBy } from "lodash-es";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import * as KernelUtils from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
-import { type Locale, type DataFormats, defaultDataFormats } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { OverviewEngineApi } from "../../api.js";
 import { UiStateSelector } from "../../../store/index.js";
 import { OverviewModel } from "../../../overview-model.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 import { useFilterContext } from "../../context/filter-context.js";
+import { defaultDateRangeConversionTransformer } from "../../../services/index.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../models/internal/shared.js";
 import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
-import {
-	RESOURCE_KEYS,
-	LocalizerHooks,
-	OverviewModelKeys,
-	LocalizableFactory
-} from "../../../services/localization/index.js";
+import { RESOURCE_KEYS, OverviewModelKeys, LocalizableFactory } from "../../../services/localization/index.js";
 
-import { type Filter } from "./filter-options-view.js";
+import type { Filter } from "./filter-options-view.js";
 import { EmptyLabel } from "./options-views/empty-label.js";
-import { DateTimeUtils } from "./options-views/date-time-utils.js";
-import { type NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
-import { type DateTimeViewValue, type DateTimeViewSelection } from "./options-views/date-time-filter-view.api.js";
+import { useDateTimeFormatString } from "./use-date-time-format-string.js";
+import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
+import type { DateTimeViewValue, DateTimeViewSelection } from "./options-views/date-time-filter-view.api.js";
 
 /** @internal */
 export function toFilterMap(filters: Filter.FilterData[]): OverviewEngineApi.FilterMap {
@@ -346,16 +342,6 @@ function useRangeFormatter() {
 	);
 }
 
-/**
- * Get default data format. All properties are required to use as default value.
- * In case locale.language is not "en", "de", it should fallback to defaultDataFormats({ language: "en" })
- */
-function getDefaultDataFormats(locale: Locale): Required<DataFormats> {
-	return defaultDataFormats(
-		["en", "de"].includes(locale.language) ? locale : { language: "en" }
-	) as Required<DataFormats>;
-}
-
 /** @internal */
 export function useLocalizedDateTimeFormatString() {
 	const { localizer } = React.useContext(LocalizerContext);
@@ -369,54 +355,6 @@ export function useLocalizedDateTimeFormatString() {
 			return localizer(...LocalizableFactory.createDateFormatLocalizables(formatString));
 		},
 		[getDateTimeFormatString, localizer]
-	);
-}
-
-/** @internal */
-export function useDateTimeFormatString() {
-	const { dataFormats, locale } = React.useContext(LocalizerContext);
-
-	const { dateFragmentOrdering, dateSeparator, timeFormat } = React.useMemo(() => {
-		return {
-			...getDefaultDataFormats(locale),
-			...dataFormats
-		} satisfies Required<DataFormats>;
-	}, [dataFormats, locale]);
-
-	const dateFormat = React.useMemo(() => {
-		return dateFragmentOrdering.split("_").map(replaceDayFragmentInFormatString).join(dateSeparator).trim();
-	}, [dateFragmentOrdering, dateSeparator]);
-
-	const monthYearFormat = React.useMemo(() => {
-		return dateFragmentOrdering
-			.split("_")
-			.flatMap((value) => {
-				if (value === "DAY") {
-					return [];
-				}
-
-				return replaceDayFragmentInFormatString(value);
-			})
-			.join(dateSeparator)
-			.trim();
-	}, [dateFragmentOrdering, dateSeparator]);
-
-	return React.useCallback(
-		(selectedView: DateTimeViewSelection): string => {
-			switch (selectedView) {
-				case "date":
-					return dateFormat;
-				case "time":
-					return timeFormat;
-				case "year":
-					return "y".repeat(4);
-				case "monthYear":
-					return monthYearFormat;
-				default:
-					throw new Error(`Invalid selectedView ${selectedView}`);
-			}
-		},
-		[dateFormat, timeFormat, monthYearFormat]
 	);
 }
 
@@ -435,7 +373,7 @@ export function useValueFormatter() {
 			modelId?: string
 		): string => {
 			if (!selectedView || !(rangeValue instanceof Date)) {
-				return converter.formatValue(path, rangeValue, DateTimeUtils.defaultDateRangeConversionTransformer, modelId);
+				return converter.formatValue(path, rangeValue, defaultDateRangeConversionTransformer, modelId);
 			}
 
 			if (selectedView === "date") {
@@ -571,7 +509,7 @@ namespace FilterableElement {
 				}
 			}
 
-			return uniqBy(filterableElements, ({ path }) => toFilterId(path));
+			return uniqBy(filterableElements, ({ path }) => ModelPath.toString(path));
 		}, [documentModel, subDocumentModels]);
 	}
 
@@ -599,8 +537,7 @@ namespace FilterableElement {
 	}
 }
 
-/** @internal */
-export function useFilterDataConverter() {
+function useFilterDataConverter() {
 	const referenceColumns = useOverviewEngineContext((context) => context.referenceColumns);
 	const localizedFieldLabel = LocalizerHooks.useLocalizedFieldLabel();
 	const localizedColumnLabel = LocalizerHooks.useLocalizedColumnLabel();
@@ -614,7 +551,7 @@ export function useFilterDataConverter() {
 
 			const referenceColumn = referenceColumns?.[element.id];
 			const columnLabel = referenceColumn ? localizedColumnLabel(referenceColumn) : "";
-			const id = toFilterId(path);
+			const id = ModelPath.toString(path);
 
 			return {
 				id,
@@ -631,21 +568,15 @@ export function useFilterDataConverter() {
 }
 
 /** @internal */
-export function toFilterId(path: ModelPath) {
-	return ModelPath.toString(path);
-}
-
-/** @internal */
 export function useFlattenedFilters(): Filter.FilterData[] {
 	const enableFilter = useOverviewEngineContext((context) => context.overviewModel.content.configuration.enableFilter);
 	const activeFilters = useOverviewEngineState(UiStateSelector.activeFilters());
 	const enumeratedStringFilterMap = useOverviewEngineState(UiStateSelector.enumeratedStringFilterMap());
-	const timeMode = useOverviewEngineContext((context) => context.timeMode);
 	const convertFilterData = useFilterDataConverter();
 	const elementsByFilterMode = FilterableElement.useElementsByFilterMode();
 
 	return React.useMemo(() => {
-		if (!enableFilter || (!activeFilters && !enumeratedStringFilterMap && !timeMode)) {
+		if (!enableFilter || (!activeFilters && !enumeratedStringFilterMap)) {
 			return [];
 		}
 
@@ -660,7 +591,7 @@ export function useFlattenedFilters(): Filter.FilterData[] {
 		}
 
 		return listFilterData;
-	}, [enableFilter, activeFilters, enumeratedStringFilterMap, timeMode, elementsByFilterMode, convertFilterData]);
+	}, [enableFilter, activeFilters, enumeratedStringFilterMap, elementsByFilterMode, convertFilterData]);
 }
 
 /**
@@ -676,7 +607,7 @@ export function useExcludedFilterIds() {
 		overviewModel.content.columns.forEach((column) => {
 			if (OverviewModel.ReferenceColumn.isAssignableFrom(column) && column.suffixRef) {
 				const suffixRefPath = documentModelService.getPathById(column.suffixRef);
-				referencedFieldsViaSuffix.push(toFilterId(suffixRefPath));
+				referencedFieldsViaSuffix.push(ModelPath.toString(suffixRefPath));
 			}
 		});
 
@@ -767,17 +698,4 @@ export function useSuffixFilterDataGetter(filters?: Filter.FilterData[]) {
 		},
 		[documentModelService, filtersData, referenceColumns]
 	);
-}
-
-function replaceDayFragmentInFormatString(value: string): string {
-	switch (value) {
-		case "DAY":
-			return "d".repeat(2);
-		case "MONTH":
-			return "M".repeat(2);
-		case "YEAR":
-			return "y".repeat(4);
-		default:
-			return value;
-	}
 }

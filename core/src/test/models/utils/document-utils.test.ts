@@ -33,11 +33,7 @@
 import { it, expect, describe } from "vitest";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import {
-	type GroupInstance,
-	type EntityInstancePath,
-	type FieldInstanceValue
-} from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { GroupInstance, EntityInstancePath, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { DocumentUtils } from "../../../main/models/internal/shared.js";
 

@@ -77,7 +77,8 @@ export default [
 			"**/playwright-report/",
 			"**/test-results/",
 			"**/*.skip-test.*",
-			"migration-tool/src/internal/steps/index.ts"
+			"migration-tool/src/internal/steps/index.ts",
+			"**/worktrees/**"
 		]
 	},
 	{
@@ -91,7 +92,7 @@ export default [
 			reportUnusedDisableDirectives: "error"
 		},
 		plugins: {
-			notice,
+			notice: fixupPluginRules(notice),
 			stylistic,
 			perfectionist,
 			"unused-imports": unusedImports,
@@ -110,8 +111,8 @@ export default [
 			"react/display-name": "off",
 			"react/prop-types": "off",
 			"react/react-in-jsx-scope": "off",
-			"react-hooks/static-components": "off",
 			"react-hooks/refs": "off",
+			"react-hooks/static-components": "off",
 			"react-hooks/immutability": "off",
 			"react-hooks/preserve-manual-memoization": "off",
 			"notice/notice": ["error", { template: license, onNonMatchingHeader: "replace", chars: license.length }],
@@ -124,12 +125,10 @@ export default [
 				{
 					type: "line-length",
 					groups: ["side-effect", "builtin", "external", "a12", "core", "parent", ["sibling", "index"]],
-					customGroups: {
-						value: {
-							a12: ["^@com\\.mgmtp\\.a12\\.*"],
-							core: ["\\..*/main"]
-						}
-					}
+					customGroups: [
+						{ groupName: "a12", elementNamePattern: "^@com\\.mgmtp\\.a12\\." },
+						{ groupName: "core", elementNamePattern: "\\..*/main" }
+					]
 				}
 			],
 			"perfectionist/sort-named-imports": ["error", { type: "line-length" }],
@@ -138,10 +137,20 @@ export default [
 				"error",
 				{
 					patterns: [
-						"../**/internal/*",
-						"!../**/internal/shared.js",
-						"@com.mgmtp.a12*/**/internal/**",
-						"@com.mgmtp.a12*/**/src/**"
+						{
+							group: ["@com.mgmtp.a12*/**/internal/**", "@com.mgmtp.a12*/**/src/**"],
+							message: "Importing from internal/src modules is not allowed. Please use the public API instead."
+						},
+						{
+							group: ["redux-saga"],
+							importNames: ["SagaIterator"],
+							message: "Use 'SagaGenerator' from 'typed-redux-saga' instead."
+						},
+						{
+							group: ["redux"],
+							importNames: ["AnyAction"],
+							message: "AnyAction is deprecated in Redux 5. Use 'UnknownAction' or 'unknown' instead."
+						}
 					]
 				}
 			],
@@ -151,8 +160,9 @@ export default [
 			"filename/match": ["error", "kebab-case"],
 			"@typescript-eslint/consistent-type-imports": [
 				"error",
-				{ prefer: "type-imports", fixStyle: "inline-type-imports" }
+				{ prefer: "type-imports", fixStyle: "separate-type-imports" }
 			],
+			"@typescript-eslint/no-import-type-side-effects": "error",
 
 			"stylistic/padding-line-between-statements": [
 				"error",

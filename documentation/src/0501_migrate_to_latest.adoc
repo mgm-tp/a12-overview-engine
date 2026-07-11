@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -9,15 +9,639 @@ You may redistribute and/or modify this file under the terms of the European Uni
 Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
 
 Please contact a12-license@mgm-tp.com for more information.
-    
+
 You must select and comply with exactly one of the above license options.
 
 Warranty Disclaimer (applies to either option)
-THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+THIS SOFTWARE IS PROVIDED “AS IS” AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
 ////
+
+= 2026.06
+
+== 39.0.0
+
+=== React peer dependency raised to 19.2
+
+*Tooling:* none — manual change.
+
+The minimum supported version of `react` and `react-dom` in our peerDependency has been raised from `^19.0.0` to `^19.2.6`. Update your `package.json` accordingly:
+
+[source,json]
+----
+{
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}
+----
+
+=== Minimum supported model version raised to 37.0.0
+
+*Tooling:* Model migration tool, *required* — see <<model-migration-39.0.0>>.
+
+The migration tool no longer supports migration of Overview models before version 37.0.0.
+If you need to migrate models from an older version, you need to migrate to version 37.0.0 first using the migration tool of that version.
+
+=== Replace `defaultRowAction` with `rowActivation`
+
+*Tooling:* Model migration tool, *required* — auto-migrates the legacy shape (see <<model-migration-39.0.0>>); the TypeScript change below is manual.
+
+The `defaultRowAction` field on `OverviewModel.Content` has been replaced by `rowActivation`.
+The new field accepts two shapes:
+
+* `{ type: "event", event: "..." }` — fires the configured event on row click. Auto-migrated from the legacy `{ custom: true, event: "..." }` shape.
+* `{ type: "non_interactive" }` — new for accessibility. Row click is suppressed; the row renders without pointer cursor, hover, or focus affordance.
+
+Omitting `rowActivation` keeps the engine's default behavior (`onRowClick` fires with `customEvent: undefined`).
+
+==== TypeScript changes
+
+The type `OverviewModel.DefaultRowAction` has been removed. Use `OverviewModel.RowActivation`:
+
+[source,typescript]
+----
+type RowActivation =
+    | OverviewModel.EventRowActivation     // { type: "event"; event: string }
+    | OverviewModel.NonInteractiveRowActivation; // { type: "non_interactive" }
+----
+
+=== Sorting for linked reference columns
+
+*Tooling:* none — manual change.
+
+Linked reference columns (`LinkColumn.Reference`) now support the `sortable` and `preferredSorting` properties, which were previously not available for linked columns.
+This allows sorting by fields from related documents across outgoing-to-1 relationships.
+
+No migration is required for existing models — to opt in, add `sortable` and optionally `preferredSorting` to a linked reference column:
+
+[source,json,title="Overview Model — Linked reference column with sorting"]
+----
+{
+  "id": "column-dept-name",
+  "elementRef": "field_dept_name",
+  "width": 1.2,
+  "linkReferences": [
+    {
+      "relationship": "PersonDepartmentRM",
+      "targetRole": "department",
+      "type": "CHILD"
+    }
+  ],
+  "sortable": true,
+  "preferredSorting": "ASC"
+}
+----
+
+==== `Sorting.path` widened to `string | RelationshipField`
+
+The `Sorting` interface's `path` property has changed from `string` to `string | RelationshipField`.
+A new `RelationshipField` interface is now exported to represent a sort path through a relationship chain.
+
+|===
+| Before | After
+
+| `Sorting.path: string`
+| `Sorting.path: string \| RelationshipField`
+
+| _(not exported)_
+| `RelationshipField { relationshipModel: string; targetRole: string; sortBy: string \| RelationshipField }`
+|===
+
+Consumers who directly inspect sort state (e.g. custom `onSort` handlers or code reading `UiState["sorting"]`) must narrow the type:
+
+[source,typescript,title="Before"]
+----
+overviewState.sorting?.forEach(({ path, order }) => {
+    console.log(path.toUpperCase()); // path was always a string
+});
+----
+
+[source,typescript,title="After"]
+----
+import type { RelationshipField } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+overviewState.sorting?.forEach(({ path, order }) => {
+    if (typeof path === "string") {
+        console.log(path.toUpperCase());
+    } else {
+        // RelationshipField — sort through a relationship chain
+        console.log(path.relationshipModel, path.targetRole);
+    }
+});
+----
+
+==== `getSortingProps` accepts relationship models
+
+`getSortingProps` has two new optional parameters needed to resolve sort paths for linked reference columns:
+
+|===
+| Before | After
+
+| `getSortingProps(sorting, documentModel, overviewModel)`
+| `getSortingProps(sorting, documentModel, overviewModel, relationshipModels?, subDocumentModels?)`
+|===
+
+If linked reference columns are present in the model, pass the available `RelationshipModel[]` and sub-document `DocumentModel[]` so paths can be resolved:
+
+[source,typescript,title="After"]
+----
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+const sorting = getSortingProps(
+    uiState.sorting,
+    documentModel,
+    overviewModel,
+    relationshipModels,  // RelationshipModel[] from the data services state
+    subDocumentModels    // DocumentModel[] for linked target documents
+);
+----
+
+Calls without the new parameters continue to work as before for models that use only plain reference columns.
+
+=== Split `OverviewEngineDataLoader.provideData` into `buildRequests` and `handleResponses`
+
+*Tooling:* none — manual change.
+
+The `OverviewEngineDataLoader` interface has been extended to include two required methods: `buildRequests` and `handleResponses`.
+The previous `provideData` method and its associated types (`ProvideDataParams`, `ProvideDataResults`) have been removed.
+
+==== What changed
+
+|===
+| Before | After
+
+| `provideData(params: ProvideDataParams): Promise<DataOperation.ResultSet>`
+| Removed. Split into `buildRequests` + `handleResponses`.
+
+| `buildRequests(params: BuildRequestsParams): MaybeAsync<SupportedRequest[]>`
+| Now required.
+
+| `handleResponses(params: HandleResponsesParams): MaybeAsync<DataOperation.ResultSet>`
+| Now required.
+
+| `ProvideDataParams`, `ProvideDataResults`
+| Removed.
+|===
+
+As a result of this change, OverviewEngineDataProvider now issues a single `Dispatcher.rpc` call for all "embedded" data holders.
+
+==== Migration
+
+A custom `provideData` implementation typically follows the build / dispatch / interpret pattern:
+
+[source,typescript,title="Before"]
+----
+class MyLoader implements OverviewEngineDataLoader {
+    async provideData(params: ProvideDataParams): Promise<DataOperation.ResultSet> {
+        const requests = buildMyRequests(params);
+        const responses = await Dispatcher.rpc(lang, requests);
+        return interpretMyResponses(params, requests, responses);
+    }
+}
+----
+
+Split it into the two separate methods. The `Dispatcher.rpc` call is no longer part of the loader — the engine handles dispatching:
+
+[source,typescript,title="After"]
+----
+class MyLoader implements OverviewEngineDataLoader {
+    buildRequests(params: BuildRequestsParams): SupportedRequest[] {
+        return buildMyRequests(params);
+    }
+    handleResponses(params: HandleResponsesParams): DataOperation.ResultSet {
+        // params.responsesByQueryId — responses keyed by query id
+        // params.thumbnails — shared thumbnail map, already merged
+        return handleMyResponses(params);
+    }
+}
+----
+
+==== Parameter field mapping
+
+* `BuildRequestsParams` carries the same fields as the old `ProvideDataParams`.
+* `HandleResponsesParams` replaces the raw response list with `responsesByQueryId: ReadonlyMap<string, QueryJsonRpc2Response>` and adds `thumbnails: Record<string, string>`.
+  The `requestSelectorMap` field is not present in `HandleResponsesParams` (it belongs to the request-building side only).
+
+=== Remove the `timeMode` prop in favor of `DateTimeContext`
+
+*Tooling:* none — manual change.
+
+The `timeMode` prop has been removed from `OverviewEngine.Props` as well as from the legacy `DateTimeFilterOptionsView` and `TimeFilterOptionsView` components.
+The time format (12h or 24h) is now configured globally via the `DateTimeContext` provided by `@com.mgmtp.a12.widgets/widgets-core`.
+
+*Steps to migrate:*
+
+. Remove the `timeMode` prop from every `<OverviewEngine>` render site as well as from any custom `DateTimeFilterOptionsView` / `TimeFilterOptionsView` wrappers.
+. Wrap the application (or any subtree that contains the `OverviewEngine`) in a `DateTimeContext.Provider` and set the desired `timeMode`:
++
+[source,typescript]
+----
+import { DateTimeContext } from "@com.mgmtp.a12.widgets/widgets-core";
+import { enUS } from "date-fns/locale";
+
+<DateTimeContext.Provider value={{ locale: enUS, timeMode: "24h" }}>
+    <OverviewEngine {...props} />
+</DateTimeContext.Provider>
+----
+
+When no `DateTimeContext.Provider` is set, the underlying widgets fall back to the 12-hour format.
+
+=== Change the default rendering of the date filter year selector
+
+*Tooling:* none — manual change.
+
+The year selector in the header of the date pickers used by the Date, Date & Time, and Date Range filters changed its default rendering.
+Previously it was always a *select* drop-down. With the new Widgets year selector it now resolves to an *autocomplete* (when a year range is configured) or a *text box* (otherwise). This is an intended breaking change of the Widgets year selector.
+
+If you want the old *select* drop-down back, pass `yearSelectorVariant="select"` to the affected filter option views via the `componentMap`. The same prop also lets you opt into `"autocomplete"` or `"textbox"` explicitly.
+
+The prop is supported by the `DateFilterOptionsView`, `DateTimeFilterOptionsView`, and `DateRangeFilterOptionsView` built-in views.
+
+[source,typescript,options="nowrap",title="Restore the select year selector in date filters"]
+----
+const componentMap = {
+  ...DefaultComponentMap,
+  FilterOptionsViews: {
+    ...DefaultComponentMap.FilterOptionsViews,
+    DateFilterOptionsView: (props) => (
+      <DefaultComponentMap.FilterOptionsViews.DateFilterOptionsView
+        {...props}
+        yearSelectorVariant="select"
+      />
+    ),
+    DateTimeFilterOptionsView: (props) => (
+      <DefaultComponentMap.FilterOptionsViews.DateTimeFilterOptionsView
+        {...props}
+        yearSelectorVariant="select"
+      />
+    ),
+    DateRangeFilterOptionsView: (props) => (
+      <DefaultComponentMap.FilterOptionsViews.DateRangeFilterOptionsView
+        {...props}
+        yearSelectorVariant="select"
+      />
+    )
+  }
+};
+----
+
+=== Move skip-initial-load to the Overview Model
+
+*Tooling:* none — manual change.
+
+The experimental `loadingState` prop has been removed from `OverviewEngine.Props`.
+The "skip initial data loading" feature is now configured via the `skipInitialLoad` property in the Overview Model's `configuration` section.
+
+*Steps to migrate:*
+
+1. Remove `withoutData: true` from the Application Model's `initialActivity`.
+2. Remove any usage of the `loadingState` prop on the Overview Engine component.
+3. Add `"skipInitialLoad": true` to the Overview Model's `configuration`.
+
+[source,json, title="Overview Model — Before"]
+----
+{
+  "content": {
+    "configuration": { }
+  }
+}
+----
+
+[source,json, title="Overview Model — After"]
+----
+{
+  "content": {
+    "configuration": {
+      "skipInitialLoad": true
+    }
+  }
+}
+----
+
+[source,json, title="Application Model — Before"]
+----
+{
+  "initialActivity": {
+    "descriptor": { "showcase": "person" },
+    "withoutData": true
+  }
+}
+----
+
+[source,json, title="Application Model — After"]
+----
+{
+  "initialActivity": {
+    "descriptor": { "showcase": "person" }
+  }
+}
+----
+
+=== Rename `collectFieldsProjection` to `getProjectedFields`
+
+*Tooling:* none — manual change.
+
+The experimental `collectFieldsProjection` functions have been renamed:
+
+|===
+| Before | After
+
+| `collectFieldsProjection`
+| `getProjectedFields`
+|===
+
+[source,typescript, title="Before"]
+----
+import { collectFieldsProjection } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const fields = collectFieldsProjection(overviewModel, documentModel, queryModel);
+----
+
+[source,typescript, title="After"]
+----
+import { getProjectedFields } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const fields = getProjectedFields(overviewModel, documentModel, queryModel);
+----
+
+=== Rename `majorElements` / `minorElements` to `rightSlot` / `leftSlot`
+
+*Tooling:* Model migration tool, *required* — auto-migrates JSON models (see <<model-migration-39.0.0>>); the TypeScript rename below is manual.
+
+The `majorElements` and `minorElements` properties in `OverviewModel.SubHeaderBox` and `OverviewModel.FooterBox`
+have been renamed to `rightSlot` and `leftSlot` respectively to align with their actual rendering positions.
+Accordingly, the `rank` property of `ButtonType` has also been changed from `"major" | "minor"` to `"left" | "right"`.
+
+This is a model-level rename with no visual change. Existing JSON models are migrated automatically
+by the model migration tool.
+
+For TypeScript consumers:
+
+|===
+|Old property |New property
+
+|`SubHeaderBox.minorElements`          |`SubHeaderBox.leftSlot`
+|`SubHeaderBox.majorElements`          |`SubHeaderBox.rightSlot`
+|`FooterBox.minorElements`             |`FooterBox.leftSlot`
+|`FooterBox.majorElements`             |`FooterBox.rightSlot`
+|`ButtonType.rank: "major" \| "minor"` |`ButtonType.rank: "left" \| "right"`
+|===
+
+=== Redux 5 upgrade
+
+*Tooling:* Client codemod (`@com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports`), *optional* — automates the `typescript-fsa` import rewrite only (see <<_migrate_typescript_fsa_imports>>). The dependency updates, `useSelector` typing, and middleware changes are manual.
+
+Overview Engine has been upgraded to Redux 5 along with its ecosystem. For a complete list of breaking changes in Redux 5, refer to the https://github.com/reduxjs/redux/releases/tag/v5.0.0[official Redux 5 release notes].
+
+==== Dependency Updates
+
+The following peerDependency versions have been updated:
+
+|===
+| Package | Old Version | New Version
+| redux | ^4.2.1 | ^5.0.0
+| react-redux | ^7.2.1 | ^9.2.0
+| redux-saga | ^1.1.3 | ^1.3.0
+| typescript-fsa | ^3.0.0 | replaced by `@com.mgmtp.a12.client/typescript-fsa-redux-5-compat` ^1.0.0
+|===
+
+Update your `package.json` to use the new versions:
+
+[source,json]
+----
+{
+  "dependencies": {
+    "redux": "^5.0.0",
+    "react-redux": "^9.2.0",
+    "redux-saga": "^1.3.0",
+    "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat": "^1.0.0"
+  }
+}
+----
+
+Remove `@types/react-redux` from your dependencies, as react-redux now ships with its own TypeScript types. Additionally, there are no peerDependency warnings between React and React-Redux anymore, so you can remove any overrides or patches you had.
+
+==== Migrate typescript-fsa Imports
+
+Replace all imports from `typescript-fsa` with the compat fork:
+
+[source,typescript, title="Before"]
+----
+import { actionCreatorFactory, type Action } from "typescript-fsa";
+----
+
+[source,typescript, title="After"]
+----
+import { actionCreatorFactory, type Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+----
+
+You can run the Client codemod to automate this:
+
+[source,bash]
+----
+pnpm dlx @com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports
+----
+
+==== Define Type of `State` in `useSelector`
+
+`react-redux` now has stricter types by default. The type of state in `useSelector` is now `unknown`. You can fix this by augmenting the type of `useSelector` in a custom declaration file:
+
+[source,typescript]
+----
+// @types/react-redux.d.ts
+import type { UseSelector } from "react-redux";
+
+declare module "react-redux" {
+  export const useSelector: UseSelector<object>;
+}
+----
+
+Alternatively, use a pre-typed version:
+
+[source,typescript]
+----
+import { useSelector } from "react-redux";
+
+export const useAppSelector = useSelector.withTypes<object>();
+----
+
+==== Potentially Fix Middlewares
+
+The typing of actions inside middlewares has changed to `unknown`. Most middlewares should be unaffected, as the first call is usually a type guard (e.g. `actionCreator.match`). If you have a generic middleware that accesses `action.type` directly, use the `isAction()` type guard from `redux`:
+
+[source,typescript]
+----
+import { isAction, type Middleware } from "redux";
+
+const loggingMiddleware: Middleware = api => next => action => {
+  if (isAction(action)) {
+    console.log("Action:", action.type);
+  }
+  return next(action);
+};
+----
+
+=== Remove support for nested imports
+
+*Tooling:* Codemod recipe `prefer-top-level-imports`, *required* — nested imports are now compile errors (see <<recipe-prefer-top-level-imports>>).
+
+The package now uses the `exports` field in `package.json` to restrict entry points to the top-level import only.
+Nested imports (e.g. `from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/..."`) that were deprecated in 2025.06-ext4 are now a compile error.
+
+All public API is accessible from the top-level entry point:
+
+[source,typescript]
+----
+import { OverviewModel, OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+----
+
+Run the <<codemod,codemod>> to migrate automatically:
+[source,bash]
+----
+npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest prefer-top-level-imports ./tsconfig.json
+----
+
+=== Remove deprecated top-level `OverviewModel` type aliases
+
+*Tooling:* Codemod recipe `prefer-top-level-imports`, *required* — see <<recipe-prefer-top-level-imports>>.
+
+The deprecated top-level type aliases from `overview-model.ts` (deprecated in 2025.06-ext4) have been removed.
+These types were never reachable through the top-level entry point and were only accessible via nested imports, which are now a compile error.
+
+Use the `OverviewModel` namespace instead:
+
+[source,typescript, title="Before"]
+----
+import { Content, Column, FilterMode } from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/overview-model.js";
+
+const content: Content = { /* ... */ };
+const mode: FilterMode = FilterMode.ALL;
+----
+
+[source,typescript, title="After"]
+----
+import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const content: OverviewModel.Content = { /* ... */ };
+const mode: OverviewModel.FilterMode = OverviewModel.FilterMode.ALL;
+----
+
+Run the <<codemod,codemod>> to migrate automatically:
+[source,bash]
+----
+npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest prefer-top-level-imports ./tsconfig.json
+----
+
+See the <<_deprecation_of_top_level_overviewmodel_entities, 2025.06-ext4 deprecation notes>> for the full list of affected types.
+
+=== Remove deprecated `Pagination` type
+
+*Tooling:* Codemod recipe `prefer-top-level-imports`, *required* — see <<recipe-prefer-top-level-imports>>.
+
+The deprecated `Pagination` type alias (deprecated in 2025.06-ext4) has been removed.
+Use `PaginationState` instead.
+
+[source,typescript, title="Before"]
+----
+import { Pagination } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const pagination: Pagination = { pageNumber: 0, pageSize: 10 };
+----
+
+[source,typescript, title="After"]
+----
+import { PaginationState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
+const pagination: PaginationState = { pageNumber: 0, pageSize: 10 };
+----
+
+Run the <<codemod,codemod>> to migrate automatically:
+[source,bash]
+----
+npx @com.mgmtp.a12.overviewengine/overviewengine-codemod@latest prefer-top-level-imports ./tsconfig.json
+----
+
+NOTE: The `Pagination` namespace (used for the Pagination component props, e.g. `Pagination.PropsType`) is unaffected and remains available.
+
+=== Deprecate `RowActionState` and the `rowActionState` prop
+
+*Tooling:* none — manual change.
+
+The `RowActionState` interface and the `rowActionState` prop on `OverviewEngine` are deprecated in favor of the `rowActionStyling` callback.
+This covers both use cases: `rowActions` (apply to all rows) and `rows` (per-row disambiguation).
+The id-keyed map in `rows` is ambiguous when the same document appears in multiple rows (exclude mode); the callback receives the full row descriptor and can key on any combination of fields.
+
+`RowActionState.IndividualRowActionState` is preserved as a deprecated type alias pointing to `RowActionStyling.IndividualRowActionState`.
+
+==== Migration
+
+*Per-row (was `RowActionState.rows`)*
+
+[source,typescript, title="Before"]
+----
+const rowActionState: OverviewEngineApi.RowActionState = {
+    rows: {
+        [documentId]: { myEvent: { disabled: true } }
+    }
+};
+
+<OverviewEngine rowActionState={rowActionState} ... />
+----
+
+[source,typescript, title="After"]
+----
+include::./assets/typescript/features/row-action-state-migration.tsx[tags="row-action-state-migration-per-row"]
+----
+
+*All rows (was `RowActionState.rowActions`)*
+
+[source,typescript, title="Before"]
+----
+const rowActionState: OverviewEngineApi.RowActionState = {
+    rowActions: { myEvent: { disabled: true } }
+};
+
+<OverviewEngine rowActionState={rowActionState} ... />
+----
+
+[source,typescript, title="After"]
+----
+include::./assets/typescript/features/row-action-state-migration.tsx[tags="row-action-state-migration-all-rows"]
+----
+
+NOTE: Wrap `rowActionStyling` with `useCallback`, its reference is included in a dependency array inside the engine.
+
+If you referenced `RowActionState.IndividualRowActionState` as a type, update to `RowActionStyling.IndividualRowActionState`.
+
+==== Row Selection
+
+Selection now carries an optional `linkId` on each entry in `RowsSelectedPayload.documentsSelection`.
+No action is required unless custom selection logic relied on document-id uniqueness.
+
+==== onOverallMultiSelectionButtonClick signature change
+
+The `onOverallMultiSelectionButtonClick` callback signature has changed from `{ affectedRowIds, selected }` to an array of per-row selection entries `{ documentId, linkId?, selected }[]`.
+This aligns it with `onRowsSelect` and can handle duplicated rows keyed by linkId.
+
+[source,typescript,title="Before"]
+----
+onOverallMultiSelectionButtonClick({ affectedRowIds: ["1", "2"], selected: true });
+----
+
+[source,typescript,title="After"]
+----
+onOverallMultiSelectionButtonClick([
+    { documentId: "1", linkId: undefined, selected: true },
+    { documentId: "2", linkId: undefined, selected: true }
+]);
+----
+
 = 2025.06-ext4
 
-== Data Services configuration properties
+== 38.2.0
+
+=== Data Services configuration properties
 
 Overview Engine now reads Data Services configuration properties from the Data Services slice (for example
 `mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize`). In case the slice is missing, some UI
@@ -56,7 +680,7 @@ const { store, initialActions } = createA12ApplicationSetup(
 );
 ----
 
-== Deprecation of nested imports
+=== Deprecation of nested imports
 
 Nested imports are deprecated in favor of top-level imports to avoid unnecessary breaking changes caused by moving or renaming internal files.
 This makes the code more resilient to internal refactoring, provides a single consistent import path, and reduces ongoing maintenance effort.
@@ -67,7 +691,7 @@ Run the <<codemod,codemod>> command below to migrate automatically:
 npx @com.mgmtp.a12.overviewengine/overviewengine-codemod prefer-top-level-imports ./client/tsconfig.json
 ----
 
-== Deprecation of top level OverviewModel entities
+=== Deprecation of top level OverviewModel entities
 
 All top-level type exports from `overview-model.ts` are deprecated in favor of namespace-scoped exports under `OverviewModel`.
 The following types and enums should now be accessed via the `OverviewModel` namespace:
@@ -162,9 +786,6 @@ The following types and enums should now be accessed via the `OverviewModel` nam
 |`ConfirmationText`
 |`OverviewModel.ConfirmationText`
 
-|`DefaultRowAction`
-|`OverviewModel.DefaultRowAction`
-
 |`Triggerable`
 |`OverviewModel.Triggerable`
 
@@ -229,7 +850,7 @@ const column: OverviewModel.Column = { /* ... */ };
 const mode: OverviewModel.FilterMode = OverviewModel.FilterMode.ALL;
 ----
 
-== Deprecation of Pagination type
+=== Deprecation of Pagination type
 
 The `Pagination` type is deprecated in favor of `PaginationState` for better naming clarity and consistency.
 
@@ -259,28 +880,30 @@ const pagination: PaginationState = { pageNumber: 0, pageSize: 10 };
 
 = 2025.06
 
+== 38.0.0
+
 CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
 for an explanation of general steps.
 
-== Migration to ESM
+=== Migration to ESM
 
 The npm artifacts `@com.mgmtp.a12.overviewengine/overviewengine-core` and `@com.mgmtp.a12.overviewengine/overviewengine-model-migration` were migrated
 from CommonJS to link:https://nodejs.org/api/esm.html#modules-ecmascript-modules[ESM].
 When using Node `22.12+` and modern build tools, there should be no changes necessary to your bundler setup.
 
 [NOTE]
-====
+=====
 If your tests depend on mocking/stubbing Overview Engine API, consult the documentation of your test runner on how to work with ES modules.
-====
+=====
 
 Migrating your own application to ESM is not required, but recommended. Consult the documentation of your bundler for specifics.
 
-== Updating to ES2024
+=== Updating to ES2024
 
 The javascript output of the npm artifacts was updated from `ES2020` to `ES2024` to be able to use latest language features.
 When using supported browsers, there is no change necessary. If support for older browsers is required, make sure to include necessary polyfills.
 
-== React 19 upgrade
+=== React 19 upgrade
 
 We dropped the support for React 18 and older and now require React 19 as our peerDependency.
 This means you have to perform the React 19 migration, which is described in great detail in the official
@@ -304,14 +927,14 @@ One solution is to override the dependency in your package.json. You also have t
 }
 ----
 
-== Styled-components v6 upgrade
+=== Styled-components v6 upgrade
 
 We dropped the support for `styled-components` v5 and now require v6 as our peerDependency.
 Please refer to the link:https://styled-components.com/docs/faqs#what-do-i-need-to-do-to-migrate-to-v6[styled-components guide] and Widgets migration notes for more information.
 
-== Breaking Changes
+=== Breaking Changes
 
-=== Change Infinity Scroll APIs
+==== Change Infinity Scroll APIs
 
 The interface of `UiState.scrolling` property of the `OverviewEngineState` has been changed in this release.
 
@@ -363,7 +986,7 @@ export interface InfiniteScrollOptions {
 Overview Engine will calculate the total number of items to load `pageSize * (endPage - startPage + 1)`.
 More information can be found in the <<infinite-scroll, Infinite Scroll>>.
 
-=== Query API integration
+==== Query API integration
 
 This version only ships Query API support; interfaces and functions that allow the non-Query API usage have been removed or replaced, including:
 
@@ -387,16 +1010,16 @@ This version only ships Query API support; interfaces and functions that allow t
 
 |===
 
-=== Fields projection
+==== Fields projection
 
 Follow the Query API integration, fields projection is now enabled by default, allow the engine to only load the relevant fields.
 In case of needing additional fields, follow a look at the OverviewEngineDataLoader and its customization section to add more fields to the default list.
 
-=== Remove OverviewEngineActions.updateEnumeratedStringDataHolder
+==== Remove OverviewEngineActions.updateEnumeratedStringDataHolder
 
 The action `OverviewEngineActions.updateEnumeratedStringDataHolder` is no longer used and removed in this release as a consequence.
 
-=== Use slash instead of dot for FilterMap fieldPath
+==== Use slash instead of dot for FilterMap fieldPath
 
 The `fieldPath` in `FilterMap` used dot (`.`) as the separator, which is not compatible with ModelPath and Query API.
 Now the separator is changed to slash (`/`).
@@ -437,7 +1060,7 @@ const presetFilter: OverviewEngineApi.FilterMap = {
 };
 ----
 
-=== Embedded Attachments API removed
+==== Embedded Attachments API removed
 
 The embedded attachments related API has been removed, the engine now solely relies on the thumbnails slice to render the thumbnail.
 Unless embedded attachment is used, it is expected to have no impact to the current setup. However, it case embedded attachment is used,
@@ -468,16 +1091,16 @@ However, for embedded attachment implementation, the image source can be simply 
 
 The `selectorMap` can then be passed into any OverviewEngine view component to override the default behavior.
 
-=== Sorting behavior
+==== Sorting behavior
 
 From 2025.06 version, sorting behavior is changed.
 
 * Case is ignored during sorting (`ignoreCase` is set to true).
 * If no default sorting is specified, results are sorted by `__meta/createdAt` in descending order.
 
-=== Drop deprecated APIs
+==== Drop deprecated APIs
 
-==== OverviewEngineViewViews
+===== OverviewEngineViewViews
 
 The namespace `OverviewEngineViewViews` is no longer used and has been removed.
 This change includes the removal of the following:
@@ -490,7 +1113,7 @@ This change includes the removal of the following:
 More information can be found in the 2024.06's deprecation section.
 
 [[overviewengine_state_migration_38]]
-==== OverviewEngineState
+===== OverviewEngineState
 
 The `OverviewEngineState` has been changed in this release. The following properties have been removed:
 
@@ -501,7 +1124,7 @@ The `OverviewEngineState` has been changed in this release. The following proper
 More information can be found in the 2024.06's deprecation section.
 
 [[overviewengine_props_migration_38]]
-==== OverviewEngine Props
+===== OverviewEngine Props
 
 Several properties of the OverviewEngine have been changed in this release. The following props have been removed:
 
@@ -520,7 +1143,7 @@ NOTE: For `fieldBasedFiltering.timeMode`, the time mode customization can be don
 For more details, refer to <<_custom_time_format, custom time format>>.
 
 [[_overviewengineactions_migration_38]]
-==== OverviewEngineActions
+===== OverviewEngineActions
 
 The `OverviewEngineActions` have been changed in this release. The following actions have been removed:
 
@@ -531,7 +1154,7 @@ The `OverviewEngineActions` have been changed in this release. The following act
 More information can be found in the 2024.06's deprecation section.
 
 [[_overviewengineselectors_migration_38]]
-==== OverviewEngineSelectors
+===== OverviewEngineSelectors
 
 The `OverviewEngineSelectors` have been changed in this release. The following selectors have been removed:
 
@@ -540,14 +1163,14 @@ The `OverviewEngineSelectors` have been changed in this release. The following s
 
 More information can be found in the 2024.06's deprecation section.
 
-=== Model Changes
+==== Model Changes
 
-==== Drop migration support for models before version 36.0.0
+===== Drop migration support for models before version 36.0.0
 
 The migration tool no longer supports migration of Overview models before version 36.0.0.
 If you need to migrate models from an older version, you need to migrate to version 36.0.0 first using the migration tool of that version.
 
-==== Make `showFullTextSearch` optional
+===== Make `showFullTextSearch` optional
 
 The field `showFullTextSearch` of the Overview Model `Configuration` interface has been changed from
 a required boolean to an optional boolean.
@@ -563,7 +1186,7 @@ if (showFullTextSearch) {
 }
 ----
 
-==== Rename `fieldIDs` within `FilterConfiguration` to `fields` and change its type from an array of string to an array of object
+===== Rename `fieldIDs` within `FilterConfiguration` to `fields` and change its type from an array of string to an array of object
 
 This change applies to all `fieldIDs` within `FilterConfiguration`, including:
 

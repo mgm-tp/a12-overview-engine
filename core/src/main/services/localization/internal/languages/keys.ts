@@ -58,10 +58,78 @@ export const RESOURCE_KEYS = {
 			"clearAll": "",
 			"selectAll": "",
 			"noFilterFound": "",
+			"noSetFilters": "",
+			"noSearchResults": "",
 			"selectDeselectAllCheckboxLabel" : "",
 			"errorIconTitle": "",
+			"errorBanner": "",
 			"section": {
 				"other": ""
+			}
+		},
+		"newFilter": {
+			"selector": {
+				"closeButtonTitle": "",
+				"searchPlaceholder": ""
+			},
+			"selectorOptions": {
+				"viewHeader": "",
+				"showSearch": "",
+				"expandAll": "",
+				"collapseAll": "",
+				"showSetFiltersOnly": "",
+				"pinFilterList": "",
+				"matchHeader": "",
+				"any": "",
+				"all": "",
+				"resultHeader": "",
+				"invert": ""
+			},
+			"optionsButton": {
+				"a11yLabel": ""
+			},
+			"barItemDropdown": {
+				"settingsTitle": "",
+				"resetLabel": "",
+				"applyLabel": ""
+			},
+			"footer": {
+				"resetAllLabel": "",
+				"applyAllLabel": ""
+			},
+			"setting": {
+				"empty": "",
+				"match": "",
+				"range": "",
+				"period": "",
+				"invertResult": "",
+				"fromTo": "",
+				"fromOnly": "",
+				"toOnly": "",
+				"exact": "",
+				"any": "",
+				"all": "",
+				"caseSensitive": "",
+				"exactMatch": "",
+				"periodDate": "",
+				"periodYear": "",
+				"periodYearMonth": "",
+				"periodMonth": "",
+				"periodTime": "",
+				"periodDateTime": "",
+				"yes": "",
+				"no": ""
+			},
+			"rangeEditor": {
+				"fromLabel": "",
+				"toLabel": ""
+			},
+			"queryEnable": "",
+			"queryEnabledValue": "",
+			"emptyValue": "",
+			"fieldLabel": {
+				"year": "",
+				"month": ""
 			}
 		},
 		"searchButton": {
@@ -77,7 +145,9 @@ export const RESOURCE_KEYS = {
 			"noViewSelected": ""
 		},
 		"enumerationFilterOptionView": {
-			"noOptionFound": ""
+			"noOptionFound": "",
+			"showMore": "",
+			"showLess": ""
 		},
 		"enumeratedStringFilterOptionView": {
 			"loadMore": ""
@@ -113,7 +183,9 @@ export const RESOURCE_KEYS = {
 				}
 			},
 			"error": {
-				"startGreaterThanEnd": ""
+				"startGreaterThanEnd": "",
+				"partialYearMonth":"",
+				"invalidYear": ""
 			},
 			"picker": {
 				"ok": "",
@@ -164,6 +236,9 @@ export const RESOURCE_KEYS = {
 			"overallCheckboxTitle": "",
 			"rowCheckboxTitle": "",
 		},
+		"table": {
+			"linkNotFound": ""
+		},
 		"noResultFound": "",
 		"noInitQuery": "",
 		"footer": {
@@ -171,6 +246,10 @@ export const RESOURCE_KEYS = {
 		},
 		"error": {
 			"requestLimitExceeded": {
+				"title": "",
+				"message": ""
+			},
+			"serverError": {
 				"title": "",
 				"message": ""
 			}

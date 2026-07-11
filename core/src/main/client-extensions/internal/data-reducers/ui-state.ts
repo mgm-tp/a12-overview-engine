@@ -30,12 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Action, type AnyAction } from "typescript-fsa";
-
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { Activity, type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
 import { OverviewEngineActions } from "../actions.js";
-import { Commands, uiStateReducer } from "../../../store/index.js";
+import { uiStateReducer } from "../../../store/index.js";
 
 /** @internal */
 export const uiStateDataReducer: ActivityReducers.DataReducer = {
@@ -44,29 +43,31 @@ export const uiStateDataReducer: ActivityReducers.DataReducer = {
 		action: Action<OverviewEngineActions.CommandPayload | OverviewEngineActions.EventPayload>,
 		defaultDataHolder?: Activity.DataHolder
 	): Activity.DataHolder[] {
-		if (
-			!(OverviewEngineActions.command.match(action) || OverviewEngineActions.event.match(action)) ||
-			!defaultDataHolder
-		) {
+		if (!(OverviewEngineActions.command.match(action) || OverviewEngineActions.event.match(action))) {
 			return dataHolders;
 		}
 
-		const defaultUiState = defaultDataHolder.slices.uiState;
+		const targetDataHolder = action.payload.dataHolderDescriptor
+			? dataHolders.find(Activity.DataHolder.hasDescriptor(action.payload.dataHolderDescriptor))
+			: defaultDataHolder;
+
+		if (!targetDataHolder) {
+			return dataHolders;
+		}
+
+		const defaultUiState = targetDataHolder.slices.uiState;
 		const newUiState = uiStateReducer(defaultUiState, action.payload.engineAction);
 
-		const newLoadingState = getNextLoadingState(defaultDataHolder, action.payload.engineAction);
-
-		// If both UI state and loading state are the same as the default, return the original data holders.
-		if (defaultUiState === newUiState && newLoadingState === defaultDataHolder.loadingState) {
+		// If the UI state is the same as the default, return the original data holders.
+		if (defaultUiState === newUiState) {
 			return dataHolders;
 		}
 
 		return dataHolders.map((dataHolder) => {
-			if (Activity.DataHolder.hasDescriptor(dataHolder.descriptor)(defaultDataHolder)) {
+			if (Activity.DataHolder.hasDescriptor(dataHolder.descriptor)(targetDataHolder)) {
 				return {
 					...dataHolder,
-					slices: { ...dataHolder.slices, uiState: newUiState },
-					loadingState: newLoadingState
+					slices: { ...dataHolder.slices, uiState: newUiState }
 				};
 			}
 
@@ -74,16 +75,3 @@ export const uiStateDataReducer: ActivityReducers.DataReducer = {
 		});
 	}
 };
-
-/**
- * This function determines the next loading state based on the current data holder's loading state.
- * When a `setQueryParameters` command is received and the current loading state is "without", it will return "missing"
- * to mark the data holder as needed to be loaded. Otherwise, it will return the current loading state.
- */
-function getNextLoadingState(dataHolder: Activity.DataHolder, engineAction: AnyAction): Activity.LoadingState {
-	if (Commands.setQueryParameters.match(engineAction) && dataHolder.loadingState === "without") {
-		return "missing";
-	}
-
-	return dataHolder.loadingState;
-}

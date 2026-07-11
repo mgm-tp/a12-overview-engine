@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Activity, type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import type { Activity, ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
 import { OverviewEngineActions } from "../actions.js";
-import { type EnumeratedStringDataHolder } from "../data-holder.js";
+import type { EnumeratedStringDataHolder } from "../data-holder.js";
 
 /** @internal */
 export const createEnumeratedStringDataHolderReducer: ActivityReducers.DataReducer = {

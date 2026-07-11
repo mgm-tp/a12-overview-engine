@@ -86,7 +86,7 @@ describe("com.mgmtp.a12.overview-engine.view.sub-heading", () => {
 			it("Action bar should be rendered with the buttons", () => {
 				const overviewModel: OverviewModel = {
 					...basicProps.overviewModel,
-					content: { ...basicProps.overviewModel.content, subHeaderBox: { minorElements: buttons } }
+					content: { ...basicProps.overviewModel.content, subHeaderBox: { leftSlot: buttons } }
 				};
 				const wrapper = render(<OverviewEngine {...{ ...basicProps, overviewModel }} />);
 
@@ -99,7 +99,7 @@ describe("com.mgmtp.a12.overview-engine.view.sub-heading", () => {
 				await setSmallWindowSize();
 				const overviewModel: OverviewModel = {
 					...basicProps.overviewModel,
-					content: { ...basicProps.overviewModel.content, subHeaderBox: { minorElements: buttons } }
+					content: { ...basicProps.overviewModel.content, subHeaderBox: { leftSlot: buttons } }
 				};
 				const wrapper = render(<OverviewEngine {...{ ...basicProps, overviewModel }} />);
 

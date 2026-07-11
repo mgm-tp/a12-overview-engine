@@ -57,7 +57,6 @@ import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-loca
 import { type Locale, defaultDataFormats, defaultValueConversion } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { enLocale } from "./basic.spec.js";
-import { InternalDataRoles } from "./data-roles.js";
 
 const queryByDataRole = queryHelpers.queryByAttribute.bind(null, "data-role");
 
@@ -87,6 +86,11 @@ export interface TestReduxState {
 	dataservices: {
 		configuration: Record<string, string>;
 	};
+	models: {
+		applicationModel: Record<string, unknown>;
+		modelGraph: Record<string, unknown>;
+		models: Record<string, unknown>;
+	};
 }
 
 const DEFAULT_DATASERVICES_CONFIGURATION = {
@@ -99,6 +103,11 @@ const DEFAULT_DATASERVICES_CONFIGURATION = {
 const DEFAULT_TEST_REDUX_STATE: TestReduxState = {
 	dataservices: {
 		configuration: { ...DEFAULT_DATASERVICES_CONFIGURATION }
+	},
+	models: {
+		applicationModel: {},
+		modelGraph: {},
+		models: {}
 	}
 };
 
@@ -106,7 +115,7 @@ export function createTestReduxState(overrides?: Partial<TestReduxState>): TestR
 	return merge({}, DEFAULT_TEST_REDUX_STATE, overrides ?? {});
 }
 
-function createTestStore(overrides?: Partial<TestReduxState>) {
+export function createTestStore(overrides?: Partial<TestReduxState>) {
 	const initialState = createTestReduxState(overrides);
 	const reducer: Reducer<TestReduxState> = (state = initialState) => state;
 
@@ -293,7 +302,7 @@ export function assert(condition: unknown, onFailedMessage = "Condition return a
 	}
 }
 
-export { rtlRender as render, InternalDataRoles as DataRoles, DEFAULT_TEST_REDUX_STATE as defaultReduxState };
+export { rtlRender as render, DEFAULT_TEST_REDUX_STATE as defaultReduxState };
 
 /**
  * @deprecated Use {@link DataRoles} instead.

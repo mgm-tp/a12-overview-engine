@@ -32,7 +32,7 @@
 
 import { it, expect, describe } from "vitest";
 
-import { type JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { RequestValidator } from "../../../../main/client-extensions/internal/utils/request-validator.js";
 

@@ -30,15 +30,98 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { Dispatch } from "redux";
 
-import { createViewProviderSelector } from "../../utils.js";
-import MobileSupportAM from "../../../resources/models/mobile-support/MobileSupportAM.json" with { type: "json" };
+import {
+	ActivityActions,
+	ActivitySelectors,
+	ApplicationActions,
+	type DynamicConfiguration
+} from "@com.mgmtp.a12.client/client-core";
 
 import { MobileSupportCardView, MobileSupportExpression } from "./views.js";
 
-export const MobileSupportModule: Module = {
+const DESCRIPTOR_EXPRESSION = { showcase: "mobile", feature: "expression" };
+const DESCRIPTOR_CARD_VIEW = { showcase: "mobile", feature: "card-view" };
+
+function onExpressionClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_EXPRESSION }),
+			descriptor: {}
+		})
+	);
+}
+
+function onCardViewClick(dispatch: Dispatch) {
+	dispatch(
+		ApplicationActions.startMainActivityRequested({
+			action: ActivityActions.create({ activityDescriptor: DESCRIPTOR_CARD_VIEW }),
+			descriptor: {}
+		})
+	);
+}
+
+export const MobileSupportModule: DynamicConfiguration = {
 	id: "MobileSupport",
-	model: () => MobileSupportAM as ApplicationModel,
-	views: createViewProviderSelector({ MobileSupportExpression, MobileSupportCardView })
+	menus: (state) => {
+		const expressionActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_EXPRESSION)(state).at(0);
+		const cardViewActivity = ActivitySelectors.activitiesByDescriptor(DESCRIPTOR_CARD_VIEW)(state).at(0);
+
+		return [
+			{
+				id: "menu.MobileSupport",
+				label: { key: "application.menu.mobileSupport.label" },
+				children: [
+					{
+						id: "menu.Expression",
+						label: { key: "application.menu.mobileSupport.expression" },
+						selected: expressionActivity !== undefined,
+						action: onExpressionClick
+					},
+					{
+						id: "menu.CardView",
+						label: { key: "application.menu.mobileSupport.cardView" },
+						selected: cardViewActivity !== undefined,
+						action: onCardViewClick
+					}
+				]
+			}
+		];
+	},
+	flows: [
+		{
+			name: "mobileSupportFlow",
+			scenes: [
+				{
+					name: "MobileExpression",
+					matches: (d) => d.showcase === DESCRIPTOR_EXPRESSION.showcase && d.feature === DESCRIPTOR_EXPRESSION.feature,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: MobileSupportExpression,
+								models: [{ modelType: "overview", name: "ProductMobileOM" }]
+							}
+						]
+					}
+				},
+				{
+					name: "MobileCardView",
+					matches: (d) => d.showcase === DESCRIPTOR_CARD_VIEW.showcase && d.feature === DESCRIPTOR_CARD_VIEW.feature,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: MobileSupportCardView,
+								models: [{ modelType: "overview", name: "ProductCardViewOM" }]
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 };

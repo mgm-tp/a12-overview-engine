@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React from "react";
+import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import {
 	type Container,
 	ActionContentbox,
@@ -44,7 +44,7 @@ import {
 import { useFormDataHolder } from "./hooks.js";
 import { SimpleFormActions } from "./actions.js";
 
-export const SimpleForm: React.FC<View & Container & { title: string }> = (props) => {
+export const SimpleForm: React.FC<ViewNGProps & Container & { title: string }> = (props) => {
 	const { activityId } = props;
 	const dispatch = useDispatch();
 	const onSave = React.useCallback(() => dispatch(SimpleFormActions.onSave({ activityId })), [activityId, dispatch]);

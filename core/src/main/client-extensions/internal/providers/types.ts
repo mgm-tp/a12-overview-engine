@@ -30,7 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type RequestSelectorMap } from "../utils/request-selector-map.js";
+import type { FilterStateSelectors } from "../../../store/index.js";
+import type { RequestSelectorMap } from "../utils/request-selector-map.js";
 
 export interface DataProvidersConfig {
 	readonly infiniteScroll?: {
@@ -44,4 +45,6 @@ export interface DataProvidersConfig {
 		readonly pageSize?: number;
 	};
 	requestSelectorMap?: RequestSelectorMap;
+	/** Filter state selectors. Defaults to `DefaultFilterStateSelectors`. */
+	readonly filterStateSelectors?: FilterStateSelectors;
 }

@@ -30,6 +30,6 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Settings, LogLevel, ConsoleLoggingStrategy } from "@com.mgmtp.a12.utils/utils-logging";
+import { Settings, ConsoleLoggingStrategy } from "@com.mgmtp.a12.utils/utils-logging";
 
-Settings.LogStrategy = new ConsoleLoggingStrategy(console, LogLevel.LOG);
+Settings.LogStrategy = new ConsoleLoggingStrategy(console, "log");
