@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -15,15 +15,8 @@ You must select and comply with exactly one of the above license options.
 Warranty Disclaimer (applies to either option)
 THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
 ////
-= Button
+= Engine Id Prefix
 
-Buttons, defined in an Overview Model, are displayed in the header, footer or multi-selection panel of the Overview Engine.
-However, adding buttons in the Overview Model only renders them on the UI without registering any handler for on-click events.
+At the moment, model name, set in Overview Model header details, is used as id for different components (e.g. filter options, filter selector, search bar...).
 
-Overview Engine supports registering the handlers by passing a callback into link:./assets/generated/typedoc/interfaces/view_api.OverviewEngineApi.EventHandlers.html#onrowbuttonclick-1[onEventButtonClick] of `eventHandlers` prop.
-When triggered, the callback receives two parameters:
-
-- `event` -- event name of the button being clicked.
-- `button` -- configuration of the clicked link:./assets/generated/typedoc/interfaces/overview-model.OverviewModel.Button.html[Button].
-
-NOTE: `onEventButtonClick` is used to register handlers for any buttons no matter if they are on header, footer or multi-selection panel
+In case there are many engines of the same model on a screen, this leads to incorrect component identification. Since version 35.2.0, the introduction of `uiIdPrefix` property in `OverviewEngine` allows a flexible way to add a prefix to the engine id, which could eliminate the above issue.

@@ -141,6 +141,14 @@ export function useInfiniteScrollOptions(params: {
 	]);
 }
 
+/*
+ * ===== BEGIN THIRD-PARTY SOURCE: [ts-debounce] (https://github.com/chodorowicz/ts-debounce),
+ * https://github.com/chodorowicz/ts-debounce/blob/v1.0.0/src/index.ts
+ * Licensed under the MIT License.
+ * Copyright (c) 2017 Jakub Chodorowicz
+ * Modified by mgm technology partners on [2024-08-22].
+ */
+
 /** @internal */
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function debounce<F extends Function>(
@@ -177,3 +185,5 @@ export function debounce<F extends Function>(
 		}
 	} as any;
 }
+
+// ===== END THIRD-PARTY SOURCE =====

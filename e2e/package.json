@@ -1,7 +1,7 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-e2e",
 	"private": true,
-	"version": "38.3.0",
+	"version": "38.3.1",
 	"description": "Overview Engine E2E Tests",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",

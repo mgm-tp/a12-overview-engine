@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-core",
-	"version": "38.3.0",
+	"version": "38.3.1",
 	"modelVersion": "^38.3.0",
 	"modelType": "overview",
 	"description": "Overview Engine",

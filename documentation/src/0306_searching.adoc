@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -15,8 +15,16 @@ You must select and comply with exactly one of the above license options.
 Warranty Disclaimer (applies to either option)
 THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
 ////
-= Disability
+= Searching
 
-Overview Engine can be disabled by turning on the `disabled` prop in `OverviewEngine` component:
+The API for searching in Overview Engine gives you full control over the functionality.
+To implement search:
 
-image::assets/images/disabled.png[title="Disabled"]
+* link:./assets/generated/typedoc/interfaces/store_internal_store.UiState.html#searchstring[uiState.searchString] is used to specify the current search value.
+* link:./assets/generated/typedoc/interfaces/view_api.OverviewEngineApi.EventHandlers.html#onsearch[eventHandlers.onSearch] callback inside the
+`eventHandlers` prop is triggered when focusing is on search input and Enter key is pressed or search button is clicked.
+It can also be done via the `OverviewEngineActions.event`, more details in the <<_commands_and_events,Commands and Events>> section.
+
+[NOTE]
+Overview Engine performs a plain text string-based full text search using the Simple Search operator from Data Services.
+For further information, refer to the link:/docs/DATA_SERVICES/dataservices-documentation-src/index.html#simple-search-operator[Data Services documentation].

@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -305,7 +305,7 @@ Each entry in the `FilterMap` can specify a `modelId` property, which indicates 
 When `filterMode` is `"custom_list"`, use the `subModel` property in `FieldConfiguration` to filter a field in a submodel. This will result in the corresponding `modelId` in the filter data.
 If `subModel` is omitted, filtering applies to the current document model.
 
-This mechanism is related to the link:/docs/OVERALL/heterogeneity[heterogeneity] feature in *A12*, allowing filters to target fields across different models and submodels.
+This mechanism is related to the link:/docs/OVERALL/heterogeneity/index.html[heterogeneity] feature in *A12*, allowing filters to target fields across different models and submodels.
 ====
 
 Then the default data provider (by link:./assets/generated/typedoc/modules/client-extensions_internal_factories.OverviewEngineFactories.html[OverviewEngineFactories]) will use the `activeFilters` to create and send a search query to the server, which provides the documents displayed in the Overview Engine.
@@ -342,7 +342,7 @@ The middleware example above is only one way to create preset filters at activit
 * Use the event `Events.onFilterChanged` when you want to apply a new `activeFilters` list through the standard filtering flow.
 * Use the command `Commands.setQueryParameters` when you want to update `activeFilters` together with other query parameters such as search, pagination, scrolling, or sorting.
 
-Remember to wrap these actions with `OverviewEngineActions.event` or `OverviewEngineActions.command` so the update is scoped to the correct activity. See link:./0300_overview_engine_actions.adoc#dispatch-engine-action[Dispatch an Engine Action] for the dispatching pattern.
+Remember to wrap these actions with `OverviewEngineActions.event` or `OverviewEngineActions.command` so the update is scoped to the correct activity. See <<dispatch-engine-action,Dispatch an Engine Action>> for the dispatching pattern.
 
 [#enumeratedStringFilter]
 == Enumerated String Filtering

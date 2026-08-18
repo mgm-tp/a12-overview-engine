@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -21,6 +21,4 @@ include::0201_installation.adoc[]
 
 include::0202_setup.adoc[]
 
-include::0203_overview_engine.adoc[]
-
-include::0204_query_model_integration.adoc[]
+include::0203_query_model_integration.adoc[]

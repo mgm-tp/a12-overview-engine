@@ -100,7 +100,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(({ command }) => {
 		},
 		html: {
 			template: PATH.HTML,
-			favicon: "./resources/public/favicon.svg",
 			templateParameters: ({ entryName }) => entries[entryName as any]
 		},
 		plugins: _.compact([pluginReact(), pluginStyledComponents(), command === "dev" ? pluginTypeCheck() : undefined]),

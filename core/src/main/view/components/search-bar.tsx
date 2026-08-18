@@ -58,6 +58,10 @@ export const SearchBar: React.ComponentType<SearchBar.PropsType> = React.memo(fu
 	const [showDialog, setShowDialog] = React.useState(false);
 	const [searchString, setSearchString] = React.useState(storeSearchString ?? "");
 
+	React.useEffect(() => {
+		setSearchString(storeSearchString ?? "");
+	}, [storeSearchString]);
+
 	const minSearchableTokenSize = useSelector(
 		DataServicesSelectors.configurationByKey(OverviewEngineInternalConstants.MIN_SEARCH_TOKEN_SIZE_KEY)
 	);

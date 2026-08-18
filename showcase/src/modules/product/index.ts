@@ -34,8 +34,8 @@ import { type Module, type ApplicationModel } from "@com.mgmtp.a12.client/client
 import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { createViewProviderSelector } from "../../utils.js";
-import { createPresetFilterMiddleware } from "../common/middleware.js";
 import ProductAM from "../../../resources/models/product/ProductAM.json" with { type: "json" };
+import { createPresetFilterMiddleware, createInitialUiStateMiddleware } from "../common/middleware.js";
 
 import { ProductOverviewSagas } from "./saga.js";
 import { ProductOverview } from "./product-overview.js";
@@ -44,6 +44,13 @@ export const ProductModule: Module = {
 	id: "Product",
 	model: () => ProductAM as unknown as ApplicationModel,
 	middlewares: () => [
+		createInitialUiStateMiddleware(
+			{},
+			{
+				showcase: "product",
+				feature: "pagination"
+			}
+		),
 		createPresetFilterMiddleware(productPresetFilter, {
 			showcase: "product",
 			feature: "preset-filter"

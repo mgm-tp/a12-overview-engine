@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -15,22 +15,20 @@ You must select and comply with exactly one of the above license options.
 Warranty Disclaimer (applies to either option)
 THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
 ////
-= Customize Row Styling
+= Custom Field Formatting
 
-Row styling is a callback used by Overview Engine to query the style of a specific row. It receives an object parameter containing the row that would be rendered and its corresponding row index. Based on that, the callback should return an object of `RowStyles` type, which applies to the row.
+Since version 35.2.0, Overview Engine introduces an optional property called `fieldFormatter` to `ExpressionCell` and `ReferenceCell`. This supports the possibility to modify the format of a specific field.
 
-`RowStyles`, which belongs to Widgets library, has the following structure:
+The property is a callback that receives a parameter as an instance of `FieldFormatterParams` and return a string.
 
-[source,typescript,options="nowrap",title="RowStyles interface"]
+The following example demonstrates how to implement `fieldFormatter` property to customize field formatting.
+
+[source,typescript,options="nowrap",title="Create a component with custom field formatter"]
 ----
-include::./assets/typescript/features/row-style-getter.tsx[tags="row-styles-interface"]
-----
-
-The following example demonstrates how to set interactive status of a specific row.
-
-*Code:*
-[source,typescript,options="nowrap"]
-----
-include::./assets/typescript/features/row-style-getter.tsx[tags="row-style-getter-example"]
+include::./assets/typescript/features/custom-field-format.tsx[tags="custom-reference-cell-example"]
 ----
 
+[source,typescript,options="nowrap",title="Override the corresponding component in component map"]
+----
+include::./assets/typescript/features/custom-field-format.tsx[tags="custom-field-format-example"]
+----

@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -35,6 +35,7 @@ Overview Engine offers two alternative localization approaches:
 ** `useLocalizedOverviewElement`: to translate localized texts in Overview Model's elements.
 ** `useLocalizedFieldLabel`: to translate field labels in the Document Model.
 ** `useLocalizedFieldValue`: to translate values of localizable fields (BooleanType, ConfirmType, EnumerationType).
+** `useLocalizedDateFieldFormat`: to translate the date format string of a date field in the Document Model.
 
 * In which the React hooks are not available, link:./assets/generated/typedoc/modules/services_localization_internal_localizable-factory.LocalizableFactory.html[LocalizableFactory] namespace with alternative functions can be used to create
 corresponding localizables.

@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -28,8 +28,6 @@ The following snippet presents the above interfaces in details, specifying prope
 ----
 include::./assets/generated/typescript/overview-engine.ts[]
 ----
-
-
 
 Mostly the component customization will be done at the Client level via view providers by extending/wrapping
 link:./assets/generated/typedoc/variables/client-extensions_internal_factories.OverviewEngineFactories.ViewComponent.html[OverviewEngineFactories.ViewComponent] component.

@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -15,11 +15,8 @@ You must select and comply with exactly one of the above license options.
 Warranty Disclaimer (applies to either option)
 THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
 ////
-= Show Number of Entries
+= Accessibility Configurations
 
-Open the Overview Model in SME, then check the checkbox *Show Number Of Entries* to enable this feature.
-Please refer to link:/docs/SME/sme-om-ba-docs/index.html#_number_of_entries[Number of Entries] session in SME documentation for more details.
+In case the project has accessibility requirements, link:./assets/generated/typedoc/interfaces/view_overview-engine.OverviewEngine.CommonProps.html#accessibilityconfigurations[`accessibilityConfigurations`] property of `OverviewEngine` could be used to set accessibility-related features, including.
 
-Depending on the link:/docs/SME/sme-om-ba-docs/index.html#_paging_behavior[Pagination Behavior], the number of rows can be passed to the `OverviewEngine` via the `rowCount` field of the `pagination` or `infiniteScrollOptions` prop. Note that `rowCount` is optional, so just set it `undefined` before the server responds the real total number of rows.
-
-WARNING: If there is no label, or it is hidden, both label and number of entries will not be shown.
+* `hasFootContent`: The Overview table footer only has aria-attributes when this property is set as `true`.

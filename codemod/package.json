@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-codemod",
-	"version": "38.3.0",
+	"version": "38.3.1",
 	"description": "Codemod for Overview Engine",
 	"author": "mgm technology partners",
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",

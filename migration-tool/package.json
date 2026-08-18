@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-model-migration",
-	"version": "38.3.0",
+	"version": "38.3.1",
 	"type": "module",
 	"description": "Overview Model Migration Tool",
 	"author": "mgm technology partners",
