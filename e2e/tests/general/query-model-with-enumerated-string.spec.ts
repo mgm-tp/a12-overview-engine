@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Selector, Showcase, navigate } from "../utils.js";
 import { test, expect, waitUntilLoaded } from "../commands.js";
+import { Selector, Showcase, navigate } from "../utils.js";
 
 test.describe("Enumerated string filter with Query Model", () => {
 	test.beforeEach(async ({ page }) => {

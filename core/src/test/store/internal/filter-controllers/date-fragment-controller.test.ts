@@ -35,20 +35,18 @@ import { it, expect, describe } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import type { DocumentModelTypedField } from "../../../../main/models/index.js";
-import { DateFragmentFilterState } from "../../../../main/store/internal/filter-state.js";
 import type { FormatTypedDateFragmentType } from "../../../../main/models/internal/shared.js";
+import type { OverviewModel } from "../../../../main/overview-model.js";
+import { RangeCriteria } from "../../../../main/store/internal/filter-controllers/criteria.js";
 import {
 	derivePeriodOptions,
 	DateFragmentFilterController
 } from "../../../../main/store/internal/filter-controllers/date-fragment-controller.js";
-
+import { DateFragmentFilterState } from "../../../../main/store/internal/filter-state.js";
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 const controller = new DateFragmentFilterController();
-
-import { RangeCriteria } from "../../../../main/store/internal/filter-controllers/criteria.js";
 
 type PeriodInputMap = DateFragmentFilterState.PeriodInputMap;
 

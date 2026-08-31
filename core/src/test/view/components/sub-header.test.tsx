@@ -31,17 +31,17 @@
  */
 
 import * as React from "react";
+
 import { it, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../main/overview-model.js";
-import { OverviewEngine } from "../../../main/view/overview-engine.js";
-import { SubHeader } from "../../../main/view/components/sub-header.js";
 import { getElementSegments } from "../../../main/view/components/sub-header-elements.js";
-
-import { render } from "../../test-utils.js";
+import { SubHeader } from "../../../main/view/components/sub-header.js";
+import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../basic.spec.js";
+import { render } from "../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.sub-header", () => {
 	const filterElement: OverviewModel.Element = { type: OverviewModel.ElementType.FILTER };

@@ -30,13 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { styled } from "styled-components";
 import { memo, useMemo, type ReactNode } from "react";
+
+import { styled } from "styled-components";
 
 import { Toggle, StyledToggle, StyledFieldLabel } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 
 export interface ToggleSettingProps<T = string> {
 	readonly label?: string;

@@ -33,13 +33,13 @@
 import * as React from "react";
 
 // tag::customTableBody[]
-import { DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
-	type TableBody,
 	OverviewEngine,
+	type TableBody,
 	DefaultComponentMap,
 	useOverviewEngineContext
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 
 const CustomTableBody: React.ComponentType<TableBody.Props> = (props) => {
 	const data = useOverviewEngineContext((context) => context.data);

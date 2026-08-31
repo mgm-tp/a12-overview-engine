@@ -34,9 +34,9 @@ import * as React from "react";
 
 import { getAllFocusableElements } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../store/index.js";
-import { OverviewModel } from "../overview-model.js";
 import type { JSONDocument } from "../models/index.js";
+import { OverviewModel } from "../overview-model.js";
+import { UiStateSelector } from "../store/index.js";
 
 import type { OverviewEngineApi } from "./api.js";
 import {

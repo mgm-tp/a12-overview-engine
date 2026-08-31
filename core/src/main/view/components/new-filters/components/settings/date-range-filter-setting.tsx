@@ -32,16 +32,16 @@
 
 import { memo, type FC } from "react";
 
-import { RadioSetting } from "../utilities/radio-setting.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import type { OverviewModel } from "../../../../../overview-model.js";
-import { useAvailableRanges } from "../../hooks/use-available-ranges.js";
-import type { DateRangeFilterState } from "../../../../../store/index.js";
-import { useRangeToggleItems } from "../../hooks/use-range-toggle-items.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { ToggleSetting, BooleanToggleSetting } from "../utilities/typed-toggle.js";
+import type { DateRangeFilterState } from "../../../../../store/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { useAvailableDateRangePeriods } from "../../hooks/use-available-periods.js";
+import { useAvailableRanges } from "../../hooks/use-available-ranges.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useRangeToggleItems } from "../../hooks/use-range-toggle-items.js";
+import { RadioSetting } from "../utilities/radio-setting.js";
+import { ToggleSetting, BooleanToggleSetting } from "../utilities/typed-toggle.js";
 
 import { FilterSettingSection } from "./filter-setting-section.js";
 

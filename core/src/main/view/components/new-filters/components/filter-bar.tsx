@@ -33,10 +33,10 @@
 import { memo, useRef, type FC, useMemo, useCallback } from "react";
 
 import { UiStateSelector } from "../../../../store/index.js";
-import { useFilterState } from "../hooks/use-filter-state.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
-import { useFilterTriggerPlacement } from "../hooks/use-filter-trigger-placement.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
+import { useFilterState } from "../hooks/use-filter-state.js";
+import { useFilterTriggerPlacement } from "../hooks/use-filter-trigger-placement.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface FilterBarProps {}

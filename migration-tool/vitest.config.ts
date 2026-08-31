@@ -36,7 +36,6 @@ export default defineConfig({
 	test: {
 		include: ["test/**/*.test.ts"],
 		maxWorkers: process.env.CI ? 2 : "50%",
-		minWorkers: process.env.CI ? 2 : "50%",
 		pool: "forks",
 		clearMocks: true,
 		coverage: {

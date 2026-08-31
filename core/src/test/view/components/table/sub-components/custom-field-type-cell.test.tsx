@@ -37,9 +37,8 @@ import { it, expect, describe } from "vitest";
 
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { CustomFieldTypeCell } from "../../../../../main/view/components/table/sub-components/custom-field-type-cell.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
 

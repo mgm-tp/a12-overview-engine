@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { Header as BaseHeader } from "@com.mgmtp.a12.base/base-model-api";
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 export interface QueryModel {
 	readonly header: QueryModel.Header;

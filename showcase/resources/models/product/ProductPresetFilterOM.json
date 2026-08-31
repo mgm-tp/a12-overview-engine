@@ -1,353 +1,353 @@
 {
-	"header": {
-		"id": "ProductPresetFilterOM",
-		"modelType": "overview",
-		"modelVersion": "39.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [
-			{
-				"locale": "en",
-				"text": "List of all products"
-			},
-			{
-				"locale": "de",
-				"text": "Liste aller Produkte"
-			}
-		],
-		"modelReferences": [
-			{
-				"purpose": "document-model-for-overview",
-				"modelType": "document",
-				"alias": "DM",
-				"reference": "ProductDM"
-			}
-		],
-		"annotations": []
-	},
-	"content": {
-		"subHeaderBox": {
-			"rightSlot": [
-				{
-					"type": "search"
-				}
-			],
-			"leftSlot": [
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
-		"footerBox": {
-			"rightSlot": [],
-			"leftSlot": []
-		},
-		"columns": [
-			{
-				"id": "column-06f19",
-				"elementRef": "G53",
-				"sortable": false,
-				"preferredSorting": "ASC",
-				"width": 0.6,
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Image"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Bild"
-					}
-				]
-			},
-			{
-				"id": "column-752d8",
-				"elementRef": "F7",
-				"sortable": true,
-				"preferredSorting": "DESC",
-				"width": 1.5
-			},
-			{
-				"id": "column-5ds2d8",
-				"elementRef": "F15",
-				"sortable": true,
-				"width": 1
-			},
-			{
-				"id": "column-8rfd8",
-				"elementRef": "F16",
-				"sortable": false,
-				"width": 1
-			},
-			{
-				"id": "column-ee6a9",
-				"elementRef": "F53",
-				"sortable": false,
-				"width": 1
-			},
-			{
-				"id": "column-c8ee1",
-				"elementRef": "F54",
-				"sortable": false,
-				"width": 1
-			},
-			{
-				"id": "column-254dd8",
-				"elementRef": "F3",
-				"sortable": true,
-				"pinDirection": "RIGHT",
-				"preferredSorting": "ASC",
-				"width": 1,
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Number (pinned)"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Zahl (angepinnt)"
-					}
-				]
-			},
-			{
-				"id": "column-752d10",
-				"elementRef": "F50",
-				"sortable": true,
-				"preferredSorting": "DESC",
-				"width": 1,
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Date"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Datum"
-					}
-				]
-			},
-			{
-				"id": "column-72348",
-				"elementRef": "F9",
-				"sortable": false,
-				"width": 1,
-				"label": [
-					{
-						"locale": "en",
-						"text": "[M] Meta"
-					},
-					{
-						"locale": "de",
-						"text": "[M] Meta"
-					}
-				]
-			}
-		],
-		"rowActionGroup": {
-			"actions": [
-				{
-					"event": "delete",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Row Deletion"
-							},
-							{
-								"locale": "de",
-								"text": "Zeilenlöschung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Really delete row?"
-							},
-							{
-								"locale": "de",
-								"text": "Zeile wirklich löschen?"
-							}
-						]
-					},
-					"styles": ["s4"],
-					"icon": {
-						"name": "delete"
-					},
-					"description": [
-						{
-							"locale": "en",
-							"text": "Delete this product"
-						},
-						{
-							"locale": "de",
-							"text": "Löschen Sie dieses Produkt"
-						}
-					]
-				}
-			]
-		},
-		"contextMenu": {
-			"groups": [
-				{
-					"name": "testgroup",
-					"actions": [
-						{
-							"event": "edit",
-							"icon": {
-								"name": "edit"
-							},
-							"label": [
-								{
-									"locale": "en",
-									"text": "Edit Row"
-								},
-								{
-									"locale": "de",
-									"text": "Bearbeiten"
-								}
-							]
-						},
-						{
-							"event": "copy",
-							"label": [
-								{
-									"locale": "en",
-									"text": "Copy Row"
-								},
-								{
-									"locale": "de",
-									"text": "Kopieren"
-								}
-							],
-							"styles": ["s4"],
-							"icon": {
-								"name": "content_copy"
-							}
-						}
-					]
-				},
-				{
-					"name": "testgroup2",
-					"actions": [
-						{
-							"event": "print",
-							"icon": {
-								"name": "print"
-							},
-							"label": [
-								{
-									"locale": "en",
-									"text": "Print"
-								},
-								{
-									"locale": "de",
-									"text": "Drucken"
-								}
-							],
-							"confirmation": {
-								"title": [
-									{
-										"locale": "en",
-										"text": "Print"
-									},
-									{
-										"locale": "de",
-										"text": "Drucken"
-									}
-								],
-								"message": [
-									{
-										"locale": "en",
-										"text": "Really print row?"
-									},
-									{
-										"locale": "de",
-										"text": "Zeile wirklich drucken?"
-									}
-								]
-							}
-						}
-					]
-				}
-			]
-		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
-		"rowActivation": {
-			"type": "non_interactive"
-		},
-		"configuration": {
-			"pagingSize": 10,
-			"initialSorting": [
-				{
-					"idref": "column-752d8"
-				}
-			],
-			"showFullTextSearch": true,
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_expanded",
-				"counterOption": "simple",
-				"selectionArea": "checkbox",
-				"buttons": [
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Add to cart"
-							},
-							{
-								"locale": "de",
-								"text": "In den Warenkorb legen"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "shopping_cart"
-						},
-						"event": "add_to_cart_event",
-						"primary": true
-					},
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Favorit"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "grade"
-						},
-						"event": "mark_as_favorite_event",
-						"primary": false,
-						"description": [
-							{
-								"locale": "en",
-								"text": "Mark as Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Als Favorit markieren"
-							}
-						]
-					}
-				]
-			},
-			"filterConfiguration": {
-				"filterMode": "all_columns",
-				"showFilterBar": true,
-				"showFilterButton": false
-			}
-		}
-	}
+  "header": {
+    "id": "ProductPresetFilterOM",
+    "modelType": "overview",
+    "modelVersion": "39.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [
+      {
+        "locale": "en",
+        "text": "List of all products"
+      },
+      {
+        "locale": "de",
+        "text": "Liste aller Produkte"
+      }
+    ],
+    "modelReferences": [
+      {
+        "purpose": "document-model-for-overview",
+        "modelType": "document",
+        "alias": "DM",
+        "reference": "ProductDM"
+      }
+    ],
+    "annotations": []
+  },
+  "content": {
+    "subHeaderBox": {
+      "rightSlot": [
+        {
+          "type": "search"
+        }
+      ],
+      "leftSlot": [
+        {
+          "type": "multi_selection"
+        }
+      ]
+    },
+    "footerBox": {
+      "rightSlot": [],
+      "leftSlot": []
+    },
+    "columns": [
+      {
+        "id": "column-06f19",
+        "elementRef": "G53",
+        "sortable": false,
+        "preferredSorting": "ASC",
+        "width": 0.6,
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Image"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Bild"
+          }
+        ]
+      },
+      {
+        "id": "column-752d8",
+        "elementRef": "F7",
+        "sortable": true,
+        "preferredSorting": "DESC",
+        "width": 1.5
+      },
+      {
+        "id": "column-5ds2d8",
+        "elementRef": "F15",
+        "sortable": true,
+        "width": 1
+      },
+      {
+        "id": "column-8rfd8",
+        "elementRef": "F16",
+        "sortable": false,
+        "width": 1
+      },
+      {
+        "id": "column-ee6a9",
+        "elementRef": "F53",
+        "sortable": false,
+        "width": 1
+      },
+      {
+        "id": "column-c8ee1",
+        "elementRef": "F54",
+        "sortable": false,
+        "width": 1
+      },
+      {
+        "id": "column-254dd8",
+        "elementRef": "F3",
+        "sortable": true,
+        "pinDirection": "RIGHT",
+        "preferredSorting": "ASC",
+        "width": 1,
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Number (pinned)"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Zahl (angepinnt)"
+          }
+        ]
+      },
+      {
+        "id": "column-752d10",
+        "elementRef": "F50",
+        "sortable": true,
+        "preferredSorting": "DESC",
+        "width": 1,
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Date"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Datum"
+          }
+        ]
+      },
+      {
+        "id": "column-72348",
+        "elementRef": "F9",
+        "sortable": false,
+        "width": 1,
+        "label": [
+          {
+            "locale": "en",
+            "text": "[M] Meta"
+          },
+          {
+            "locale": "de",
+            "text": "[M] Meta"
+          }
+        ]
+      }
+    ],
+    "rowActionGroup": {
+      "actions": [
+        {
+          "event": "delete",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Row Deletion"
+              },
+              {
+                "locale": "de",
+                "text": "Zeilenlöschung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Really delete row?"
+              },
+              {
+                "locale": "de",
+                "text": "Zeile wirklich löschen?"
+              }
+            ]
+          },
+          "styles": ["s4"],
+          "icon": {
+            "name": "delete"
+          },
+          "description": [
+            {
+              "locale": "en",
+              "text": "Delete this product"
+            },
+            {
+              "locale": "de",
+              "text": "Löschen Sie dieses Produkt"
+            }
+          ]
+        }
+      ]
+    },
+    "contextMenu": {
+      "groups": [
+        {
+          "name": "testgroup",
+          "actions": [
+            {
+              "event": "edit",
+              "icon": {
+                "name": "edit"
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Edit Row"
+                },
+                {
+                  "locale": "de",
+                  "text": "Bearbeiten"
+                }
+              ]
+            },
+            {
+              "event": "copy",
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Copy Row"
+                },
+                {
+                  "locale": "de",
+                  "text": "Kopieren"
+                }
+              ],
+              "styles": ["s4"],
+              "icon": {
+                "name": "content_copy"
+              }
+            }
+          ]
+        },
+        {
+          "name": "testgroup2",
+          "actions": [
+            {
+              "event": "print",
+              "icon": {
+                "name": "print"
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Print"
+                },
+                {
+                  "locale": "de",
+                  "text": "Drucken"
+                }
+              ],
+              "confirmation": {
+                "title": [
+                  {
+                    "locale": "en",
+                    "text": "Print"
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Drucken"
+                  }
+                ],
+                "message": [
+                  {
+                    "locale": "en",
+                    "text": "Really print row?"
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Zeile wirklich drucken?"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+    "rowActivation": {
+      "type": "non_interactive"
+    },
+    "configuration": {
+      "pagingSize": 10,
+      "initialSorting": [
+        {
+          "idref": "column-752d8"
+        }
+      ],
+      "showFullTextSearch": true,
+      "enableFilter": true,
+      "multiSelection": {
+        "collapseOption": "collapsible_expanded",
+        "counterOption": "simple",
+        "selectionArea": "checkbox",
+        "buttons": [
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Add to cart"
+              },
+              {
+                "locale": "de",
+                "text": "In den Warenkorb legen"
+              }
+            ],
+            "destructive": false,
+            "icon": {
+              "name": "shopping_cart"
+            },
+            "event": "add_to_cart_event",
+            "primary": true
+          },
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Favorite"
+              },
+              {
+                "locale": "de",
+                "text": "Favorit"
+              }
+            ],
+            "destructive": false,
+            "icon": {
+              "name": "grade"
+            },
+            "event": "mark_as_favorite_event",
+            "primary": false,
+            "description": [
+              {
+                "locale": "en",
+                "text": "Mark as Favorite"
+              },
+              {
+                "locale": "de",
+                "text": "Als Favorit markieren"
+              }
+            ]
+          }
+        ]
+      },
+      "filterConfiguration": {
+        "filterMode": "all_columns",
+        "showFilterBar": true,
+        "showFilterButton": false
+      }
+    }
+  }
 }

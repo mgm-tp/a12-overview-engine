@@ -31,20 +31,21 @@
  */
 
 import * as React from "react";
+
 import { isAfter, endOfDay, endOfYear, endOfMonth, startOfDay, startOfYear, startOfMonth } from "date-fns";
 
-import { TimeUtils } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { TimeUtils } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../api.js";
 import type { Converter } from "../../../../services/converter/internal/shared.js";
 import { defaultDateRangeConversionTransformer } from "../../../../services/index.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import { SectionType } from "./section-template.js";
-import type { NumberFilterOptionsView } from "./number-filter-options-view.js";
 import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
+import type { NumberFilterOptionsView } from "./number-filter-options-view.js";
+import { SectionType } from "./section-template.js";
 
 export namespace DateTimeUtils {
 	/** @internal */

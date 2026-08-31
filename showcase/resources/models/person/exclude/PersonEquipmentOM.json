@@ -1,388 +1,388 @@
 {
-	"header": {
-		"id": "PersonEquipmentOM",
-		"modelType": "overview",
-		"modelVersion": "39.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [
-			{
-				"locale": "en",
-				"text": "Equipment"
-			},
-			{
-				"locale": "de",
-				"text": "Ausstattung"
-			}
-		],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "document-model-for-overview",
-				"modelType": "document",
-				"alias": "DM",
-				"reference": "PersonDM"
-			},
-			{
-				"purpose": "query-model-for-overview",
-				"modelType": "query",
-				"alias": "QM",
-				"reference": "PeopleEquipmentQM"
-			}
-		]
-	},
-	"content": {
-		"subHeaderBox": {
-			"rightSlot": [],
-			"leftSlot": [
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
-		"footerBox": {
-			"leftSlot": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Cancel"
-						},
-						{
-							"locale": "de",
-							"text": "Abbrechen"
-						}
-					],
-					"event": "event_cancel",
-					"destructive": true,
-					"primary": false
-				}
-			],
-			"rightSlot": []
-		},
-		"columns": [
-			{
-				"id": "column-c2b02",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Equipment Name"
-					},
-					{
-						"locale": "de",
-						"text": "Gerätename"
-					}
-				],
-				"width": 1.2,
-				"elementRef": "field_c2b02",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				],
-				"sortable": true,
-				"preferredSorting": "ASC"
-			},
-			{
-				"id": "column-c3c03",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Serial Number"
-					},
-					{
-						"locale": "de",
-						"text": "Seriennummer"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_c3c03",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			},
-			{
-				"id": "column-c4d04",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Active"
-					},
-					{
-						"locale": "de",
-						"text": "Aktiv"
-					}
-				],
-				"width": 0.6,
-				"elementRef": "field_c4d04",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			},
-			{
-				"id": "column-c5e05",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Category"
-					},
-					{
-						"locale": "de",
-						"text": "Kategorie"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_c5e05",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			},
-			{
-				"id": "column-c8h08",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Quantity"
-					},
-					{
-						"locale": "de",
-						"text": "Anzahl"
-					}
-				],
-				"width": 0.8,
-				"elementRef": "field_c8h08",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			},
-			{
-				"id": "column-c9i09",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Purchase Price"
-					},
-					{
-						"locale": "de",
-						"text": "Kaufpreis"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_c9i09",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			},
-			{
-				"id": "column-additional-info",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Usage Rate (Additional Link Field)"
-					},
-					{
-						"locale": "de",
-						"text": "Nutzungsrate (Zusätzliches Verknüpfungsfeld)"
-					}
-				],
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "LINK"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_5ada4"
-			},
-			{
-				"id": "column-dt-date",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Assigned Date"
-					},
-					{
-						"locale": "de",
-						"text": "Zuweisungsdatum"
-					}
-				],
-				"width": 1,
-				"elementRef": "include_dt100_F4",
-				"linkReferences": [
-					{
-						"relationship": "PersonEquipmentRM",
-						"targetRole": "equipment",
-						"type": "CHILD"
-					}
-				]
-			}
-		],
-		"rowActionGroup": {
-			"actions": [
-				{
-					"event": "delete",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Confirmation"
-							},
-							{
-								"locale": "de",
-								"text": "Bestätigung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Do you really want to delete this equipment?"
-							},
-							{
-								"locale": "de",
-								"text": "Wollen Sie dieses Gerät wirklich löschen?"
-							}
-						]
-					},
-					"icon": {
-						"name": "delete"
-					},
-					"description": [
-						{
-							"locale": "en",
-							"text": "Delete"
-						},
-						{
-							"locale": "de",
-							"text": "Löschen"
-						}
-					],
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"configuration": {
-			"enableFilter": false,
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"selectionArea": "checkbox_and_row",
-				"buttons": [
-					{
-						"icon": {
-							"name": "info",
-							"theme": "outlined"
-						},
-						"event": "selection-overview",
-						"description": [
-							{
-								"locale": "en",
-								"text": "Show selected equipment"
-							},
-							{
-								"locale": "de",
-								"text": "Ausgewählte Geräte anzeigen"
-							}
-						],
-						"destructive": false,
-						"primary": false
-					},
-					{
-						"icon": {
-							"name": "compare_arrows"
-						},
-						"event": "compare",
-						"description": [
-							{
-								"locale": "en",
-								"text": "Compare selected equipment"
-							},
-							{
-								"locale": "de",
-								"text": "Ausgewählte Geräte vergleichen"
-							}
-						],
-						"destructive": false,
-						"primary": false
-					},
-					{
-						"icon": {
-							"name": "delete"
-						},
-						"event": "delete_selected",
-						"description": [
-							{
-								"locale": "en",
-								"text": "Delete selected equipment"
-							},
-							{
-								"locale": "de",
-								"text": "Ausgewählte Geräte löschen"
-							}
-						],
-						"confirmation": {
-							"title": [
-								{
-									"locale": "en",
-									"text": "Confirmation"
-								},
-								{
-									"locale": "de",
-									"text": "Bestätigung"
-								}
-							],
-							"message": [
-								{
-									"locale": "en",
-									"text": "Do you really want to delete the selected equipment?"
-								},
-								{
-									"locale": "de",
-									"text": "Wollen Sie die ausgewählten Geräte wirklich löschen?"
-								}
-							]
-						},
-						"destructive": true,
-						"primary": false
-					}
-				],
-				"clearConfirmation": {
-					"enabled": true
-				}
-			},
-			"pagingSize": 50,
-			"showRowCount": true,
-			"enableColumnsResize": true
-		}
-	}
+  "header": {
+    "id": "PersonEquipmentOM",
+    "modelType": "overview",
+    "modelVersion": "39.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [
+      {
+        "locale": "en",
+        "text": "Equipment"
+      },
+      {
+        "locale": "de",
+        "text": "Ausstattung"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "document-model-for-overview",
+        "modelType": "document",
+        "alias": "DM",
+        "reference": "PersonDM"
+      },
+      {
+        "purpose": "query-model-for-overview",
+        "modelType": "query",
+        "alias": "QM",
+        "reference": "PeopleEquipmentQM"
+      }
+    ]
+  },
+  "content": {
+    "subHeaderBox": {
+      "rightSlot": [],
+      "leftSlot": [
+        {
+          "type": "multi_selection"
+        }
+      ]
+    },
+    "footerBox": {
+      "leftSlot": [
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "Cancel"
+            },
+            {
+              "locale": "de",
+              "text": "Abbrechen"
+            }
+          ],
+          "event": "event_cancel",
+          "destructive": true,
+          "primary": false
+        }
+      ],
+      "rightSlot": []
+    },
+    "columns": [
+      {
+        "id": "column-c2b02",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Equipment Name"
+          },
+          {
+            "locale": "de",
+            "text": "Gerätename"
+          }
+        ],
+        "width": 1.2,
+        "elementRef": "field_c2b02",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ],
+        "sortable": true,
+        "preferredSorting": "ASC"
+      },
+      {
+        "id": "column-c3c03",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Serial Number"
+          },
+          {
+            "locale": "de",
+            "text": "Seriennummer"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_c3c03",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      },
+      {
+        "id": "column-c4d04",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Active"
+          },
+          {
+            "locale": "de",
+            "text": "Aktiv"
+          }
+        ],
+        "width": 0.6,
+        "elementRef": "field_c4d04",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      },
+      {
+        "id": "column-c5e05",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Category"
+          },
+          {
+            "locale": "de",
+            "text": "Kategorie"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_c5e05",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      },
+      {
+        "id": "column-c8h08",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Quantity"
+          },
+          {
+            "locale": "de",
+            "text": "Anzahl"
+          }
+        ],
+        "width": 0.8,
+        "elementRef": "field_c8h08",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      },
+      {
+        "id": "column-c9i09",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Purchase Price"
+          },
+          {
+            "locale": "de",
+            "text": "Kaufpreis"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_c9i09",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      },
+      {
+        "id": "column-additional-info",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Usage Rate (Additional Link Field)"
+          },
+          {
+            "locale": "de",
+            "text": "Nutzungsrate (Zusätzliches Verknüpfungsfeld)"
+          }
+        ],
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "LINK"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_5ada4"
+      },
+      {
+        "id": "column-dt-date",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Assigned Date"
+          },
+          {
+            "locale": "de",
+            "text": "Zuweisungsdatum"
+          }
+        ],
+        "width": 1,
+        "elementRef": "include_dt100_F4",
+        "linkReferences": [
+          {
+            "relationship": "PersonEquipmentRM",
+            "targetRole": "equipment",
+            "type": "CHILD"
+          }
+        ]
+      }
+    ],
+    "rowActionGroup": {
+      "actions": [
+        {
+          "event": "delete",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Confirmation"
+              },
+              {
+                "locale": "de",
+                "text": "Bestätigung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Do you really want to delete this equipment?"
+              },
+              {
+                "locale": "de",
+                "text": "Wollen Sie dieses Gerät wirklich löschen?"
+              }
+            ]
+          },
+          "icon": {
+            "name": "delete"
+          },
+          "description": [
+            {
+              "locale": "en",
+              "text": "Delete"
+            },
+            {
+              "locale": "de",
+              "text": "Löschen"
+            }
+          ],
+          "destructive": false,
+          "primary": false
+        }
+      ]
+    },
+    "configuration": {
+      "enableFilter": false,
+      "multiSelection": {
+        "collapseOption": "collapsible_collapsed",
+        "counterOption": "simple",
+        "selectionArea": "checkbox_and_row",
+        "buttons": [
+          {
+            "icon": {
+              "name": "info",
+              "theme": "outlined"
+            },
+            "event": "selection-overview",
+            "description": [
+              {
+                "locale": "en",
+                "text": "Show selected equipment"
+              },
+              {
+                "locale": "de",
+                "text": "Ausgewählte Geräte anzeigen"
+              }
+            ],
+            "destructive": false,
+            "primary": false
+          },
+          {
+            "icon": {
+              "name": "compare_arrows"
+            },
+            "event": "compare",
+            "description": [
+              {
+                "locale": "en",
+                "text": "Compare selected equipment"
+              },
+              {
+                "locale": "de",
+                "text": "Ausgewählte Geräte vergleichen"
+              }
+            ],
+            "destructive": false,
+            "primary": false
+          },
+          {
+            "icon": {
+              "name": "delete"
+            },
+            "event": "delete_selected",
+            "description": [
+              {
+                "locale": "en",
+                "text": "Delete selected equipment"
+              },
+              {
+                "locale": "de",
+                "text": "Ausgewählte Geräte löschen"
+              }
+            ],
+            "confirmation": {
+              "title": [
+                {
+                  "locale": "en",
+                  "text": "Confirmation"
+                },
+                {
+                  "locale": "de",
+                  "text": "Bestätigung"
+                }
+              ],
+              "message": [
+                {
+                  "locale": "en",
+                  "text": "Do you really want to delete the selected equipment?"
+                },
+                {
+                  "locale": "de",
+                  "text": "Wollen Sie die ausgewählten Geräte wirklich löschen?"
+                }
+              ]
+            },
+            "destructive": true,
+            "primary": false
+          }
+        ],
+        "clearConfirmation": {
+          "enabled": true
+        }
+      },
+      "pagingSize": 50,
+      "showRowCount": true,
+      "enableColumnsResize": true
+    }
+  }
 }

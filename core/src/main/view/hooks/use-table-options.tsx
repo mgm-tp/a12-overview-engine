@@ -34,8 +34,8 @@ import * as React from "react";
 
 import type { SortOptions, ColumnResizingOptions } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngineApi } from "../api.js";
 import { UiStateSelector } from "../../store/index.js";
+import { OverviewEngineApi } from "../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
 import type { OverviewColumn } from "./use-table-columns.js";

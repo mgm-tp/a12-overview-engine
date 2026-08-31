@@ -36,9 +36,8 @@ import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { EnumerationFilterState } from "../../../../main/store/internal/filter-state.js";
 import { EnumerationFilterController } from "../../../../main/store/internal/filter-controllers/enumeration-controller.js";
-
+import { EnumerationFilterState } from "../../../../main/store/internal/filter-state.js";
 import { enLocale } from "../../../basic.spec.js";
 import { getDocumentModel } from "../../../setup/models.js";
 

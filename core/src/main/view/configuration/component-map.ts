@@ -32,112 +32,24 @@
 
 import type * as React from "react";
 
-import { Footer } from "../components/footer.js";
-import { Button } from "../components/button.js";
-import { Heading } from "../components/heading.js";
-import { SubHeader } from "../components/sub-header.js";
-import { SearchBar } from "../components/search-bar.js";
-import { Pagination } from "../components/pagination.js";
 import { ButtonPanel } from "../components/button-panel.js";
-import { SearchButton } from "../components/search-button.js";
+import { Button } from "../components/button.js";
+import { OverviewButtonConfirmDialog } from "../components/dialogs/sub-components/overview-button-confirm-dialog.js";
+import { RowActionConfirmDialog } from "../components/dialogs/sub-components/row-action-confirm-dialog.js";
 import { FilterBar } from "../components/filters/filter-bar.js";
-import { OverviewButton } from "../components/overview-button.js";
-import { FilterOptionsViews } from "../components/filters/index.js";
-import { MobileActionBar } from "../components/mobile-action-bar.js";
 import { FilterButton } from "../components/filters/filter-button.js";
+import { FilterSelectorContentHeader } from "../components/filters/filter-selector-content-header.js";
 import { FilterSelector } from "../components/filters/filter-selector.js";
-import { TableBody } from "../components/table/sub-components/table-body.js";
-import { RowAction } from "../components/table/sub-components/row-action.js";
-import { ContextMenu } from "../components/table/sub-components/context-menu.js";
-import { RowCheckbox } from "../components/table/sub-components/row-checkbox.js";
-import { TableBodyCell } from "../components/table/sub-components/table-body-cell.js";
-import { TableHeadCell } from "../components/table/sub-components/table-head-cell.js";
-import { AttachmentCell } from "../components/table/sub-components/attachment-cell.js";
-import { StringTypeCell } from "../components/table/sub-components/string-type-cell.js";
-import { RowActionGroup } from "../components/table/sub-components/row-action-group.js";
-import { OverallCheckbox } from "../components/table/sub-components/overall-checkbox.js";
-import { MultiSelectCell } from "../components/table/sub-components/multi-select-cell.js";
+import { FilterOptionsViews } from "../components/filters/index.js";
 import { ErrorMessageBox } from "../components/filters/options-views/error-message-box.js";
-import { MultiSelectionPanel } from "../components/multi-selection/multi-selection-panel.js";
+import { Footer } from "../components/footer.js";
+import { Heading } from "../components/heading.js";
+import { MobileActionBar } from "../components/mobile-action-bar.js";
+import { ClearMultiSelectionDialog } from "../components/multi-selection/clear-multi-selection-dialog.js";
+import { MultiSelectionActions } from "../components/multi-selection/multi-selection-actions.js";
 import { MultiSelectionButton } from "../components/multi-selection/multi-selection-button.js";
 import { MultiSelectionCounter } from "../components/multi-selection/multi-selection-counter.js";
-import { MultiSelectionActions } from "../components/multi-selection/multi-selection-actions.js";
-import { CustomFieldTypeCell } from "../components/table/sub-components/custom-field-type-cell.js";
-import { TableBodyCellContent } from "../components/table/sub-components/table-body-cell-content.js";
-import { TableFootCellContent } from "../components/table/sub-components/table-foot-cell-content.js";
-import { FilterSelectorContentHeader } from "../components/filters/filter-selector-content-header.js";
-import { RightClickContextMenu } from "../components/table/sub-components/right-click-context-menu.js";
-import { ReferenceCell, LinkedReferenceCell } from "../components/table/sub-components/reference-cell.js";
-import { ClearMultiSelectionDialog } from "../components/multi-selection/clear-multi-selection-dialog.js";
-import { InfiniteScrollTableBody } from "../components/table/sub-components/infinite-scroll-table-body.js";
-import { RowActionConfirmDialog } from "../components/dialogs/sub-components/row-action-confirm-dialog.js";
-import { ExpressionCell, LinkedExpressionCell } from "../components/table/sub-components/expression-cell.js";
-import { FilterBarItem, type FilterBarItemProps } from "../components/new-filters/components/filter-bar-item.js";
-import { EmptyFilter, type EmptyFilterProps } from "../components/new-filters/components/utilities/empty-filter.js";
-import { OverviewButtonConfirmDialog } from "../components/dialogs/sub-components/overview-button-confirm-dialog.js";
-import { FilterEditor, type FilterEditorProps } from "../components/new-filters/components/editors/filter-editor.js";
-import { OverviewSubheaderBox as NewOverviewSubheaderBox } from "../components/new-filters/overview-subheader-box.js";
-import {
-	FilterSetting,
-	type FilterSettingProps
-} from "../components/new-filters/components/settings/filter-setting.js";
-import {
-	FilterResetButton,
-	type FilterResetButtonProps
-} from "../components/new-filters/components/filter-reset-button.js";
-import {
-	SubHeader as NewSubHeader,
-	type SubHeaderProps as NewSubHeaderProps
-} from "../components/new-filters/sub-header.js";
-import {
-	TimeFilterEditor,
-	type TimeFilterEditorProps
-} from "../components/new-filters/components/editors/time-filter-editor.js";
-import {
-	DateFilterEditor,
-	type DateFilterEditorProps
-} from "../components/new-filters/components/editors/date-filter-editor.js";
-import {
-	FilterSettingButton,
-	type FilterSettingButtonProps
-} from "../components/new-filters/components/filter-setting-button.js";
-import type { OverviewSubheaderBoxProps as NewOverviewSubheaderBoxProps } from "../components/new-filters/overview-subheader-box.js";
-import {
-	QueryFilterEditor,
-	type QueryFilterEditorProps
-} from "../components/new-filters/components/editors/query-filter-editor.js";
-import {
-	FilterSelectorFooter,
-	type FilterSelectorFooterProps
-} from "../components/new-filters/components/filter-selector-footer.js";
-import {
-	TimeFilterSetting,
-	type TimeFilterSettingProps
-} from "../components/new-filters/components/settings/time-filter-setting.js";
-import {
-	DateFilterSetting,
-	type DateFilterSettingProps
-} from "../components/new-filters/components/settings/date-filter-setting.js";
-import {
-	StringFilterEditor,
-	type StringFilterEditorProps
-} from "../components/new-filters/components/editors/string-filter-editor.js";
-import {
-	NumberFilterEditor,
-	type NumberFilterEditorProps
-} from "../components/new-filters/components/editors/number-filter-editor.js";
-import {
-	FilterBar as NewFilterBar,
-	type FilterBarProps as NewFilterBarProps
-} from "../components/new-filters/components/filter-bar.js";
-import {
-	FilterSelectorSetting,
-	type FilterSelectorSettingProps
-} from "../components/new-filters/components/filter-selector-setting.js";
-import {
-	FilterBarItemDropdown,
-	type FilterBarItemDropdownProps
-} from "../components/new-filters/components/filter-bar-item-dropdown.js";
+import { MultiSelectionPanel } from "../components/multi-selection/multi-selection-panel.js";
 import {
 	BooleanFilterEditor,
 	type BooleanFilterEditorProps
@@ -147,81 +59,147 @@ import {
 	type ConfirmFilterEditorProps
 } from "../components/new-filters/components/editors/confirm-filter-editor.js";
 import {
-	StringFilterSetting,
-	type StringFilterSettingProps
-} from "../components/new-filters/components/settings/string-filter-setting.js";
-import {
-	NumberFilterSetting,
-	type NumberFilterSettingProps
-} from "../components/new-filters/components/settings/number-filter-setting.js";
-import {
-	ConfirmFilterSetting,
-	type ConfirmFilterSettingProps
-} from "../components/new-filters/components/settings/confirm-filter-setting.js";
-import {
-	BooleanFilterSetting,
-	type BooleanFilterSettingProps
-} from "../components/new-filters/components/settings/boolean-filter-setting.js";
-import {
-	DateTimeFilterEditor,
-	type DateTimeFilterEditorProps
-} from "../components/new-filters/components/editors/date-time-filter-editor.js";
-import {
-	FilterSelectorSearchBar,
-	type FilterSelectorSearchBarProps
-} from "../components/new-filters/components/filter-selector-search-bar.js";
-import {
-	DateRangeFilterEditor,
-	type DateRangeFilterEditorProps
-} from "../components/new-filters/components/editors/date-range-filter-editor.js";
-import {
-	DateTimeFilterSetting,
-	type DateTimeFilterSettingProps
-} from "../components/new-filters/components/settings/date-time-filter-setting.js";
-import {
-	DateRangeFilterSetting,
-	type DateRangeFilterSettingProps
-} from "../components/new-filters/components/settings/date-range-filter-setting.js";
-import {
-	EnumerationFilterEditor,
-	type EnumerationFilterEditorProps
-} from "../components/new-filters/components/editors/enumeration-filter-editor.js";
-import {
-	MultiSelectFilterEditor,
-	type MultiSelectFilterEditorProps
-} from "../components/new-filters/components/editors/multi-select-filter-editor.js";
-import {
-	EnumerationFilterSetting,
-	type EnumerationFilterSettingProps
-} from "../components/new-filters/components/settings/enumeration-filter-setting.js";
+	DateFilterEditor,
+	type DateFilterEditorProps
+} from "../components/new-filters/components/editors/date-filter-editor.js";
 import {
 	DateFragmentFilterEditor,
 	type DateFragmentFilterEditorProps
 } from "../components/new-filters/components/editors/date-fragment-filter-editor.js";
 import {
-	OverviewHeading as NewOverviewHeading,
-	type OverviewHeadingProps as NewOverviewHeadingProps
-} from "../components/new-filters/overview-heading.js";
+	DateRangeFilterEditor,
+	type DateRangeFilterEditorProps
+} from "../components/new-filters/components/editors/date-range-filter-editor.js";
 import {
-	MultiSelectFilterSetting,
-	type MultiSelectFilterSettingProps
-} from "../components/new-filters/components/settings/multi-select-filter-setting.js";
+	DateTimeFilterEditor,
+	type DateTimeFilterEditorProps
+} from "../components/new-filters/components/editors/date-time-filter-editor.js";
+import {
+	EnumerationFilterEditor,
+	type EnumerationFilterEditorProps
+} from "../components/new-filters/components/editors/enumeration-filter-editor.js";
+import { FilterEditor, type FilterEditorProps } from "../components/new-filters/components/editors/filter-editor.js";
+import {
+	MultiSelectFilterEditor,
+	type MultiSelectFilterEditorProps
+} from "../components/new-filters/components/editors/multi-select-filter-editor.js";
+import {
+	NumberFilterEditor,
+	type NumberFilterEditorProps
+} from "../components/new-filters/components/editors/number-filter-editor.js";
+import {
+	QueryFilterEditor,
+	type QueryFilterEditorProps
+} from "../components/new-filters/components/editors/query-filter-editor.js";
+import {
+	StringFilterEditor,
+	type StringFilterEditorProps
+} from "../components/new-filters/components/editors/string-filter-editor.js";
+import {
+	TimeFilterEditor,
+	type TimeFilterEditorProps
+} from "../components/new-filters/components/editors/time-filter-editor.js";
+import {
+	FilterBarItemDropdown,
+	type FilterBarItemDropdownProps
+} from "../components/new-filters/components/filter-bar-item-dropdown.js";
+import { FilterBarItem, type FilterBarItemProps } from "../components/new-filters/components/filter-bar-item.js";
+import {
+	FilterBar as NewFilterBar,
+	type FilterBarProps as NewFilterBarProps
+} from "../components/new-filters/components/filter-bar.js";
+import {
+	FilterResetButton,
+	type FilterResetButtonProps
+} from "../components/new-filters/components/filter-reset-button.js";
+import {
+	FilterSelectorFooter,
+	type FilterSelectorFooterProps
+} from "../components/new-filters/components/filter-selector-footer.js";
+import {
+	FilterSelectorSearchBar,
+	type FilterSelectorSearchBarProps
+} from "../components/new-filters/components/filter-selector-search-bar.js";
+import {
+	FilterSelectorSetting,
+	type FilterSelectorSettingProps
+} from "../components/new-filters/components/filter-selector-setting.js";
 import {
 	FilterSelectorTriggerButton,
 	type FilterSelectorTriggerButtonProps
 } from "../components/new-filters/components/filter-selector-trigger-button.js";
 import {
+	FilterSelector as NewFilterSelector,
+	type FilterSelectorProps as NewFilterSelectorProps
+} from "../components/new-filters/components/filter-selector.js";
+import {
+	FilterSettingButton,
+	type FilterSettingButtonProps
+} from "../components/new-filters/components/filter-setting-button.js";
+import {
+	BooleanFilterSetting,
+	type BooleanFilterSettingProps
+} from "../components/new-filters/components/settings/boolean-filter-setting.js";
+import {
+	ConfirmFilterSetting,
+	type ConfirmFilterSettingProps
+} from "../components/new-filters/components/settings/confirm-filter-setting.js";
+import {
+	DateFilterSetting,
+	type DateFilterSettingProps
+} from "../components/new-filters/components/settings/date-filter-setting.js";
+import {
 	DateFragmentFilterSetting,
 	type DateFragmentFilterSettingProps
 } from "../components/new-filters/components/settings/date-fragment-filter-setting.js";
+import {
+	DateRangeFilterSetting,
+	type DateRangeFilterSettingProps
+} from "../components/new-filters/components/settings/date-range-filter-setting.js";
+import {
+	DateTimeFilterSetting,
+	type DateTimeFilterSettingProps
+} from "../components/new-filters/components/settings/date-time-filter-setting.js";
+import {
+	EnumerationFilterSetting,
+	type EnumerationFilterSettingProps
+} from "../components/new-filters/components/settings/enumeration-filter-setting.js";
+import {
+	FilterSetting,
+	type FilterSettingProps
+} from "../components/new-filters/components/settings/filter-setting.js";
+import {
+	MultiSelectFilterSetting,
+	type MultiSelectFilterSettingProps
+} from "../components/new-filters/components/settings/multi-select-filter-setting.js";
+import {
+	NumberFilterSetting,
+	type NumberFilterSettingProps
+} from "../components/new-filters/components/settings/number-filter-setting.js";
+import {
+	StringFilterSetting,
+	type StringFilterSettingProps
+} from "../components/new-filters/components/settings/string-filter-setting.js";
+import {
+	TimeFilterSetting,
+	type TimeFilterSettingProps
+} from "../components/new-filters/components/settings/time-filter-setting.js";
+import { EmptyFilter, type EmptyFilterProps } from "../components/new-filters/components/utilities/empty-filter.js";
 import {
 	RangeFilterEditorTemplate,
 	type RangeFilterEditorTemplateProps
 } from "../components/new-filters/components/utilities/range-filter-editor-template.js";
 import {
-	FilterSelector as NewFilterSelector,
-	type FilterSelectorProps as NewFilterSelectorProps
-} from "../components/new-filters/components/filter-selector.js";
+	OverviewHeading as NewOverviewHeading,
+	type OverviewHeadingProps as NewOverviewHeadingProps
+} from "../components/new-filters/overview-heading.js";
+import { OverviewSubheaderBox as NewOverviewSubheaderBox } from "../components/new-filters/overview-subheader-box.js";
+import type { OverviewSubheaderBoxProps as NewOverviewSubheaderBoxProps } from "../components/new-filters/overview-subheader-box.js";
+import {
+	SubHeader as NewSubHeader,
+	type SubHeaderProps as NewSubHeaderProps
+} from "../components/new-filters/sub-header.js";
+import { OverviewButton } from "../components/overview-button.js";
 import {
 	OverviewHeading,
 	OverviewFilterButton,
@@ -230,6 +208,28 @@ import {
 	type OverviewHeadingProps,
 	type OverviewSubheaderBoxProps
 } from "../components/overview-content-box/sub-components/index.js";
+import { Pagination } from "../components/pagination.js";
+import { SearchBar } from "../components/search-bar.js";
+import { SearchButton } from "../components/search-button.js";
+import { SubHeader } from "../components/sub-header.js";
+import { AttachmentCell } from "../components/table/sub-components/attachment-cell.js";
+import { ContextMenu } from "../components/table/sub-components/context-menu.js";
+import { CustomFieldTypeCell } from "../components/table/sub-components/custom-field-type-cell.js";
+import { ExpressionCell, LinkedExpressionCell } from "../components/table/sub-components/expression-cell.js";
+import { InfiniteScrollTableBody } from "../components/table/sub-components/infinite-scroll-table-body.js";
+import { MultiSelectCell } from "../components/table/sub-components/multi-select-cell.js";
+import { OverallCheckbox } from "../components/table/sub-components/overall-checkbox.js";
+import { ReferenceCell, LinkedReferenceCell } from "../components/table/sub-components/reference-cell.js";
+import { RightClickContextMenu } from "../components/table/sub-components/right-click-context-menu.js";
+import { RowActionGroup } from "../components/table/sub-components/row-action-group.js";
+import { RowAction } from "../components/table/sub-components/row-action.js";
+import { RowCheckbox } from "../components/table/sub-components/row-checkbox.js";
+import { StringTypeCell } from "../components/table/sub-components/string-type-cell.js";
+import { TableBodyCellContent } from "../components/table/sub-components/table-body-cell-content.js";
+import { TableBodyCell } from "../components/table/sub-components/table-body-cell.js";
+import { TableBody } from "../components/table/sub-components/table-body.js";
+import { TableFootCellContent } from "../components/table/sub-components/table-foot-cell-content.js";
+import { TableHeadCell } from "../components/table/sub-components/table-head-cell.js";
 
 export interface ComponentMap {
 	readonly Heading: React.ComponentType<Heading.PropsType>;

@@ -37,7 +37,6 @@ import { it, expect, describe } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../main/overview-model.js";
-
 import { defaultEngineProps } from "../../../basic.spec.js";
 
 import { setupMultiSelection } from "./utils.js";

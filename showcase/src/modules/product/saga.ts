@@ -34,7 +34,6 @@
  * @packageDocumentation
  * @module extensions/crud
  */
-
 import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
 import { ActivitySelectors, NotificationActions } from "@com.mgmtp.a12.client/client-core";

@@ -33,9 +33,9 @@
 import type { Page } from "@playwright/test";
 
 import { test, expect } from "../../commands.js";
-import { Showcase, navigate } from "../../utils.js";
-import { useModelOverride } from "../../model-override.js";
 import { overrideFilterConfiguration } from "../../filter-utils.js";
+import { useModelOverride } from "../../model-override.js";
+import { Showcase, navigate } from "../../utils.js";
 
 test.describe.serial("Filter Selector (modal viewMode) — responsive sizing", () => {
 	useModelOverride((model) =>

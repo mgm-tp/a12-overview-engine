@@ -30,21 +30,22 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Lens } from "monocle-ts";
-import { userEvent } from "vitest/browser";
-import { it, expect, describe } from "vitest";
 import { waitFor } from "@testing-library/react";
+import { Lens } from "monocle-ts";
+import { it, expect, describe } from "vitest";
+import { userEvent } from "vitest/browser";
 
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { noop, DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { OverviewContentBoxContext } from "../../../../main/view/context/overview-content-box-context.js";
 import { FilterSelectorTriggerButton } from "../../../../main/view/components/new-filters/components/filter-selector-trigger-button.js";
-
-import { ProductFieldIds } from "../../../setup/product-field-ids.js";
+import { OverviewContentBoxContext } from "../../../../main/view/context/overview-content-box-context.js";
+import { deLocale } from "../../../basic.spec.js";
 import { getDocumentModel, getOverviewModel } from "../../../setup/models.js";
+import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
-import { queryByDataRole, renderWithStore, baseFilterGroup, baseFilterConfiguration } from "./setup.js";
+import { baseFilterGroup, queryByDataRole, renderWithStore, baseFilterConfiguration } from "./setup.js";
 
 const filterConfigurationLens = Lens.fromPath<OverviewModel>()(["content", "configuration", "newFilterConfiguration"]);
 
@@ -75,6 +76,7 @@ async function setupTest(options?: {
 	filterConfiguration?: Partial<OverviewModel.NewFilterConfiguration>;
 	filterGroups?: OverviewModel.NewFilter.Group[];
 	removeNewFilterConfig?: boolean;
+	locale?: Locale;
 }) {
 	const documentModel = await getDocumentModel("product", "ProductDM");
 	const productOM = await getOverviewModel("product", "ProductOM");
@@ -97,7 +99,7 @@ async function setupTest(options?: {
 		<OverviewContentBoxContext.Provider value={contentBoxContextValue}>
 			<FilterSelectorTriggerButton />
 		</OverviewContentBoxContext.Provider>,
-		{ engineProps: { documentModel, overviewModel, data: [] } }
+		{ engineProps: { documentModel, overviewModel, data: [] }, locale: options?.locale }
 	);
 
 	return { documentModel, overviewModel, ...renderResult };
@@ -228,6 +230,39 @@ describe("com.mgmtp.a12.overview-engine.view.components.new-filters.filter-selec
 
 				const badge = button?.querySelector("[data-role='badge-content']");
 				expect(badge?.hasAttribute("hidden")).toBe(false);
+			});
+		});
+
+		it("exposes the localized title on the badge when filters are set", async () => {
+			const filterWithValue: OverviewModel.NewFilter.String.Item = {
+				...stringFilterItem,
+				options: { ...stringFilterItem.options, criteria: "test value" }
+			};
+
+			const { container } = await setupTest({
+				filterGroups: [{ ...baseFilterGroup, filterItems: [filterWithValue] }]
+			});
+
+			await waitFor(() => {
+				const badge = queryByDataRole(container, DataRoles.Badge);
+				expect(badge?.getAttribute("title")).toBe("Filters are applied");
+			});
+		});
+
+		it("exposes the German badge title for the de locale", async () => {
+			const filterWithValue: OverviewModel.NewFilter.String.Item = {
+				...stringFilterItem,
+				options: { ...stringFilterItem.options, criteria: "test value" }
+			};
+
+			const { container } = await setupTest({
+				filterGroups: [{ ...baseFilterGroup, filterItems: [filterWithValue] }],
+				locale: deLocale
+			});
+
+			await waitFor(() => {
+				const badge = queryByDataRole(container, DataRoles.Badge);
+				expect(badge?.getAttribute("title")).toBe("Filter sind angewendet");
 			});
 		});
 

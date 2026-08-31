@@ -32,10 +32,10 @@
 
 import * as Path from "path";
 
-import _ from "lodash";
-import { pluginReact } from "@rsbuild/plugin-react";
 import { rspack, defineConfig } from "@rsbuild/core";
+import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginStyledComponents } from "@rsbuild/plugin-styled-components";
+import _ from "lodash";
 
 import packageJson from "./package.json" with { type: "json" };
 import { collectModelVersions } from "./scripts/collect-model-versions.js";

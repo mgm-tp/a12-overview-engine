@@ -31,24 +31,24 @@
  */
 
 import * as React from "react";
+
 import { fireEvent } from "@testing-library/react";
-import { it, vi, expect, describe, afterEach, type Mock, beforeEach } from "vitest";
+import { it, vi, expect, describe, type Mock, afterEach, beforeEach } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
-import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewModel } from "../../main/overview-model.js";
 import type { JSONDocument } from "../../main/models/index.js";
+import { OverviewModel } from "../../main/overview-model.js";
 import type { OverviewEngineApi } from "../../main/view/api.js";
-import { OverviewEngine } from "../../main/view/overview-engine.js";
 import type { ComponentMap } from "../../main/view/configuration/component-map.js";
 import { type WidgetMap, DefaultWidgetMap } from "../../main/view/configuration/widget-map.js";
-
-import { render, type QueriableElement } from "../test-utils.js";
-import { getDocumentModel, getOverviewModel } from "../setup/models.js";
-import { cartesianProduct, createComponentMap, type PartialOEInfiniteScrollProps } from "../utils.js";
+import { OverviewEngine } from "../../main/view/overview-engine.js";
 import { deLocale, enLocale, NumberColumnModel, defaultEngineProps, MultiSelectColumnModel } from "../basic.spec.js";
+import { getDocumentModel, getOverviewModel } from "../setup/models.js";
+import { render, type QueriableElement } from "../test-utils.js";
+import { cartesianProduct, createComponentMap, type PartialOEInfiniteScrollProps } from "../utils.js";
 
 import { setupMultiSelection, defaultClearConfirmationMultiSelection } from "./components/multi-selection/utils.js";
 

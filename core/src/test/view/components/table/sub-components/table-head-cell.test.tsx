@@ -35,12 +35,11 @@ import { it, expect, describe } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { TableHeadCell } from "../../../../../main/view/components/table/sub-components/table-head-cell.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { createLocalizedModelText } from "../../../../utils.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
+import { createLocalizedModelText } from "../../../../utils.js";
 
 const getTextContent = (text: string) => text + " EN";
 

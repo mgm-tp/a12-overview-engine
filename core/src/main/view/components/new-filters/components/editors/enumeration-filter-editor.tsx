@@ -36,15 +36,15 @@ import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { MultiSelectList } from "../utilities/multi-select-list.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import { MultiSelectCompact } from "../utilities/multi-select-compact.js";
+import type { DocumentModelTypedField } from "../../../../../models/index.js";
 import type { EnumerationFilterState } from "../../../../../store/index.js";
 import type { MultiSelectFilterState } from "../../../../../store/index.js";
-import type { FilterListOption } from "../utilities/use-organized-values.js";
-import type { DocumentModelTypedField } from "../../../../../models/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { MultiSelectCompact } from "../utilities/multi-select-compact.js";
+import { MultiSelectList } from "../utilities/multi-select-list.js";
+import type { FilterListOption } from "../utilities/use-organized-values.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface EnumerationFilterEditorProps {

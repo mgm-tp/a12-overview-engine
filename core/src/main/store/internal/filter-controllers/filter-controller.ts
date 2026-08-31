@@ -33,8 +33,8 @@
 import type { Locale as DateFnsLocale } from "date-fns/locale";
 
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import type { Localizable, LocalizableArgs } from "@com.mgmtp.a12.utils/utils-localization";
 import type { DocumentModel, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Localizable, LocalizableArgs } from "@com.mgmtp.a12.utils/utils-localization";
 
 import type { OverviewModel } from "../../../overview-model.js";
 

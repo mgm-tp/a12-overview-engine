@@ -2975,6 +2975,7 @@ export namespace OverviewEngineApi {
             readonly buttonModel: OverviewModel.Button;
             readonly componentKey: string;
         }): void;
+        onExport?(): void;
         onFilterChange?(filters: FilterMap): void;
         onInfiniteScroll?(params: {
             scrolling: Scrolling;
@@ -4491,6 +4492,10 @@ export const RESOURCE_KEYS: {
                 closeButtonTitle: string;
                 searchPlaceholder: string;
             };
+            section: {
+                appliedTitle: string;
+                errorTitle: string;
+            };
             selectorOptions: {
                 viewHeader: string;
                 showSearch: string;
@@ -4630,6 +4635,7 @@ export const RESOURCE_KEYS: {
         filterButton: {
             openFilter: string;
             closeFilter: string;
+            filtersAppliedTitle: string;
         };
         searchBar: {
             searchButtonTitle: string;

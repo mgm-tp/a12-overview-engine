@@ -18,4 +18,6 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPR
 [#/typedoc]
 = API Documentation
 
-The API documentation can be found link:./assets/generated/typedoc/index.html[here].
+The Overview Engine API documentation can be found link:./assets/generated/typedoc/index.html[here].
+
+The Query Model API documentation can be found link:./assets/querymodel/generated/typedoc/index.html[here].

@@ -33,15 +33,15 @@
 import type { SagaGenerator } from "typed-redux-saga";
 
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
-import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type {
 	Query as DSQuery,
 	SupportedRequest,
 	QueryJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import type { OverviewModel } from "../../../overview-model.js";
 import type { Links, JSONDocument } from "../../../models/index.js";
+import type { OverviewModel } from "../../../overview-model.js";
 import type { RequestSelectorMap } from "../utils/request-selector-map.js";
 
 export interface OverviewEngineDataLoader {

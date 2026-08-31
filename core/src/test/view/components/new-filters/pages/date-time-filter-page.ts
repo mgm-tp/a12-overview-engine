@@ -30,20 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect } from "vitest";
 import { within, waitFor, fireEvent, queryByText } from "@testing-library/react";
+import { expect } from "vitest";
 
-import type { OverviewModel } from "../../../../../main/index.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../../main/index.js";
 import { renderFilter, queryByDataRole, type FilterRenderResult } from "../setup.js";
 
-import { TimePickerDialogPage } from "./time-filter-page.js";
 import {
 	DateFilterPage,
 	DatePickerDialogPage,
 	type PeriodModeLabel as DatePeriodModeLabel
 } from "./date-filter-page.js";
+import { TimePickerDialogPage } from "./time-filter-page.js";
 
 export type DateTimePeriodModeLabel = DatePeriodModeLabel | "Date & Time" | "Time (Today)";
 
@@ -120,7 +119,7 @@ export class DateTimePickerDialogPage {
 
 export class DateTimeFilterPage extends DateFilterPage {
 	get timeView() {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias -- needed: nested getters in returned object literal cannot use arrow functions
+		// eslint-disable-next-line typescript/no-this-alias -- needed: nested getters in returned object literal cannot use arrow functions
 		const page = this;
 
 		return {
@@ -239,7 +238,7 @@ export class DateTimeFilterPage extends DateFilterPage {
 	}
 
 	get dateTimeView() {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias -- needed: nested getters in returned object literal cannot use arrow functions
+		// eslint-disable-next-line typescript/no-this-alias -- needed: nested getters in returned object literal cannot use arrow functions
 		const page = this;
 
 		return {

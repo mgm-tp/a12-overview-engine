@@ -30,12 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { styled } from "styled-components";
 import { memo, type FC, useMemo, useState, useCallback, type ChangeEvent, type KeyboardEvent } from "react";
 
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { styled } from "styled-components";
+
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 
 import { Divider } from "./divider.js";
 import type { FilterListOption } from "./use-organized-values.js";

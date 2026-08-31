@@ -30,21 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
-import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { DateRangeFilterState } from "../filter-state.js";
-import type { OverviewModel } from "../../../overview-model.js";
-import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import { isDateRangeFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 import type { DocumentModelTypedField } from "../../../models/index.js";
 import type { FormatTypedDateRangeType } from "../../../models/internal/shared.js";
-import { isDateRangeFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
+import type { OverviewModel } from "../../../overview-model.js";
+import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import type { DateRangeFilterState } from "../filter-state.js";
 
 import { RangeCriteria, PeriodCriteria } from "./criteria.js";
-import { selectResolver, isInvalidRange } from "./resolvers/resolver.js";
-import { dateRangeResolvers, PERIOD_ALLOWANCE_BY_FORMAT } from "./resolvers/date-range-resolvers.js";
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
+import { dateRangeResolvers, PERIOD_ALLOWANCE_BY_FORMAT } from "./resolvers/date-range-resolvers.js";
+import { isInvalidRange, selectResolver } from "./resolvers/resolver.js";
 
 /** @internal */
 type Period = OverviewModel.NewFilter.DateRange.PeriodOption;

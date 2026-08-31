@@ -35,13 +35,12 @@ import { it, expect, describe } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../main/overview-model.js";
-import { OverviewEngine } from "../../main/view/overview-engine.js";
 import { OverviewContentBox } from "../../main/view/overview-content-box.js";
-
-import { noop } from "../utils.js";
-import { render } from "../test-utils.js";
+import { OverviewEngine } from "../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../basic.spec.js";
 import { resetWindowSize, setSmallWindowSize } from "../setup/widgets.js";
+import { render } from "../test-utils.js";
+import { noop } from "../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.OverviewContentBox with/without labelHidden", () => {
 	const basicOverviewModel: OverviewModel = defaultEngineProps.overviewModel;

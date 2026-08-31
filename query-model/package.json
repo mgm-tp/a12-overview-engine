@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.querymodel/querymodel-core",
-	"version": "0.2.1",
+	"version": "39.0.2",
 	"type": "module",
 	"description": "Query Model",
 	"author": "mgm technology partners",
@@ -14,14 +14,17 @@
 		"update:api": "pnpm test:api --local"
 	},
 	"peerDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "^30.0.1",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "^39.0.0"
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12ranges",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12ranges"
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
+		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-logging": "catalog:a12",
 		"@microsoft/api-extractor": "catalog:devLibs",
+		"typedoc": "catalog:devLibs",
 		"vite": "catalog:devLibs",
 		"vitest": "catalog:devLibs"
 	},

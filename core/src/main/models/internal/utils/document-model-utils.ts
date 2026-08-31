@@ -33,8 +33,8 @@
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { MultiSelectModelUtils } from "../multi-select.js";
 import { createDocumentModelService } from "../document-model-service.js";
+import { MultiSelectModelUtils } from "../multi-select.js";
 
 /** @internal */
 export namespace DocumentModelUtils {

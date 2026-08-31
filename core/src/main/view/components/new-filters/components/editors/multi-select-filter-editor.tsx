@@ -34,12 +34,12 @@ import { memo, type FC, useCallback } from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { MultiSelectList } from "../utilities/multi-select-list.js";
-import { MultiSelectCompact } from "../utilities/multi-select-compact.js";
+import { MultiSelectModelUtils } from "../../../../../models/internal/shared.js";
 import type { MultiSelectFilterState } from "../../../../../store/index.js";
 import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { MultiSelectModelUtils } from "../../../../../models/internal/shared.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { MultiSelectCompact } from "../utilities/multi-select-compact.js";
+import { MultiSelectList } from "../utilities/multi-select-list.js";
 
 import { useEnumerationValues } from "./enumeration-filter-editor.js";
 

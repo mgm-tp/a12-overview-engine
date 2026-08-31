@@ -33,16 +33,15 @@
 import * as TypeMoq from "typemoq";
 import { it, vi, expect, describe, beforeAll, type MockInstance } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import { DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../../../../main/models/index.js";
 import type { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { de, en } from "../../../../../main/services/localization/internal/shared.js";
 import { TableBody } from "../../../../../main/view/components/table/sub-components/table-body.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { deLocale, defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
 

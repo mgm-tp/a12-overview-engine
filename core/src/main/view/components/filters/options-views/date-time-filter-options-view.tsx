@@ -31,25 +31,20 @@
  */
 
 import * as React from "react";
+
 import { endOfYear, endOfMonth, startOfYear, startOfMonth } from "date-fns";
 
 import { TimeUtils, type YearRange, type YearSelectorVariant } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useIdGenerator } from "../../../utils.js";
-import { LocalizerHooks } from "../../../hooks/index.js";
 import { UiStateSelector } from "../../../../store/index.js";
+import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../hooks/index.js";
+import { useIdGenerator } from "../../../utils.js";
 import type { FilterOptionsView } from "../filter-options-view.js";
 import { useValueFormatter, useLocalizedDateTimeFormatString } from "../utils.js";
-import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
-import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
-import { DateTimeUtils } from "./date-time-utils.js";
 import { DateInputAdapter } from "./date-input-adapter.js";
-import { TimePickerAdapter } from "./time-picker-adapter.js";
-import { DateTimeInputAdapter } from "./date-time-input-adapter.js";
-import { useDateParser, useTimeParser } from "./date-time-hooks.js";
-import { SectionType, SectionTemplate } from "./section-template.js";
-import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
 import {
 	useSelectItems,
 	useValueSelect,
@@ -58,6 +53,12 @@ import {
 	useOnYearMonthValueChange,
 	useDateTimeCommonParameters
 } from "./date-time-common-hooks.js";
+import type { DateTimeViewValue, DateTimeUiValueType, DateTimeViewSelection } from "./date-time-filter-view.api.js";
+import { useDateParser, useTimeParser } from "./date-time-hooks.js";
+import { DateTimeInputAdapter } from "./date-time-input-adapter.js";
+import { DateTimeUtils } from "./date-time-utils.js";
+import { SectionType, SectionTemplate } from "./section-template.js";
+import { TimePickerAdapter } from "./time-picker-adapter.js";
 
 export namespace DateTimeFilterOptionsView {
 	export interface Props extends FilterOptionsView.PropsType {

@@ -33,8 +33,8 @@
 import { actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import type { JSONDocument } from "../../models/index.js";
-import type { OverviewEngineApi } from "../../view/api.js";
 import type { Configurable, OverviewModel } from "../../overview-model.js";
+import type { OverviewEngineApi } from "../../view/api.js";
 
 import type { FilterState, FilterSelectorOptions } from "./filter-state.js";
 import type { Sorting, Scrolling, ColumnWidths, PaginationState, ScrollToRowRequest } from "./store.js";

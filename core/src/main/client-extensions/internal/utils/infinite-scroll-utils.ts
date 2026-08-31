@@ -32,9 +32,9 @@
 
 import type { Activity, Modifier } from "@com.mgmtp.a12.client/client-core";
 
+import { OverviewEngineInternalConstants } from "../../../constants/overview-engine-internal-constants.js";
 import { Links } from "../../../models/index.js";
 import type { Scrolling } from "../../../store/index.js";
-import { OverviewEngineInternalConstants } from "../../../constants/overview-engine-internal-constants.js";
 
 /** @internal */
 export namespace InfiniteScrollUtils {

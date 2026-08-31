@@ -41,8 +41,8 @@ import {
 	ButtonGroupContainer
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useFormDataHolder } from "./hooks.js";
 import { SimpleFormActions } from "./actions.js";
+import { useFormDataHolder } from "./hooks.js";
 
 export const SimpleForm: React.FC<ViewNGProps & Container & { title: string }> = (props) => {
 	const { activityId } = props;

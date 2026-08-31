@@ -35,7 +35,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "../../commands.js";
 import { updateNumberFilter } from "../../filter-utils.js";
 import { useModelOverride } from "../../model-override.js";
-import { Showcase, Selector, navigate } from "../../utils.js";
+import { Selector, Showcase, navigate } from "../../utils.js";
 
 function filterBarChip(page: Page) {
 	return page.locator(`${Selector.FILTER_CONTENT}[title="Number"]`);

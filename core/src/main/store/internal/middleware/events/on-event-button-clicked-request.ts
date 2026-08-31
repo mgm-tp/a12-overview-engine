@@ -32,9 +32,9 @@
 
 import type { Middleware } from "redux";
 
-import { Events, Commands } from "../../actions.js";
 import { DialogTypes } from "../../../../shared/dialog-types.js";
 import type { OverviewEngineApi } from "../../../../view/api.js";
+import { Events, Commands } from "../../actions.js";
 
 /**
  * @internal

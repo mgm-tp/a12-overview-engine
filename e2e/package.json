@@ -1,7 +1,7 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-e2e",
 	"private": true,
-	"version": "39.0.1",
+	"version": "39.0.2",
 	"description": "Overview Engine E2E Tests",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
@@ -16,9 +16,10 @@
 	},
 	"devDependencies": {
 		"@com.mgmtp.a12.overviewengine/overviewengine-core": "workspace:",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
 		"@com.mgmtp.a12.overviewengine/overviewengine-services-utils": "workspace:",
-		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
 		"@playwright/test": "^1.60.0",
 		"@types/node": "catalog:devLibs",
 		"cross-env": "^10.1.0",

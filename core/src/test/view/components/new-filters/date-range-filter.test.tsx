@@ -31,11 +31,10 @@
  */
 
 import { fireEvent } from "@testing-library/react";
-import { vi, it, expect, describe, afterAll, beforeAll } from "vitest";
+import { it, vi, expect, afterAll, describe, beforeAll } from "vitest";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 import { renderDateRangeFilter } from "./pages/date-range-filter-page.js";

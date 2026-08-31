@@ -34,7 +34,6 @@ import { enUS } from "date-fns/locale";
 import { it, expect, describe } from "vitest";
 
 import type { OverviewModel } from "../../../../main/index.js";
-
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 import { renderTimeFilter } from "./pages/time-filter-page.js";

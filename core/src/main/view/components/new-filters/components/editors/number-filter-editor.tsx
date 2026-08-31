@@ -36,16 +36,16 @@ import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { TextField, BufferedInput, HTMLInputAdapter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
 import { NumberFilterState } from "../../../../../store/index.js";
 import type { SegmentOption } from "../../../../../store/index.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
 import { PeriodCriteria } from "../../../../../store/internal/filter-controllers/criteria.js";
-import { useLocalizedLabels } from "../../../filters/options-views/date-time-common-hooks.js";
 import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useLocalizedLabels } from "../../../filters/options-views/date-time-common-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
 
 const WrappedTextLineStateless = BufferedInput(HTMLInputAdapter(TextField));
 

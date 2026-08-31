@@ -33,24 +33,24 @@
 import type { UnknownAction } from "redux";
 import { all, put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
-import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import {
 	Activity,
 	StoreSagas,
-	type Selector,
 	ActivitySagas,
+	type Selector,
 	ActivityActions,
 	ActivitySelectors,
 	type ApplicationSaga
 } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
 
 import { Events, Commands, EventNames } from "../../store/index.js";
 
-import { OverviewActivity } from "./activity.js";
 import { OverviewEngineActions } from "./actions.js";
-import { OverviewEngineSelectors } from "./selectors.js";
+import { OverviewActivity } from "./activity.js";
 import { EnumeratedStringDataHolder } from "./data-holder.js";
+import { OverviewEngineSelectors } from "./selectors.js";
 
 const logger = LoggerFactory.getLogger("overview-engine/client-extensions");
 
@@ -138,19 +138,27 @@ function exportingSaga(): ApplicationSaga.Descriptor {
 				return;
 			}
 
-			const defaultDataHolder = Activity.findDefaultDataHolder(
-				yield* select(ActivitySelectors.activityById(activityId))
-			);
+			const { dataHolderDescriptor } = action.payload;
+			let descriptor = dataHolderDescriptor;
 
-			if (!defaultDataHolder) {
-				throw new Error(`Default data holder for activity ${activityId} does not exist`);
+			if (!descriptor) {
+				const defaultDataHolder = Activity.findDefaultDataHolder(
+					yield* select(ActivitySelectors.activityById(activityId))
+				);
+
+				if (!defaultDataHolder) {
+					throw new Error(`Default data holder for activity ${activityId} does not exist`);
+				}
+
+				descriptor = defaultDataHolder.descriptor;
 			}
 
 			const additionalPayload = { exporting: true };
+
 			yield* put(
 				ActivityActions.loadData({
 					activityId,
-					dataHolderDescriptors: [defaultDataHolder.descriptor],
+					dataHolderDescriptors: [descriptor],
 					...additionalPayload
 				})
 			);
@@ -174,8 +182,10 @@ function multiSelectionDeleteSaga(): ApplicationSaga.Descriptor {
 			);
 		},
 		*handle(action: Action<OverviewEngineActions.EventPayload<Action<Events.EventButtonClickedPayload>>>) {
-			const { activityId } = action.payload;
-			const { rowState } = yield* select(OverviewEngineSelectors.uiState(activityId));
+			const { activityId, dataHolderDescriptor } = action.payload;
+			const { rowState } = yield* select(
+				OverviewEngineSelectors.uiState(activityId, { descriptor: dataHolderDescriptor })
+			);
 
 			if (!rowState) {
 				return;
@@ -278,7 +288,7 @@ function* handleQueryParametersChanged(
 		yield* put(ActivityActions.unlock({ activityId, lockId }));
 	}
 
-	yield* call(goToLastValidPage, activityId);
+	yield* call(goToLastValidPage, activityId, dataHolderDescriptor);
 }
 
 function loadedOrError(activityId: string): Selector<{ stateChanged: boolean; returnValue: boolean }> {
@@ -299,21 +309,29 @@ function loadedOrError(activityId: string): Selector<{ stateChanged: boolean; re
 	};
 }
 
-function* goToLastValidPage(activityId: string): SagaGenerator<void> {
+function* goToLastValidPage(
+	activityId: string,
+	dataHolderDescriptor?: Activity.DataHolderDescriptor
+): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
 
 	if (activity === undefined) {
 		return;
 	}
 
-	const data = Activity.findDefaultDataHolder(activity)?.data;
+	const dataHolder = dataHolderDescriptor
+		? activity.dataHolders.find(Activity.DataHolder.hasDescriptor(dataHolderDescriptor))
+		: Activity.findDefaultDataHolder(activity);
+	const data = dataHolder?.data;
 
 	if (!OverviewActivity.Data.DocumentListData.isInstance(data)) {
 		return;
 	}
 
 	const totalDocumentsCount = data.totalDocumentsCount;
-	const uiStateWithoutDefaults = yield* select(OverviewEngineSelectors.uiStateWithoutDefaults(activityId));
+	const uiStateWithoutDefaults = yield* select(
+		OverviewEngineSelectors.uiStateWithoutDefaults(activityId, dataHolderDescriptor)
+	);
 
 	if (uiStateWithoutDefaults?.pagination === undefined || totalDocumentsCount === undefined) {
 		return;

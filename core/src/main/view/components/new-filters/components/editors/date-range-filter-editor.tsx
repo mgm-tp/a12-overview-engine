@@ -35,22 +35,22 @@ import { memo, type FC, useMemo, useCallback } from "react";
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { noop, TextField, BufferedInput, HTMLInputAdapter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { useTargetModelId } from "../filter-label-resolvers.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import type { OverviewModel } from "../../../../../overview-model.js";
-import { getYearBlurError } from "../utilities/year-input-validation.js";
-import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { SectionType } from "../../../filters/options-views/section-template.js";
-import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
-import { DateInputAdapter } from "../../../filters/options-views/date-input-adapter.js";
-import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
-import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
-import { PeriodCriteria } from "../../../../../store/internal/filter-controllers/criteria.js";
-import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
 import { DateFilterState, type SegmentOption, type DateRangeFilterState } from "../../../../../store/index.js";
+import { PeriodCriteria } from "../../../../../store/internal/filter-controllers/criteria.js";
+import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { DateInputAdapter } from "../../../filters/options-views/date-input-adapter.js";
+import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
+import { SectionType } from "../../../filters/options-views/section-template.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
+import { useTargetModelId } from "../filter-label-resolvers.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
+import { getYearBlurError } from "../utilities/year-input-validation.js";
 
 const MonthDayInput = BufferedInput(HTMLInputAdapter(TextField));
 

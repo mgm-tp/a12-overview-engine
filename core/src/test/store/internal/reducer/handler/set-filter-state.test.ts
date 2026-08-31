@@ -34,7 +34,6 @@ import { it, expect, describe } from "vitest";
 
 import { Commands } from "../../../../../main/store/internal/actions.js";
 import { handleSetFilterState } from "../../../../../main/store/internal/reducer/handler/set-filter-state.js";
-
 import { makeUiState, makeFilterState } from "../../middleware/events/new-filter/helpers.js";
 
 describe("handleSetFilterState", () => {

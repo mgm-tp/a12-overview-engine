@@ -31,23 +31,23 @@
  */
 
 import * as React from "react";
-import { it, expect, describe } from "vitest";
-import { renderHook } from "@testing-library/react";
 
-import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
-import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { renderHook } from "@testing-library/react";
+import { it, expect, describe } from "vitest";
+
 import {
 	defaultDataFormats,
 	defaultValueConversion,
 	type ValueConversionConfig
 } from "@com.mgmtp.a12.utils/utils-localization";
+import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useConverter } from "../../../../main/services/converter/internal/converter.js";
 import { createDocumentModelService } from "../../../../main/models/internal/document-model-service.js";
-
-import { PATHS, type DocumentValue } from "../../shared.js";
+import { useConverter } from "../../../../main/services/converter/internal/converter.js";
 import { deLocale, enLocale } from "../../../basic.spec.js";
 import { getDocumentModel } from "../../../setup/models.js";
+import { PATHS, type DocumentValue } from "../../shared.js";
 
 describe("com.mgmtp.a12.overview-engine.services.createDefaultConverter.parseValue", () => {
 	type UIValue = string;

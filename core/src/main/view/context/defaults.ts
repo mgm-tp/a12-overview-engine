@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../overview-model.js";
 

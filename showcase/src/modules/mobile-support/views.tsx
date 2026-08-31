@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Icon } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import {
 	type ComponentMap,
 	DefaultComponentMap,
 	useOverviewEngineContext
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { Icon } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 

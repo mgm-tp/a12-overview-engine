@@ -32,9 +32,10 @@
 
 import { all, put, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
+import { ActivityActions, NotificationActions } from "@com.mgmtp.a12.client/client-core";
 import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { ActivityActions, NotificationActions } from "@com.mgmtp.a12.client/client-core";
+
 // tag::handleErrorSaga[]
 export function* handleErrorSaga(): SagaGenerator<void> {
 	yield* takeEvery((action: unknown) => ActivityActions.error.match(action), handle);

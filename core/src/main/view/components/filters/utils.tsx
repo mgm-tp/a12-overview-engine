@@ -31,29 +31,30 @@
  */
 
 import * as React from "react";
+
 import { uniqBy } from "lodash-es";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import * as KernelUtils from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
-import { OverviewEngineApi } from "../../api.js";
-import { UiStateSelector } from "../../../store/index.js";
-import { OverviewModel } from "../../../overview-model.js";
-import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
-import { useFilterContext } from "../../context/filter-context.js";
-import { defaultDateRangeConversionTransformer } from "../../../services/index.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../models/internal/shared.js";
-import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
-import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { OverviewModel } from "../../../overview-model.js";
+import { defaultDateRangeConversionTransformer } from "../../../services/index.js";
 import { RESOURCE_KEYS, OverviewModelKeys, LocalizableFactory } from "../../../services/localization/index.js";
+import { UiStateSelector } from "../../../store/index.js";
+import { OverviewEngineApi } from "../../api.js";
+import { useFilterContext } from "../../context/filter-context.js";
+import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 
 import type { Filter } from "./filter-options-view.js";
-import { EmptyLabel } from "./options-views/empty-label.js";
-import { useDateTimeFormatString } from "./use-date-time-format-string.js";
-import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
 import type { DateTimeViewValue, DateTimeViewSelection } from "./options-views/date-time-filter-view.api.js";
+import { EmptyLabel } from "./options-views/empty-label.js";
+import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
+import { useDateTimeFormatString } from "./use-date-time-format-string.js";
 
 /** @internal */
 export function toFilterMap(filters: Filter.FilterData[]): OverviewEngineApi.FilterMap {

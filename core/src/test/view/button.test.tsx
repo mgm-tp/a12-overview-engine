@@ -36,7 +36,6 @@ import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
 import { render, ClassNames, type QueriableElement } from "../test-utils.js";
 

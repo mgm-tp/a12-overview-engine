@@ -32,19 +32,19 @@
 
 import type { Dispatch } from "redux";
 
-import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
 	ActivityActions,
 	ActivitySelectors,
 	ApplicationActions,
 	type DynamicConfiguration
 } from "@com.mgmtp.a12.client/client-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 import { createPresetFilterMiddleware, createInitialUiStateMiddleware } from "../common/middleware.js";
+import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 
-import { ProductOverviewSagas } from "./saga.js";
 import { ProductOverview } from "./product-overview.js";
+import { ProductOverviewSagas } from "./saga.js";
 
 const DESCRIPTOR_PAGINATION = { showcase: "product", feature: "pagination" };
 const DESCRIPTOR_PRESET_FILTER = { showcase: "product", feature: "preset-filter" };

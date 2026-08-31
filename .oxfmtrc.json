@@ -1,0 +1,40 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"trailingComma": "none",
+	"printWidth": 120,
+	"semi": true,
+	"bracketSameLine": true,
+	"sortPackageJson": false,
+	"ignorePatterns": [
+		"licenses/**",
+		"schema.json",
+		"*.yaml",
+		"*.api.md",
+		"**/worktrees/**",
+		".!(vscode)/**",
+		"dist/**",
+		"target/**",
+		"lib/**",
+		"build/**",
+		"**/*.tsbuildinfo"
+	],
+	"sortImports": {
+		"customGroups": [
+			{
+				"groupName": "react-libs",
+				"elementNamePattern": ["react", "react-**"]
+			}
+		],
+		"groups": ["side_effect", "react-libs", "builtin", "external", "internal", "parent", ["sibling", "index"]],
+		"internalPattern": ["@com.mgmtp.a12", "\\..*/main"]
+	},
+	"overrides": [
+		{
+			"files": ["showcase/resources/models/**/*.json"],
+			"options": {
+				"useTabs": false
+			}
+		}
+	]
+}

@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Middleware } from "redux";
 import { pipe } from "fp-ts/lib/function.js";
+import type { Middleware } from "redux";
 
-import type { UiState } from "../../../store.js";
 import { Events, Commands } from "../../../actions.js";
-import { resetPaginationAndScrolling } from "../utils.js";
-import { UiStateSelector } from "../../../selectors/ui-state.js";
 import { QueryOptions, FilterStateLens } from "../../../filter-state.js";
 import type { FilterStateSelectors } from "../../../selectors/filter-selectors.js";
+import { UiStateSelector } from "../../../selectors/ui-state.js";
+import type { UiState } from "../../../store.js";
+import { resetPaginationAndScrolling } from "../utils.js";
 
 interface Options {
 	readonly filterStateSelectors: FilterStateSelectors;

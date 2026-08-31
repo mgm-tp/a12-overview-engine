@@ -34,19 +34,19 @@ import type { Expression } from "@com.mgmtp.a12.expression/expression-core";
 import { createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { Links } from "../../models/index.js";
-import type { OverviewEngineApi } from "../api.js";
-import type { OverviewEngine } from "../overview-engine.js";
 import type { OverviewModel } from "../../overview-model.js";
-import type { WidgetMap } from "../configuration/widget-map.js";
-import type { SelectorMap } from "../configuration/selector-map.js";
-import type { ComponentMap } from "../configuration/component-map.js";
-import { defaultMapDispatchToEventHandlers } from "../configuration/event-handlers-dispatch-map.js";
 import type {
 	UiState,
 	OverviewEngineState,
 	FilterStateSelectors,
 	Selector as BaseSelector
 } from "../../store/index.js";
+import type { OverviewEngineApi } from "../api.js";
+import type { ComponentMap } from "../configuration/component-map.js";
+import { defaultMapDispatchToEventHandlers } from "../configuration/event-handlers-dispatch-map.js";
+import type { SelectorMap } from "../configuration/selector-map.js";
+import type { WidgetMap } from "../configuration/widget-map.js";
+import type { OverviewEngine } from "../overview-engine.js";
 
 import { defaultModelGraph, defaultDocumentModel, defaultOverviewModel } from "./defaults.js";
 

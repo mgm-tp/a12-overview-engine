@@ -32,8 +32,8 @@
 
 import "@testing-library/jest-dom/vitest";
 
-import { vi, afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { vi, afterEach } from "vitest";
 
 // @ts-expect-error To suppress warning about act(...) being called in a non-async way
 global.IS_REACT_ACT_ENVIRONMENT = true;

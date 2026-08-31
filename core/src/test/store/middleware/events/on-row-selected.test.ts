@@ -32,9 +32,9 @@
 
 import { it, vi, expect, describe } from "vitest";
 
-import type { UiState } from "../../../../main/store/internal/store.js";
 import { Events, Commands } from "../../../../main/store/internal/actions.js";
 import { onRowsSelected } from "../../../../main/store/internal/middleware/events/on-row-selected.js";
+import type { UiState } from "../../../../main/store/internal/store.js";
 
 function createMockStore(uiState: UiState) {
 	return {

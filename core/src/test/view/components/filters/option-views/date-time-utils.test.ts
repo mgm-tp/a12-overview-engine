@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi, it, expect, describe, afterAll, beforeAll } from "vitest";
+import { it, vi, expect, afterAll, describe, beforeAll } from "vitest";
 
-import { SectionType } from "../../../../../main/view/components/filters/options-views/section-template.js";
 import { DateTimeUtils } from "../../../../../main/view/components/filters/options-views/date-time-utils.js";
+import { SectionType } from "../../../../../main/view/components/filters/options-views/section-template.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.date-time-utils", () => {
 	function testFunction<F extends (...args: any[]) => any>(

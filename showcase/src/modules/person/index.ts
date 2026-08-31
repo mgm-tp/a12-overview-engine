@@ -39,10 +39,10 @@ import {
 	type DynamicConfiguration
 } from "@com.mgmtp.a12.client/client-core";
 
-import { PersonSagas } from "./sagas.js";
-import { PersonForm } from "./person-form.js";
 import { EquipmentForm } from "./equipment-form.js";
+import { PersonForm } from "./person-form.js";
 import { PersonOverview } from "./person-overview.js";
+import { PersonSagas } from "./sagas.js";
 
 const DESCRIPTOR_DEFAULT = { showcase: "person" };
 const DESCRIPTOR_WITH_LINK = { showcase: "person", feature: "with-link" };

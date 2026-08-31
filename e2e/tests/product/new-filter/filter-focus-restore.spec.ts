@@ -33,7 +33,7 @@
 import type { Page } from "@playwright/test";
 
 import { test, expect } from "../../commands.js";
-import { Showcase, Selector, navigate } from "../../utils.js";
+import { Selector, Showcase, navigate } from "../../utils.js";
 
 test.describe.serial("Filter focus restore", () => {
 	test.beforeAll(async ({ seed }) => {

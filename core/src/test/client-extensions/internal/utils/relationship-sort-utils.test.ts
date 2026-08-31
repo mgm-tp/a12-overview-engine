@@ -34,14 +34,13 @@ import { it, expect, describe } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
-import type { RelationshipField } from "../../../../main/store/index.js";
 import {
 	buildRelationshipField,
 	relationshipFieldEquals,
 	toQueryRelationshipOrder
 } from "../../../../main/client-extensions/internal/utils/relationship-sort-utils.js";
-
+import type { OverviewModel } from "../../../../main/overview-model.js";
+import type { RelationshipField } from "../../../../main/store/index.js";
 import { createField, createLinkedColumn, createDocumentModel, createRelationshipModel } from "../../../utils.js";
 
 const personDM = createDocumentModel([], "PersonDM");

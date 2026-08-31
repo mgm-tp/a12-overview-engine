@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { useOverviewEngineState } from "../../../context/overview-engine-context.js";
 import { UiStateSelector, type FilterState, type Selector as BaseSelector } from "../../../../store/index.js";
+import { useOverviewEngineState } from "../../../context/overview-engine-context.js";
 
 const identity = (s: FilterState | undefined) => s;
 

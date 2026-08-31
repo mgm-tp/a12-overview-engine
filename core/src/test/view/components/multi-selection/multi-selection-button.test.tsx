@@ -36,9 +36,8 @@ import { it, vi, expect, describe, type Mock } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../main/overview-model.js";
-import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
-
+import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../basic.spec.js";
 import type { QueriableElement } from "../../../test-utils.js";
 

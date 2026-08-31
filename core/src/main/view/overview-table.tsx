@@ -40,24 +40,24 @@ import {
 	type InfiniteScrollOptions as WidgetInfiniteScrollOptions
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../store/index.js";
-import { OverviewModel } from "../overview-model.js";
-import type { JSONDocument } from "../models/index.js";
-import { OverviewModelKeys } from "../services/localization/index.js";
 import { OverviewEngineInternalConstants } from "../constants/overview-engine-internal-constants.js";
+import type { JSONDocument } from "../models/index.js";
+import { OverviewModel } from "../overview-model.js";
+import { OverviewModelKeys } from "../services/localization/index.js";
+import { UiStateSelector } from "../store/index.js";
 
-import { LocalizerHooks } from "./hooks/localizer-hooks.js";
-import { toCellId, resolveRowActivation } from "./utils.js";
 import hooks from "./components/table/sub-components/hooks.js";
-import { useRowStyling, useCellStyling } from "./hooks/use-table-styles.js";
-import { useTableScrollController } from "./hooks/use-table-scroll-controller.js";
-import { useTableColumns, type OverviewColumn } from "./hooks/use-table-columns.js";
-import { useSortOptions, useColumnResizingOptions } from "./hooks/use-table-options.js";
 import {
 	useOverviewEngineState,
 	useOverviewEngineContext,
 	OverviewEngineContextType
 } from "./context/overview-engine-context.js";
+import { LocalizerHooks } from "./hooks/localizer-hooks.js";
+import { useTableColumns, type OverviewColumn } from "./hooks/use-table-columns.js";
+import { useSortOptions, useColumnResizingOptions } from "./hooks/use-table-options.js";
+import { useTableScrollController } from "./hooks/use-table-scroll-controller.js";
+import { useRowStyling, useCellStyling } from "./hooks/use-table-styles.js";
+import { toCellId, resolveRowActivation } from "./utils.js";
 
 export namespace OverviewTable {
 	export interface Props {}

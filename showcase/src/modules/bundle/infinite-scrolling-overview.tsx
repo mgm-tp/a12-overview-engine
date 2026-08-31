@@ -32,9 +32,9 @@
 
 import * as React from "react";
 import { useDispatch } from "react-redux";
+
 import { styled } from "styled-components";
 
-import { Icon, Button } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { ViewNGProps } from "@com.mgmtp.a12.client/client-core";
 import {
 	Events,
@@ -45,6 +45,7 @@ import {
 	OverviewEngineActions,
 	useOverviewEngineState
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { Icon, Button } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { ShowcaseOverview } from "../showcase-overview/showcase-overview.js";
 

@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect } from "vitest";
 import { getByText } from "@testing-library/react";
+import { expect } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 

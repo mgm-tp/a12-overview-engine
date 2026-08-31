@@ -34,7 +34,7 @@ import Chance from "chance";
 
 import type { RelationshipJsonRpc2request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { addRequest, linkEntities } from "../index.js";
+import { addRequest, linkEntities } from "../request.js";
 
 function generatePerson(chance: Chance.Chance) {
 	return {

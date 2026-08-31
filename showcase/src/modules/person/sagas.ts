@@ -34,7 +34,6 @@
  * @packageDocumentation
  * @module extensions/crud
  */
-
 import { call, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
 import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";

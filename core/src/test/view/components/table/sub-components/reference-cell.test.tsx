@@ -31,31 +31,31 @@
  */
 
 import * as React from "react";
+
 import * as TypeMoq from "typemoq";
 import { it, vi, expect, describe, afterEach, beforeEach } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewModel } from "../../../../../main/overview-model.js";
 import type { JSONDocument } from "../../../../../main/models/index.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { DocumentUtils } from "../../../../../main/models/internal/utils/document-utils.js";
-import { TableBodyCell } from "../../../../../main/view/components/table/sub-components/table-body-cell.js";
-import type { ReferenceCell } from "../../../../../main/view/components/table/sub-components/reference-cell.js";
+import { OverviewModel } from "../../../../../main/overview-model.js";
 import type { AttachmentCell } from "../../../../../main/view/components/table/sub-components/attachment-cell.js";
-
-import { createComponentMap } from "../../../../utils.js";
-import { render, type QueriableElement } from "../../../../test-utils.js";
+import type { ReferenceCell } from "../../../../../main/view/components/table/sub-components/reference-cell.js";
+import { TableBodyCell } from "../../../../../main/view/components/table/sub-components/table-body-cell.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import {
 	deLocale,
 	NumberColumnModel,
 	StringColumnModel,
-	defaultEngineProps,
 	BooleanColumnModel,
+	defaultEngineProps,
 	AttachmentColumnModel,
 	MultiSelectColumnModel
 } from "../../../../basic.spec.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
+import { createComponentMap } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.reference-cell", () => {
 	const basicEngineProps: OverviewEngine.Props = defaultEngineProps;

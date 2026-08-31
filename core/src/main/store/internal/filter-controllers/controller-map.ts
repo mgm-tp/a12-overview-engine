@@ -32,19 +32,19 @@
 
 import type { OverviewModel } from "../../../overview-model.js";
 
-import { TimeFilterController } from "./time-controller.js";
-import { DateFilterController } from "./date-controller.js";
-import { QueryFilterController } from "./query-controller.js";
-import type { FilterController } from "./filter-controller.js";
-import { NumberFilterController } from "./number-controller.js";
-import { StringFilterController } from "./string-controller.js";
-import { ConfirmFilterController } from "./confirm-controller.js";
 import { BooleanFilterController } from "./boolean-controller.js";
-import { DateTimeFilterController } from "./date-time-controller.js";
-import { DateRangeFilterController } from "./date-range-controller.js";
-import { EnumerationFilterController } from "./enumeration-controller.js";
-import { MultiSelectFilterController } from "./multi-select-controller.js";
+import { ConfirmFilterController } from "./confirm-controller.js";
+import { DateFilterController } from "./date-controller.js";
 import { DateFragmentFilterController } from "./date-fragment-controller.js";
+import { DateRangeFilterController } from "./date-range-controller.js";
+import { DateTimeFilterController } from "./date-time-controller.js";
+import { EnumerationFilterController } from "./enumeration-controller.js";
+import type { FilterController } from "./filter-controller.js";
+import { MultiSelectFilterController } from "./multi-select-controller.js";
+import { NumberFilterController } from "./number-controller.js";
+import { QueryFilterController } from "./query-controller.js";
+import { StringFilterController } from "./string-controller.js";
+import { TimeFilterController } from "./time-controller.js";
 
 /** @internal */
 export type AnyFilterController = FilterController<OverviewModel.NewFilter.Item, object, object>;

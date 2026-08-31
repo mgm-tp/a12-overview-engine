@@ -32,9 +32,10 @@
 
 import * as React from "react";
 import { Provider } from "react-redux";
-import { it, expect, describe } from "vitest";
-import { createStore, type Reducer } from "redux";
+
 import { renderHook } from "@testing-library/react";
+import { createStore, type Reducer } from "redux";
+import { it, expect, describe } from "vitest";
 
 import { RESOURCE_KEYS } from "../../../main/services/localization/index.js";
 import { OverviewEngineInternalConstants } from "../../../main/shared/constants.js";

@@ -35,10 +35,9 @@ import { it, vi, expect, describe, beforeEach } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { en } from "../../../main/services/localization/internal/languages/en.js";
 import { de } from "../../../main/services/localization/internal/languages/de.js";
+import { en } from "../../../main/services/localization/internal/languages/en.js";
 import { OverviewEngineInternalConstants } from "../../../main/shared/constants.js";
-
 import { deLocale, enLocale } from "../../basic.spec.js";
 import type { QueriableElement } from "../../test-utils.js";
 

@@ -34,15 +34,14 @@ import { it, expect, describe } from "vitest";
 
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { OverviewEngineApi } from "../../main/view/api.js";
 import type { JSONDocument } from "../../main/models/index.js";
 import type { OverviewModel } from "../../main/overview-model.js";
-import { OverviewEngine } from "../../main/view/overview-engine.js";
+import { OverviewEngineApi } from "../../main/view/api.js";
 import { RowAction } from "../../main/view/components/table/sub-components/row-action.js";
-
+import { OverviewEngine } from "../../main/view/overview-engine.js";
+import { deLocale, enLocale, defaultEngineProps } from "../basic.spec.js";
 import { render } from "../test-utils.js";
 import { mockType, createLocalizedModelText } from "../utils.js";
-import { deLocale, enLocale, defaultEngineProps } from "../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.row-action", () => {
 	const basicProps = {

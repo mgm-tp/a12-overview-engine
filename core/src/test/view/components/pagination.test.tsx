@@ -31,16 +31,16 @@
  */
 
 import * as React from "react";
-import { it, vi, expect, describe } from "vitest";
 import type { ReactTestRenderer } from "react-test-renderer";
+
+import { it, vi, expect, describe } from "vitest";
 
 import { Pagination as BasePagination } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { Pagination } from "../../../main/view/components/pagination.js";
-
-import { shallowRender } from "../../test-utils.js";
+import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../basic.spec.js";
+import { shallowRender } from "../../test-utils.js";
 
 import { multiSelectionCallbacks, defaultClearConfirmationMultiSelection } from "./multi-selection/utils.js";
 

@@ -31,18 +31,17 @@
  */
 
 import * as TypeMoq from "typemoq";
-import { it, vi, expect, describe, afterAll, beforeAll } from "vitest";
+import { it, vi, expect, afterAll, describe, beforeAll } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import { type InfiniteScrollOptions, DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../../../../main/models/index.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { InfiniteScrollTableBody } from "../../../../../main/view/components/table/sub-components/infinite-scroll-table-body.js";
-
-import { render } from "../../../../test-utils.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { render } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.infinite-scroll-table-body", () => {
 	const jsonDocument = TypeMoq.Mock.ofType<JSONDocument>();

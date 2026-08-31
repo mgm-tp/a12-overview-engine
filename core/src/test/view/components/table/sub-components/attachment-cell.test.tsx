@@ -34,16 +34,15 @@ import { it, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
-import { DefaultWidgetMap } from "../../../../../main/view/configuration/widget-map.js";
-import { DefaultSelectorMap } from "../../../../../main/view/configuration/selector-map.js";
-import { DefaultComponentMap } from "../../../../../main/view/configuration/component-map.js";
 import { AttachmentCell } from "../../../../../main/view/components/table/sub-components/attachment-cell.js";
+import { DefaultComponentMap } from "../../../../../main/view/configuration/component-map.js";
+import { DefaultSelectorMap } from "../../../../../main/view/configuration/selector-map.js";
+import { DefaultWidgetMap } from "../../../../../main/view/configuration/widget-map.js";
 import {
 	OverviewEngineContext,
 	type OverviewEngineContextType
 } from "../../../../../main/view/context/overview-engine-context.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
 

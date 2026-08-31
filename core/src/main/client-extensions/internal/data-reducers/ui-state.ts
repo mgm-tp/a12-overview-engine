@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { Activity, type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { OverviewEngineActions } from "../actions.js";
 import { uiStateReducer } from "../../../store/index.js";
+import { OverviewEngineActions } from "../actions.js";
 
 /** @internal */
 export const uiStateDataReducer: ActivityReducers.DataReducer = {

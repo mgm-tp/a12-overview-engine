@@ -32,11 +32,11 @@
 
 import * as React from "react";
 
-import { UiStateSelector } from "../../store/index.js";
 import type { OverviewModel } from "../../overview-model.js";
-import { LocalizerHooks } from "../hooks/localizer-hooks.js";
 import { OverviewModelKeys } from "../../services/localization/index.js";
+import { UiStateSelector } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { LocalizerHooks } from "../hooks/localizer-hooks.js";
 
 /** @internal */
 export const OverviewButton: React.ComponentType<OverviewButton.Props> = React.memo(function OverviewButton(props) {

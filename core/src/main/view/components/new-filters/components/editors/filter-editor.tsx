@@ -31,11 +31,11 @@
  */
 
 import { memo, type FC, useMemo } from "react";
+
 import { css, styled } from "styled-components";
 
 import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
 import {
 	DateFilterState,
 	TimeFilterState,
@@ -45,12 +45,13 @@ import {
 	BooleanFilterState,
 	ConfirmFilterState,
 	DateTimeFilterState,
-	type FilterItemState,
 	DateRangeFilterState,
+	type FilterItemState,
 	EnumerationFilterState,
 	MultiSelectFilterState,
 	DateFragmentFilterState
 } from "../../../../../store/index.js";
+import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
 
 /** @internal */
 export const STATEFUL_FILTER_TYPES: ReadonlySet<string> = new Set(["time", "date", "dateTime", "dateRange"]);

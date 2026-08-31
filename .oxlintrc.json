@@ -1,0 +1,114 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "react", "react-perf", "vitest", "import"],
+	"jsPlugins": [
+		{
+			"name": "header",
+			"specifier": "@tony.ganchev/eslint-plugin-header"
+		},
+		{
+			"name": "check-file",
+			"specifier": "eslint-plugin-check-file"
+		},
+		{
+			"name": "typed-redux-saga",
+			"specifier": "@jambit/eslint-plugin-typed-redux-saga"
+		},
+		{
+			"name": "stylistic",
+			"specifier": "@stylistic/eslint-plugin"
+		}
+	],
+	"env": { "browser": true, "node": true, "es2024": true },
+	"rules": {
+		"curly": "error",
+		"eqeqeq": "error",
+		"no-console": "error",
+		"react/exhaustive-deps": "error",
+		"no-unused-expressions": "error",
+		"no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_",
+				"ignoreRestSiblings": true,
+				"fix": {
+					"imports": "safe-fix",
+					"variables": "suggestion"
+				}
+			}
+		],
+		"no-namespace": "off",
+		"no-empty-object-type": "off",
+		"no-empty-function": "warn",
+		"no-empty-interface": "warn",
+		"no-explicit-any": "warn",
+		"no-cycle": ["error", { "ignoreExternal": true, "ignoreTypes": true }],
+		"consistent-type-imports": ["error", { "prefer": "type-imports", "fixStyle": "separate-type-imports" }],
+		"no-import-type-side-effects": "error",
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": [
+					{
+						"group": ["@com.mgmtp.a12*/**/internal/**", "@com.mgmtp.a12*/**/src/**"],
+						"message": "Importing from internal/src modules is not allowed. Please use the public API instead."
+					},
+					{
+						"group": ["redux-saga"],
+						"importNames": ["SagaIterator"],
+						"message": "Use 'SagaGenerator' from 'typed-redux-saga' instead."
+					},
+					{
+						"group": ["redux"],
+						"importNames": ["AnyAction"],
+						"message": "AnyAction is deprecated in Redux 5. Use 'UnknownAction' or 'unknown' instead."
+					}
+				]
+			}
+		],
+		"header/header": ["error", { "header": { "file": "./license_header.txt" } }],
+		"typed-redux-saga/delegate-effects": "error",
+		"typed-redux-saga/use-typed-effects": "error",
+		"check-file/filename-naming-convention": [
+			"error",
+			{ "**/*.{ts,tsx}": "KEBAB_CASE" },
+			{ "ignoreMiddleExtensions": true }
+		],
+		"stylistic/padding-line-between-statements": [
+			"error",
+			{ "blankLine": "always", "prev": "*", "next": ["if", "while", "for", "switch", "try", "do", "return"] },
+			{ "blankLine": "always", "prev": "block-like", "next": "*" }
+		],
+		"vitest/require-mock-type-parameters": "off"
+	},
+	"ignorePatterns": [
+		"**/lib/**",
+		"**/dist/**",
+		"**/build/**",
+		"**/target/**",
+		"**/typedoc/**",
+		"**/coverage/**",
+		"**/resources/**",
+		"**/generated/**",
+		"**/playwright-report/**",
+		"**/test-results/**",
+		"**/*.skip-test.*",
+		"migration-tool/src/internal/steps/index.ts",
+		"**/worktrees/**",
+		"**/node_modules/**"
+	],
+	"overrides": [
+		{
+			"files": ["**/test/**", "**/e2e/**"],
+			"rules": { "no-console": "off", "import/no-cycle": "off" }
+		},
+		{
+			"files": ["services-utils/**", "**/scripts/**", "documentation/**"],
+			"rules": {
+				"no-console": "off",
+				"no-unused-vars": "warn"
+			}
+		}
+	]
+}

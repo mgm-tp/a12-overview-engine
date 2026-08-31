@@ -30,20 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, expect, describe } from "vitest";
 import type { ReactTestRenderer } from "react-test-renderer";
+
+import { it, expect, describe } from "vitest";
 
 import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../main/models/index.js";
 import type { OverviewEngineApi } from "../../main/view/api.js";
-import { OverviewTable } from "../../main/view/overview-table.js";
-import { OverviewEngine } from "../../main/view/overview-engine.js";
-import { DefaultWidgetMap } from "../../main/view/configuration/widget-map.js";
-import { DefaultComponentMap } from "../../main/view/configuration/component-map.js";
 import { OverviewDialog } from "../../main/view/components/dialogs/overview-dialog.js";
+import { DefaultComponentMap } from "../../main/view/configuration/component-map.js";
+import { DefaultWidgetMap } from "../../main/view/configuration/widget-map.js";
 import { OverviewEngineContext } from "../../main/view/context/overview-engine-context.js";
-
+import { OverviewEngine } from "../../main/view/overview-engine.js";
+import { OverviewTable } from "../../main/view/overview-table.js";
 import { defaultEngineProps } from "../basic.spec.js";
 import { render, shallowRender, type QueriableElement } from "../test-utils.js";
 

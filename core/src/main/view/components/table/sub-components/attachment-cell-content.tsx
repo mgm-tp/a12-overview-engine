@@ -32,8 +32,8 @@
 
 import * as React from "react";
 
-import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../overview-model.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";

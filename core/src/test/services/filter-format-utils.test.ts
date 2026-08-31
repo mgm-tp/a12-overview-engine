@@ -38,7 +38,6 @@ import {
 	getFormatString,
 	createDateFormatter
 } from "../../main/services/filter-format-utils.js";
-
 import { getDocumentModel } from "../setup/models.js";
 
 describe("com.mgmtp.a12.overview-engine.services.filter-format-utils", () => {

@@ -33,8 +33,8 @@
 import { useMemo } from "react";
 
 import type { OverviewModel } from "../../../../overview-model.js";
-import { EqualRangeIcon, BoundedRangeIcon } from "../components/utilities/icons.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { EqualRangeIcon, BoundedRangeIcon } from "../components/utilities/icons.js";
 
 const RANGE_ORDER: readonly OverviewModel.NewFilter.RangeOption[] = ["fromTo", "fromOnly", "toOnly", "exact"];
 

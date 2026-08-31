@@ -34,11 +34,11 @@ import { memo, type FC } from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import type { BooleanFilterState } from "../../../../../store/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
 import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface BooleanFilterEditorProps {

@@ -32,9 +32,19 @@
 
 import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import {
+	Model,
+	StoreSagas,
+	type Activity,
+	type Selector,
+	ModelSelectors,
+	ActivityActions,
+	LocaleSelectors,
+	ReferencedModel,
+	type DataProvider,
+	extractModelsInScenePayload
+} from "@com.mgmtp.a12.client/client-core";
 import { setThumbnails } from "@com.mgmtp.a12.client/client-core/a12internal";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
 	Query,
 	Dispatcher,
@@ -42,41 +52,31 @@ import {
 	type SupportedRequest,
 	type QueryJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	Model,
-	StoreSagas,
-	type Activity,
-	type Selector,
-	ModelSelectors,
-	LocaleSelectors,
-	ActivityActions,
-	ReferencedModel,
-	type DataProvider,
-	extractModelsInScenePayload
-} from "@com.mgmtp.a12.client/client-core";
+import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import { isCdm } from "../utils/cdm-utils.js";
 import { Links } from "../../../models/index.js";
-import { OverviewActivity } from "../activity.js";
-import { OverviewEngineActions } from "../actions.js";
-import { OverviewEngineSelectors } from "../selectors.js";
-import type { OverviewEngineApi } from "../../../view/api.js";
 import { DefaultFilterStateSelectors } from "../../../store/index.js";
-import { AggregationResolver } from "../utils/aggregation-resolver.js";
-import { FieldBasedFiltering } from "../utils/field-based-filtering.js";
-import { InfiniteScrollUtils } from "../utils/infinite-scroll-utils.js";
-import { triggerFileDownload } from "../utils/trigger-file-download.js";
-import { toQueryRelationshipOrder } from "../utils/relationship-sort-utils.js";
-import { NewFieldBasedFiltering } from "../utils/new-field-based-filtering.js";
 import type { FilterState, FilterStateSelectors } from "../../../store/index.js";
-import { getProjectedLinks, getProjectedFields } from "../utils/fields-projection.js";
 import { Commands, type Sorting, SortingOrder, type ModelsState } from "../../../store/index.js";
-import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
+import type { OverviewEngineApi } from "../../../view/api.js";
+import { OverviewEngineActions } from "../actions.js";
+import { OverviewActivity } from "../activity.js";
 import { DataOperation, maybeAsyncFnWrapper, type OverviewEngineDataLoader } from "../data-loader/data-loader.js";
+import { OverviewEngineSelectors } from "../selectors.js";
+import { AggregationResolver } from "../utils/aggregation-resolver.js";
+import { isCdm } from "../utils/cdm-utils.js";
+import { FieldBasedFiltering } from "../utils/field-based-filtering.js";
+import { getProjectedLinks, getProjectedFields } from "../utils/fields-projection.js";
+import { InfiniteScrollUtils } from "../utils/infinite-scroll-utils.js";
+import { NewFieldBasedFiltering } from "../utils/new-field-based-filtering.js";
+import { toQueryRelationshipOrder } from "../utils/relationship-sort-utils.js";
+import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
+import { triggerFileDownload } from "../utils/trigger-file-download.js";
 
-import type { DataProvidersConfig } from "./types.js";
 import { executeQueryPlan as executeQueryPlanFn } from "./execute-plan.js";
 import type { UpdatedDataHolder, QueryExecutionPlan } from "./query-execution-plan.js";
+import type { DataProvidersConfig } from "./types.js";
 
 /** @experimental */
 export class OverviewEngineDataProvider implements DataProvider {

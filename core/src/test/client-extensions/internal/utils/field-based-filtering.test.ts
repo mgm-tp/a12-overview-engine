@@ -35,11 +35,10 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import { FieldBasedFiltering } from "../../../../main/client-extensions/internal/utils/field-based-filtering.js";
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import type { ModelsState } from "../../../../main/store/index.js";
 import type { OverviewEngineApi } from "../../../../main/view/api.js";
-import type { OverviewModel } from "../../../../main/overview-model.js";
-import { FieldBasedFiltering } from "../../../../main/client-extensions/internal/utils/field-based-filtering.js";
-
 import { createGroup, createModelsState, createDocumentModel, createEnumerationField } from "../../../utils.js";
 
 function createModelsStateWithElements(documentElements: DocumentModel.Element[]): ModelsState {

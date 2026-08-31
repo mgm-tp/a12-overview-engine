@@ -34,9 +34,9 @@ import * as React from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import type { FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { Localizable, ValueConversion, ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
 import { DocumentUtils, DocumentModelUtils, type DocumentModelService } from "../../../models/internal/shared.js";
 

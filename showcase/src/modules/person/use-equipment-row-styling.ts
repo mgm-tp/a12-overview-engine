@@ -33,9 +33,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 import { ActivityMap, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import type { JSONDocument } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
 /**
  * Returns a `rowStyling` callback for the PersonEquipmentOverview that highlights the row

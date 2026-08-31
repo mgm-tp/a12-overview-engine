@@ -32,13 +32,13 @@
 
 import { memo, type FC, useMemo, useCallback, type ReactNode } from "react";
 
-import { UiStateSelector } from "../../../../store/index.js";
-import { useFilterState } from "../hooks/use-filter-state.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { UiStateSelector } from "../../../../store/index.js";
 import { useFilterFocusContext } from "../../../context/filter-focus-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
+import { useFilterState } from "../hooks/use-filter-state.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface FilterSelectorTriggerButtonProps {}
@@ -67,6 +67,9 @@ export const FilterSelectorTriggerButton: FC<FilterSelectorTriggerButtonProps> =
 		);
 
 		const { icon, label, title } = useTriggerDisplay();
+
+		const localizedResource = LocalizerHooks.useLocalizedResource();
+		const badgeTitle = localizedResource(RESOURCE_KEYS.overviewEngine.filterButton.filtersAppliedTitle);
 
 		const handleButtonRef = useCallback(
 			(ref: HTMLButtonElement | null) => registerRef("selectorTrigger", ref),
@@ -97,7 +100,7 @@ export const FilterSelectorTriggerButton: FC<FilterSelectorTriggerButtonProps> =
 				icon={icon}
 				label={label}
 				title={title}
-				badge={<Badge tiny light hidden={!(!selectorOpen && isAnyFilterSet)} />}
+				badge={<Badge tiny light title={badgeTitle} hidden={!(!selectorOpen && isAnyFilterSet)} />}
 				disabled={disabled}
 				labelHidden={label === undefined}
 				buttonAttributes={ariaAttributes}

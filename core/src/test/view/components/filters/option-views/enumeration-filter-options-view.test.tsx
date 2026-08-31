@@ -33,16 +33,15 @@
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { EnumerationFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumeration-filter-options-view.js";
-
-import { render } from "../../../../test-utils.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
+import { render } from "../../../../test-utils.js";
 import { createDocumentModel, createEnumerationField } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.enumeration-filter-options-view", () => {

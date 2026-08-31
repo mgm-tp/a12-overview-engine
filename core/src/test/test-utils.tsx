@@ -32,10 +32,8 @@
 
 import * as React from "react";
 import { Provider } from "react-redux";
-import merge from "lodash-es/merge.js";
 import { create } from "react-test-renderer";
-import { createStore, type Reducer } from "redux";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
+
 import {
 	render,
 	getByRole,
@@ -51,10 +49,13 @@ import {
 	type MatcherOptions,
 	type SelectorMatcherOptions
 } from "@testing-library/react";
+import merge from "lodash-es/merge.js";
+import { createStore, type Reducer } from "redux";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 
-import { defaultTheme, shouldForwardProp } from "@com.mgmtp.a12.widgets/widgets-core";
-import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { type Locale, defaultDataFormats, defaultValueConversion } from "@com.mgmtp.a12.utils/utils-localization";
+import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { defaultTheme, shouldForwardProp } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { enLocale } from "./basic.spec.js";
 

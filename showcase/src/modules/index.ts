@@ -32,15 +32,15 @@
 
 import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import { CDMModule } from "./cdm/index.js";
 import { BundleModule } from "./bundle/index.js";
+import { CDMModule } from "./cdm/index.js";
+import { EmployeeModule } from "./employee/index.js";
+import { MobileSupportModule } from "./mobile-support/index.js";
 import { PersonModule } from "./person/index.js";
 import { ProductModule } from "./product/index.js";
-import { EmployeeModule } from "./employee/index.js";
-import { SimpleFormModule } from "./simple-form/index.js";
 import { ShowcaseConfigModule } from "./showcase-module.js";
-import { MobileSupportModule } from "./mobile-support/index.js";
 import { ShowcaseOverviewModule } from "./showcase-overview/index.js";
+import { SimpleFormModule } from "./simple-form/index.js";
 
 export const Modules: DynamicConfiguration[] = [
 	ShowcaseConfigModule,

@@ -32,16 +32,15 @@
 
 import { it, expect, describe } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../../main/overview-model.js";
-import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { OverviewButton } from "../../../main/view/components/overview-button.js";
-
+import { OverviewEngine } from "../../../main/view/overview-engine.js";
+import { deLocale, defaultEngineProps } from "../../basic.spec.js";
 import { render } from "../../test-utils.js";
 import { createLocalizedModelText } from "../../utils.js";
-import { deLocale, defaultEngineProps } from "../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.overview-button", () => {
 	const basicButtonModel: OverviewModel.Button = {

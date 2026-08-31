@@ -32,9 +32,9 @@
 
 import type { Middleware } from "redux";
 
-import type { UiState } from "../../../store.js";
 import { Events, Commands } from "../../../actions.js";
 import { QueryOptions } from "../../../filter-state.js";
+import type { UiState } from "../../../store.js";
 
 export const onFilterSelectorVisibilityChanged: Middleware<{}, UiState> = (api) => (next) => (action) => {
 	const result = next(action);

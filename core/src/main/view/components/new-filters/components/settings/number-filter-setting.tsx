@@ -32,15 +32,15 @@
 
 import { memo, type FC } from "react";
 
+import type { OverviewModel } from "../../../../../overview-model.js";
+import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import type { NumberFilterState } from "../../../../../store/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useAvailableRanges } from "../../hooks/use-available-ranges.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useRangeToggleItems } from "../../hooks/use-range-toggle-items.js";
 import { ToggleSetting } from "../utilities/typed-toggle.js";
 import { BooleanToggleSetting } from "../utilities/typed-toggle.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import type { OverviewModel } from "../../../../../overview-model.js";
-import type { NumberFilterState } from "../../../../../store/index.js";
-import { useAvailableRanges } from "../../hooks/use-available-ranges.js";
-import { useRangeToggleItems } from "../../hooks/use-range-toggle-items.js";
-import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
 
 import { FilterSettingSection } from "./filter-setting-section.js";
 

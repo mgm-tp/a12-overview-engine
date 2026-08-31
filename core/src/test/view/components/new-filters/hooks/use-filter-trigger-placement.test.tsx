@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { waitFor } from "@testing-library/react";
 import { Lens } from "monocle-ts";
 import { it, expect, describe } from "vitest";
-import { waitFor } from "@testing-library/react";
 
 import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { OverviewModel as OverviewModelNs } from "../../../../../main/overview-model.js";
@@ -40,10 +40,9 @@ import {
 	useFilterTriggerPlacement,
 	type FilterTriggerPlacement
 } from "../../../../../main/view/components/new-filters/hooks/use-filter-trigger-placement.js";
-
-import { ProductFieldIds } from "../../../../setup/product-field-ids.js";
 import { getDocumentModel, getOverviewModel } from "../../../../setup/models.js";
-import { renderWithStore, baseFilterGroup, baseFilterConfiguration } from "../setup.js";
+import { ProductFieldIds } from "../../../../setup/product-field-ids.js";
+import { baseFilterGroup, renderWithStore, baseFilterConfiguration } from "../setup.js";
 
 const filterConfigurationLens = Lens.fromPath<OverviewModel>()(["content", "configuration", "newFilterConfiguration"]);
 const enableFilterLens = Lens.fromPath<OverviewModel>()(["content", "configuration", "enableFilter"]);

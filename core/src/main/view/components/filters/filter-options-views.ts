@@ -32,19 +32,19 @@
 
 import type * as React from "react";
 
-import { DateFilterOptionsView } from "./options-views/date-filter-options-view.js";
-import { TimeFilterOptionsView } from "./options-views/time-filter-options-view.js";
-import { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
-import { StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
 import { BooleanFilterOptionsView } from "./options-views/boolean-filter-options-view.js";
 import { ConfirmFilterOptionsView } from "./options-views/confirm-filter-options-view.js";
-import { DateTimeFilterOptionsView } from "./options-views/date-time-filter-options-view.js";
-import { DateRangeFilterOptionsView } from "./options-views/date-range-filter-options-view.js";
-import { EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
 import { CustomFieldFilterOptionsView } from "./options-views/custom-field-filter-options-view.js";
-import { MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
+import { DateFilterOptionsView } from "./options-views/date-filter-options-view.js";
 import { DateFragmentFilterOptionsView } from "./options-views/date-fragment-filter-options-view.js";
+import { DateRangeFilterOptionsView } from "./options-views/date-range-filter-options-view.js";
+import { DateTimeFilterOptionsView } from "./options-views/date-time-filter-options-view.js";
 import { EnumeratedStringFilterOptionsView } from "./options-views/enumerated-string-filter-options-view.js";
+import { EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
+import { MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
+import { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
+import { StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
+import { TimeFilterOptionsView } from "./options-views/time-filter-options-view.js";
 
 export interface FilterOptionsViews {
 	readonly StringFilterOptionsView: React.ComponentType<StringFilterOptionsView.Props>;

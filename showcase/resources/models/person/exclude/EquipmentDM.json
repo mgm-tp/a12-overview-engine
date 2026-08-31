@@ -1,379 +1,379 @@
 {
-	"header": {
-		"id": "EquipmentDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"modelType": "document",
-				"purpose": "include",
-				"reference": "DomainTest"
-			}
-		]
-	},
-	"content": {
-		"modelInfo": {
-			"name": "EquipmentDM"
-		},
-		"modelConfig": {
-			"timeZone": "UTC",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "group_c1a01",
-					"name": "Equipment",
-					"Group": {
-						"label": [
-							{
-								"locale": "en",
-								"text": "Equipment"
-							},
-							{
-								"locale": "de",
-								"text": "Ausstattung"
-							}
-						],
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_c2b02",
-								"name": "EquipmentName",
-								"Field": {
-									"fieldType": {
-										"type": "StringType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Equipment Name"
-										},
-										{
-											"locale": "de",
-											"text": "Ger\u00e4tename"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_c3c03",
-								"name": "SerialNumber",
-								"Field": {
-									"fieldType": {
-										"type": "NumberType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Serial Number"
-										},
-										{
-											"locale": "de",
-											"text": "Seriennummer"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_c4d04",
-								"name": "IsActive",
-								"Field": {
-									"fieldType": {
-										"type": "BooleanType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Active"
-										},
-										{
-											"locale": "de",
-											"text": "Aktiv"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_c5e05",
-								"name": "Category",
-								"Field": {
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"alphabeticalSorting": true,
-											"values": [
-												{
-													"value": "Laptop",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Laptop"
-														},
-														{
-															"locale": "de",
-															"text": "Laptop"
-														}
-													]
-												},
-												{
-													"value": "Monitor",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Monitor"
-														},
-														{
-															"locale": "de",
-															"text": "Monitor"
-														}
-													]
-												},
-												{
-													"value": "Phone",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Phone"
-														},
-														{
-															"locale": "de",
-															"text": "Telefon"
-														}
-													]
-												},
-												{
-													"value": "Printer",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Printer"
-														},
-														{
-															"locale": "de",
-															"text": "Drucker"
-														}
-													]
-												},
-												{
-													"value": "Desk",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Desk"
-														},
-														{
-															"locale": "de",
-															"text": "Schreibtisch"
-														}
-													]
-												},
-												{
-													"value": "Headset",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Headset"
-														},
-														{
-															"locale": "de",
-															"text": "Headset"
-														}
-													]
-												}
-											]
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Category"
-										},
-										{
-											"locale": "de",
-											"text": "Kategorie"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_c6f06",
-								"name": "Condition",
-								"Field": {
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"alphabeticalSorting": false,
-											"values": [
-												{
-													"value": "New",
-													"label": [
-														{
-															"locale": "en",
-															"text": "New"
-														},
-														{
-															"locale": "de",
-															"text": "Neu"
-														}
-													]
-												},
-												{
-													"value": "Good",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Good"
-														},
-														{
-															"locale": "de",
-															"text": "Gut"
-														}
-													]
-												},
-												{
-													"value": "Fair",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Fair"
-														},
-														{
-															"locale": "de",
-															"text": "Ausreichend"
-														}
-													]
-												},
-												{
-													"value": "NeedsRepair",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Needs Repair"
-														},
-														{
-															"locale": "de",
-															"text": "Reparaturbed\u00fcrftig"
-														}
-													]
-												}
-											]
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Condition"
-										},
-										{
-											"locale": "de",
-											"text": "Zustand"
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "group_c7g07",
-								"name": "EquipmentDetails",
-								"Group": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "Equipment Details"
-										},
-										{
-											"locale": "de",
-											"text": "Ger\u00e4tedetails"
-										}
-									],
-									"repeatability": 1,
-									"elements": [
-										{
-											"type": "Field",
-											"id": "field_c8h08",
-											"name": "Quantity",
-											"Field": {
-												"fieldType": {
-													"type": "NumberType",
-													"NumberType": {
-														"minValue": 1,
-														"maxValue": 500
-													}
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "Quantity"
-													},
-													{
-														"locale": "de",
-														"text": "Anzahl"
-													}
-												]
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_c9i09",
-											"name": "PurchasePrice",
-											"Field": {
-												"fieldType": {
-													"type": "NumberType",
-													"NumberType": {
-														"minValue": 0,
-														"maxFractionalDigits": 2,
-														"trait": "amount"
-													}
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "Purchase Price"
-													},
-													{
-														"locale": "de",
-														"text": "Kaufpreis"
-													}
-												]
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "include_dt100",
-								"name": "domainTest",
-								"Group": {
-									"repeatability": 1,
-									"includeConfig": {
-										"reference": "DomainTest"
-									}
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "EquipmentDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "modelType": "document",
+        "purpose": "include",
+        "reference": "DomainTest"
+      }
+    ]
+  },
+  "content": {
+    "modelInfo": {
+      "name": "EquipmentDM"
+    },
+    "modelConfig": {
+      "timeZone": "UTC",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "group_c1a01",
+          "name": "Equipment",
+          "Group": {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Equipment"
+              },
+              {
+                "locale": "de",
+                "text": "Ausstattung"
+              }
+            ],
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_c2b02",
+                "name": "EquipmentName",
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Equipment Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Ger\u00e4tename"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_c3c03",
+                "name": "SerialNumber",
+                "Field": {
+                  "fieldType": {
+                    "type": "NumberType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Serial Number"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Seriennummer"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_c4d04",
+                "name": "IsActive",
+                "Field": {
+                  "fieldType": {
+                    "type": "BooleanType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Active"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Aktiv"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_c5e05",
+                "name": "Category",
+                "Field": {
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "alphabeticalSorting": true,
+                      "values": [
+                        {
+                          "value": "Laptop",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Laptop"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Laptop"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Monitor",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Monitor"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Monitor"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Phone",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Phone"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Telefon"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Printer",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Printer"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Drucker"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Desk",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Desk"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Schreibtisch"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Headset",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Headset"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Headset"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Category"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Kategorie"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_c6f06",
+                "name": "Condition",
+                "Field": {
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "alphabeticalSorting": false,
+                      "values": [
+                        {
+                          "value": "New",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "New"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Neu"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Good",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Good"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Gut"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Fair",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Fair"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Ausreichend"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "NeedsRepair",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Needs Repair"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Reparaturbed\u00fcrftig"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Condition"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Zustand"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "group_c7g07",
+                "name": "EquipmentDetails",
+                "Group": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Equipment Details"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Ger\u00e4tedetails"
+                    }
+                  ],
+                  "repeatability": 1,
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "field_c8h08",
+                      "name": "Quantity",
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType",
+                          "NumberType": {
+                            "minValue": 1,
+                            "maxValue": 500
+                          }
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "Quantity"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Anzahl"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_c9i09",
+                      "name": "PurchasePrice",
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType",
+                          "NumberType": {
+                            "minValue": 0,
+                            "maxFractionalDigits": 2,
+                            "trait": "amount"
+                          }
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "Purchase Price"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Kaufpreis"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "include_dt100",
+                "name": "domainTest",
+                "Group": {
+                  "repeatability": 1,
+                  "includeConfig": {
+                    "reference": "DomainTest"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

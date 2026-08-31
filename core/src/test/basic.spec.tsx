@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { OverviewEngineApi } from "../main/view/api.js";
-import { OverviewModel } from "../main/overview-model.js";
 import type { JSONDocument } from "../main/models/index.js";
-import type { OverviewEngine } from "../main/view/overview-engine.js";
-import { DefaultWidgetMap } from "../main/view/configuration/widget-map.js";
+import { OverviewModel } from "../main/overview-model.js";
+import { OverviewEngineApi } from "../main/view/api.js";
 import { DefaultComponentMap } from "../main/view/configuration/component-map.js";
+import { DefaultWidgetMap } from "../main/view/configuration/widget-map.js";
+import type { OverviewEngine } from "../main/view/overview-engine.js";
 
 import { getDocumentModel } from "./setup/models.js";
 

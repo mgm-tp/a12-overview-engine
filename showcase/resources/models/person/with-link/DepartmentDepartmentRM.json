@@ -1,86 +1,86 @@
 {
-	"header": {
-		"id": "DepartmentDepartmentRM",
-		"modelType": "relationship",
-		"modelVersion": "4.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "parent",
-				"reference": "PersonDepartmentDM"
-			},
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "child",
-				"reference": "PersonDepartmentDM"
-			}
-		]
-	},
-	"content": {
-		"duplicatesAllowed": false,
-		"labels": [
-			{
-				"locale": "en"
-			},
-			{
-				"locale": "de"
-			}
-		],
-		"entityCharacteristics": [
-			{
-				"documentModel": "PersonDepartmentDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en",
-						"text": "Parent Department"
-					},
-					{
-						"locale": "de",
-						"text": "\u00dcbergeordnete Abteilung"
-					}
-				],
-				"role": "parent",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				}
-			},
-			{
-				"documentModel": "PersonDepartmentDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en",
-						"text": "Child Department"
-					},
-					{
-						"locale": "de",
-						"text": "Untergeordnete Abteilung"
-					}
-				],
-				"role": "child",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				}
-			}
-		]
-	}
+  "header": {
+    "id": "DepartmentDepartmentRM",
+    "modelType": "relationship",
+    "modelVersion": "4.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "parent",
+        "reference": "PersonDepartmentDM"
+      },
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "child",
+        "reference": "PersonDepartmentDM"
+      }
+    ]
+  },
+  "content": {
+    "duplicatesAllowed": false,
+    "labels": [
+      {
+        "locale": "en"
+      },
+      {
+        "locale": "de"
+      }
+    ],
+    "entityCharacteristics": [
+      {
+        "documentModel": "PersonDepartmentDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Parent Department"
+          },
+          {
+            "locale": "de",
+            "text": "\u00dcbergeordnete Abteilung"
+          }
+        ],
+        "role": "parent",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": false,
+            "upperLimit": 1
+          }
+        }
+      },
+      {
+        "documentModel": "PersonDepartmentDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Child Department"
+          },
+          {
+            "locale": "de",
+            "text": "Untergeordnete Abteilung"
+          }
+        ],
+        "role": "child",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": false,
+            "upperLimit": 1
+          }
+        }
+      }
+    ]
+  }
 }

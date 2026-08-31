@@ -32,9 +32,9 @@
 
 import { it, expect, describe } from "vitest";
 
-import { Links } from "../../../main/models/internal/links.js";
 import { DataGraph } from "../../../main/models/internal/data-graph.js";
 import type { JSONDocument } from "../../../main/models/internal/json-document.js";
+import { Links } from "../../../main/models/internal/links.js";
 
 function makeDoc(id: string, extra: Record<string, unknown> = {}): JSONDocument {
 	return { id, elements: {}, ...extra } as unknown as JSONDocument;

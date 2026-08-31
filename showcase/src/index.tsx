@@ -30,25 +30,26 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-// These imports must stay at the top because they define globals
-import "./config/wdyr.js";
-import "./config/reselect.js";
 import "./config/logging.js";
+import "./config/reselect.js";
 import "./config/server-connector.js";
+import "./config/wdyr.js";
+import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
 
-import ReactDOM from "react-dom/client";
 import { Provider, useSelector } from "react-redux";
 
-import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
+// These imports must stay at the top because they define globals
+import ReactDOM from "react-dom/client";
+
+import { ViewViews, DynamicRegionUi, NotificationViews, ApplicationSelectors } from "@com.mgmtp.a12.client/client-core";
 import { DirtyHandlingViews } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import { loadDataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { ViewViews, DynamicRegionUi, NotificationViews, ApplicationSelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { setup } from "./appsetup.js";
+import { LocalizationContextProvider } from "./config/localization.js";
 import { fetchModelGraph } from "./config/redux.js";
 import { SizeProvider } from "./config/size-detector.js";
 import { ThemeContextProvider } from "./config/themes.js";
-import { LocalizationContextProvider } from "./config/localization.js";
 
 const config = setup();
 fetchModelGraph(config.store.dispatch);

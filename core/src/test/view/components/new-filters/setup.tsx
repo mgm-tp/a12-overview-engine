@@ -31,10 +31,19 @@
  */
 
 import React from "react";
-import { expect } from "vitest";
-import { Lens } from "monocle-ts";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
+
+import {
+	render,
+	queries,
+	type Matcher,
+	buildQueries,
+	queryHelpers,
+	type RenderResult,
+	type RenderOptions,
+	type MatcherOptions
+} from "@testing-library/react";
+import { Lens } from "monocle-ts";
 import {
 	type Store,
 	type Action,
@@ -43,19 +52,11 @@ import {
 	applyMiddleware,
 	legacy_createStore as createStore
 } from "redux";
-import {
-	render,
-	queries,
-	buildQueries,
-	type Matcher,
-	queryHelpers,
-	type RenderResult,
-	type RenderOptions,
-	type MatcherOptions
-} from "@testing-library/react";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
+import { expect } from "vitest";
 
-import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
 	noop,
@@ -67,16 +68,8 @@ import {
 	type DateTimeContextType
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../../main/view/api.js";
-import type { OverviewModel } from "../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../main/view/overview-engine.js";
-import { FilterFocusContext } from "../../../../main/view/context/filter-focus-context.js";
 import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
-import { useOverviewEngineState } from "../../../../main/view/context/overview-engine-context.js";
-import { FilterBarItem } from "../../../../main/view/components/new-filters/components/filter-bar-item.js";
-import { FilterSelector } from "../../../../main/view/components/new-filters/components/filter-selector.js";
-import { DefaultFilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
-import { defaultMapDispatchToEventHandlers } from "../../../../main/view/configuration/event-handlers-dispatch-map.js";
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import {
 	Commands,
 	type UiState,
@@ -85,10 +78,17 @@ import {
 	FilterStateBuilder,
 	createEngineMiddlewares
 } from "../../../../main/store/index.js";
-
+import { DefaultFilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
+import type { OverviewEngineApi } from "../../../../main/view/api.js";
+import { FilterBarItem } from "../../../../main/view/components/new-filters/components/filter-bar-item.js";
+import { FilterSelector } from "../../../../main/view/components/new-filters/components/filter-selector.js";
+import { defaultMapDispatchToEventHandlers } from "../../../../main/view/configuration/event-handlers-dispatch-map.js";
+import { FilterFocusContext } from "../../../../main/view/context/filter-focus-context.js";
+import { useOverviewEngineState } from "../../../../main/view/context/overview-engine-context.js";
+import { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { enLocale } from "../../../basic.spec.js";
-import { QueriableElement } from "../../../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../../../setup/models.js";
+import { QueriableElement } from "../../../test-utils.js";
 
 const queryAllByDataRole = <T extends HTMLElement = HTMLElement>(
 	container: HTMLElement,
@@ -363,6 +363,7 @@ export async function renderFilter<Item extends OverviewModel.NewFilter.Item>(op
 	dateTimeContext?: DateTimeContextType;
 	initialEnumeratedStringFilterMap?: OverviewEngineApi.EnumeratedStringFilterMap;
 	dataservicesConfiguration?: Record<string, string>;
+	locale?: Locale;
 }): Promise<FilterRenderResult> {
 	let documentModel = await getDocumentModel("product", "ProductDM");
 	const productOM = await getOverviewModel("product", "ProductOM");
@@ -384,7 +385,8 @@ export async function renderFilter<Item extends OverviewModel.NewFilter.Item>(op
 		engineProps: { documentModel, overviewModel, data: [] },
 		dateTimeContext: options.dateTimeContext,
 		preloadedUiState,
-		dataservicesConfiguration: options.dataservicesConfiguration
+		dataservicesConfiguration: options.dataservicesConfiguration,
+		locale: options.locale
 	});
 
 	return { overviewModel, documentModel, ...renderResult };

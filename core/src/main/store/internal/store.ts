@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import type { OverviewEngineApi } from "../../view/api.js";
 import type { OverviewModel } from "../../overview-model.js";
+import type { OverviewEngineApi } from "../../view/api.js";
 
 import type { FilterState } from "./filter-state.js";
 

@@ -32,17 +32,17 @@
 
 import * as React from "react";
 
-import type { OverviewEngineApi } from "../../../api.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import type { FilterOptionsView } from "../filter-options-view.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 
-import { useHeadingElements } from "./date-time-common-hooks.js";
 import {
 	useRadioItems,
 	useBooleanSubActionBar,
 	useBooleanFilterOptionsViewParameters
 } from "./boolean-filter-options-view.js";
+import { useHeadingElements } from "./date-time-common-hooks.js";
 
 export namespace ConfirmFilterOptionsView {
 	export interface Props extends FilterOptionsView.PropsType {

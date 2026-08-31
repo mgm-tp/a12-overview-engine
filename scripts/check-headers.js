@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import Path from "node:path";
 import Fs from "node:fs/promises";
+import Path from "node:path";
 
 const SPDX_MARKER = ["SPDX-License", "Identifier: EUPL-1.2 OR LicenseRef-commercial"].join("-");
 
@@ -51,7 +51,9 @@ const IGNORE_DIRS = new Set([
 	"playwright-report",
 	".gradle",
 	".npm",
-	".git"
+	".git",
+	".claude",
+	"worktrees"
 ]);
 
 const IGNORE_FILES = new Set([

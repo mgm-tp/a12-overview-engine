@@ -34,11 +34,11 @@ import * as React from "react";
 
 import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { isPageable, usePagination } from "../../utils.js";
-import { useFooterBoxButtons } from "../../hooks/index.js";
 import { FilterFocusProvider } from "../../context/filter-focus-context.js";
-import type { OverviewContentBox as OldOverviewContentBox } from "../../overview-content-box.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useFooterBoxButtons } from "../../hooks/index.js";
+import type { OverviewContentBox as OldOverviewContentBox } from "../../overview-content-box.js";
+import { isPageable, usePagination } from "../../utils.js";
 
 import { FilterSelectorModal, useShouldShowFilterSelectorModal } from "./components/filter-selector-modal.js";
 

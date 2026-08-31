@@ -44,17 +44,17 @@ import {
 	localizableFromLocalizationTreeMap
 } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { getDateTimeFormat } from "../../converter/index.js";
 import {
 	DocumentModelUtils,
 	MultiSelectModelUtils,
 	createDocumentModelService
 } from "../../../models/internal/shared.js";
+import { getDateTimeFormat } from "../../converter/index.js";
 
-import { en } from "./languages/en.js";
-import { de } from "./languages/de.js";
-import { RESOURCE_KEYS } from "./languages/keys.js";
 import { DocumentModelKeys } from "./document-model-keys.js";
+import { de } from "./languages/de.js";
+import { en } from "./languages/en.js";
+import { RESOURCE_KEYS } from "./languages/keys.js";
 import { OverviewModelKeys } from "./overview-model-keys.js";
 
 export namespace LocalizableFactory {

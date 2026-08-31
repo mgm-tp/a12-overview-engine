@@ -33,9 +33,8 @@
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, afterAll, describe, beforeAll } from "vitest";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 import { renderDateTimeFilter } from "./pages/date-time-filter-page.js";

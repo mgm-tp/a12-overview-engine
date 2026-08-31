@@ -32,9 +32,9 @@
 
 import React from "react";
 
-import type { ButtonPanel } from "../components/index.js";
-import { OverviewModelKeys } from "../../services/index.js";
 import type { OverviewModel } from "../../overview-model.js";
+import { OverviewModelKeys } from "../../services/index.js";
+import type { ButtonPanel } from "../components/index.js";
 import { useOverviewEngineContext } from "../context/index.js";
 
 /** @internal */

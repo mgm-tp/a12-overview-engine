@@ -38,13 +38,6 @@ import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { MultiSelectGroup } from "../../models/index.js";
 import type { DocumentModelTypedField } from "../../models/index.js";
-import type { Configurable, OverviewModel } from "../../overview-model.js";
-import {
-	type DocumentModelService,
-	createDocumentModelService,
-	type FormatTypedDateRangeType,
-	type FormatTypedDateFragmentType
-} from "../../models/internal/shared.js";
 import {
 	isDateFilterModelItem,
 	isTimeFilterModelItem,
@@ -60,9 +53,16 @@ import {
 	isMultiSelectFilterModelItem,
 	isDateFragmentFilterModelItem
 } from "../../models/index.js";
+import {
+	type DocumentModelService,
+	createDocumentModelService,
+	type FormatTypedDateRangeType,
+	type FormatTypedDateFragmentType
+} from "../../models/internal/shared.js";
+import type { Configurable, OverviewModel } from "../../overview-model.js";
 
-import type { FilterStateSelectors } from "./selectors/index.js";
 import { RangeCriteria, type PeriodCriteria } from "./filter-controllers/criteria.js";
+import type { FilterStateSelectors } from "./selectors/index.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface SelectedRange {

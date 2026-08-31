@@ -32,9 +32,9 @@
 
 import { format } from "date-fns";
 
-import { RangeCriteria } from "../criteria.js";
-import type { DateFragmentFilterState } from "../../filter-state.js";
 import { isDefined, formatRange } from "../../../../services/filter-format-utils.js";
+import type { DateFragmentFilterState } from "../../filter-state.js";
+import { RangeCriteria } from "../criteria.js";
 
 import type { Resolver } from "./resolver.js";
 

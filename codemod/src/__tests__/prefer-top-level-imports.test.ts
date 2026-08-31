@@ -37,8 +37,8 @@ import { testRecipe } from "@com.mgmtp.a12.devtools/codemod";
 import { preferTopLevelImportsRecipe } from "../recipes/prefer-top-level-imports.js";
 
 describe("preferTopLevelImports", () => {
-	it("should convert named imports from overview-model to OverviewModel namespace", () => {
-		expect(
+	it("should convert named imports from overview-model to OverviewModel namespace", async () => {
+		await expect(
 			testRecipe(
 				preferTopLevelImportsRecipe,
 				`import { Button } from "@com.mgmtp.a12.overviewengine/overviewengine-core/lib/main/overview-model.js";
@@ -60,8 +60,8 @@ const myButton: Button = {
 		`);
 	});
 
-	it("should convert named imports from overview-model to OverviewModel namespace 2", () => {
-		expect(
+	it("should convert named imports from overview-model to OverviewModel namespace 2", async () => {
+		await expect(
 			testRecipe(
 				preferTopLevelImportsRecipe,
 				`

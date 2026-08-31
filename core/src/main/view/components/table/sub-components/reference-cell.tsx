@@ -33,22 +33,22 @@
 import * as React from "react";
 
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { JSONLink } from "../../../../models/index.js";
-import type { OverviewModel } from "../../../../overview-model.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 import {
 	DocumentUtils,
 	MultiSelectUtils,
 	DocumentModelUtils,
 	MultiSelectModelUtils
 } from "../../../../models/internal/shared.js";
+import type { OverviewModel } from "../../../../overview-model.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import type { TableBodyCell } from "./table-body-cell.js";
 import { FieldReferenceCell, type FieldFormatterParams } from "./field-reference-cell.js";
+import type { TableBodyCell } from "./table-body-cell.js";
 
 export namespace ReferenceCell {
 	export interface Props extends TableBodyCell.Props {

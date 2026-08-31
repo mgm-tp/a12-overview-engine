@@ -1,56 +1,56 @@
 {
-	"header": {
-		"id": "Attachment-overview",
-		"modelType": "overview",
-		"modelVersion": "39.0.0",
-		"locales": [
-			{
-				"code": "en"
-			}
-		],
-		"modelReferences": [
-			{
-				"purpose": "document-model-for-overview",
-				"modelType": "document",
-				"alias": "DM",
-				"reference": "DomainAttachment"
-			}
-		],
-		"labels": [],
-		"annotations": []
-	},
-	"content": {
-		"subHeaderBox": {
-			"leftSlot": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			]
-		},
-		"footerBox": {},
-		"columns": [
-			{
-				"id": "column-7339a",
-				"elementRef": "G3",
-				"sortable": false,
-				"width": 1
-			}
-		],
-		"rowActionGroup": {
-			"actions": []
-		},
-		"configuration": {
-			"pagingSize": 10,
-			"showFullTextSearch": true,
-			"enableFilter": true,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all"
-			}
-		}
-	}
+  "header": {
+    "id": "Attachment-overview",
+    "modelType": "overview",
+    "modelVersion": "39.0.0",
+    "locales": [
+      {
+        "code": "en"
+      }
+    ],
+    "modelReferences": [
+      {
+        "purpose": "document-model-for-overview",
+        "modelType": "document",
+        "alias": "DM",
+        "reference": "DomainAttachment"
+      }
+    ],
+    "labels": [],
+    "annotations": []
+  },
+  "content": {
+    "subHeaderBox": {
+      "leftSlot": [
+        {
+          "type": "search"
+        },
+        {
+          "type": "filter"
+        }
+      ]
+    },
+    "footerBox": {},
+    "columns": [
+      {
+        "id": "column-7339a",
+        "elementRef": "G3",
+        "sortable": false,
+        "width": 1
+      }
+    ],
+    "rowActionGroup": {
+      "actions": []
+    },
+    "configuration": {
+      "pagingSize": 10,
+      "showFullTextSearch": true,
+      "enableFilter": true,
+      "filterConfiguration": {
+        "showFilterButton": true,
+        "showFilterBar": true,
+        "filterMode": "all"
+      }
+    }
+  }
 }

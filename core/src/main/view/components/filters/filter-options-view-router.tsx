@@ -35,34 +35,34 @@ import * as React from "react";
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { UiStateSelector } from "../../../store/index.js";
+import { type MultiSelectGroup, MultiSelectModelUtils } from "../../../models/internal/shared.js";
 import type { OverviewModel } from "../../../overview-model.js";
-import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
-import { FilterOperation, OverviewEngineApi } from "../../api.js";
 import type { Converter } from "../../../services/converter/internal/shared.js";
 import { defaultDateRangeConversionTransformer } from "../../../services/index.js";
-import { type MultiSelectGroup, MultiSelectModelUtils } from "../../../models/internal/shared.js";
-import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
+import { UiStateSelector } from "../../../store/index.js";
+import { FilterOperation, OverviewEngineApi } from "../../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 
-import { useSuffixFilterDataGetter } from "./utils.js";
-import { FilterOptionsViews } from "./filter-options-views.js";
-import { SectionType } from "./options-views/section-template.js";
-import { DateTimeUtils } from "./options-views/date-time-utils.js";
 import type { Filter, FilterOptionsView } from "./filter-options-view.js";
-import { EmptyFilterOptionsView } from "./options-views/empty-filter-options-view.js";
-import { EnumerationSuffixSelector } from "./options-views/enumeration-suffix-selector.js";
-import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
-import type { StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
-import type { ConfirmFilterOptionsView } from "./options-views/confirm-filter-options-view.js";
+import { FilterOptionsViews } from "./filter-options-views.js";
 import type { BooleanFilterOptionsView } from "./options-views/boolean-filter-options-view.js";
-import type { EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
-import type { MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
+import type { ConfirmFilterOptionsView } from "./options-views/confirm-filter-options-view.js";
 import type {
 	DateTimeViewValue,
 	DateTimeUiValueType,
 	DateTimeViewSelection
 } from "./options-views/date-time-filter-view.api.js";
+import { DateTimeUtils } from "./options-views/date-time-utils.js";
+import { EmptyFilterOptionsView } from "./options-views/empty-filter-options-view.js";
+import type { EnumerationFilterOptionsView } from "./options-views/enumeration-filter-options-view.js";
+import { EnumerationSuffixSelector } from "./options-views/enumeration-suffix-selector.js";
+import type { MultiSelectFilterOptionsView } from "./options-views/multi-select-filter-options-view.js";
+import type { NumberFilterOptionsView } from "./options-views/number-filter-options-view.js";
+import { SectionType } from "./options-views/section-template.js";
+import type { StringFilterOptionsView } from "./options-views/string-filter-options-view.js";
+import { useSuffixFilterDataGetter } from "./utils.js";
 
 const ariaLevel = 2;
 

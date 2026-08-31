@@ -34,6 +34,7 @@ import type { Middleware } from "redux";
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import { Commands, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+
 // tag::row-state[]
 export interface RowState {
 	readonly [docRef: string]: {

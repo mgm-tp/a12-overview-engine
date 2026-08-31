@@ -34,9 +34,8 @@ import { fireEvent } from "@testing-library/react";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import {
 	renderFilter,
 	getByDataRole,

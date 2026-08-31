@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { defineConfig } from "vitest/config";
 import pluginReact from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
+import { defineConfig } from "vitest/config";
 
 const runStamp = new Date().toISOString().replace(/[:.]/g, "-");
 
@@ -44,7 +44,6 @@ export default defineConfig({
 		include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
 		deps: { optimizer: { client: { enabled: true } } },
 		maxWorkers: process.env.CI ? 2 : "50%",
-		minWorkers: process.env.CI ? 2 : "50%",
 		pool: "forks",
 		clearMocks: true,
 		testTimeout: 20000,
@@ -60,11 +59,7 @@ export default defineConfig({
 			instances: [
 				{
 					browser: "chromium",
-					viewport: { width: 1280, height: 720 },
-					context: {
-						userAgent:
-							"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-					}
+					viewport: { width: 1280, height: 720 }
 				}
 			]
 		}

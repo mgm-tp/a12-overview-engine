@@ -33,7 +33,6 @@
 import { it, expect, describe } from "vitest";
 
 import { RESOURCE_KEYS, LocalizableFactory } from "../../../main/services/localization/index.js";
-
 import { defaultEngineProps } from "../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.services.localization.internal.localizable-factory", () => {

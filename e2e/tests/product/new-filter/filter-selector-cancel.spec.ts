@@ -35,10 +35,10 @@ import type { Page } from "@playwright/test";
 import type { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { test, expect } from "../../commands.js";
-import { Showcase, navigate } from "../../utils.js";
 import { setFilterItems } from "../../filter-utils.js";
 import { useModelOverride } from "../../model-override.js";
 import { ProductFieldIds } from "../../product-field-ids.js";
+import { Showcase, navigate } from "../../utils.js";
 
 function makeBooleanFilter(): OverviewModel.NewFilter.Boolean.Item {
 	return {

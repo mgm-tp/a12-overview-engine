@@ -35,12 +35,11 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import { SortingOrder, DefaultFilterStateSelectors } from "../../../../main/index.js";
 import {
-	computeListDocumentsQueryOrders,
-	computeListDocumentsConstraints
+	computeListDocumentsConstraints,
+	computeListDocumentsQueryOrders
 } from "../../../../main/client-extensions/internal/providers/overview-engine-data-provider.js";
-
+import { SortingOrder, DefaultFilterStateSelectors } from "../../../../main/index.js";
 import { mockType, createModelsState } from "../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.client-extensions.providers.overview-engine-data-provider", () => {

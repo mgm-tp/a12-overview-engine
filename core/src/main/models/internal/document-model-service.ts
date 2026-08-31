@@ -32,8 +32,8 @@
 
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import type { ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 import { DocumentServiceFactory, type DocumentModelSearchService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 
 /** @internal */
 export interface DocumentModelService {

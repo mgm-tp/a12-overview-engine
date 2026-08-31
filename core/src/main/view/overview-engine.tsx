@@ -33,31 +33,31 @@
 import * as React from "react";
 import type { FC } from "react";
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
 import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { useWindowSize, type Container, type RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { UiState } from "../store/index.js";
-import { OverviewModel } from "../overview-model.js";
-import { DocumentUtils } from "../models/internal/shared.js";
 import type { Links, JSONDocument } from "../models/index.js";
-import { OverviewEngineInternalConstants } from "../shared/constants.js";
+import { DocumentUtils } from "../models/internal/shared.js";
+import { OverviewModel } from "../overview-model.js";
 import { getModelIdFromColumn } from "../services/relationship/index.js";
+import { OverviewEngineInternalConstants } from "../shared/constants.js";
+import type { UiState } from "../store/index.js";
 import { type FilterStateSelectors, DefaultFilterStateSelectors } from "../store/index.js";
 
 import type { OverviewEngineApi } from "./api.js";
-import { OverviewTable } from "./overview-table.js";
-import { SearchStatus } from "./components/search-status.js";
-import { useRelationshipModels } from "./hooks/use-relationship.js";
 import { OverviewDialog } from "./components/dialogs/overview-dialog.js";
-import { OverviewEngineContext } from "./context/overview-engine-context.js";
-import { type WidgetMap, DefaultWidgetMap } from "./configuration/widget-map.js";
-import { type SelectorMap, DefaultSelectorMap } from "./configuration/selector-map.js";
-import { OverviewContentBox as OldOverviewContentBox } from "./overview-content-box.js";
-import { type ComponentMap, DefaultComponentMap } from "./configuration/component-map.js";
 import { OverviewContentBox as NewOverviewContentBox } from "./components/new-filters/overview-content-box.js";
+import { SearchStatus } from "./components/search-status.js";
+import { type ComponentMap, DefaultComponentMap } from "./configuration/component-map.js";
+import { type SelectorMap, DefaultSelectorMap } from "./configuration/selector-map.js";
+import { type WidgetMap, DefaultWidgetMap } from "./configuration/widget-map.js";
+import { OverviewEngineContext } from "./context/overview-engine-context.js";
 import { useInternalContextValue, OverviewEngineInternalContext } from "./context/overview-engine-internal-context.js";
+import { useRelationshipModels } from "./hooks/use-relationship.js";
+import { OverviewContentBox as OldOverviewContentBox } from "./overview-content-box.js";
+import { OverviewTable } from "./overview-table.js";
 
 export const OverviewEngine: React.ComponentType<OverviewEngine.Props> = React.memo(function OverviewEngine(props) {
 	const eventHandlers: OverviewEngineApi.EventHandlers = React.useMemo(

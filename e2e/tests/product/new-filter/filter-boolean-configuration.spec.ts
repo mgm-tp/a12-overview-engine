@@ -35,9 +35,9 @@ import type { WritableDraft } from "immer";
 import type { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { test, expect } from "../../commands.js";
-import { Showcase, navigate } from "../../utils.js";
-import { useModelOverride } from "../../model-override.js";
 import { updateBooleanFilter } from "../../filter-utils.js";
+import { useModelOverride } from "../../model-override.js";
+import { Showcase, navigate } from "../../utils.js";
 
 function withInStock(modifier: (filter: WritableDraft<OverviewModel.NewFilter.Boolean.Item>) => void) {
 	return (model: OverviewModel) => updateBooleanFilter(model, "inStock", modifier);

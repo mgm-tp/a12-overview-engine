@@ -32,19 +32,19 @@
 
 import { select, type SagaGenerator } from "typed-redux-saga";
 
-import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
 	DataServicesSelectors,
 	type SupportedRequest,
 	type QueryJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { OverviewEngineSelectors } from "../selectors.js";
 import type { JSONDocument } from "../../../models/index.js";
 import { Links, type JSONLink } from "../../../models/index.js";
+import { OverviewEngineInternalConstants } from "../../../shared/constants.js";
+import { OverviewEngineSelectors } from "../selectors.js";
 import { isCdm, removeModelNameFromRef } from "../utils/cdm-utils.js";
 import type { RequestSelectorMap } from "../utils/request-selector-map.js";
-import { OverviewEngineInternalConstants } from "../../../shared/constants.js";
 
 import {
 	DataOperation,

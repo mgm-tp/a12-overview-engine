@@ -37,7 +37,6 @@ import { createSelector } from "reselect";
 import { OverviewModel } from "../../../overview-model.js";
 import type { OverviewEngineApi } from "../../../view/api.js";
 import { normalizeFilterOptions } from "../filter-options-normalization.js";
-import type { UiState, Sorting, Scrolling, ColumnWidths, PaginationState, ScrollToRowRequest } from "../store.js";
 import {
 	QueryOptions,
 	type FilterArea,
@@ -45,9 +44,10 @@ import {
 	type FilterState,
 	type FilterItemState
 } from "../filter-state.js";
+import type { Sorting, UiState, Scrolling, ColumnWidths, PaginationState, ScrollToRowRequest } from "../store.js";
 
-import type { Selector } from "./selector.js";
 import { type FilterStateSelectors, DefaultFilterStateSelectors } from "./filter-selectors.js";
+import type { Selector } from "./selector.js";
 
 export namespace UiStateSelector {
 	export function rowState(): Selector<OverviewEngineApi.RowState | undefined, UiState> {

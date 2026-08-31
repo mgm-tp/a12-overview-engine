@@ -30,13 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { test, expect } from "vitest";
 import semverSatisfies from "semver/functions/satisfies.js";
+import { test, expect } from "vitest";
 
-import { SUPPORTED_MODEL_VERSIONS } from "../../core/src/main/supported-model-version.js";
-
-import { MIGRATION_PARAMETERS } from "../src/internal/config.js";
 import corePackageJson from "../../core/package.json" with { type: "json" };
+import { SUPPORTED_MODEL_VERSIONS } from "../../core/src/main/supported-model-version.js";
+import { MIGRATION_PARAMETERS } from "../src/internal/config.js";
 
 test("model version compatibility", async () => {
 	const compatibleRange = corePackageJson.modelVersion;

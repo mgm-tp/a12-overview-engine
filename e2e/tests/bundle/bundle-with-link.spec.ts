@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase, getColumnIndex } from "../utils.js";
+import { Selector, Showcase, navigate, getColumnIndex } from "../utils.js";
 
 test.describe("Bundle with link columns", () => {
 	test.beforeAll(async ({ seed }) => {

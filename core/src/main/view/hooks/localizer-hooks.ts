@@ -33,14 +33,14 @@
 import * as React from "react";
 
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import type { FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { Localizable, LocalizableArgs, LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
-import { OverviewModel } from "../../overview-model.js";
 import { MultiSelectModelUtils } from "../../models/index.js";
-import { useOverviewEngineContext, useOverviewEngineInternalContext } from "../context/index.js";
+import { OverviewModel } from "../../overview-model.js";
 import { DocumentModelKeys, OverviewModelKeys, LocalizableFactory } from "../../services/index.js";
+import { useOverviewEngineContext, useOverviewEngineInternalContext } from "../context/index.js";
 
 export namespace LocalizerHooks {
 	/**

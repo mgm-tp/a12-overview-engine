@@ -32,15 +32,15 @@
 
 import * as React from "react";
 
-import type { OverviewEngineApi } from "../../../api.js";
-import { useShouldAllowSearch } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
+import type { OverviewEngineApi } from "../../../api.js";
 import { FilterContext } from "../../../context/filter-context.js";
-import type { Filter } from "../../filters/filter-options-view.js";
-import { useMultiSelectionPanel } from "../../multi-selection/use-multi-selection-panel.js";
 import { useOverviewContentBoxContext } from "../../../context/overview-content-box-context.js";
-import { getActiveFilters, useFlattenedFilters, useExcludedFilterIds } from "../../filters/utils.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useShouldAllowSearch } from "../../../utils.js";
+import type { Filter } from "../../filters/filter-options-view.js";
+import { getActiveFilters, useFlattenedFilters, useExcludedFilterIds } from "../../filters/utils.js";
+import { useMultiSelectionPanel } from "../../multi-selection/use-multi-selection-panel.js";
 
 export interface OverviewSubheaderBoxProps {
 	readonly handleFilterChange: (filters: OverviewEngineApi.FilterMap) => void;

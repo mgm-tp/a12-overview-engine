@@ -30,16 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect } from "vitest";
 import { act, fireEvent } from "@testing-library/react";
+import { expect } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
+import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
 import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { Events, Commands, type StringFilterState } from "../../../../../main/store/index.js";
-import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import {
 	renderFilter,
 	getByDataRole,

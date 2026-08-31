@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase } from "../utils.js";
+import { Selector, Showcase, navigate } from "../utils.js";
 
 const FULLNAME = "Manuel Simon";
 const SALARY = "80000";

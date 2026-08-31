@@ -32,11 +32,11 @@
 
 import type { Model } from "@com.mgmtp.a12.base/base-model-api";
 
-import { handleSeed } from "./commands/seed.js";
 import { handleClean } from "./commands/clean.js";
-import { handleWaitOn } from "./commands/wait-on.js";
+import { handleSeed } from "./commands/seed.js";
 import { handleUpdateModel } from "./commands/update-model.js";
 import { handleUploadModels } from "./commands/upload-models.js";
+import { handleWaitOn } from "./commands/wait-on.js";
 
 /**
  * Base options required for all commands that interact with the server

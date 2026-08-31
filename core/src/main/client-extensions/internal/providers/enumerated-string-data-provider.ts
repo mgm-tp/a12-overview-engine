@@ -34,18 +34,18 @@ import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
 import { LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
 import type { DataProvider } from "@com.mgmtp.a12.client/client-core";
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Query, Dispatcher, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
 import { OverviewEngineActions } from "../actions.js";
-import { OverviewEngineSelectors } from "../selectors.js";
 import { EnumeratedStringDataHolder } from "../data-holder.js";
-import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
 import { DataOperation, maybeAsyncFnWrapper, type OverviewEngineDataLoader } from "../data-loader/data-loader.js";
+import { OverviewEngineSelectors } from "../selectors.js";
+import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../utils/request-selector-map.js";
 
-import type { DataProvidersConfig } from "./types.js";
 import { getModels } from "./overview-engine-data-provider.js";
+import type { DataProvidersConfig } from "./types.js";
 
 const NAME = "EnumeratedStringDataProvider";
 let counter = 0;

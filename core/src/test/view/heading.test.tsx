@@ -36,10 +36,9 @@ import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-
-import { render } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
 import { resetWindowSize, setSmallWindowSize } from "../setup/widgets.js";
+import { render } from "../test-utils.js";
 
 const contentBoxDataRole = "contentbox";
 

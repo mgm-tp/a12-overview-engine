@@ -30,14 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { css, styled } from "styled-components";
 import { memo, type FC, useCallback, type ChangeEvent } from "react";
+
+import { css, styled } from "styled-components";
 
 import { DataRoles, FilterSelectorTemplate as WidgetFilterSelectorTemplate } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface FilterSelectorSearchBarProps {

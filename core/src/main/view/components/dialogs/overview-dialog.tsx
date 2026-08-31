@@ -32,8 +32,8 @@
 
 import * as React from "react";
 
-import { OverviewEngineApi } from "../../api.js";
 import { UiStateSelector } from "../../../store/index.js";
+import { OverviewEngineApi } from "../../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 
 export const OverviewDialog: React.ComponentType = React.memo(function OverviewDialog() {

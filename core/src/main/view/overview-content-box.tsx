@@ -35,12 +35,12 @@ import * as React from "react";
 import { addPrefix, type Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewEngineApi } from "./api.js";
-import { isPageable, usePagination } from "./utils.js";
-import { useFooterBoxButtons } from "./hooks/index.js";
 import type { Filter } from "./components/filters/filter-options-view.js";
 import { useSectionData, useFlattenedFilters } from "./components/filters/utils.js";
 import { OverviewContentBoxContext } from "./context/overview-content-box-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "./context/overview-engine-context.js";
+import { useFooterBoxButtons } from "./hooks/index.js";
+import { isPageable, usePagination } from "./utils.js";
 
 export namespace OverviewContentBox {
 	export interface Props extends Container {

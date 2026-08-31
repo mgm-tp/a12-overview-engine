@@ -31,6 +31,7 @@
  */
 
 import { memo, type FC } from "react";
+
 import { css, styled } from "styled-components";
 
 import { Label, Typography, type Container } from "@com.mgmtp.a12.widgets/widgets-core";

@@ -30,17 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { BooleanFilterOptionsView } from "../../../../../main/view/components/filters/options-views/boolean-filter-options-view.js";
-
-import { render } from "../../../../test-utils.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { render } from "../../../../test-utils.js";
 
 import { getClearAllButton } from "./shared.js";
 

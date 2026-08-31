@@ -35,11 +35,11 @@ import * as React from "react";
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { DocumentModel, GroupInstance, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { DocumentUtils, DocumentModelUtils } from "../../../../models/internal/shared.js";
+import { OverviewModel } from "../../../../overview-model.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 import type { ReferenceCell } from "./reference-cell.js";
 

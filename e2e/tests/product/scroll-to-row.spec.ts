@@ -33,7 +33,7 @@
 import type { Locator } from "@playwright/test";
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase } from "../utils.js";
+import { Selector, Showcase, navigate } from "../utils.js";
 
 const SMALL_VIEWPORT = { width: 1280, height: 500 } as const;
 

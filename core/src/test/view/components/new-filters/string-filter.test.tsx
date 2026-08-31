@@ -35,11 +35,10 @@ import { it, expect, describe } from "vitest";
 import type { OverviewModel } from "../../../../main/index.js";
 import type { StringFilterState } from "../../../../main/store/index.js";
 import { DefaultFilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
-
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
-import type { DocumentModelModifier } from "./setup.js";
 import { renderStringFilter } from "./pages/string-filter-page.js";
+import type { DocumentModelModifier } from "./setup.js";
 
 const stripAnnotations: DocumentModelModifier = (element) =>
 	element.type === "Field" && element.id === ProductFieldIds.name.id ? { ...element, annotations: [] } : null;

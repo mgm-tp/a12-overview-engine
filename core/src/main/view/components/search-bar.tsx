@@ -34,12 +34,12 @@ import React from "react";
 
 import { TextField } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useIdGenerator } from "../utils.js";
-import { UiStateSelector } from "../../store/index.js";
-import { LocalizerHooks } from "../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../services/localization/index.js";
-import { useMinSearchTokenSize, minSearchTokenSizeHint } from "../hooks/use-search-token-validation.js";
+import { UiStateSelector } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { LocalizerHooks } from "../hooks/localizer-hooks.js";
+import { useMinSearchTokenSize, minSearchTokenSizeHint } from "../hooks/use-search-token-validation.js";
+import { useIdGenerator } from "../utils.js";
 
 import { useClearMultiSelectionDialogVisible } from "./multi-selection/clear-multi-selection-dialog.js";
 

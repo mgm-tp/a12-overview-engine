@@ -36,8 +36,8 @@ import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
 	type YearRange,
-	type YearSelectorVariant,
 	type DateTimePickerProps,
+	type YearSelectorVariant,
 	provider as DeviceDetector,
 	type DateTimePickerInputProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
@@ -45,8 +45,8 @@ import {
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import type { SectionType } from "./section-template.js";
 import { useLocalizedLabels } from "./date-time-common-hooks.js";
+import type { SectionType } from "./section-template.js";
 
 /** @internal */
 export namespace DateTimeInputAdapter {
@@ -119,7 +119,7 @@ export const DateTimeInputAdapter: React.FC<DateTimeInputAdapter.Props> = React.
 				hidePickerButton: !enableDatePicker,
 				customHeaderElement,
 				customHeaderTitle,
-				onChange(date?: Date, time?: Date) {
+				onChange(date?: Date, _time?: Date) {
 					setSelectedDate(date);
 				}
 			};

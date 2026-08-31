@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.overviewengine/overviewengine-codemod",
-	"version": "39.0.1",
+	"version": "39.0.2",
 	"description": "Codemod for Overview Engine",
 	"author": "mgm technology partners",
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
@@ -11,7 +11,7 @@
 		"test": "vitest run"
 	},
 	"dependencies": {
-		"@com.mgmtp.a12.devtools/codemod": "^2.0.0"
+		"@com.mgmtp.a12.devtools/codemod": "^2.2.2"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:devLibs",

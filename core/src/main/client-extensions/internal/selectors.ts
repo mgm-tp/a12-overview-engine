@@ -32,36 +32,36 @@
 
 import { weakMapMemoize } from "reselect";
 
-import { isQueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { isRelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	Model,
 	Activity,
-	type Selector,
 	type ModelMap,
+	type Selector,
 	ModelSelectors,
 	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
+import { isRelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { isQueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import { OverviewEngineApi } from "../../view/api.js";
 import { isOverviewModel } from "../../models/index.js";
 import { OverviewModel } from "../../overview-model.js";
 import { OverviewEngineInternalConstants } from "../../shared/constants.js";
 import {
 	type UiState,
 	UiStateSelector,
-	type ModelsState,
 	type FilterState,
+	type ModelsState,
 	FilterStateBuilder,
 	type FilterStateSelectors,
 	DefaultFilterStateSelectors
 } from "../../store/index.js";
+import { OverviewEngineApi } from "../../view/api.js";
 
-import { createSelector } from "./utils.js";
 import { EnumeratedStringDataHolder } from "./data-holder.js";
-import { getSorting, SLICE_NAME, getScrolling, getPagination } from "./state.js";
+import { SLICE_NAME, getSorting, getScrolling, getPagination } from "./state.js";
+import { createSelector } from "./utils.js";
 import { removeLinkReferencesForExcludeMode } from "./utils/link-column-utils.js";
 
 export namespace OverviewEngineSelectors {
@@ -87,7 +87,8 @@ export namespace OverviewEngineSelectors {
 		[
 			(state: object, activityId: string, descriptor?: Activity.DataHolderDescriptor) =>
 				uiStateWithoutDefaults(activityId, descriptor)(state),
-			(state: object, activityId: string) => enumeratedStringFilterMapReselect(state, activityId),
+			(state: object, activityId: string, descriptor?: Activity.DataHolderDescriptor) =>
+				enumeratedStringFilterMapReselect(state, activityId, descriptor),
 			(state: object, activityId: string, _?: unknown, overviewModelName?: string) =>
 				modelsState(activityId, overviewModelName)(state),
 			(_state: object, _activityId: string, _?: unknown, __?: unknown, selectors?: FilterStateSelectors) =>
@@ -147,16 +148,15 @@ export namespace OverviewEngineSelectors {
 		activityId: string,
 		descriptor?: Activity.DataHolderDescriptor
 	): Selector<UiState | undefined> {
-		return (state: object) =>
-			ActivitySelectors.activityPropById(activityId, (activity) => {
-				let dataHolder = Activity.findDefaultDataHolder(activity);
+		return ActivitySelectors.activityPropById(activityId, (activity) => {
+			let dataHolder = Activity.findDefaultDataHolder(activity);
 
-				if (descriptor) {
-					dataHolder = activity.dataHolders.find(Activity.DataHolder.hasDescriptor(descriptor));
-				}
+			if (descriptor) {
+				dataHolder = activity.dataHolders.find(Activity.DataHolder.hasDescriptor(descriptor));
+			}
 
-				return dataHolder?.slices[SLICE_NAME];
-			})(state);
+			return dataHolder?.slices[SLICE_NAME];
+		});
 	}
 
 	export function enumeratedStringFilterMap(
@@ -167,12 +167,13 @@ export namespace OverviewEngineSelectors {
 
 	const enumeratedStringFilterMapReselect = createSelector(
 		[
-			(state: object, activityId: string) =>
+			(state: object, activityId: string, _descriptor?: Activity.DataHolderDescriptor) =>
 				ActivitySelectors.activityPropById(activityId, (activity) =>
 					activity.dataHolders.filter(EnumeratedStringDataHolder.isInstance)
 				)(state),
-			(state: object, activityId: string) =>
-				uiStateWithoutDefaults(activityId)(state)?.activeFilters ?? OverviewEngineInternalConstants.NO_ACTIVE_FILTER
+			(state: object, activityId: string, descriptor?: Activity.DataHolderDescriptor) =>
+				uiStateWithoutDefaults(activityId, descriptor)(state)?.activeFilters ??
+				OverviewEngineInternalConstants.NO_ACTIVE_FILTER
 		],
 		(
 			enumeratedStringDataHolders: Activity.DataHolder<EnumeratedStringDataHolder.Data>[] | undefined,

@@ -18,6 +18,14 @@ THIS SOFTWARE IS PROVIDED “AS IS” AND WITHOUT WARRANTY OF ANY KIND, WHETHER 
 
 = 2026.06
 
+== 39.0.2
+
+No breaking changes in 39.0.2. No action required.
+
+== 39.0.1
+
+No breaking changes in 39.0.1. No action required.
+
 == 39.0.0
 
 === React peer dependency raised to 19.2

@@ -39,8 +39,8 @@ import type { YearRange, DateInputProps, YearSelectorVariant } from "@com.mgmtp.
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import type { SectionType } from "./section-template.js";
 import { useLocalizedLabels } from "./date-time-common-hooks.js";
+import type { SectionType } from "./section-template.js";
 
 /** @internal */
 export namespace DateInputAdapter {

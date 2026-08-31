@@ -32,7 +32,7 @@
 
 import Chance from "chance";
 
-import { addRequest, linkEntities } from "../index.js";
+import { addRequest, linkEntities } from "../request.js";
 
 function generateEmployee(chance: Chance.Chance) {
 	const DateField = (chance.date({ min: new Date("01-01-1960"), max: new Date("01-01-2000") }) as Date)

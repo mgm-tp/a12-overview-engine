@@ -31,26 +31,27 @@
  */
 
 import * as React from "react";
+
 import { css, styled, useTheme, ThemeProvider } from "styled-components";
 
 import {
 	List,
-	addPrefix,
 	PopUpMenu,
+	addPrefix,
 	createTheme,
 	HeaderTrigger,
 	activeAndHover,
 	type DefaultThemeType
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngineApi } from "../../../api.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { DocumentModelUtils } from "../../../../models/internal/shared.js";
-import type { Filter, FilterOptionsView } from "../filter-options-view.js";
+import { OverviewEngineApi } from "../../../api.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import type { Filter, FilterOptionsView } from "../filter-options-view.js";
 
 import type { EnumerationFilterOptionsView } from "./enumeration-filter-options-view.js";
-import { convertToNumberFilterOptions, type NumberFilterOptionsView } from "./number-filter-options-view.js";
+import { type NumberFilterOptionsView, convertToNumberFilterOptions } from "./number-filter-options-view.js";
 
 /** @internal */
 export namespace EnumerationSuffixSelector {

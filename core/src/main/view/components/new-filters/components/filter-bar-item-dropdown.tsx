@@ -30,18 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { styled } from "styled-components";
 import { memo, type FC, useMemo } from "react";
 
+import { styled } from "styled-components";
+
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { UiStateSelector } from "../../../../store/index.js";
 import type { FilterItemState } from "../../../../store/index.js";
+import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
-import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
-import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
-import { SlidingDropdown } from "./sliding-dropdown.js";
 import { useFilterLabelResolver } from "./filter-label-resolvers.js";
+import { SlidingDropdown } from "./sliding-dropdown.js";
 
 const t = RESOURCE_KEYS.overviewEngine.newFilter.barItemDropdown;
 

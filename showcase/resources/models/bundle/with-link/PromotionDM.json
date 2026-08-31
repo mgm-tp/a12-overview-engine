@@ -1,122 +1,122 @@
 {
-	"header": {
-		"id": "PromotionDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"annotations": [],
-		"modelReferences": []
-	},
-	"content": {
-		"modelInfo": {
-			"name": "PromotionDM"
-		},
-		"modelConfig": {
-			"timeZone": "UTC",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "group_d5812",
-					"name": "promotion",
-					"Group": {
-						"label": [
-							{
-								"locale": "en",
-								"text": "Promotion"
-							},
-							{
-								"locale": "de",
-								"text": "Aktion"
-							}
-						],
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_30047",
-								"name": "start",
-								"Field": {
-									"fieldType": {
-										"type": "DateTimeType",
-										"DateTimeType": {
-											"format": "yyyy-MM-dd'T'HH:mm:ss"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Start Time"
-										},
-										{
-											"locale": "de",
-											"text": "Startzeit"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_b7df9",
-								"name": "end",
-								"Field": {
-									"fieldType": {
-										"type": "DateTimeType",
-										"DateTimeType": {
-											"format": "yyyy-MM-dd'T'HH:mm:ss"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "End Time"
-										},
-										{
-											"locale": "de",
-											"text": "Endzeit"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_6094f",
-								"name": "name",
-								"Field": {
-									"fieldType": {
-										"type": "StringType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Promotion Name"
-										},
-										{
-											"locale": "de",
-											"text": "Promotion Name"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "PromotionDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": []
+  },
+  "content": {
+    "modelInfo": {
+      "name": "PromotionDM"
+    },
+    "modelConfig": {
+      "timeZone": "UTC",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "group_d5812",
+          "name": "promotion",
+          "Group": {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Promotion"
+              },
+              {
+                "locale": "de",
+                "text": "Aktion"
+              }
+            ],
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_30047",
+                "name": "start",
+                "Field": {
+                  "fieldType": {
+                    "type": "DateTimeType",
+                    "DateTimeType": {
+                      "format": "yyyy-MM-dd'T'HH:mm:ss"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Start Time"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Startzeit"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_b7df9",
+                "name": "end",
+                "Field": {
+                  "fieldType": {
+                    "type": "DateTimeType",
+                    "DateTimeType": {
+                      "format": "yyyy-MM-dd'T'HH:mm:ss"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "End Time"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Endzeit"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_6094f",
+                "name": "name",
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Promotion Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Promotion Name"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

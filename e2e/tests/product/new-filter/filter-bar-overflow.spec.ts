@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../../commands.js";
-import { Showcase, Selector, navigate } from "../../utils.js";
+import { Selector, Showcase, navigate } from "../../utils.js";
 
 test.describe.serial("Filter Bar Overflow", () => {
 	test.beforeAll(async ({ seed }) => {

@@ -37,9 +37,8 @@ import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type * as KernelInternal from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { TimeFilterState } from "../../../../main/store/internal/filter-state.js";
 import { TimeFilterController } from "../../../../main/store/internal/filter-controllers/time-controller.js";
-
+import { TimeFilterState } from "../../../../main/store/internal/filter-state.js";
 import { createField, createDocumentModel } from "../../../utils.js";
 
 const controller = new TimeFilterController();

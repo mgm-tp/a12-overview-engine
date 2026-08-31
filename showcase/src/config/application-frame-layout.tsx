@@ -33,19 +33,19 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 
-import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
-import { toggleWdyr, isWdyrEnabled } from "@com.mgmtp.a12.devtools/why-did-you-render";
-import { List, Icon, PopUpMenu, HeaderTrigger, GlobalMessageBox } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
 	Model,
 	type FrameViews,
 	ApplicationFrameLayoutNGComponent,
 	type ApplicationFrameLayoutPropsNG
 } from "@com.mgmtp.a12.client/client-core";
+import { toggleWdyr, isWdyrEnabled } from "@com.mgmtp.a12.devtools/why-did-you-render";
+import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { Icon, List, PopUpMenu, HeaderTrigger, GlobalMessageBox } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { THEMES, useThemeContext } from "./themes.js";
 import { LOCALES, TIME_MODES, type TimeMode, useLocalizationContext } from "./localization.js";
+import { THEMES, useThemeContext } from "./themes.js";
 
 declare const __VERSION__: string;
 const version = typeof __VERSION__ !== "undefined" ? __VERSION__ : "Unknown version";

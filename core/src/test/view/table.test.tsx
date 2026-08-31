@@ -34,15 +34,14 @@ import { it, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngineApi } from "../../main/view/api.js";
-import { OverviewTable } from "../../main/view/overview-table.js";
 import type { OverviewModel } from "../../main/overview-model.js";
+import { OverviewEngineApi } from "../../main/view/api.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-
-import { noop } from "../utils.js";
-import { render, ClassNames } from "../test-utils.js";
+import { OverviewTable } from "../../main/view/overview-table.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
 import { getDocumentModel, getOverviewModel } from "../setup/models.js";
+import { render, ClassNames } from "../test-utils.js";
+import { noop } from "../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.table", () => {
 	const basicEngineProps: OverviewEngine.Props = defaultEngineProps;

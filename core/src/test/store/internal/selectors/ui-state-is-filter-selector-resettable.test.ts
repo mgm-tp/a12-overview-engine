@@ -30,12 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi, it, expect, describe } from "vitest";
+import { it, vi, expect, describe } from "vitest";
 
 import type { QueryOptions } from "../../../../main/store/internal/filter-state.js";
-import { UiStateSelector } from "../../../../main/store/internal/selectors/ui-state.js";
 import type { FilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
-
+import { UiStateSelector } from "../../../../main/store/internal/selectors/ui-state.js";
 import { makeUiState, makeFilterState, makeFilterItemState } from "../middleware/events/new-filter/helpers.js";
 
 function makeSelectors(isResettable: boolean): FilterStateSelectors {

@@ -32,12 +32,12 @@
 
 import { memo, type FC } from "react";
 
+import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import type { MultiSelectFilterState } from "../../../../../store/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
 import { ToggleSetting } from "../utilities/typed-toggle.js";
 import { BooleanToggleSetting } from "../utilities/typed-toggle.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import type { MultiSelectFilterState } from "../../../../../store/index.js";
-import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
 
 import { FilterSettingSection } from "./filter-setting-section.js";
 

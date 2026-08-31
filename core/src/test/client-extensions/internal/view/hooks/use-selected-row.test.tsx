@@ -32,9 +32,10 @@
 
 import * as React from "react";
 import { Provider } from "react-redux";
-import { it, expect, describe } from "vitest";
-import { createStore, type Reducer } from "redux";
+
 import { renderHook } from "@testing-library/react";
+import { createStore, type Reducer } from "redux";
+import { it, expect, describe } from "vitest";
 
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
 

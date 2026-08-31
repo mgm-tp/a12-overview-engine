@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import { ConfirmFilterState } from "../filter-state.js";
-import type { OverviewModel } from "../../../overview-model.js";
 import { isConfirmFilterModelItem } from "../../../models/filter-model-utils.js";
+import type { OverviewModel } from "../../../overview-model.js";
+import { ConfirmFilterState } from "../filter-state.js";
 
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
 

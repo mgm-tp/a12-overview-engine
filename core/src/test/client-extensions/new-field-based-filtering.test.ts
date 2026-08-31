@@ -30,17 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi, it, expect, describe, beforeAll } from "vitest";
+import { it, vi, expect, describe, beforeAll } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
+import { NewFieldBasedFiltering } from "../../main/client-extensions/internal/utils/new-field-based-filtering.js";
 import type { FilterState, ModelsState } from "../../main/store/index.js";
 import type { FilterItemState } from "../../main/store/internal/filter-state.js";
 import type { FilterStateSelectors } from "../../main/store/internal/selectors/filter-selectors.js";
-import { NewFieldBasedFiltering } from "../../main/client-extensions/internal/utils/new-field-based-filtering.js";
-
 import { getDocumentModel } from "../setup/models.js";
 
 function makeFilter(id: string, preferFilterBar: boolean, criteria = id): FilterItemState {

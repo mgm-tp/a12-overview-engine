@@ -1,282 +1,282 @@
 {
-	"header": {
-		"id": "DocumentModelWithAllDataTypes",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": []
-	},
-	"content": {
-		"modelInfo": {
-			"name": "product",
-			"immutable": false
-		},
-		"modelConfig": {
-			"decimalSeparator": ".",
-			"timeZone": "UTC",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"id": "G2",
-					"type": "Group",
-					"name": "product",
-					"Group": {
-						"repeatability": 1,
-						"elements": [
-							{
-								"id": "F3",
-								"type": "Field",
-								"name": "number",
-								"Field": {
-									"label": [
-										{
-											"locale": "de",
-											"text": "Nummer"
-										},
-										{
-											"locale": "en",
-											"text": "Number"
-										}
-									],
-									"fieldType": {
-										"type": "NumberType"
-									},
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"id": "F50",
-								"type": "Field",
-								"name": "dateField",
-								"Field": {
-									"label": [
-										{
-											"locale": "de",
-											"text": "[D] Date"
-										},
-										{
-											"locale": "en",
-											"text": "[D] Date"
-										}
-									],
-									"fieldType": {
-										"type": "DateType",
-										"DateType": {
-											"format": "yyyy-MM-dd"
-										}
-									},
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"id": "F51",
-								"type": "Field",
-								"name": "dateTimeField",
-								"Field": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] DateTime"
-										},
-										{
-											"locale": "de",
-											"text": "[D] DateTime"
-										}
-									],
-									"fieldType": {
-										"type": "DateTimeType",
-										"DateTimeType": {
-											"format": "yyyy-MM-dd'T'HH:mm:ss"
-										}
-									},
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"id": "F52",
-								"type": "Field",
-								"name": "timeField",
-								"Field": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] Time"
-										},
-										{
-											"locale": "de",
-											"text": "[D] Time"
-										}
-									],
-									"fieldType": {
-										"type": "TimeType",
-										"TimeType": {
-											"format": "HH:mm:ss"
-										}
-									},
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"id": "F7",
-								"type": "Field",
-								"name": "name",
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A rather short name of the product, which can be displayed in product lists, invoices,\n\t\t\t\t\tetc."
-									}
-								],
-								"Field": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] Name"
-										},
-										{
-											"locale": "de",
-											"text": "[D] Name"
-										}
-									],
-									"fieldType": {
-										"type": "StringType",
-										"StringType": {
-											"minLength": 3,
-											"maxLength": 256
-										}
-									},
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"id": "F54",
-								"type": "Field",
-								"name": "targetGroup",
-								"Field": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "Target Group"
-										},
-										{
-											"locale": "de",
-											"text": "Zielgruppe"
-										}
-									],
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"values": [
-												{
-													"value": "women",
-													"label": [
-														{
-															"locale": "de",
-															"text": "Frauen"
-														},
-														{
-															"locale": "en",
-															"text": "Women"
-														}
-													]
-												},
-												{
-													"value": "men",
-													"label": [
-														{
-															"locale": "de",
-															"text": "M\u00e4nner"
-														},
-														{
-															"locale": "en",
-															"text": "Men"
-														}
-													]
-												},
-												{
-													"value": "children",
-													"label": [
-														{
-															"locale": "de",
-															"text": "Kinder"
-														},
-														{
-															"locale": "en",
-															"text": "Children"
-														}
-													]
-												}
-											]
-										}
-									}
-								}
-							},
-							{
-								"id": "F53",
-								"type": "Field",
-								"name": "inStock",
-								"Field": {
-									"label": [
-										{
-											"locale": "de",
-											"text": "auf Lager"
-										},
-										{
-											"locale": "en",
-											"text": "in Stock"
-										}
-									],
-									"fieldType": {
-										"type": "BooleanType"
-									}
-								}
-							},
-							{
-								"id": "F66",
-								"type": "Field",
-								"name": "limitedOffer",
-								"Field": {
-									"label": [
-										{
-											"locale": "de",
-											"text": "Limitiertes Angebot"
-										},
-										{
-											"locale": "en",
-											"text": "Limited Offer"
-										}
-									],
-									"fieldType": {
-										"type": "ConfirmType"
-									}
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "DocumentModelWithAllDataTypes",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": []
+  },
+  "content": {
+    "modelInfo": {
+      "name": "product",
+      "immutable": false
+    },
+    "modelConfig": {
+      "decimalSeparator": ".",
+      "timeZone": "UTC",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "id": "G2",
+          "type": "Group",
+          "name": "product",
+          "Group": {
+            "repeatability": 1,
+            "elements": [
+              {
+                "id": "F3",
+                "type": "Field",
+                "name": "number",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Nummer"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Number"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "NumberType"
+                  },
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "id": "F50",
+                "type": "Field",
+                "name": "dateField",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "[D] Date"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "[D] Date"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "DateType",
+                    "DateType": {
+                      "format": "yyyy-MM-dd"
+                    }
+                  },
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "id": "F51",
+                "type": "Field",
+                "name": "dateTimeField",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] DateTime"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] DateTime"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "DateTimeType",
+                    "DateTimeType": {
+                      "format": "yyyy-MM-dd'T'HH:mm:ss"
+                    }
+                  },
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "id": "F52",
+                "type": "Field",
+                "name": "timeField",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] Time"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] Time"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "TimeType",
+                    "TimeType": {
+                      "format": "HH:mm:ss"
+                    }
+                  },
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "id": "F7",
+                "type": "Field",
+                "name": "name",
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A rather short name of the product, which can be displayed in product lists, invoices,\n\t\t\t\t\tetc."
+                  }
+                ],
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] Name"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "StringType",
+                    "StringType": {
+                      "minLength": 3,
+                      "maxLength": 256
+                    }
+                  },
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "id": "F54",
+                "type": "Field",
+                "name": "targetGroup",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Target Group"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Zielgruppe"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "values": [
+                        {
+                          "value": "women",
+                          "label": [
+                            {
+                              "locale": "de",
+                              "text": "Frauen"
+                            },
+                            {
+                              "locale": "en",
+                              "text": "Women"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "men",
+                          "label": [
+                            {
+                              "locale": "de",
+                              "text": "M\u00e4nner"
+                            },
+                            {
+                              "locale": "en",
+                              "text": "Men"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "children",
+                          "label": [
+                            {
+                              "locale": "de",
+                              "text": "Kinder"
+                            },
+                            {
+                              "locale": "en",
+                              "text": "Children"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "id": "F53",
+                "type": "Field",
+                "name": "inStock",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "auf Lager"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "in Stock"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "BooleanType"
+                  }
+                }
+              },
+              {
+                "id": "F66",
+                "type": "Field",
+                "name": "limitedOffer",
+                "Field": {
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Limitiertes Angebot"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Limited Offer"
+                    }
+                  ],
+                  "fieldType": {
+                    "type": "ConfirmType"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

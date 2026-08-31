@@ -31,7 +31,6 @@
  */
 
 // tag::presetFilterMiddleware[]
-
 import { isEqual } from "lodash-es";
 import type { Middleware } from "redux";
 

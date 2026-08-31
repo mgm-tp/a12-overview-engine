@@ -32,10 +32,11 @@
 
 // tag::time-mode-in-overview-engine-component[]
 import * as React from "react";
+
 import { enUS } from "date-fns/locale";
 
-import { DateTimeContext } from "@com.mgmtp.a12.widgets/widgets-core";
 import { OverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { DateTimeContext } from "@com.mgmtp.a12.widgets/widgets-core";
 
 const dateTimeContextValue = { locale: enUS, timeMode: "24h" as const };
 

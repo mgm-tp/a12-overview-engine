@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { OverviewEngineApi } from "../../view/api.js";
+import { OverviewEngineInternalConstants } from "../../constants/overview-engine-internal-constants.js";
 import type { OverviewModel } from "../../overview-model.js";
 import type { UiState, Scrolling, ModelsState, PaginationState } from "../../store/index.js";
-import { OverviewEngineInternalConstants } from "../../constants/overview-engine-internal-constants.js";
+import { OverviewEngineApi } from "../../view/api.js";
 
 /** @internal */
 export const SLICE_NAME = "uiState";

@@ -35,8 +35,8 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { QueryFilterState } from "../../../../main/store/internal/filter-state.js";
 import { QueryFilterController } from "../../../../main/store/internal/filter-controllers/query-controller.js";
+import { QueryFilterState } from "../../../../main/store/internal/filter-state.js";
 
 const controller = new QueryFilterController();
 

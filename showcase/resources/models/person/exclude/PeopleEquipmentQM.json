@@ -1,70 +1,70 @@
 {
-	"header": {
-		"id": "PeopleEquipmentQM",
-		"modelType": "query",
-		"modelVersion": "0.1.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"modelType": "document",
-				"alias": "DM",
-				"purpose": "document-model-for-query",
-				"reference": "PersonDM"
-			},
-			{
-				"modelType": "relationship",
-				"alias": "RM",
-				"purpose": "relationship-model-for-query",
-				"reference": "PersonEquipmentRM"
-			}
-		]
-	},
-	"content": {
-		"projectionName": "document",
-		"targetDocumentModel": "PersonDM",
-		"exclude": true,
-		"constraint": {
-			"field": "/__meta/docRef",
-			"operator": "exact_match",
-			"value": "${PersonDM, [/__meta/docRef]}"
-		},
-		"fields": [
-			"/Person/PersonalData/FirstName",
-			"/Person/PersonalData/LastName",
-			"/Person/PersonalData/PlaceOfBirth",
-			"/Person/PersonalData/Nationality",
-			"/Person/PersonalData/Salary"
-		],
-		"links": [
-			{
-				"relationshipModel": "PersonEquipmentRM",
-				"targetRole": "equipment",
-				"fields": [
-					"/Equipment/EquipmentName",
-					"/Equipment/SerialNumber",
-					"/Equipment/IsActive",
-					"/Equipment/Category",
-					"/Equipment/EquipmentDetails/Quantity",
-					"/Equipment/EquipmentDetails/PurchasePrice",
-					"/Equipment/domainTest/date",
-					"/Equipment/domainTest/enumeration",
-					"/Equipment/domainTest/string",
-					"/Equipment/domainTest/boolean"
-				]
-			}
-		],
-		"paging": {
-			"pageNumber": 0,
-			"pageSize": 4
-		}
-	}
+  "header": {
+    "id": "PeopleEquipmentQM",
+    "modelType": "query",
+    "modelVersion": "0.1.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "modelType": "document",
+        "alias": "DM",
+        "purpose": "document-model-for-query",
+        "reference": "PersonDM"
+      },
+      {
+        "modelType": "relationship",
+        "alias": "RM",
+        "purpose": "relationship-model-for-query",
+        "reference": "PersonEquipmentRM"
+      }
+    ]
+  },
+  "content": {
+    "projectionName": "document",
+    "targetDocumentModel": "PersonDM",
+    "exclude": true,
+    "constraint": {
+      "field": "/__meta/docRef",
+      "operator": "exact_match",
+      "value": "${PersonDM, [/__meta/docRef]}"
+    },
+    "fields": [
+      "/Person/PersonalData/FirstName",
+      "/Person/PersonalData/LastName",
+      "/Person/PersonalData/PlaceOfBirth",
+      "/Person/PersonalData/Nationality",
+      "/Person/PersonalData/Salary"
+    ],
+    "links": [
+      {
+        "relationshipModel": "PersonEquipmentRM",
+        "targetRole": "equipment",
+        "fields": [
+          "/Equipment/EquipmentName",
+          "/Equipment/SerialNumber",
+          "/Equipment/IsActive",
+          "/Equipment/Category",
+          "/Equipment/EquipmentDetails/Quantity",
+          "/Equipment/EquipmentDetails/PurchasePrice",
+          "/Equipment/domainTest/date",
+          "/Equipment/domainTest/enumeration",
+          "/Equipment/domainTest/string",
+          "/Equipment/domainTest/boolean"
+        ]
+      }
+    ],
+    "paging": {
+      "pageNumber": 0,
+      "pageSize": 4
+    }
+  }
 }

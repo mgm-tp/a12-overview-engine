@@ -35,15 +35,14 @@ import { it, vi, expect, describe } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../../../../main/models/index.js";
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import type { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
-import { RowAction } from "../../../../../main/view/components/table/sub-components/row-action.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { RowActionGroup } from "../../../../../main/view/components/table/sub-components/row-action-group.js";
-
-import { noop, mockType } from "../../../../utils.js";
+import { RowAction } from "../../../../../main/view/components/table/sub-components/row-action.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
+import { noop, mockType } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.row-action-styling", () => {
 	const rowMock = mockType<JSONDocument>({ id: "1023", linkId: "link-1" });

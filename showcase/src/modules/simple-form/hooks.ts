@@ -31,8 +31,9 @@
  */
 
 import * as React from "react";
-import { get } from "lodash-es";
 import { useDispatch, useSelector } from "react-redux";
+
+import { get } from "lodash-es";
 
 import { Activity, ViewViews, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 

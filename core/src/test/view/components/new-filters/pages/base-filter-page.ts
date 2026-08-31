@@ -30,16 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect } from "vitest";
 import { waitFor, fireEvent, queryByText } from "@testing-library/react";
+import { expect } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../../../../../main/store/index.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-import { DefaultFilterStateSelectors } from "../../../../../main/store/internal/selectors/filter-selectors.js";
 import { NewFieldBasedFiltering } from "../../../../../main/client-extensions/internal/utils/new-field-based-filtering.js";
-
+import { UiStateSelector } from "../../../../../main/store/index.js";
+import { DefaultFilterStateSelectors } from "../../../../../main/store/internal/selectors/filter-selectors.js";
 import {
 	type RangeMode,
 	findByDataRole,

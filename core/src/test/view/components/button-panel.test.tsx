@@ -31,15 +31,15 @@
  */
 
 import * as React from "react";
+
 import { it, expect, describe } from "vitest";
 
 import { Button, ButtonGroupContainer } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { ButtonPanel } from "../../../main/view/components/button-panel.js";
-
-import { shallowRender } from "../../test-utils.js";
+import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../basic.spec.js";
+import { shallowRender } from "../../test-utils.js";
 
 interface PanelButton {
 	readonly rank: "left" | "right";

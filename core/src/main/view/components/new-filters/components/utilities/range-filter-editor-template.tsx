@@ -30,15 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { styled } from "styled-components";
 import { memo, type FC, type ReactNode } from "react";
+
+import { styled } from "styled-components";
 
 import { Label, InputElements } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { SegmentOption } from "../../../../../store/index.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import type { OverviewModel } from "../../../../../overview-model.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import type { SegmentOption } from "../../../../../store/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface RangeFilterEditorTemplateProps {

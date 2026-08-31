@@ -1,76 +1,76 @@
 {
-	"header": {
-		"id": "PersonDepartment_AdditionalLinkFields_DM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"annotations": [],
-		"modelReferences": []
-	},
-	"content": {
-		"modelInfo": {
-			"name": "PersonDepartment_AdditionalLinkFields_DM"
-		},
-		"modelConfig": {
-			"timeZone": "UTC",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "group_pd_alf",
-					"name": "AdditionalLinkFields",
-					"Group": {
-						"label": [
-							{
-								"locale": "en",
-								"text": "Additional Link Fields"
-							},
-							{
-								"locale": "de",
-								"text": "Additional Link Fields"
-							}
-						],
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_pd_join",
-								"name": "JoinDate",
-								"Field": {
-									"fieldType": {
-										"type": "DateType",
-										"DateType": {
-											"format": "yyyy-MM-dd"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Join Date"
-										},
-										{
-											"locale": "de",
-											"text": "Beitrittsdatum"
-										}
-									]
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "PersonDepartment_AdditionalLinkFields_DM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": []
+  },
+  "content": {
+    "modelInfo": {
+      "name": "PersonDepartment_AdditionalLinkFields_DM"
+    },
+    "modelConfig": {
+      "timeZone": "UTC",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "group_pd_alf",
+          "name": "AdditionalLinkFields",
+          "Group": {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Additional Link Fields"
+              },
+              {
+                "locale": "de",
+                "text": "Additional Link Fields"
+              }
+            ],
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_pd_join",
+                "name": "JoinDate",
+                "Field": {
+                  "fieldType": {
+                    "type": "DateType",
+                    "DateType": {
+                      "format": "yyyy-MM-dd"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Join Date"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Beitrittsdatum"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

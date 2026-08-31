@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import type { OverviewModel } from "../../../overview-model.js";
-import type { MultiSelectFilterState } from "../filter-state.js";
 import { isMultiSelectFilterModelItem } from "../../../models/filter-model-utils.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../models/internal/shared.js";
+import type { OverviewModel } from "../../../overview-model.js";
+import type { MultiSelectFilterState } from "../filter-state.js";
 
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
 

@@ -30,15 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { within, waitFor, fireEvent, queryByText } from "@testing-library/react";
 import { expect } from "vitest";
 import { userEvent } from "vitest/browser";
-import { within, waitFor, fireEvent, queryByText } from "@testing-library/react";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { renderFilter, getByDataRole, queryByDataRole, queryAllByDataRole, type FilterRenderResult } from "../setup.js";
 
 import { FilterPage } from "./base-filter-page.js";

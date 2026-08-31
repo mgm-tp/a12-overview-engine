@@ -32,12 +32,12 @@
 
 import * as React from "react";
 
+import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 import { useShouldAllowSearch } from "../../utils.js";
 import { useMultiSelectionPanel } from "../multi-selection/use-multi-selection-panel.js";
-import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
 
-import { useShouldShowFilterBar } from "./hooks/use-should-show-filter-bar.js";
 import { useFilterTriggerPlacement } from "./hooks/use-filter-trigger-placement.js";
+import { useShouldShowFilterBar } from "./hooks/use-should-show-filter-bar.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface OverviewSubheaderBoxProps {}

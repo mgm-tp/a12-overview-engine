@@ -32,11 +32,11 @@
 
 import * as React from "react";
 
+import { RESOURCE_KEYS } from "../../services/localization/index.js";
 import { UiStateSelector } from "../../store/index.js";
+import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 import { LocalizerHooks } from "../hooks/localizer-hooks.js";
 import { useRowCount, useShouldAllowSearch } from "../utils.js";
-import { RESOURCE_KEYS } from "../../services/localization/index.js";
-import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
 
 /** @internal */
 export const SearchStatus = React.memo(function SearchStatus() {

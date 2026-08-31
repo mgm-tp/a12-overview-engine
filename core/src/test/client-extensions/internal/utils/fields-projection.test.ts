@@ -36,7 +36,6 @@ import {
 	getProjectedLinks,
 	getProjectedFields
 } from "../../../../main/client-extensions/internal/utils/fields-projection.js";
-
 import {
 	createField,
 	createGroup,

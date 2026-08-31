@@ -33,8 +33,8 @@
 import { it, vi, expect, describe } from "vitest";
 
 import { Events, Commands } from "../../../../../../main/store/internal/actions.js";
-import { UiStateSelector } from "../../../../../../main/store/internal/selectors/ui-state.js";
 import { createOnFilterBarItemsOverflowed } from "../../../../../../main/store/internal/middleware/events/new-filter/on-filter-bar-items-overflowed.js";
+import { UiStateSelector } from "../../../../../../main/store/internal/selectors/ui-state.js";
 
 import {
 	makeUiState,

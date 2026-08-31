@@ -34,11 +34,11 @@ import * as React from "react";
 
 import { addPrefix, DefaultTableComponentRenderers } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../../../../store/index.js";
 import type { JSONDocument } from "../../../../models/index.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { UiStateSelector } from "../../../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 export namespace TableBody {
 	export interface Props {

@@ -33,9 +33,9 @@
 import type { Page } from "@playwright/test";
 
 import { test, expect } from "../../commands.js";
-import { useModelOverride } from "../../model-override.js";
-import { Showcase, Selector, navigate } from "../../utils.js";
 import { overrideFilterConfiguration } from "../../filter-utils.js";
+import { useModelOverride } from "../../model-override.js";
+import { Selector, Showcase, navigate } from "../../utils.js";
 
 test.describe.serial("Embedded OE — compact trigger placement", () => {
 	test.beforeAll(async ({ seed }) => {

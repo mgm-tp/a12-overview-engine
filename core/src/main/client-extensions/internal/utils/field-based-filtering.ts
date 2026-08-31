@@ -31,18 +31,18 @@
  */
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { formatDate } from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import { OverviewEngineApi } from "../../../view/api.js";
-import type { ModelsState } from "../../../store/index.js";
-import { getDateTimeFormat } from "../../../services/index.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../models/internal/shared.js";
+import { getDateTimeFormat } from "../../../services/index.js";
 import {
 	ENABLE_CASE_INSENSITIVE_SEARCH_ANNOTATION,
 	ENABLE_APPROXIMATE_MATCH_SEARCH_ANNOTATION
 } from "../../../shared/constants.js";
+import type { ModelsState } from "../../../store/index.js";
+import { OverviewEngineApi } from "../../../view/api.js";
 
 import { assertCondition } from "./assertion.js";
 import { getTargetDocumentModel } from "./document-model-utils.js";

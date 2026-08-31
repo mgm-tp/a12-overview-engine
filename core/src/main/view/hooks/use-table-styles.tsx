@@ -34,12 +34,12 @@ import * as React from "react";
 
 import type { RowStyles, RowStyleGetter, CellStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { pickRowState } from "../utils.js";
-import { UiStateSelector } from "../../store/index.js";
 import type { JSONDocument } from "../../models/index.js";
-import hooks from "../components/table/sub-components/hooks.js";
 import { OverviewModelKeys } from "../../services/localization/index.js";
+import { UiStateSelector } from "../../store/index.js";
+import hooks from "../components/table/sub-components/hooks.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { pickRowState } from "../utils.js";
 
 import { LocalizerHooks } from "./localizer-hooks.js";
 import type { OverviewColumn } from "./use-table-columns.js";

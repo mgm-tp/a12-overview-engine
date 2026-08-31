@@ -37,13 +37,12 @@ import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
 import { RESOURCE_KEYS } from "../../../../main/services/localization/index.js";
-import { DateFilterState } from "../../../../main/store/internal/filter-state.js";
-import { isInvalidRange } from "../../../../main/store/internal/filter-controllers/resolvers/resolver.js";
 import { DateFilterController } from "../../../../main/store/internal/filter-controllers/date-controller.js";
 import { dateResolver } from "../../../../main/store/internal/filter-controllers/resolvers/date-resolver.js";
-import { yearResolver } from "../../../../main/store/internal/filter-controllers/resolvers/year-resolver.js";
+import { isInvalidRange } from "../../../../main/store/internal/filter-controllers/resolvers/resolver.js";
 import { yearMonthResolver } from "../../../../main/store/internal/filter-controllers/resolvers/year-month-resolver.js";
-
+import { yearResolver } from "../../../../main/store/internal/filter-controllers/resolvers/year-resolver.js";
+import { DateFilterState } from "../../../../main/store/internal/filter-state.js";
 import { enLocale } from "../../../basic.spec.js";
 import { createField, createDocumentModel } from "../../../utils.js";
 

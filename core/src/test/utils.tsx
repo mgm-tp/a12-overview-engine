@@ -32,17 +32,17 @@
 
 import * as TypeMoq from "typemoq";
 
-import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { Query, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
-import type { Query, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../main/overview-model.js";
 import type { ModelsState } from "../main/store/index.js";
-import type { OverviewEngine } from "../main/view/overview-engine.js";
 import { type ComponentMap, DefaultComponentMap } from "../main/view/configuration/component-map.js";
+import type { OverviewEngine } from "../main/view/overview-engine.js";
 
 import { deLocale, enLocale } from "./basic.spec.js";
 

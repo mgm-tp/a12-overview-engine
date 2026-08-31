@@ -32,13 +32,12 @@
 
 import { it, expect, describe } from "vitest";
 
-import { OverviewEngineApi } from "../../main/view/api.js";
 import { OverviewModel } from "../../main/overview-model.js";
+import { OverviewEngineApi } from "../../main/view/api.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-
-import { render } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
 import { resetWindowSize, setSmallWindowSize } from "../setup/widgets.js";
+import { render } from "../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.sub-heading", () => {
 	const basicProps = {

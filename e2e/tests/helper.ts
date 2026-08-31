@@ -32,8 +32,8 @@
 
 import type { Page } from "@playwright/test";
 
-import { Selector } from "./utils.js";
 import { expect } from "./commands.js";
+import { Selector } from "./utils.js";
 
 export async function allRowsShouldBeCheck(page: Page, check: boolean, pageSize = 10) {
 	const rows = page.locator(Selector.TABLE_BODY_ROW);

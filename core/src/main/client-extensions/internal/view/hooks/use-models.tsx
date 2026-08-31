@@ -33,8 +33,8 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 
-import { OverviewEngineSelectors } from "../../selectors.js";
 import type { OverviewModel } from "../../../../overview-model.js";
+import { OverviewEngineSelectors } from "../../selectors.js";
 
 /** @internal */
 export function useModels(params: { activityId: string; overviewModelName?: string; overviewModel?: OverviewModel }) {

@@ -30,22 +30,22 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
-import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { DateFilterState } from "../filter-state.js";
+import { isDateFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 import type { OverviewModel } from "../../../overview-model.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
-import { isDateFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
+import { DateFilterState } from "../filter-state.js";
 
-import { dateResolver } from "./resolvers/date-resolver.js";
-import { yearResolver } from "./resolvers/year-resolver.js";
 import { RangeCriteria, PeriodCriteria } from "./criteria.js";
-import { monthResolver } from "./resolvers/month-resolver.js";
-import { yearMonthResolver } from "./resolvers/year-month-resolver.js";
-import { type Resolver, selectResolver, isInvalidRange } from "./resolvers/resolver.js";
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
+import { dateResolver } from "./resolvers/date-resolver.js";
+import { monthResolver } from "./resolvers/month-resolver.js";
+import { type Resolver, isInvalidRange, selectResolver } from "./resolvers/resolver.js";
+import { yearMonthResolver } from "./resolvers/year-month-resolver.js";
+import { yearResolver } from "./resolvers/year-resolver.js";
 
 const resolvers: readonly Resolver<unknown, OverviewModel.NewFilter.Date.PeriodOption, string>[] = [
 	dateResolver,

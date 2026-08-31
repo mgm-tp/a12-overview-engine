@@ -30,25 +30,26 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Lens } from "monocle-ts";
-import { userEvent } from "vitest/browser";
-import { it, expect, describe } from "vitest";
 import { waitFor, fireEvent, getByText, queryByText } from "@testing-library/react";
+import { Lens } from "monocle-ts";
+import { it, expect, describe } from "vitest";
+import { userEvent } from "vitest/browser";
 
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { Events } from "../../../../main/store/index.js";
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
+import type { OverviewModel } from "../../../../main/overview-model.js";
+import { Events } from "../../../../main/store/index.js";
 import { FilterSelector } from "../../../../main/view/components/new-filters/components/filter-selector.js";
-
-import { ProductFieldIds } from "../../../setup/product-field-ids.js";
+import { deLocale } from "../../../basic.spec.js";
 import { getDocumentModel, getOverviewModel } from "../../../setup/models.js";
+import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 import {
 	findByDataRole,
-	renderWithStore,
 	baseFilterGroup,
+	renderWithStore,
 	withFilterSection,
 	queryAllByDataRole,
 	baseFilterConfiguration
@@ -329,6 +330,7 @@ class FilterSelectorPage {
 async function setupTest(options: {
 	filterConfiguration?: Partial<OverviewModel.NewFilterConfiguration>;
 	filterGroups?: OverviewModel.NewFilter.Group[];
+	locale?: Locale;
 }) {
 	const documentModel = await getDocumentModel("product", "ProductDM");
 	const productOM = await getOverviewModel("product", "ProductOM");
@@ -347,7 +349,8 @@ async function setupTest(options: {
 	})(productOM);
 
 	const renderResult = await renderWithStore(<FilterSelector />, {
-		engineProps: { documentModel, overviewModel, data: [] }
+		engineProps: { documentModel, overviewModel, data: [] },
+		locale: options.locale
 	});
 
 	const page = new FilterSelectorPage(renderResult.container);
@@ -665,6 +668,33 @@ describe("com.mgmtp.a12.overview-engine.view.components.new-filters.filter-selec
 			await page.clickFilterHeadline("Name");
 
 			expect(page.badges.length).toBe(1);
+			expect(page.badges[0]?.getAttribute("title")).toBe("Filter is applied");
+		});
+
+		it("shows the German badge title on a collapsed section for the de locale", async () => {
+			const localizedStringFilterItem: OverviewModel.NewFilter.String.Item = {
+				...stringFilterItem,
+				label: [
+					{ locale: "en", text: "Name" },
+					{ locale: "de", text: "Bezeichnung" }
+				]
+			};
+
+			const { page } = await setupTest({
+				filterGroups: [
+					{
+						...baseFilterGroup,
+						filterItems: [localizedStringFilterItem]
+					}
+				],
+				locale: deLocale
+			});
+
+			await page.fillFilterInput(0, "test value");
+
+			await page.clickFilterHeadline("Bezeichnung");
+
+			expect(page.badges[0]?.getAttribute("title")).toBe("Filter ist angewendet");
 		});
 
 		it("shows reset button when filter has a value and resets filter on click", async () => {
@@ -1357,6 +1387,39 @@ describe("com.mgmtp.a12.overview-engine.view.components.new-filters.filter-selec
 
 			const errorBadgesAfter = page.badges;
 			expect(errorBadgesAfter.length).toBeGreaterThan(0);
+			expect(errorBadgesAfter[0]?.getAttribute("title")).toBe("Filter has errors");
+		});
+
+		it("shows the German error badge title for the de locale", async () => {
+			const localizedNumberFilterItem: OverviewModel.NewFilter.Number.Item = {
+				...numberFilterItem,
+				label: [
+					{ locale: "en", text: "Price" },
+					{ locale: "de", text: "Preis" }
+				]
+			};
+
+			const { page } = await setupTest({
+				filterGroups: [
+					{
+						...baseFilterGroup,
+						filterItems: [localizedNumberFilterItem]
+					}
+				],
+				locale: deLocale
+			});
+
+			const fromInput = page.textInputs[0];
+			const toInput = page.textInputs[1];
+
+			await userEvent.fill(fromInput, "20");
+			fireEvent.blur(fromInput);
+			await userEvent.fill(toInput, "10");
+			fireEvent.blur(toInput);
+
+			await page.clickFilterHeadline("Preis");
+
+			expect(page.badges[0]?.getAttribute("title")).toBe("Filter enthält Fehler");
 		});
 
 		it("blocks Apply All when any filter has validation errors", async () => {

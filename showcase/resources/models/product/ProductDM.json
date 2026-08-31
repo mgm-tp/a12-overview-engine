@@ -1,1500 +1,1500 @@
 {
-	"header": {
-		"id": "ProductDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": []
-	},
-	"content": {
-		"modelInfo": {
-			"name": "ProductDM",
-			"immutable": false,
-			"comment": "This is a sample product model for a commerce PIM."
-		},
-		"modelConfig": {
-			"timeZone": "America/New_York",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "G2",
-					"name": "product",
-					"Group": {
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_d4c4b",
-								"name": "releaseMonthYear",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateFragmentType",
-										"DateFragmentType": {
-											"formatOfFragment": "yyyy-MM"
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Erscheinungsmonat & Jahr"
-										},
-										{
-											"locale": "en",
-											"text": "Release Month & Year"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_d4c4c",
-								"name": "releaseYear",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateFragmentType",
-										"DateFragmentType": {
-											"formatOfFragment": "yyyy"
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Erscheinungsjahr"
-										},
-										{
-											"locale": "en",
-											"text": "Release Year"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_d4c4d",
-								"name": "releaseMonth",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateFragmentType",
-										"DateFragmentType": {
-											"formatOfFragment": "MM"
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Erscheinungsmonat"
-										},
-										{
-											"locale": "en",
-											"text": "Release Month"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_d4c4e",
-								"name": "releaseMonthDay",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateFragmentType",
-										"DateFragmentType": {
-											"formatOfFragment": "MM-dd"
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Erscheinungstag & Monat"
-										},
-										{
-											"locale": "en",
-											"text": "Release Month & Day"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F100",
-								"name": "saleYearRange",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateRangeType",
-										"DateRangeType": {
-											"format": "yyyy",
-											"rangeSeparator": "/"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Sale Year Range"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F101",
-								"name": "saleMonthRange",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateRangeType",
-										"DateRangeType": {
-											"format": "MM",
-											"rangeSeparator": "/"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Sale Month Range"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F102",
-								"name": "saleYearMonthRange",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateRangeType",
-										"DateRangeType": {
-											"format": "yyyy-MM",
-											"rangeSeparator": "/"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Sale YearMonth Range"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F103",
-								"name": "saleDateRange",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateRangeType",
-										"DateRangeType": {
-											"format": "yyyy-MM-dd",
-											"rangeSeparator": "/"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Sale Date Range"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F104",
-								"name": "saleMonthDayRange",
-								"annotations": [],
-								"Field": {
-									"fieldType": {
-										"type": "DateRangeType",
-										"DateRangeType": {
-											"format": "MM-dd",
-											"rangeSeparator": "/"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Sale MonthDay Range"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F3",
-								"name": "number",
-								"annotations": [
-									{
-										"name": "enable_approximate_match_search",
-										"value": "1"
-									}
-								],
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "The unique business identifier of the product."
-									}
-								],
-								"Field": {
-									"fieldType": {
-										"type": "NumberType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Number"
-										},
-										{
-											"locale": "de",
-											"text": "Nummer"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G4",
-								"name": "externalNumber",
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A list of numbers identifying the product uniquely in external systems."
-									}
-								],
-								"Group": {
-									"repeatability": 100,
-									"elements": [
-										{
-											"type": "Field",
-											"id": "F5",
-											"name": "system",
-											"annotations": [
-												{
-													"name": "enable_approximate_match_search",
-													"value": "true"
-												}
-											],
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "A transformation to the external system using this number."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "System Number"
-													},
-													{
-														"locale": "de",
-														"text": "System Nummer"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F6",
-											"name": "number",
-											"annotations": [
-												{
-													"name": "enable_approximate_match_search",
-													"value": "true"
-												}
-											],
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "The number used by this external system."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "External Number"
-													},
-													{
-														"locale": "de",
-														"text": "Externe Nummer"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F50",
-								"name": "dateField",
-								"Field": {
-									"fieldType": {
-										"type": "DateType",
-										"DateType": {
-											"format": "yyyy-MM-dd"
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "[D] Date"
-										},
-										{
-											"locale": "en",
-											"text": "[D] Date"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F51",
-								"name": "dateTimeField",
-								"Field": {
-									"fieldType": {
-										"type": "DateTimeType",
-										"DateTimeType": {
-											"format": "yyyy-MM-dd'T'HH:mm:ss"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] DateTime"
-										},
-										{
-											"locale": "de",
-											"text": "[D] DateTime"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F52",
-								"name": "timeField",
-								"Field": {
-									"fieldType": {
-										"type": "TimeType",
-										"TimeType": {
-											"format": "HH:mm:ss"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] Time"
-										},
-										{
-											"locale": "de",
-											"text": "[D] Time"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F7",
-								"name": "name",
-								"annotations": [
-									{
-										"name": "enable_approximate_match_search",
-										"value": "true"
-									}
-								],
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A rather short name of the product, which can be displayed in product lists, invoices,\n\t\t\t\t\tetc."
-									}
-								],
-								"Field": {
-									"fieldType": {
-										"type": "StringType",
-										"StringType": {
-											"minLength": 3,
-											"maxLength": 256
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "[D] Name"
-										},
-										{
-											"locale": "de",
-											"text": "[D] Name"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F8",
-								"name": "description",
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A transformation to the brand of this product."
-									}
-								],
-								"Field": {
-									"fieldType": {
-										"type": "StringType",
-										"StringType": {
-											"lineBreaksPermitted": true
-										}
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Beschreibung"
-										},
-										{
-											"locale": "en",
-											"text": "Description"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Group",
-								"id": "F9",
-								"name": "meta",
-								"Group": {
-									"repeatability": 999999,
-									"usageType": "multi-select",
-									"elements": [
-										{
-											"type": "Field",
-											"id": "field_f866d",
-											"name": "item",
-											"Field": {
-												"fieldType": {
-													"type": "EnumerationType",
-													"EnumerationType": {
-														"values": [
-															{
-																"value": "1",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number One"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer Eins"
-																	}
-																]
-															},
-															{
-																"value": "2",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number Two"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer zwei"
-																	}
-																]
-															},
-															{
-																"value": "3",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number Three"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer drei"
-																	}
-																]
-															},
-															{
-																"value": "4",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number Four"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer vier"
-																	}
-																]
-															},
-															{
-																"value": "5",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number Five"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer f\u00fcnf"
-																	}
-																]
-															},
-															{
-																"value": "6",
-																"label": [
-																	{
-																		"locale": "en",
-																		"text": "Number Six"
-																	},
-																	{
-																		"locale": "de",
-																		"text": "Nummer sechs"
-																	}
-																]
-															}
-														]
-													}
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "Meta"
-													},
-													{
-														"locale": "de",
-														"text": "Meta [de]"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G10",
-								"name": "searchKeywords",
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A list of keywords for site search boosting."
-									}
-								],
-								"Group": {
-									"repeatability": 1,
-									"elements": [
-										{
-											"type": "Field",
-											"id": "F11",
-											"name": "searchKeyword",
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "A list of keywords for site search boosting. The entry of keywords is supported\n\t\t\t\t\t\tsuing keyword prediction."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "Search Keyword"
-													},
-													{
-														"locale": "de",
-														"text": "Suchen Stichwort"
-													}
-												]
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G17",
-								"name": "mediaFiles",
-								"internalDescription": [
-									{
-										"locale": "en",
-										"text": "A list of media files, which are imported or uploaded for this particular product."
-									}
-								],
-								"Group": {
-									"repeatability": 100,
-									"elements": [
-										{
-											"type": "Group",
-											"id": "G18",
-											"name": "mediaFile",
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "One media file with\u2026"
-												}
-											],
-											"Group": {
-												"repeatability": 1,
-												"elements": [
-													{
-														"type": "Field",
-														"id": "F19",
-														"name": "type",
-														"internalDescription": [
-															{
-																"locale": "en",
-																"text": "a type, e.g. image, video, document, etc."
-															}
-														],
-														"Field": {
-															"fieldType": {
-																"type": "StringType"
-															},
-															"label": [
-																{
-																	"locale": "en",
-																	"text": "Media Type"
-																},
-																{
-																	"locale": "de",
-																	"text": "Medientyp"
-																}
-															],
-															"requirednessConfig": {
-																"mode": "absoluteOrRelativeToNextRepAncestor"
-															}
-														}
-													},
-													{
-														"type": "Field",
-														"id": "F21",
-														"name": "mimeType",
-														"internalDescription": [
-															{
-																"locale": "en",
-																"text": "a mime type, e.g. image/jpeg, video/mp4, application/pdf, \u2026"
-															}
-														],
-														"Field": {
-															"fieldType": {
-																"type": "StringType"
-															},
-															"label": [
-																{
-																	"locale": "en",
-																	"text": "Mime Type"
-																},
-																{
-																	"locale": "de",
-																	"text": "Mime Typ"
-																}
-															],
-															"requirednessConfig": {
-																"mode": "absoluteOrRelativeToNextRepAncestor"
-															}
-														}
-													},
-													{
-														"type": "Field",
-														"id": "F22",
-														"name": "url",
-														"internalDescription": [
-															{
-																"locale": "en",
-																"text": "an absolute or relative path and/or file name. The interpretation depends on the\n\t\t\t\t\t\t\tdigital asset management solution."
-															}
-														],
-														"Field": {
-															"fieldType": {
-																"type": "StringType"
-															},
-															"label": [
-																{
-																	"locale": "en",
-																	"text": "URL"
-																},
-																{
-																	"locale": "de",
-																	"text": "URL"
-																}
-															],
-															"requirednessConfig": {
-																"mode": "absoluteOrRelativeToNextRepAncestor"
-															}
-														}
-													}
-												]
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G13",
-								"name": "logistics",
-								"Group": {
-									"repeatability": 1,
-									"elements": [
-										{
-											"type": "Group",
-											"id": "G14",
-											"name": "weight",
-											"Group": {
-												"repeatability": 1,
-												"elements": [
-													{
-														"type": "Field",
-														"id": "F15",
-														"name": "weightValue",
-														"internalDescription": [
-															{
-																"locale": "en",
-																"text": "The weight of the product."
-															}
-														],
-														"Field": {
-															"fieldType": {
-																"type": "NumberType",
-																"NumberType": {
-																	"maxFractionalDigits": 4
-																}
-															},
-															"label": [
-																{
-																	"locale": "de",
-																	"text": "[D] Gewicht"
-																},
-																{
-																	"locale": "en",
-																	"text": "[D] Weight"
-																}
-															],
-															"requirednessConfig": {
-																"mode": "absoluteOrRelativeToNextRepAncestor"
-															}
-														}
-													},
-													{
-														"type": "Field",
-														"id": "F16",
-														"name": "weightUnit",
-														"internalDescription": [
-															{
-																"locale": "en",
-																"text": "The unit, in which the weight is measured."
-															}
-														],
-														"Field": {
-															"fieldType": {
-																"type": "StringType"
-															},
-															"label": [
-																{
-																	"locale": "de",
-																	"text": "[D] Gewichtseinheit"
-																},
-																{
-																	"locale": "en",
-																	"text": "[D] Weight Unit"
-																}
-															],
-															"requirednessConfig": {
-																"mode": "absoluteOrRelativeToNextRepAncestor"
-															}
-														}
-													}
-												]
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G23",
-								"name": "packaging",
-								"Group": {
-									"repeatability": 1,
-									"elements": [
-										{
-											"type": "Field",
-											"id": "F24",
-											"name": "packagingMultiplicator",
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "The number of sub items in the product, e.g. the number of bottles in a box of\n\t\t\t\t\t\twine."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "NumberType"
-												},
-												"label": [
-													{
-														"locale": "de",
-														"text": "Packaging: Multiplikator"
-													},
-													{
-														"locale": "en",
-														"text": "Packaging: Multiplicator"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F25",
-											"name": "packagingAmount",
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "The amount of content in one sub item of the product, e.g. 0.75 in case of a wine\n\t\t\t\t\t\tbottle."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "NumberType",
-													"NumberType": {
-														"minFractionalDigits": 2,
-														"maxFractionalDigits": 3
-													}
-												},
-												"label": [
-													{
-														"locale": "de",
-														"text": "Packaging: Menge"
-													},
-													{
-														"locale": "en",
-														"text": "Packaging: Amount"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F26",
-											"name": "packagingUnit",
-											"internalDescription": [
-												{
-													"locale": "en",
-													"text": "The unit, in which the packagingAmount is measured, e.g. liter."
-												}
-											],
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												},
-												"label": [
-													{
-														"locale": "en",
-														"text": "Packaging: Unit"
-													},
-													{
-														"locale": "de",
-														"text": "Packaging: Einheit"
-													}
-												],
-												"requirednessConfig": {
-													"mode": "absoluteOrRelativeToNextRepAncestor"
-												}
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "G53",
-								"name": "image",
-								"Group": {
-									"repeatability": 1,
-									"usageType": "attachment",
-									"elements": [
-										{
-											"type": "Field",
-											"id": "F62",
-											"name": "original_filename",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F55",
-											"name": "internal_filename",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F56",
-											"name": "content",
-											"Field": {
-												"fieldType": {
-													"type": "StringType",
-													"StringType": {
-														"lineBreaksPermitted": true,
-														"noValueValidation": true
-													}
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F57",
-											"name": "attachment_id",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F58",
-											"name": "size",
-											"Field": {
-												"fieldType": {
-													"type": "NumberType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F59",
-											"name": "mime_type",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F60",
-											"name": "category",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "F61",
-											"name": "description",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "R62",
-											"name": "AttachmentIdOrContentFilled",
-											"Rule": {
-												"errorEntityRelPath": "../content",
-												"errorCode": "Error R62",
-												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: Either attachment_id or content must be filled, but not both."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: Either attachment_id or content must be filled, but not both."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "R63",
-											"name": "SizeOfContentFilled",
-											"Rule": {
-												"errorEntityRelPath": "../content",
-												"errorCode": "Error R63",
-												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: If the content is filled, the size must be also filled."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: If the content is filled, the size must be also filled."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "R64",
-											"name": "AttachmentInternalFilenameRequired",
-											"Rule": {
-												"errorEntityRelPath": "../internal_filename",
-												"errorCode": "Error R64",
-												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "de",
-														"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
-													},
-													{
-														"locale": "en",
-														"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "R65",
-											"name": "AttachmentMimeTypeRequired",
-											"Rule": {
-												"errorEntityRelPath": "../mime_type",
-												"errorCode": "Error R65",
-												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "de",
-														"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
-													},
-													{
-														"locale": "en",
-														"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
-													}
-												]
-											}
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F54",
-								"name": "targetGroup",
-								"Field": {
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"values": [
-												{
-													"value": "women",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Women"
-														},
-														{
-															"locale": "de",
-															"text": "Frauen"
-														}
-													]
-												},
-												{
-													"value": "men",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Men"
-														},
-														{
-															"locale": "de",
-															"text": "M\u00e4nner"
-														}
-													]
-												},
-												{
-													"value": "children",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Children"
-														},
-														{
-															"locale": "de",
-															"text": "Kinder"
-														}
-													]
-												},
-												{
-													"value": "adults",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Adults"
-														},
-														{
-															"locale": "de",
-															"text": "Erwachsene"
-														}
-													]
-												},
-												{
-													"value": "seniors",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Seniors"
-														},
-														{
-															"locale": "de",
-															"text": "Senioren"
-														}
-													]
-												},
-												{
-													"value": "youth",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Youth"
-														},
-														{
-															"locale": "de",
-															"text": "Jugend"
-														}
-													]
-												}
-											],
-											"alphabeticalSorting": true
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Target Group"
-										},
-										{
-											"locale": "de",
-											"text": "Zielgruppe"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F53",
-								"name": "inStock",
-								"Field": {
-									"fieldType": {
-										"type": "BooleanType"
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "auf Lager"
-										},
-										{
-											"locale": "en",
-											"text": "in Stock"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F66",
-								"name": "limitedOffer",
-								"Field": {
-									"fieldType": {
-										"type": "ConfirmType"
-									},
-									"label": [
-										{
-											"locale": "de",
-											"text": "Limitiertes Angebot"
-										},
-										{
-											"locale": "en",
-											"text": "Limited Offer"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "F67",
-								"name": "sellerEmail",
-								"Field": {
-									"fieldType": {
-										"type": "CustomFieldType",
-										"CustomFieldType": {
-											"name": "sellerEmail"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Seller email"
-										},
-										{
-											"locale": "de",
-											"text": "Seller email"
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "group_6ab6b",
-								"name": "attachment",
-								"Group": {
-									"repeatability": 1,
-									"usageType": "attachment",
-									"elements": [
-										{
-											"type": "Field",
-											"id": "field_e32b5",
-											"name": "original_filename",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_f7ae1",
-											"name": "internal_filename",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_3b9dc",
-											"name": "content",
-											"Field": {
-												"fieldType": {
-													"type": "StringType",
-													"StringType": {
-														"lineBreaksPermitted": true,
-														"noValueValidation": true
-													}
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_80075",
-											"name": "attachment_id",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_3d4b8",
-											"name": "size",
-											"Field": {
-												"fieldType": {
-													"type": "NumberType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_ad739",
-											"name": "mime_type",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_f7ceb",
-											"name": "category",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Field",
-											"id": "field_6830c",
-											"name": "description",
-											"Field": {
-												"fieldType": {
-													"type": "StringType"
-												}
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "rule_9cf89",
-											"name": "AttachmentInternalFilenameRequired",
-											"Rule": {
-												"errorEntityRelPath": "../internal_filename",
-												"errorCode": "Error rule_9cf89",
-												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "rule_b342d",
-											"name": "AttachmentMimeTypeRequired",
-											"Rule": {
-												"errorEntityRelPath": "../mime_type",
-												"errorCode": "Error rule_b342d",
-												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: Field mime_type of customType attachment is not filled."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: Field mime_type of customType attachment is not filled."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "rule_346ec",
-											"name": "AttachmentIdOrContentFilled",
-											"Rule": {
-												"errorEntityRelPath": "../content",
-												"errorCode": "Error rule_346ec",
-												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
-													}
-												]
-											}
-										},
-										{
-											"type": "Rule",
-											"id": "rule_f45fa",
-											"name": "SizeOfContentFilled",
-											"Rule": {
-												"errorEntityRelPath": "../content",
-												"errorCode": "Error rule_f45fa",
-												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
-												"severity": "ERROR",
-												"errorMessage": [
-													{
-														"locale": "en",
-														"text": "Internal Error: If the content is filled, the size must be also filled."
-													},
-													{
-														"locale": "de",
-														"text": "Internal Error: If the content is filled, the size must be also filled."
-													}
-												]
-											}
-										}
-									]
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "ProductDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": []
+  },
+  "content": {
+    "modelInfo": {
+      "name": "ProductDM",
+      "immutable": false,
+      "comment": "This is a sample product model for a commerce PIM."
+    },
+    "modelConfig": {
+      "timeZone": "America/New_York",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "G2",
+          "name": "product",
+          "Group": {
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_d4c4b",
+                "name": "releaseMonthYear",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateFragmentType",
+                    "DateFragmentType": {
+                      "formatOfFragment": "yyyy-MM"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Erscheinungsmonat & Jahr"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Release Month & Year"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_d4c4c",
+                "name": "releaseYear",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateFragmentType",
+                    "DateFragmentType": {
+                      "formatOfFragment": "yyyy"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Erscheinungsjahr"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Release Year"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_d4c4d",
+                "name": "releaseMonth",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateFragmentType",
+                    "DateFragmentType": {
+                      "formatOfFragment": "MM"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Erscheinungsmonat"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Release Month"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_d4c4e",
+                "name": "releaseMonthDay",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateFragmentType",
+                    "DateFragmentType": {
+                      "formatOfFragment": "MM-dd"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Erscheinungstag & Monat"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Release Month & Day"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F100",
+                "name": "saleYearRange",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateRangeType",
+                    "DateRangeType": {
+                      "format": "yyyy",
+                      "rangeSeparator": "/"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Sale Year Range"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F101",
+                "name": "saleMonthRange",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateRangeType",
+                    "DateRangeType": {
+                      "format": "MM",
+                      "rangeSeparator": "/"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Sale Month Range"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F102",
+                "name": "saleYearMonthRange",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateRangeType",
+                    "DateRangeType": {
+                      "format": "yyyy-MM",
+                      "rangeSeparator": "/"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Sale YearMonth Range"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F103",
+                "name": "saleDateRange",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateRangeType",
+                    "DateRangeType": {
+                      "format": "yyyy-MM-dd",
+                      "rangeSeparator": "/"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Sale Date Range"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F104",
+                "name": "saleMonthDayRange",
+                "annotations": [],
+                "Field": {
+                  "fieldType": {
+                    "type": "DateRangeType",
+                    "DateRangeType": {
+                      "format": "MM-dd",
+                      "rangeSeparator": "/"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Sale MonthDay Range"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F3",
+                "name": "number",
+                "annotations": [
+                  {
+                    "name": "enable_approximate_match_search",
+                    "value": "1"
+                  }
+                ],
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "The unique business identifier of the product."
+                  }
+                ],
+                "Field": {
+                  "fieldType": {
+                    "type": "NumberType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Number"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Nummer"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G4",
+                "name": "externalNumber",
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A list of numbers identifying the product uniquely in external systems."
+                  }
+                ],
+                "Group": {
+                  "repeatability": 100,
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "F5",
+                      "name": "system",
+                      "annotations": [
+                        {
+                          "name": "enable_approximate_match_search",
+                          "value": "true"
+                        }
+                      ],
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "A transformation to the external system using this number."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "System Number"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "System Nummer"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F6",
+                      "name": "number",
+                      "annotations": [
+                        {
+                          "name": "enable_approximate_match_search",
+                          "value": "true"
+                        }
+                      ],
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "The number used by this external system."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "External Number"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Externe Nummer"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F50",
+                "name": "dateField",
+                "Field": {
+                  "fieldType": {
+                    "type": "DateType",
+                    "DateType": {
+                      "format": "yyyy-MM-dd"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "[D] Date"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "[D] Date"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F51",
+                "name": "dateTimeField",
+                "Field": {
+                  "fieldType": {
+                    "type": "DateTimeType",
+                    "DateTimeType": {
+                      "format": "yyyy-MM-dd'T'HH:mm:ss"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] DateTime"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] DateTime"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F52",
+                "name": "timeField",
+                "Field": {
+                  "fieldType": {
+                    "type": "TimeType",
+                    "TimeType": {
+                      "format": "HH:mm:ss"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] Time"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] Time"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F7",
+                "name": "name",
+                "annotations": [
+                  {
+                    "name": "enable_approximate_match_search",
+                    "value": "true"
+                  }
+                ],
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A rather short name of the product, which can be displayed in product lists, invoices,\n\t\t\t\t\tetc."
+                  }
+                ],
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType",
+                    "StringType": {
+                      "minLength": 3,
+                      "maxLength": 256
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "[D] Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "[D] Name"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F8",
+                "name": "description",
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A transformation to the brand of this product."
+                  }
+                ],
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType",
+                    "StringType": {
+                      "lineBreaksPermitted": true
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Beschreibung"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Description"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Group",
+                "id": "F9",
+                "name": "meta",
+                "Group": {
+                  "repeatability": 999999,
+                  "usageType": "multi-select",
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "field_f866d",
+                      "name": "item",
+                      "Field": {
+                        "fieldType": {
+                          "type": "EnumerationType",
+                          "EnumerationType": {
+                            "values": [
+                              {
+                                "value": "1",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number One"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer Eins"
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "2",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number Two"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer zwei"
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "3",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number Three"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer drei"
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "4",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number Four"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer vier"
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "5",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number Five"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer f\u00fcnf"
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "6",
+                                "label": [
+                                  {
+                                    "locale": "en",
+                                    "text": "Number Six"
+                                  },
+                                  {
+                                    "locale": "de",
+                                    "text": "Nummer sechs"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "Meta"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Meta [de]"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G10",
+                "name": "searchKeywords",
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A list of keywords for site search boosting."
+                  }
+                ],
+                "Group": {
+                  "repeatability": 1,
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "F11",
+                      "name": "searchKeyword",
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "A list of keywords for site search boosting. The entry of keywords is supported\n\t\t\t\t\t\tsuing keyword prediction."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "Search Keyword"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Suchen Stichwort"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G17",
+                "name": "mediaFiles",
+                "internalDescription": [
+                  {
+                    "locale": "en",
+                    "text": "A list of media files, which are imported or uploaded for this particular product."
+                  }
+                ],
+                "Group": {
+                  "repeatability": 100,
+                  "elements": [
+                    {
+                      "type": "Group",
+                      "id": "G18",
+                      "name": "mediaFile",
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "One media file with\u2026"
+                        }
+                      ],
+                      "Group": {
+                        "repeatability": 1,
+                        "elements": [
+                          {
+                            "type": "Field",
+                            "id": "F19",
+                            "name": "type",
+                            "internalDescription": [
+                              {
+                                "locale": "en",
+                                "text": "a type, e.g. image, video, document, etc."
+                              }
+                            ],
+                            "Field": {
+                              "fieldType": {
+                                "type": "StringType"
+                              },
+                              "label": [
+                                {
+                                  "locale": "en",
+                                  "text": "Media Type"
+                                },
+                                {
+                                  "locale": "de",
+                                  "text": "Medientyp"
+                                }
+                              ],
+                              "requirednessConfig": {
+                                "mode": "absoluteOrRelativeToNextRepAncestor"
+                              }
+                            }
+                          },
+                          {
+                            "type": "Field",
+                            "id": "F21",
+                            "name": "mimeType",
+                            "internalDescription": [
+                              {
+                                "locale": "en",
+                                "text": "a mime type, e.g. image/jpeg, video/mp4, application/pdf, \u2026"
+                              }
+                            ],
+                            "Field": {
+                              "fieldType": {
+                                "type": "StringType"
+                              },
+                              "label": [
+                                {
+                                  "locale": "en",
+                                  "text": "Mime Type"
+                                },
+                                {
+                                  "locale": "de",
+                                  "text": "Mime Typ"
+                                }
+                              ],
+                              "requirednessConfig": {
+                                "mode": "absoluteOrRelativeToNextRepAncestor"
+                              }
+                            }
+                          },
+                          {
+                            "type": "Field",
+                            "id": "F22",
+                            "name": "url",
+                            "internalDescription": [
+                              {
+                                "locale": "en",
+                                "text": "an absolute or relative path and/or file name. The interpretation depends on the\n\t\t\t\t\t\t\tdigital asset management solution."
+                              }
+                            ],
+                            "Field": {
+                              "fieldType": {
+                                "type": "StringType"
+                              },
+                              "label": [
+                                {
+                                  "locale": "en",
+                                  "text": "URL"
+                                },
+                                {
+                                  "locale": "de",
+                                  "text": "URL"
+                                }
+                              ],
+                              "requirednessConfig": {
+                                "mode": "absoluteOrRelativeToNextRepAncestor"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G13",
+                "name": "logistics",
+                "Group": {
+                  "repeatability": 1,
+                  "elements": [
+                    {
+                      "type": "Group",
+                      "id": "G14",
+                      "name": "weight",
+                      "Group": {
+                        "repeatability": 1,
+                        "elements": [
+                          {
+                            "type": "Field",
+                            "id": "F15",
+                            "name": "weightValue",
+                            "internalDescription": [
+                              {
+                                "locale": "en",
+                                "text": "The weight of the product."
+                              }
+                            ],
+                            "Field": {
+                              "fieldType": {
+                                "type": "NumberType",
+                                "NumberType": {
+                                  "maxFractionalDigits": 4
+                                }
+                              },
+                              "label": [
+                                {
+                                  "locale": "de",
+                                  "text": "[D] Gewicht"
+                                },
+                                {
+                                  "locale": "en",
+                                  "text": "[D] Weight"
+                                }
+                              ],
+                              "requirednessConfig": {
+                                "mode": "absoluteOrRelativeToNextRepAncestor"
+                              }
+                            }
+                          },
+                          {
+                            "type": "Field",
+                            "id": "F16",
+                            "name": "weightUnit",
+                            "internalDescription": [
+                              {
+                                "locale": "en",
+                                "text": "The unit, in which the weight is measured."
+                              }
+                            ],
+                            "Field": {
+                              "fieldType": {
+                                "type": "StringType"
+                              },
+                              "label": [
+                                {
+                                  "locale": "de",
+                                  "text": "[D] Gewichtseinheit"
+                                },
+                                {
+                                  "locale": "en",
+                                  "text": "[D] Weight Unit"
+                                }
+                              ],
+                              "requirednessConfig": {
+                                "mode": "absoluteOrRelativeToNextRepAncestor"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G23",
+                "name": "packaging",
+                "Group": {
+                  "repeatability": 1,
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "F24",
+                      "name": "packagingMultiplicator",
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "The number of sub items in the product, e.g. the number of bottles in a box of\n\t\t\t\t\t\twine."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType"
+                        },
+                        "label": [
+                          {
+                            "locale": "de",
+                            "text": "Packaging: Multiplikator"
+                          },
+                          {
+                            "locale": "en",
+                            "text": "Packaging: Multiplicator"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F25",
+                      "name": "packagingAmount",
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "The amount of content in one sub item of the product, e.g. 0.75 in case of a wine\n\t\t\t\t\t\tbottle."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType",
+                          "NumberType": {
+                            "minFractionalDigits": 2,
+                            "maxFractionalDigits": 3
+                          }
+                        },
+                        "label": [
+                          {
+                            "locale": "de",
+                            "text": "Packaging: Menge"
+                          },
+                          {
+                            "locale": "en",
+                            "text": "Packaging: Amount"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F26",
+                      "name": "packagingUnit",
+                      "internalDescription": [
+                        {
+                          "locale": "en",
+                          "text": "The unit, in which the packagingAmount is measured, e.g. liter."
+                        }
+                      ],
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        },
+                        "label": [
+                          {
+                            "locale": "en",
+                            "text": "Packaging: Unit"
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Packaging: Einheit"
+                          }
+                        ],
+                        "requirednessConfig": {
+                          "mode": "absoluteOrRelativeToNextRepAncestor"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "G53",
+                "name": "image",
+                "Group": {
+                  "repeatability": 1,
+                  "usageType": "attachment",
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "F62",
+                      "name": "original_filename",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F55",
+                      "name": "internal_filename",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F56",
+                      "name": "content",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType",
+                          "StringType": {
+                            "lineBreaksPermitted": true,
+                            "noValueValidation": true
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F57",
+                      "name": "attachment_id",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F58",
+                      "name": "size",
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F59",
+                      "name": "mime_type",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F60",
+                      "name": "category",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "F61",
+                      "name": "description",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "R62",
+                      "name": "AttachmentIdOrContentFilled",
+                      "Rule": {
+                        "errorEntityRelPath": "../content",
+                        "errorCode": "Error R62",
+                        "errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Either attachment_id or content must be filled, but not both."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Either attachment_id or content must be filled, but not both."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "R63",
+                      "name": "SizeOfContentFilled",
+                      "Rule": {
+                        "errorEntityRelPath": "../content",
+                        "errorCode": "Error R63",
+                        "errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: If the content is filled, the size must be also filled."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: If the content is filled, the size must be also filled."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "R64",
+                      "name": "AttachmentInternalFilenameRequired",
+                      "Rule": {
+                        "errorEntityRelPath": "../internal_filename",
+                        "errorCode": "Error R64",
+                        "errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+                          },
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "R65",
+                      "name": "AttachmentMimeTypeRequired",
+                      "Rule": {
+                        "errorEntityRelPath": "../mime_type",
+                        "errorCode": "Error R65",
+                        "errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+                          },
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F54",
+                "name": "targetGroup",
+                "Field": {
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "values": [
+                        {
+                          "value": "women",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Women"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Frauen"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "men",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Men"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "M\u00e4nner"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "children",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Children"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Kinder"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "adults",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Adults"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Erwachsene"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "seniors",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Seniors"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Senioren"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "youth",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Youth"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Jugend"
+                            }
+                          ]
+                        }
+                      ],
+                      "alphabeticalSorting": true
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Target Group"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Zielgruppe"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F53",
+                "name": "inStock",
+                "Field": {
+                  "fieldType": {
+                    "type": "BooleanType"
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "auf Lager"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "in Stock"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F66",
+                "name": "limitedOffer",
+                "Field": {
+                  "fieldType": {
+                    "type": "ConfirmType"
+                  },
+                  "label": [
+                    {
+                      "locale": "de",
+                      "text": "Limitiertes Angebot"
+                    },
+                    {
+                      "locale": "en",
+                      "text": "Limited Offer"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "F67",
+                "name": "sellerEmail",
+                "Field": {
+                  "fieldType": {
+                    "type": "CustomFieldType",
+                    "CustomFieldType": {
+                      "name": "sellerEmail"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Seller email"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Seller email"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "group_6ab6b",
+                "name": "attachment",
+                "Group": {
+                  "repeatability": 1,
+                  "usageType": "attachment",
+                  "elements": [
+                    {
+                      "type": "Field",
+                      "id": "field_e32b5",
+                      "name": "original_filename",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_f7ae1",
+                      "name": "internal_filename",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_3b9dc",
+                      "name": "content",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType",
+                          "StringType": {
+                            "lineBreaksPermitted": true,
+                            "noValueValidation": true
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_80075",
+                      "name": "attachment_id",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_3d4b8",
+                      "name": "size",
+                      "Field": {
+                        "fieldType": {
+                          "type": "NumberType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_ad739",
+                      "name": "mime_type",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_f7ceb",
+                      "name": "category",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Field",
+                      "id": "field_6830c",
+                      "name": "description",
+                      "Field": {
+                        "fieldType": {
+                          "type": "StringType"
+                        }
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "rule_9cf89",
+                      "name": "AttachmentInternalFilenameRequired",
+                      "Rule": {
+                        "errorEntityRelPath": "../internal_filename",
+                        "errorCode": "Error rule_9cf89",
+                        "errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Field internal_filename of customType attachment is not filled."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Field internal_filename of customType attachment is not filled."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "rule_b342d",
+                      "name": "AttachmentMimeTypeRequired",
+                      "Rule": {
+                        "errorEntityRelPath": "../mime_type",
+                        "errorCode": "Error rule_b342d",
+                        "errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Field mime_type of customType attachment is not filled."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Field mime_type of customType attachment is not filled."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "rule_346ec",
+                      "name": "AttachmentIdOrContentFilled",
+                      "Rule": {
+                        "errorEntityRelPath": "../content",
+                        "errorCode": "Error rule_346ec",
+                        "errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Rule",
+                      "id": "rule_f45fa",
+                      "name": "SizeOfContentFilled",
+                      "Rule": {
+                        "errorEntityRelPath": "../content",
+                        "errorCode": "Error rule_f45fa",
+                        "errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+                        "severity": "ERROR",
+                        "errorMessage": [
+                          {
+                            "locale": "en",
+                            "text": "Internal Error: If the content is filled, the size must be also filled."
+                          },
+                          {
+                            "locale": "de",
+                            "text": "Internal Error: If the content is filled, the size must be also filled."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { type Selector, LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
 import type {
 	Query,
 	QueryJsonRpc2Request,
 	DocumentJsonRpc2Request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../overview-model.js";
 import type { DataOperation } from "../data-loader/data-loader.js";

@@ -1,201 +1,201 @@
 {
-	"header": {
-		"id": "PersonDepartmentDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": []
-	},
-	"content": {
-		"modelInfo": {
-			"name": "PersonDepartmentDM"
-		},
-		"modelConfig": {
-			"timeZone": "UTC",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "group_dept1",
-					"name": "Department",
-					"Group": {
-						"label": [
-							{
-								"locale": "en",
-								"text": "Department"
-							},
-							{
-								"locale": "de",
-								"text": "Abteilung"
-							}
-						],
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_dept_name",
-								"name": "Name",
-								"Field": {
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"alphabeticalSorting": true,
-											"values": [
-												{
-													"value": "Engineering",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Engineering"
-														},
-														{
-															"locale": "de",
-															"text": "Technik"
-														}
-													]
-												},
-												{
-													"value": "Sales",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Sales"
-														},
-														{
-															"locale": "de",
-															"text": "Vertrieb"
-														}
-													]
-												},
-												{
-													"value": "Marketing",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Marketing"
-														},
-														{
-															"locale": "de",
-															"text": "Marketing"
-														}
-													]
-												},
-												{
-													"value": "HR",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Human Resources"
-														},
-														{
-															"locale": "de",
-															"text": "Personalwesen"
-														}
-													]
-												},
-												{
-													"value": "Finance",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Finance"
-														},
-														{
-															"locale": "de",
-															"text": "Finanzen"
-														}
-													]
-												},
-												{
-													"value": "Operations",
-													"label": [
-														{
-															"locale": "en",
-															"text": "Operations"
-														},
-														{
-															"locale": "de",
-															"text": "Betrieb"
-														}
-													]
-												}
-											]
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Department Name"
-										},
-										{
-											"locale": "de",
-											"text": "Abteilungsname"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_dept_code",
-								"name": "Code",
-								"Field": {
-									"fieldType": {
-										"type": "StringType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Department Code"
-										},
-										{
-											"locale": "de",
-											"text": "Abteilungscode"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_dept_floor",
-								"name": "Floor",
-								"Field": {
-									"fieldType": {
-										"type": "NumberType",
-										"NumberType": {
-											"minValue": -2,
-											"maxValue": 30
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Floor"
-										},
-										{
-											"locale": "de",
-											"text": "Etage"
-										}
-									]
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "PersonDepartmentDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": []
+  },
+  "content": {
+    "modelInfo": {
+      "name": "PersonDepartmentDM"
+    },
+    "modelConfig": {
+      "timeZone": "UTC",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "group_dept1",
+          "name": "Department",
+          "Group": {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Department"
+              },
+              {
+                "locale": "de",
+                "text": "Abteilung"
+              }
+            ],
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_dept_name",
+                "name": "Name",
+                "Field": {
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "alphabeticalSorting": true,
+                      "values": [
+                        {
+                          "value": "Engineering",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Engineering"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Technik"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Sales",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Sales"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Vertrieb"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Marketing",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Marketing"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Marketing"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "HR",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Human Resources"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Personalwesen"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Finance",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Finance"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Finanzen"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "Operations",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "Operations"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "Betrieb"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Department Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Abteilungsname"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_dept_code",
+                "name": "Code",
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Department Code"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Abteilungscode"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_dept_floor",
+                "name": "Floor",
+                "Field": {
+                  "fieldType": {
+                    "type": "NumberType",
+                    "NumberType": {
+                      "minValue": -2,
+                      "maxValue": 30
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Floor"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Etage"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

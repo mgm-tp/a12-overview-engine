@@ -30,36 +30,37 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Lens, Lens as L } from "monocle-ts";
 import { memo, type FC, useMemo, useCallback } from "react";
 
-import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { Lens as L, type Lens } from "monocle-ts";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { useTargetModelId } from "../filter-label-resolvers.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
+
 import type { OverviewModel } from "../../../../../overview-model.js";
-import { TimePickerAdapter } from "../adapters/time-picker-adapter.js";
-import { getYearBlurError } from "../utilities/year-input-validation.js";
-import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { SectionType } from "../../../filters/options-views/section-template.js";
-import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
-import { DateInputAdapter } from "../../../filters/options-views/date-input-adapter.js";
-import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
-import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
-import { useValueFormatter, useLocalizedDateTimeFormatString } from "../../../filters/utils.js";
-import { DateTimeInputAdapter } from "../../../filters/options-views/date-time-input-adapter.js";
-import { useDateParser, useTimeParser } from "../../../filters/options-views/date-time-hooks.js";
-import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
 import {
-	type SegmentOption,
 	type RangeCriteria,
+	type SegmentOption,
 	DateTimeFilterState,
 	type DateFilterState
 } from "../../../../../store/index.js";
+import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { DateInputAdapter } from "../../../filters/options-views/date-input-adapter.js";
+import { useDateParser, useTimeParser } from "../../../filters/options-views/date-time-hooks.js";
+import { DateTimeInputAdapter } from "../../../filters/options-views/date-time-input-adapter.js";
+import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
+import { SectionType } from "../../../filters/options-views/section-template.js";
+import { useValueFormatter, useLocalizedDateTimeFormatString } from "../../../filters/utils.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
+import { TimePickerAdapter } from "../adapters/time-picker-adapter.js";
+import { useTargetModelId } from "../filter-label-resolvers.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
+import { getYearBlurError } from "../utilities/year-input-validation.js";
 
 function inputStateLens<P extends keyof DateTimeFilterState.Criteria>(params: {
 	period: P;

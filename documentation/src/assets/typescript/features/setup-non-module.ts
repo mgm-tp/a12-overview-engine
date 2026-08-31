@@ -33,8 +33,6 @@
 // tag::main[]
 import type { Middleware } from "redux";
 
-import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
 	type Module,
 	type DataLoader,
@@ -45,6 +43,8 @@ import {
 	type ApplicationSetup,
 	ModuleRegistryProvider
 } from "@com.mgmtp.a12.client/client-core";
+import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
+import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 export function setup(): ApplicationSetup {
 	projectModules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));

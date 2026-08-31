@@ -33,9 +33,9 @@
 import * as React from "react";
 
 import type { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { RESOURCE_KEYS, OverviewModelKeys } from "../../../../services/localization/index.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 export namespace OverviewButtonConfirmDialog {
 	export interface Props {

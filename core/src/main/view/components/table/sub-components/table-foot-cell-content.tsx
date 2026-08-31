@@ -35,11 +35,11 @@ import * as React from "react";
 import { Icon, type TableRenderPropsType } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import type { OverviewColumn } from "../../../hooks/use-table-columns.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import type { OverviewColumn } from "../../../hooks/use-table-columns.js";
 
 import { useFieldFormatter } from "./field-reference-cell.js";
 

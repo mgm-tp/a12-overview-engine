@@ -33,9 +33,9 @@
 import * as React from "react";
 
 import { OverviewModel } from "../../../overview-model.js";
-import { useSubHeaderElements } from "../sub-header-elements.js";
 import { OverviewModelKeys } from "../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useSubHeaderElements } from "../sub-header-elements.js";
 
 import type { FilterTriggerPlacement } from "./hooks/use-filter-trigger-placement.js";
 

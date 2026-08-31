@@ -35,8 +35,8 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { ConfirmFilterState } from "../../../../main/store/internal/filter-state.js";
 import { ConfirmFilterController } from "../../../../main/store/internal/filter-controllers/confirm-controller.js";
+import { ConfirmFilterState } from "../../../../main/store/internal/filter-state.js";
 
 const controller = new ConfirmFilterController();
 const { DefaultCriteria } = ConfirmFilterState;

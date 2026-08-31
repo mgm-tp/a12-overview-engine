@@ -31,11 +31,12 @@
  */
 
 import { memo, type FC } from "react";
+
 import { styled } from "styled-components";
 
 import { UiStateSelector } from "../../../../store/index.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface FilterResetButtonProps {

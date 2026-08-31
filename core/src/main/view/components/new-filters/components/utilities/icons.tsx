@@ -31,6 +31,7 @@
  */
 
 import { memo, type FC } from "react";
+
 import { styled } from "styled-components";
 
 import { StyledIconWrapper } from "@com.mgmtp.a12.widgets/widgets-core";

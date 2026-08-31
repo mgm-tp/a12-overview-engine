@@ -30,17 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
-
-import { mockType } from "../../../../utils.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { mockType } from "../../../../utils.js";
 import {
 	setupMultiSelection,
 	disabledMultiSelection,

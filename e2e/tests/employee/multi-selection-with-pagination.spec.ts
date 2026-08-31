@@ -31,8 +31,8 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase } from "../utils.js";
 import { allRowsShouldBeCheck, overallCheckboxStatusShouldBe } from "../helper.js";
+import { Selector, Showcase, navigate } from "../utils.js";
 
 test.describe("Multi-Selection Feature - With pagination", () => {
 	test.describe("Using Employee showcase", () => {

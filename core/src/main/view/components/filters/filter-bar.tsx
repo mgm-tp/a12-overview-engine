@@ -31,19 +31,20 @@
  */
 
 import * as React from "react";
+
 import { Key } from "ts-keycode-enum";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { addPrefix, getAllFocusableElements } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../api.js";
-import { UiStateSelector } from "../../../store/index.js";
-import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import { UiStateSelector } from "../../../store/index.js";
+import type { OverviewEngineApi } from "../../api.js";
 import { FilterContext, useFilterContext } from "../../context/filter-context.js";
-import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
-import { useClearMultiSelectionDialogVisible } from "../multi-selection/clear-multi-selection-dialog.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
+import { useClearMultiSelectionDialogVisible } from "../multi-selection/clear-multi-selection-dialog.js";
 
 import { FilterOptionsViewRouter } from "./filter-options-view-router.js";
 import type { Filter, FilterOptionsView } from "./filter-options-view.js";

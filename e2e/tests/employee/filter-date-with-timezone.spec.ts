@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase, inputByLabel } from "../utils.js";
+import { Selector, Showcase, navigate, inputByLabel } from "../utils.js";
 
 test.describe("Date with timezone", () => {
 	test.beforeAll(async ({ seed }) => {

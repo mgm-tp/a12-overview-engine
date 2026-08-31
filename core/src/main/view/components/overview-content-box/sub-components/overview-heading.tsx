@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { useShouldAllowSearch } from "../../../utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
-import { useHeadingMetadata } from "../../../hooks/use-heading-metadata.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useHeadingMetadata } from "../../../hooks/use-heading-metadata.js";
+import { useShouldAllowSearch } from "../../../utils.js";
 
 export interface OverviewHeadingProps {
 	readonly headingAriaLevel: number;

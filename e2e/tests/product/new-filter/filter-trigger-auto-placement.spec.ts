@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { produce } from "immer";
 import type { Page } from "@playwright/test";
+import { produce } from "immer";
 
 import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 

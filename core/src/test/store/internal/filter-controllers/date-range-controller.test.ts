@@ -35,16 +35,15 @@ import { it, expect, describe } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import type { DocumentModelTypedField } from "../../../../main/models/index.js";
 import type { FormatTypedDateRangeType } from "../../../../main/models/internal/shared.js";
-import type { DateRangeFilterState } from "../../../../main/store/internal/filter-state.js";
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import { RangeCriteria } from "../../../../main/store/internal/filter-controllers/criteria.js";
 import {
 	DateRangeFilterController,
 	deriveDateRangePeriodOptions
 } from "../../../../main/store/internal/filter-controllers/date-range-controller.js";
-
+import type { DateRangeFilterState } from "../../../../main/store/internal/filter-state.js";
 import { createField, createDocumentModel } from "../../../utils.js";
 
 const controller = new DateRangeFilterController();

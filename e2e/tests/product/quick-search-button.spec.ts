@@ -44,7 +44,7 @@ test.describe("Product overview - quick search button", () => {
 
 	test("clicking the quick search button fills the search input and filters by product name", async ({ page }) => {
 		const searchInput = page.locator(Selector.INPUT_FULL_TEXT_SEARCH);
-		const quickSearchButton = page.getByRole("button", { name: /Snowboard/ });
+		const quickSearchButton = page.getByRole("button", { name: 'Search products containing "Snowboard"' });
 		const firstRow = page.locator(Selector.TABLE_BODY_ROW).first();
 
 		await expect(searchInput).toHaveValue("");

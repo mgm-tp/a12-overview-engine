@@ -36,8 +36,8 @@ import type { List, InfiniteLoader, OverscanIndexRange } from "react-virtualized
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
 import type { RowLoadingStatus } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../../view/api.js";
 import type { UiState, Scrolling } from "../../../../store/index.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
 
 interface OverscanRange {
 	visibleStart: number;
@@ -160,7 +160,7 @@ function debounce<F extends Function>(
 	let timeoutId: number | undefined;
 
 	return function (this: any, ...args: any[]) {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		// eslint-disable-next-line typescript/no-this-alias
 		const context = this;
 
 		const doLater = () => {

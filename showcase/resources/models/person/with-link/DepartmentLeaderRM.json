@@ -1,86 +1,86 @@
 {
-	"header": {
-		"id": "DepartmentLeaderRM",
-		"modelType": "relationship",
-		"modelVersion": "4.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "department",
-				"reference": "PersonDepartmentDM"
-			},
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "leader",
-				"reference": "PersonDM"
-			}
-		]
-	},
-	"content": {
-		"duplicatesAllowed": false,
-		"labels": [
-			{
-				"locale": "en"
-			},
-			{
-				"locale": "de"
-			}
-		],
-		"entityCharacteristics": [
-			{
-				"documentModel": "PersonDepartmentDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en",
-						"text": "Department"
-					},
-					{
-						"locale": "de",
-						"text": "Abteilung"
-					}
-				],
-				"role": "department",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				}
-			},
-			{
-				"documentModel": "PersonDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en",
-						"text": "Leader"
-					},
-					{
-						"locale": "de",
-						"text": "Leiter"
-					}
-				],
-				"role": "leader",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				}
-			}
-		]
-	}
+  "header": {
+    "id": "DepartmentLeaderRM",
+    "modelType": "relationship",
+    "modelVersion": "4.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "department",
+        "reference": "PersonDepartmentDM"
+      },
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "leader",
+        "reference": "PersonDM"
+      }
+    ]
+  },
+  "content": {
+    "duplicatesAllowed": false,
+    "labels": [
+      {
+        "locale": "en"
+      },
+      {
+        "locale": "de"
+      }
+    ],
+    "entityCharacteristics": [
+      {
+        "documentModel": "PersonDepartmentDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Department"
+          },
+          {
+            "locale": "de",
+            "text": "Abteilung"
+          }
+        ],
+        "role": "department",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": false,
+            "upperLimit": 1
+          }
+        }
+      },
+      {
+        "documentModel": "PersonDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en",
+            "text": "Leader"
+          },
+          {
+            "locale": "de",
+            "text": "Leiter"
+          }
+        ],
+        "role": "leader",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": false,
+            "upperLimit": 1
+          }
+        }
+      }
+    ]
+  }
 }

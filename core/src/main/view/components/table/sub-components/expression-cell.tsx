@@ -34,17 +34,17 @@ import * as React from "react";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { ExpressionOutput } from "@com.mgmtp.a12.expression/expression-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
 import type { JSONLink } from "../../../../models/index.js";
-import type { OverviewModel } from "../../../../overview-model.js";
 import { DocumentUtils } from "../../../../models/internal/shared.js";
+import type { OverviewModel } from "../../../../overview-model.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
 
-import type { TableBodyCell } from "./table-body-cell.js";
 import { useFieldFormatter, type FieldFormatterParams } from "./field-reference-cell.js";
+import type { TableBodyCell } from "./table-body-cell.js";
 
 export namespace ExpressionCell {
 	export interface Props extends TableBodyCell.Props {
@@ -125,7 +125,7 @@ function ExpressionCellByDocument(props: ExpressionCellByDocumentProps) {
 				modelId: documentModel.header.id
 			});
 		},
-		[documentModelService, formatField, document, props.fieldFormatter, documentModel.header.id]
+		[documentModelService, formatField, document, props, documentModel.header.id]
 	);
 
 	const valueGetter = React.useCallback(

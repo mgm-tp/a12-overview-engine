@@ -10,6 +10,8 @@ npm-debug.log*
 .vscode/*
 !.vscode/tasks.json
 !.vscode/launch.json
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea
 .github
 .classpath

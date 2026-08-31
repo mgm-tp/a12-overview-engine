@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { useIdGenerator } from "../utils.js";
-import type { OverviewEngineApi } from "../api.js";
 import { UiStateSelector } from "../../store/index.js";
+import type { OverviewEngineApi } from "../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { useIdGenerator } from "../utils.js";
 
 /** @internal */
 export const Pagination: React.ComponentType<Pagination.PropsType> = React.memo(function OverviewPagination(props) {

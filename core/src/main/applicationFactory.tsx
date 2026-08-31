@@ -30,9 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-/* eslint-disable filename/match */
+// eslint-disable check-file/filename-naming-convention
 
-import { addSupportedModelVersion } from "@com.mgmtp.a12.client/client-core/modelLoader";
 import {
 	addView,
 	type View,
@@ -47,9 +46,10 @@ import {
 	type A12ApplicationConfig,
 	type ApplicationWithConfiguredFeature
 } from "@com.mgmtp.a12.client/client-core";
+import { addSupportedModelVersion } from "@com.mgmtp.a12.client/client-core/modelLoader";
 
-import { SUPPORTED_MODEL_VERSIONS } from "./supported-model-version.js";
 import { OverviewEngineFactories, type OverviewEngineDataLoader } from "./client-extensions/index.js";
+import { SUPPORTED_MODEL_VERSIONS } from "./supported-model-version.js";
 
 const MODEL_TYPE = "overview";
 

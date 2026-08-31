@@ -30,12 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { expect } from "vitest";
 
-import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { renderFilter, type FilterRenderResult, type DocumentModelModifier } from "../setup.js";
 
 import { EnumerationFilterPage } from "./enumeration-filter-page.js";

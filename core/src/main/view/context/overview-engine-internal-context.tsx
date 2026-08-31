@@ -37,9 +37,9 @@ import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { ValueConversionConfig } from "@com.mgmtp.a12.utils/utils-localization";
 import { createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngine } from "../overview-engine.js";
-import { useConverter, type Converter } from "../../services/converter/internal/shared.js";
 import { type DocumentModelService, createDocumentModelService } from "../../models/internal/shared.js";
+import { useConverter, type Converter } from "../../services/converter/internal/shared.js";
+import type { OverviewEngine } from "../overview-engine.js";
 
 import { useOverviewEngineContext } from "./overview-engine-context.js";
 

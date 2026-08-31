@@ -33,9 +33,9 @@
 import * as React from "react";
 
 import type { OverviewModel } from "../../../../overview-model.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useModelIdFromColumn } from "../../../hooks/use-relationship.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
 export namespace TableHeadCell {
 	export interface Props {

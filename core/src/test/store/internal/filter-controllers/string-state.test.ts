@@ -37,9 +37,8 @@ import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { StringFilterState } from "../../../../main/store/internal/filter-state.js";
 import { StringFilterController } from "../../../../main/store/internal/filter-controllers/string-controller.js";
-
+import { StringFilterState } from "../../../../main/store/internal/filter-state.js";
 import { createField, createDocumentModel } from "../../../utils.js";
 
 const { DefaultCriteria } = StringFilterState;

@@ -32,8 +32,8 @@
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { QueryIntrospection } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import { type RequestSelectorMap, DefaultRequestSelectorMap } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { QueryIntrospection } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
 type ConstraintVariables = Record<string, string | number>;
 

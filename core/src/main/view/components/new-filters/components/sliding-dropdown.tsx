@@ -30,8 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { css, styled } from "styled-components";
 import { memo, type FC, type ReactNode } from "react";
+
+import { css, styled } from "styled-components";
 
 import {
 	DataRoles,

@@ -32,9 +32,9 @@
 
 import { useMemo } from "react";
 
-import type { FilterItemState } from "../../../../store/index.js";
-import type { OverviewModel } from "../../../../overview-model.js";
 import { isFieldBasedFilterModelItem } from "../../../../models/filter-model-utils.js";
+import type { OverviewModel } from "../../../../overview-model.js";
+import type { FilterItemState } from "../../../../store/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useFilterLabelResolver, useFilterGroupLabelResolver } from "../components/filter-label-resolvers.js";
 

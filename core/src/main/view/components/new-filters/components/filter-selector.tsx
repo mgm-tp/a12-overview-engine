@@ -30,20 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { css, styled } from "styled-components";
 import { memo, type FC, useState, useEffect, useCallback } from "react";
+
+import { css, styled } from "styled-components";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../../../../store/index.js";
-import { useFilterState } from "../hooks/use-filter-state.js";
-import { useFilterItems } from "../hooks/use-filter-items.js";
-import { useFilterGroups } from "../hooks/use-filter-groups.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { UiStateSelector } from "../../../../store/index.js";
 import { useFilterFocusContext } from "../../../context/filter-focus-context.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useFilterGroups } from "../hooks/use-filter-groups.js";
+import { useFilterItems } from "../hooks/use-filter-items.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
+import { useFilterState } from "../hooks/use-filter-state.js";
 
 import { useFilterLabelResolver } from "./filter-label-resolvers.js";
 

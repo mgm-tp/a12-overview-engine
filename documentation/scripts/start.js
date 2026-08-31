@@ -34,8 +34,8 @@ import Fs from "node:fs/promises";
 
 import { create } from "browser-sync";
 
-import { Config } from "./config.js";
 import { compile } from "./compile.js";
+import { Config } from "./config.js";
 
 const browserSync = create();
 

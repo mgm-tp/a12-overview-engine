@@ -32,9 +32,9 @@
 
 import type { Middleware } from "redux";
 
+import type { OverviewEngineApi } from "../../../../view/api.js";
 import { Events, Commands } from "../../actions.js";
 import { UiStateSelector } from "../../selectors/ui-state.js";
-import type { OverviewEngineApi } from "../../../../view/api.js";
 
 /**
  * @internal

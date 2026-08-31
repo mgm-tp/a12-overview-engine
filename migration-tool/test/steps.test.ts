@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import * as Path from "node:path";
 import * as Fs from "node:fs/promises";
+import * as Path from "node:path";
 
 import { test, expect, describe } from "vitest";
 

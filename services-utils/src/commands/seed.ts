@@ -31,10 +31,10 @@
  */
 
 import fs from "node:fs";
-import Path from "node:path";
-import { inspect } from "node:util";
 import FsPromise from "node:fs/promises";
+import Path from "node:path";
 import { fileURLToPath } from "node:url";
+import { inspect } from "node:util";
 
 import { set } from "lodash-es";
 import type { CommandModule } from "yargs";
@@ -42,13 +42,13 @@ import type { CommandModule } from "yargs";
 import { JsonRpc2Response, type JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { AttachmentUploadV2, type AttachmentHeader } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import ProductData from "../utils/data/product.json" with { type: "json" };
 import CDMRequest from "../utils/data/cdmRequests.json" with { type: "json" };
+import ProductData from "../utils/data/product.json" with { type: "json" };
 import {
 	addRequest,
 	rpcRequest,
-	PresetsOption,
 	BaseUrlOption,
+	PresetsOption,
 	type PresetMap,
 	resolvePresets,
 	type RequestsCreator,

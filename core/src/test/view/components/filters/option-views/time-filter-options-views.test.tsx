@@ -30,20 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
 import { SectionType } from "../../../../../main/view/components/filters/options-views/section-template.js";
 import { TimeFilterOptionsView } from "../../../../../main/view/components/filters/options-views/time-filter-options-view.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
+import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
 import { getDocumentModel } from "../../../../setup/models.js";
 import { render, type QueriableElement } from "../../../../test-utils.js";
-import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.optionsViews.time-filter-options-view", () => {
 	const onChangeSpy = vi.fn();

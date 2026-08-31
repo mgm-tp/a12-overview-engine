@@ -38,7 +38,7 @@ import { test, expect } from "../../commands.js";
 import { setFilterItems } from "../../filter-utils.js";
 import { useModelOverride } from "../../model-override.js";
 import { ProductFieldIds } from "../../product-field-ids.js";
-import { Showcase, Selector, navigate } from "../../utils.js";
+import { Selector, Showcase, navigate } from "../../utils.js";
 
 function makeNameFilter(
 	overrides: Partial<OverviewModel.NewFilter.String.Item["options"]> = {}

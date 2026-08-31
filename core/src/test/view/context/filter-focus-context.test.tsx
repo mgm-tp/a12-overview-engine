@@ -31,8 +31,9 @@
  */
 
 import * as React from "react";
+
 import { act, render } from "@testing-library/react";
-import { vi, it, expect, describe, beforeEach } from "vitest";
+import { it, vi, expect, describe, beforeEach } from "vitest";
 
 import type { UiState } from "../../../main/store/index.js";
 import type { FilterFocusContext } from "../../../main/view/context/filter-focus-context.js";
@@ -41,7 +42,6 @@ import {
 	OverviewEngineContext,
 	type OverviewEngineContextType
 } from "../../../main/view/context/overview-engine-context.js";
-
 import { defaultEngineProps } from "../../basic.spec.js";
 
 interface FilterFixture {

@@ -37,10 +37,9 @@ import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { MultiSelectFilterState } from "../../../../main/store/internal/filter-state.js";
 import type { FilterLabelContext } from "../../../../main/store/internal/filter-controllers/filter-controller.js";
 import { MultiSelectFilterController } from "../../../../main/store/internal/filter-controllers/multi-select-controller.js";
-
+import { MultiSelectFilterState } from "../../../../main/store/internal/filter-state.js";
 import { createGroup, createDocumentModel, createEnumerationField } from "../../../utils.js";
 
 const controller = new MultiSelectFilterController();

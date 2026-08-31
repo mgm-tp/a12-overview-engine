@@ -33,10 +33,10 @@
 import { isAction, type Dispatch, type Middleware, type MiddlewareAPI, type UnknownAction } from "redux";
 
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
-import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
 import { ActivityActions } from "@com.mgmtp.a12.client/client-core";
 import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
 
 import { OverviewEngineInternalConstants } from "../../shared/constants.js";
 import { Commands, type MiddlewareOptions, createEngineMiddlewares } from "../../store/index.js";

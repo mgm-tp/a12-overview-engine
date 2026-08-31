@@ -32,10 +32,10 @@
 
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { QueryFilterState } from "../filter-state.js";
+import { isQueryFilterModelItem } from "../../../models/filter-model-utils.js";
 import type { OverviewModel } from "../../../overview-model.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
-import { isQueryFilterModelItem } from "../../../models/filter-model-utils.js";
+import type { QueryFilterState } from "../filter-state.js";
 
 import type { FilterController, FilterLabelContext } from "./filter-controller.js";
 

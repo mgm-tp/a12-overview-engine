@@ -32,8 +32,8 @@
 
 import { it, expect, describe } from "vitest";
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Query, type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { type QueryModel, QueryIntrospection } from "../src/index.js";
 

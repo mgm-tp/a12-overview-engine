@@ -34,9 +34,9 @@ import * as React from "react";
 
 import { Switch } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 
 import { EmptyLabel } from "./options-views/empty-label.js";
 

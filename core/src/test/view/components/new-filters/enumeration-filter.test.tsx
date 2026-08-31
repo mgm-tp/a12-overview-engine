@@ -35,11 +35,10 @@ import { it, expect, describe } from "vitest";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
-import type { DocumentModelModifier } from "./setup.js";
 import { renderEnumerationFilter } from "./pages/enumeration-filter-page.js";
+import type { DocumentModelModifier } from "./setup.js";
 
 const baseEnumerationOptions: OverviewModel.NewFilter.Enumeration.Item = {
 	id: "targetGroup",

@@ -32,15 +32,15 @@
 
 import * as React from "react";
 
-import { type A11yDefinition, type BaseColumnType, A11YLanguageContext } from "@com.mgmtp.a12.widgets/widgets-core";
+import { A11YLanguageContext, type A11yDefinition, type BaseColumnType } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewModel } from "../../overview-model.js";
 import type { JSONDocument } from "../../models/index.js";
 import { MultiSelectModelUtils } from "../../models/internal/shared.js";
-import { UiStateSelector, type ColumnWidths } from "../../store/index.js";
+import { OverviewModel } from "../../overview-model.js";
 import { getModelIdFromColumn } from "../../services/relationship/index.js";
-import { useOverviewEngineInternalContext } from "../context/overview-engine-internal-context.js";
+import { UiStateSelector, type ColumnWidths } from "../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../context/overview-engine-internal-context.js";
 
 import { LocalizerHooks } from "./localizer-hooks.js";
 import { useRelationshipModels } from "./use-relationship.js";

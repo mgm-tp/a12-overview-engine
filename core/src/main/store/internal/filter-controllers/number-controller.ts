@@ -30,20 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
-import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
+import { isNumberFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 import type { OverviewModel } from "../../../overview-model.js";
 import { formatRange } from "../../../services/filter-format-utils.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
 import { NumberFilterState, type SelectedRangeCriteriaEntry } from "../filter-state.js";
-import { isNumberFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 
-import { isInvalidRange } from "./resolvers/resolver.js";
 import { RangeCriteria, PeriodCriteria } from "./criteria.js";
-import { numberResolver } from "./resolvers/number-resolver.js";
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
+import { numberResolver } from "./resolvers/number-resolver.js";
+import { isInvalidRange } from "./resolvers/resolver.js";
 
 /** @internal */
 export class NumberFilterController implements FilterController<

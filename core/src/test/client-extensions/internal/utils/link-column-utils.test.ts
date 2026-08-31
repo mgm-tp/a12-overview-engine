@@ -32,9 +32,8 @@
 
 import { it, expect, describe } from "vitest";
 
-import type { OverviewModel } from "../../../../main/overview-model.js";
 import { removeLinkReferencesForExcludeMode } from "../../../../main/client-extensions/internal/utils/link-column-utils.js";
-
+import type { OverviewModel } from "../../../../main/overview-model.js";
 import { createColumn, createLinkedColumn, createOverviewModel } from "../../../utils.js";
 
 const RELATIONSHIP = "PersonAddressRM";

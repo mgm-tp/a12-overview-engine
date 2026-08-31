@@ -31,6 +31,7 @@
  */
 
 import { shallowEqual } from "react-redux";
+
 import { weakMapMemoize, createSelectorCreator } from "reselect";
 
 /** @internal */

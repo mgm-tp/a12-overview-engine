@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import ChildProcess from "node:child_process";
 import Path from "node:path";
 import Process from "node:process";
-import ChildProcess from "node:child_process";
 
 const isWindows = Process.platform === "win32";
 

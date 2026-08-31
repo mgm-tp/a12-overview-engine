@@ -31,17 +31,17 @@
  */
 
 import * as React from "react";
+
 import { fireEvent } from "@testing-library/react";
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/languages/en.js";
 import { OverviewEngineInternalConstants } from "../../../../../main/shared/constants.js";
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { EnumeratedStringFilterOptionsView } from "../../../../../main/view/components/filters/options-views/enumerated-string-filter-options-view.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type TestReduxState } from "../../../../test-utils.js";
 

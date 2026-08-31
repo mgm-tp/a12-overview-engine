@@ -35,9 +35,9 @@ import { it, expect, describe } from "vitest";
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
+import { InfiniteScrollUtils } from "../../../../main/client-extensions/internal/utils/infinite-scroll-utils.js";
 import { Links } from "../../../../main/models/index.js";
 import type { Scrolling } from "../../../../main/store/index.js";
-import { InfiniteScrollUtils } from "../../../../main/client-extensions/internal/utils/infinite-scroll-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.client-extensions.utils.infinite-scroll-utils", () => {
 	describe("InfiniteScrollUtils", () => {

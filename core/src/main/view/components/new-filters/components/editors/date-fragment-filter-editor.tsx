@@ -41,21 +41,21 @@ import {
 	HTMLInputAdapter
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { useTargetModelId } from "../filter-label-resolvers.js";
-import type { SegmentOption } from "../../../../../store/index.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import type { OverviewModel } from "../../../../../overview-model.js";
-import { getYearBlurError } from "../utilities/year-input-validation.js";
-import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
-import type { DateFragmentFilterState } from "../../../../../store/index.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { SectionType } from "../../../filters/options-views/section-template.js";
-import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
-import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
-import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import type { SegmentOption } from "../../../../../store/index.js";
+import type { DateFragmentFilterState } from "../../../../../store/index.js";
 import { PeriodCriteria } from "../../../../../store/internal/filter-controllers/criteria.js";
+import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
+import { SectionType } from "../../../filters/options-views/section-template.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
+import { useTargetModelId } from "../filter-label-resolvers.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
+import { getYearBlurError } from "../utilities/year-input-validation.js";
 
 const MonthDayInput = BufferedInput(HTMLInputAdapter(TextField));
 

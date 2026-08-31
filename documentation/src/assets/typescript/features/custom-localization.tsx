@@ -30,10 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+// tag::customLocalization[]
 import * as React from "react";
 
-// tag::customLocalization[]
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { OverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
 	type Locale,
@@ -41,6 +40,7 @@ import {
 	defaultValueConversion,
 	defaultLocalizerFactory
 } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
 export const Application: React.ComponentType<{ engineProps: OverviewEngine.Props }> = ({ engineProps }) => {
 	const localizerContextValue = React.useMemo(() => {

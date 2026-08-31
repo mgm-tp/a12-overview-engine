@@ -35,9 +35,9 @@ import { it, vi, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import type { OverviewModel } from "../../../main/overview-model.js";
 import { type FilterState, FilterStateBuilder } from "../../../main/index.js";
 import type { DocumentModelService } from "../../../main/models/internal/shared.js";
+import type { OverviewModel } from "../../../main/overview-model.js";
 import type { FilterStateSelectors } from "../../../main/store/internal/selectors/filter-selectors.js";
 
 const documentModelServiceMock = vi.hoisted(() => ({

@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { Query, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import type { OverviewModel } from "../../../overview-model.js";
-import type { RelationshipField } from "../../../store/index.js";
 import { DocumentModelUtils } from "../../../models/internal/shared.js";
+import type { OverviewModel } from "../../../overview-model.js";
 import { getModelIdFromColumn } from "../../../services/relationship/index.js";
+import type { RelationshipField } from "../../../store/index.js";
 
 /**
  * Converts a linkReferences + elementRef into a nested RelationshipField

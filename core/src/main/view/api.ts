@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { InfiniteScrollOptions as WidgetInfiniteScrollOptions } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewModel } from "../overview-model.js";
-import type { JSONDocument } from "../models/index.js";
-import { DialogTypes } from "../shared/dialog-types.js";
-import { DocumentModelUtils } from "../models/internal/shared.js";
 import { buildRelationshipField, relationshipFieldEquals } from "../client-extensions/internal/shared.js";
+import type { JSONDocument } from "../models/index.js";
+import { DocumentModelUtils } from "../models/internal/shared.js";
+import { OverviewModel } from "../overview-model.js";
+import { DialogTypes } from "../shared/dialog-types.js";
 import {
 	type Events,
 	SortingOrder,
@@ -48,8 +48,8 @@ import {
 	type Sorting as StoreSorting
 } from "../store/index.js";
 
-import type { RowActionConfirmDialog } from "./components/dialogs/sub-components/row-action-confirm-dialog.js";
 import type { OverviewButtonConfirmDialog } from "./components/dialogs/sub-components/overview-button-confirm-dialog.js";
+import type { RowActionConfirmDialog } from "./components/dialogs/sub-components/row-action-confirm-dialog.js";
 import type {
 	DateViewSelection,
 	DateTimeViewSelection
@@ -489,6 +489,11 @@ export namespace OverviewEngineApi {
 		 * Handle a multi-selection button click
 		 */
 		onMultiSelectionButtonClick?(): void;
+
+		/**
+		 * Handle an export action (e.g. export to Excel).
+		 */
+		onExport?(): void;
 
 		/**
 		 * @internal

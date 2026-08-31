@@ -31,24 +31,25 @@
  */
 
 import type React from "react";
+
 import type { Middleware } from "redux";
 
 import type { View, Module, DataProvider, ApplicationSaga, ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
 import type { MiddlewareOptions } from "../../store/index.js";
 
-import { OverviewEngineContainer } from "./view/container.js";
+import type { OverviewEngineDataLoader } from "./data-loader/data-loader.js";
 import { defaultDataLoader } from "./data-loader/default-data-loader.js";
 import { createOverviewEngineDataReducers } from "./data-reducers/index.js";
-import type { OverviewEngineDataLoader } from "./data-loader/data-loader.js";
-import { createApplicationSagas as createApplicationSagasInternal } from "./sagas.js";
-import { OverviewEngineDataProvider } from "./providers/overview-engine-data-provider.js";
-import { EnumeratedStringDataProvider } from "./providers/enumerated-string-data-provider.js";
-import type { DataProvidersConfig as InternalDataProvidersConfig } from "./providers/types.js";
 import {
 	createOverviewEngineAdapterMiddleware,
 	createOverviewEngineDataServicesMonitoredPropertiesMiddleware
 } from "./middlewares.js";
+import { EnumeratedStringDataProvider } from "./providers/enumerated-string-data-provider.js";
+import { OverviewEngineDataProvider } from "./providers/overview-engine-data-provider.js";
+import type { DataProvidersConfig as InternalDataProvidersConfig } from "./providers/types.js";
+import { createApplicationSagas as createApplicationSagasInternal } from "./sagas.js";
+import { OverviewEngineContainer } from "./view/container.js";
 
 export namespace OverviewEngineFactories {
 	export type ModuleConfig = InternalDataProvidersConfig;

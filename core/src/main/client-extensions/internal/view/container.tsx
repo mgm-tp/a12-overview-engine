@@ -35,17 +35,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { List, InfiniteLoader } from "react-virtualized";
 
-import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 import { Activity, type View, ViewViews, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewActivity } from "../activity.js";
-import { OverviewEngineActions } from "../actions.js";
-import { OverviewEngineSelectors } from "../selectors.js";
 import type { JSONDocument } from "../../../models/index.js";
-import { resolveRowActivation } from "../../../view/utils.js";
 import type { OverviewModel } from "../../../overview-model.js";
-import { OverviewEngine } from "../../../view/overview-engine.js";
 import { Commands, type UiState, UiStateSelector } from "../../../store/index.js";
+import { OverviewEngine } from "../../../view/overview-engine.js";
+import { resolveRowActivation } from "../../../view/utils.js";
+import { OverviewEngineActions } from "../actions.js";
+import { OverviewActivity } from "../activity.js";
+import { OverviewEngineSelectors } from "../selectors.js";
 
 import { useModels, useSelectedRow, useEventHandlers, useInfiniteScrollOptions } from "./hooks/index.js";
 

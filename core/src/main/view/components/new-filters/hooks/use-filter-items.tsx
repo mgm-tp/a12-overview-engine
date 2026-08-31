@@ -34,13 +34,15 @@ import { useMemo } from "react";
 
 import type { FilterItemData, FilterSectionData } from "@com.mgmtp.a12.widgets/widgets-core";
 
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { STATEFUL_FILTER_TYPES } from "../components/editors/filter-editor.js";
 import { useFilterLabelResolver } from "../components/filter-label-resolvers.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 
-import { useFilterState } from "./use-filter-state.js";
 import type { FilterGroup } from "./use-filter-groups.js";
 import { useFilterSelectors } from "./use-filter-selectors.js";
+import { useFilterState } from "./use-filter-state.js";
 
 export interface UseFilterItemsOptions {
 	readonly groups: readonly FilterGroup[];
@@ -55,6 +57,10 @@ export function useFilterItems({
 }: UseFilterItemsOptions): (FilterItemData | FilterSectionData)[] {
 	const filterStates = useFilterState((s) => s?.filters);
 	const filterStateSelectors = useFilterSelectors();
+
+	const localizedResource = LocalizerHooks.useLocalizedResource();
+	const appliedBadgeTitle = localizedResource(RESOURCE_KEYS.overviewEngine.newFilter.section.appliedTitle);
+	const errorBadgeTitle = localizedResource(RESOURCE_KEYS.overviewEngine.newFilter.section.errorTitle);
 
 	const resolveFilterLabel = useFilterLabelResolver();
 	const FilterEditor = useOverviewEngineContext((c) => c.componentMap.newFilter.FilterEditor);
@@ -93,6 +99,7 @@ export function useFilterItems({
 				content: shouldMountEditor ? <FilterEditor filterState={filterState} /> : null,
 				active: isResettable,
 				badgeVariant: hasErrors ? "error" : "info",
+				badgeTitle: hasErrors ? errorBadgeTitle : appliedBadgeTitle,
 				collapsed: filterState.collapsed,
 				onCollapseChange: (collapsed) => onCollapseChange(filterId, collapsed),
 				onFocus: () => onFocusedFilterChange(filterId),
@@ -124,6 +131,8 @@ export function useFilterItems({
 	}, [
 		filterStates,
 		filterStateSelectors,
+		appliedBadgeTitle,
+		errorBadgeTitle,
 		resolveFilterLabel,
 		groups,
 		onCollapseChange,

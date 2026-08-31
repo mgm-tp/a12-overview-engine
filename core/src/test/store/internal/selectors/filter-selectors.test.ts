@@ -33,9 +33,9 @@
 import { it, vi, expect, describe, beforeEach } from "vitest";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
+import type { ControllerResolver } from "../../../../main/store/internal/filter-controllers/controller-map.js";
 import type { FilterItemState } from "../../../../main/store/internal/filter-state.js";
 import { createFilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
-import type { ControllerResolver } from "../../../../main/store/internal/filter-controllers/controller-map.js";
 
 function makeFilterState(overrides: Partial<FilterItemState> = {}): FilterItemState {
 	const model: OverviewModel.NewFilter.Item =

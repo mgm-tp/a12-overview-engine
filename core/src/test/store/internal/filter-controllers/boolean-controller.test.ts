@@ -35,8 +35,8 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { BooleanFilterState } from "../../../../main/store/internal/filter-state.js";
 import { BooleanFilterController } from "../../../../main/store/internal/filter-controllers/boolean-controller.js";
+import { BooleanFilterState } from "../../../../main/store/internal/filter-state.js";
 
 const controller = new BooleanFilterController();
 const { DefaultCriteria } = BooleanFilterController;

@@ -32,19 +32,18 @@
 
 import { it, vi, expect, describe, afterEach } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
-import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import type { EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { DocumentUtils } from "../../../../../main/models/internal/shared.js";
+import { OverviewModel } from "../../../../../main/overview-model.js";
 import { ExpressionCell } from "../../../../../main/view/components/table/sub-components/expression-cell.js";
 import type { FieldFormatterParams } from "../../../../../main/view/components/table/sub-components/field-reference-cell.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, type QueriableElement } from "../../../../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../../../../setup/models.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.expression-cell", async () => {
 	const basicEngineProps = {

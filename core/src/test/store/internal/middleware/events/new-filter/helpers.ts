@@ -30,14 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi } from "vitest";
 import type { Middleware } from "redux";
+import { vi } from "vitest";
 
 import type { FilterState } from "../../../../../../main/index.js";
 import { Commands } from "../../../../../../main/store/internal/actions.js";
-import type { UiState } from "../../../../../../main/store/internal/store.js";
 import type { FilterItemState } from "../../../../../../main/store/internal/filter-state.js";
 import type { FilterStateSelectors } from "../../../../../../main/store/internal/selectors/filter-selectors.js";
+import type { UiState } from "../../../../../../main/store/internal/store.js";
 
 type MockStore = {
 	readonly getState: ReturnType<typeof vi.fn<() => UiState>>;

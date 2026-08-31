@@ -30,28 +30,27 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { waitFor } from "@testing-library/react";
 import { Lens } from "monocle-ts";
 import type { Store } from "redux";
 import { it, expect, describe } from "vitest";
-import { waitFor } from "@testing-library/react";
 
 import { noop } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { UiState } from "../../../../main/store/index.js";
+import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
 import type { OverviewModel } from "../../../../main/overview-model.js";
+import type { UiState } from "../../../../main/store/index.js";
 import { Events, Commands, UiStateSelector } from "../../../../main/store/index.js";
 import type { StringFilterState } from "../../../../main/store/internal/filter-state.js";
-import { FilterFocusContext } from "../../../../main/view/context/filter-focus-context.js";
-import { assertCondition } from "../../../../main/client-extensions/internal/utils/assertion.js";
-import { FilterBar } from "../../../../main/view/components/new-filters/components/filter-bar.js";
-import { OverviewContentBoxContext } from "../../../../main/view/context/overview-content-box-context.js";
-import { FilterSelector } from "../../../../main/view/components/new-filters/components/filter-selector.js";
 import { DefaultFilterStateSelectors } from "../../../../main/store/internal/selectors/filter-selectors.js";
-
-import { ProductFieldIds } from "../../../setup/product-field-ids.js";
+import { FilterBar } from "../../../../main/view/components/new-filters/components/filter-bar.js";
+import { FilterSelector } from "../../../../main/view/components/new-filters/components/filter-selector.js";
+import { FilterFocusContext } from "../../../../main/view/context/filter-focus-context.js";
+import { OverviewContentBoxContext } from "../../../../main/view/context/overview-content-box-context.js";
 import { getDocumentModel, getOverviewModel } from "../../../setup/models.js";
+import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
-import { renderWithStore, baseFilterGroup, baseFilterConfiguration } from "./setup.js";
+import { baseFilterGroup, renderWithStore, baseFilterConfiguration } from "./setup.js";
 
 const filterConfigurationLens = Lens.fromPath<OverviewModel>()(["content", "configuration", "newFilterConfiguration"]);
 

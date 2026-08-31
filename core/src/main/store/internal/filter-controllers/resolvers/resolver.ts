@@ -32,10 +32,10 @@
 
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import type { FilterLabelContext } from "../filter-controller.js";
 import type { OverviewModel } from "../../../../overview-model.js";
-import type { RangeCriteria, BoundarySegment } from "../criteria.js";
 import { isDefined } from "../../../../services/filter-format-utils.js";
+import type { RangeCriteria, BoundarySegment } from "../criteria.js";
+import type { FilterLabelContext } from "../filter-controller.js";
 
 /**
  * Encapsulates one input shape: validation projection, label rendering, optional

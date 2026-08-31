@@ -33,7 +33,7 @@
 import Chance from "chance";
 import { addDays, getDate, getMonth } from "date-fns";
 
-import { addRequest, linkEntities } from "../index.js";
+import { addRequest, linkEntities } from "../request.js";
 
 function generateBundle(chance: Chance.Chance) {
 	const releaseDate = chance.date({ year: 2021 }) as Date;

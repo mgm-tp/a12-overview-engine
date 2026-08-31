@@ -1,0 +1,49 @@
+[versions]
+# A12 components
+dataservices = "39.0.3"
+wcf = "1.1.1"
+runtime-model-conversion = "0.5.0"
+build-utilities = "0.5.0"
+integration = "0.1.6"
+# Gradle plugins
+spring-boot = "4.0.6"
+node-gradle = "7.1.0"
+docker-remote-api = "10.0.0"
+devtools-deployment = "0.8.0"
+git-version = "4.3.0"
+artifact-publish = "0.4.3"
+thirdPartyNoticesPlugin = "0.2.25"
+# Other libraries
+logstash = "7.4"
+logback-classic = "1.5.6"
+jackson = "3.1.2"
+
+[libraries]
+# A12
+build-utilities = { module = "com.mgmtp.a12.devtools.plugins:build-utilities", version.ref = "build-utilities" }
+base-bom = { module = "com.mgmtp.a12.base:base-bom" }
+base-model-api = { module = "com.mgmtp.a12.base:base-model-api" }
+kernel-bom = { module = "com.mgmtp.a12.kernel:kernel-bom" }
+kernel-md-facade = { module = "com.mgmtp.a12.kernel:kernel-md-facade" }
+dataservices-bom = { module = "com.mgmtp.a12.dataservices:dataservices-parent", version.ref = "dataservices" }
+dataservices-server-app = { module = "com.mgmtp.a12.dataservices:dataservices-server-app", version.ref = "dataservices" }
+dataservices-server-init-app = { module = "com.mgmtp.a12.dataservices:dataservices-server-init-app", version.ref = "dataservices" }
+dataservices-wcf-cli = { module = "com.mgmtp.a12.dataservices.wcf:dataservices-wcf-cli", version.ref = "wcf" }
+dataservices-wcf-api = { module = "com.mgmtp.a12.dataservices.wcf:dataservices-wcf-api", version.ref = "wcf" }
+rmc-conversion = { module = "com.mgmtp.a12.rmc:conversion", version.ref = "runtime-model-conversion" }
+# Other
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+logstash = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstash" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
+jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
+
+[plugins]
+git-version = { id = "com.palantir.git-version", version.ref = "git-version" }
+artifact-publish = { id = "com.mgmtp.a12.bd.artifact-publish", version.ref = "artifact-publish" }
+integration = { id = "com.mgmtp.a12.devtools.plugins.integration", version.ref = "integration" }
+devtools-deployment = { id = "com.mgmtp.a12.devtools.plugins.deployment", version.ref = "devtools-deployment" }
+docker-remote-api = { id = "com.bmuschko.docker-remote-api", version.ref = "docker-remote-api" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+node-gradle = { id = "com.github.node-gradle.node", version.ref = "node-gradle" }
+devtools-thirdPartyNotices = { id = "com.mgmtp.a12.devtools.plugins.third-party-notices", version.ref = "thirdPartyNoticesPlugin" }

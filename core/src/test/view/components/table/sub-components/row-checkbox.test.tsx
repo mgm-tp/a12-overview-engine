@@ -36,11 +36,10 @@ import { it, vi, expect, describe, beforeEach } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
-import type { OverviewEngineApi } from "../../../../../main/view/api.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
-
+import type { OverviewEngineApi } from "../../../../../main/view/api.js";
+import { NumberColumnModel, StringColumnModel, defaultEngineProps } from "../../../../basic.spec.js";
 import type { QueriableElement } from "../../../../test-utils.js";
-import { StringColumnModel, NumberColumnModel, defaultEngineProps } from "../../../../basic.spec.js";
 import {
 	setupMultiSelection,
 	disabledMultiSelection,

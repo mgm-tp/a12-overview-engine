@@ -31,6 +31,7 @@
  */
 
 import * as React from "react";
+
 import { ThemeProvider, StyleSheetManager } from "styled-components";
 
 import { addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
@@ -38,8 +39,8 @@ import {
 	noop,
 	flatTheme,
 	GlobalStyles,
-	defaultTheme,
 	compactTheme,
+	defaultTheme,
 	createContext,
 	type Container,
 	flatCompactTheme,

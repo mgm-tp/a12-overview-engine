@@ -32,12 +32,12 @@
 
 import { memo, type FC, useMemo } from "react";
 
+import { isFieldBasedFilterModelItem } from "../../../../models/filter-model-utils.js";
 import { UiStateSelector } from "../../../../store/index.js";
 import type { FilterItemState } from "../../../../store/index.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 import { useFilterFocusContext } from "../../../context/filter-focus-context.js";
-import { isFieldBasedFilterModelItem } from "../../../../models/filter-model-utils.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 
 import { useFilterLabelResolver, useFilterDisplayValueResolver } from "./filter-label-resolvers.js";
 

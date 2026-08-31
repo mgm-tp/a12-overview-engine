@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { isDefined, formatRange, createDateFormatter } from "../../../../services/filter-format-utils.js";
 import { RangeCriteria } from "../criteria.js";
 import { padYearMonthDayTime } from "../date-period-utils.js";
-import { isDefined, formatRange, createDateFormatter } from "../../../../services/filter-format-utils.js";
 
 import type { Resolver } from "./resolver.js";
 

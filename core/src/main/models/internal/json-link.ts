@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { DocumentUtils } from "./shared.js";
 import type { JSONDocument } from "./json-document.js";
+import { DocumentUtils } from "./shared.js";
 
 /** Link metadata without the resolved document. Stored as entries in {@link Links}. */
 export interface JSONLinkRef {

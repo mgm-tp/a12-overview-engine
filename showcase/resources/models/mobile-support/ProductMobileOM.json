@@ -1,218 +1,218 @@
 {
-	"header": {
-		"id": "ProductMobileOM",
-		"modelType": "overview",
-		"modelVersion": "39.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [
-			{
-				"locale": "en",
-				"text": "List of all products"
-			},
-			{
-				"locale": "de",
-				"text": "Liste aller Produkte"
-			}
-		],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "document-model-for-overview",
-				"modelType": "document",
-				"alias": "DM",
-				"reference": "ProductDM"
-			}
-		]
-	},
-	"content": {
-		"subHeaderBox": {
-			"rightSlot": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"leftSlot": [
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
-		"footerBox": {
-			"rightSlot": [],
-			"leftSlot": []
-		},
-		"columns": [
-			{
-				"id": "column-752d19",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Expression"
-					},
-					{
-						"locale": "de",
-						"text": "Expression"
-					}
-				],
-				"width": 1,
-				"name": "Expression",
-				"expression": "kontext(product) { \n    \"<p style='color: gray;'>\"[dateField]\"</p>\"\n    \"<p style='color: blue; font-weight: 600;'>\" [name] \"</p>\"\n    case [targetGroup] = \"women\" {\n        \"<p style='font-weight: 600'>\"[description]\"</p>\"\n    }\n    case [targetGroup] != \"women\" {\n        \"<p style='color: gray;'>\"[description]\"</p>\"\n    }      \n}"
-			},
-			{
-				"id": "column-6aac6",
-				"labelHidden": true,
-				"width": 0.3,
-				"alignment": {
-					"content": {
-						"horizontal": "center",
-						"vertical": "middle"
-					}
-				},
-				"styles": {},
-				"elementRef": "F54",
-				"sortable": false
-			}
-		],
-		"rowActionGroup": {
-			"actions": []
-		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_expanded",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Add to cart"
-							},
-							{
-								"locale": "de",
-								"text": "In den Warenkorb legen"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "shopping_cart",
-							"theme": "filled"
-						},
-						"event": "add_to_cart_event",
-						"labelHidden": true,
-						"primary": false
-					},
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Delete"
-							},
-							{
-								"locale": "de",
-								"text": "Löschen"
-							}
-						],
-						"destructive": false,
-						"icon": {
-							"name": "delete",
-							"theme": "filled"
-						},
-						"event": "event_delete_rows",
-						"labelHidden": true,
-						"confirmation": {
-							"title": [
-								{
-									"locale": "en",
-									"text": "Rows Deletion"
-								},
-								{
-									"locale": "de",
-									"text": "Löschen von Zeilen"
-								}
-							],
-							"message": [
-								{
-									"locale": "en",
-									"text": "\bDo you want to delete selected rows?"
-								},
-								{
-									"locale": "de",
-									"text": "Möchten Sie ausgewählte Zeilen löschen?"
-								}
-							]
-						},
-						"primary": false
-					}
-				]
-			},
-			"showFullTextSearch": true,
-			"subtitle": [
-				{
-					"locale": "en",
-					"text": "Sports accessories"
-				},
-				{
-					"locale": "de",
-					"text": "Sportzubehör"
-				}
-			],
-			"rowTitle": [
-				{
-					"locale": "en",
-					"text": "Click to select this product"
-				},
-				{
-					"locale": "de",
-					"text": "Klicken Sie, um dieses Produkt auszuwählen"
-				}
-			],
-			"actionColumnWidth": 0.7,
-			"labelHidden": true,
-			"rowHeight": 120,
-			"enableInfiniteScroll": true,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all",
-				"sectionData": [
-					{
-						"id": "section-number",
-						"label": [
-							{
-								"locale": "en",
-								"text": "Number"
-							},
-							{
-								"locale": "de",
-								"text": "Nummer"
-							}
-						],
-						"fields": [
-							{
-								"fieldId": "F3"
-							},
-							{
-								"fieldId": "F5"
-							},
-							{
-								"fieldId": "F6"
-							}
-						]
-					}
-				]
-			}
-		}
-	}
+  "header": {
+    "id": "ProductMobileOM",
+    "modelType": "overview",
+    "modelVersion": "39.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [
+      {
+        "locale": "en",
+        "text": "List of all products"
+      },
+      {
+        "locale": "de",
+        "text": "Liste aller Produkte"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "document-model-for-overview",
+        "modelType": "document",
+        "alias": "DM",
+        "reference": "ProductDM"
+      }
+    ]
+  },
+  "content": {
+    "subHeaderBox": {
+      "rightSlot": [
+        {
+          "type": "search"
+        },
+        {
+          "type": "filter"
+        }
+      ],
+      "leftSlot": [
+        {
+          "type": "multi_selection"
+        }
+      ]
+    },
+    "footerBox": {
+      "rightSlot": [],
+      "leftSlot": []
+    },
+    "columns": [
+      {
+        "id": "column-752d19",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Expression"
+          },
+          {
+            "locale": "de",
+            "text": "Expression"
+          }
+        ],
+        "width": 1,
+        "name": "Expression",
+        "expression": "kontext(product) { \n    \"<p style='color: gray;'>\"[dateField]\"</p>\"\n    \"<p style='color: blue; font-weight: 600;'>\" [name] \"</p>\"\n    case [targetGroup] = \"women\" {\n        \"<p style='font-weight: 600'>\"[description]\"</p>\"\n    }\n    case [targetGroup] != \"women\" {\n        \"<p style='color: gray;'>\"[description]\"</p>\"\n    }      \n}"
+      },
+      {
+        "id": "column-6aac6",
+        "labelHidden": true,
+        "width": 0.3,
+        "alignment": {
+          "content": {
+            "horizontal": "center",
+            "vertical": "middle"
+          }
+        },
+        "styles": {},
+        "elementRef": "F54",
+        "sortable": false
+      }
+    ],
+    "rowActionGroup": {
+      "actions": []
+    },
+    "styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+    "configuration": {
+      "enableFilter": true,
+      "multiSelection": {
+        "collapseOption": "collapsible_expanded",
+        "counterOption": "simple",
+        "buttons": [
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Add to cart"
+              },
+              {
+                "locale": "de",
+                "text": "In den Warenkorb legen"
+              }
+            ],
+            "destructive": false,
+            "icon": {
+              "name": "shopping_cart",
+              "theme": "filled"
+            },
+            "event": "add_to_cart_event",
+            "labelHidden": true,
+            "primary": false
+          },
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Delete"
+              },
+              {
+                "locale": "de",
+                "text": "Löschen"
+              }
+            ],
+            "destructive": false,
+            "icon": {
+              "name": "delete",
+              "theme": "filled"
+            },
+            "event": "event_delete_rows",
+            "labelHidden": true,
+            "confirmation": {
+              "title": [
+                {
+                  "locale": "en",
+                  "text": "Rows Deletion"
+                },
+                {
+                  "locale": "de",
+                  "text": "Löschen von Zeilen"
+                }
+              ],
+              "message": [
+                {
+                  "locale": "en",
+                  "text": "\bDo you want to delete selected rows?"
+                },
+                {
+                  "locale": "de",
+                  "text": "Möchten Sie ausgewählte Zeilen löschen?"
+                }
+              ]
+            },
+            "primary": false
+          }
+        ]
+      },
+      "showFullTextSearch": true,
+      "subtitle": [
+        {
+          "locale": "en",
+          "text": "Sports accessories"
+        },
+        {
+          "locale": "de",
+          "text": "Sportzubehör"
+        }
+      ],
+      "rowTitle": [
+        {
+          "locale": "en",
+          "text": "Click to select this product"
+        },
+        {
+          "locale": "de",
+          "text": "Klicken Sie, um dieses Produkt auszuwählen"
+        }
+      ],
+      "actionColumnWidth": 0.7,
+      "labelHidden": true,
+      "rowHeight": 120,
+      "enableInfiniteScroll": true,
+      "filterConfiguration": {
+        "showFilterButton": true,
+        "showFilterBar": true,
+        "filterMode": "all",
+        "sectionData": [
+          {
+            "id": "section-number",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Number"
+              },
+              {
+                "locale": "de",
+                "text": "Nummer"
+              }
+            ],
+            "fields": [
+              {
+                "fieldId": "F3"
+              },
+              {
+                "fieldId": "F5"
+              },
+              {
+                "fieldId": "F6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
 }

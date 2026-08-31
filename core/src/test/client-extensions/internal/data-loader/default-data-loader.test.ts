@@ -32,15 +32,15 @@
 
 import { it, expect, describe } from "vitest";
 
-import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Query, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, DocumentService } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { Links } from "../../../../main/models/index.js";
 import type { DataOperation } from "../../../../main/client-extensions/internal/data-loader/data-loader.js";
 import {
 	type BuildResultContext,
 	buildListDocumentsResult
 } from "../../../../main/client-extensions/internal/data-loader/default-data-loader.js";
+import { Links } from "../../../../main/models/index.js";
 
 // -- Fixtures ----------------------------------------------------------------
 

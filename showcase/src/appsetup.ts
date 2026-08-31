@@ -30,11 +30,6 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { DeepLinkingFactories } from "@com.mgmtp.a12.client/client-core/deepLinking";
-import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import { DataServicesReducerMap } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
 import {
 	ModelActions,
 	ApplicationFactories,
@@ -42,13 +37,18 @@ import {
 	ModuleRegistryProvider,
 	APPLICATION_MODEL_PLACEHOLDER
 } from "@com.mgmtp.a12.client/client-core";
+import { DeepLinkingFactories } from "@com.mgmtp.a12.client/client-core/deepLinking";
+import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
+import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
+import { DataServicesReducerMap } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { Modules } from "./modules/index.js";
-import { createComposeEnhancer } from "./config/redux.js";
-import { handleErrorSaga } from "./modules/common/saga.js";
 import { initializationMiddleware } from "./config/init.js";
-import { SimpleFormFactories } from "./modules/simple-form/index.js";
+import { createComposeEnhancer } from "./config/redux.js";
 import { customRequestSelectorMap } from "./config/request-selector-map.js";
+import { handleErrorSaga } from "./modules/common/saga.js";
+import { Modules } from "./modules/index.js";
+import { SimpleFormFactories } from "./modules/simple-form/index.js";
 
 export function setup(): ApplicationSetup {
 	ModuleRegistryProvider.getInstance().addModule(

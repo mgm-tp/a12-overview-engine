@@ -1,89 +1,89 @@
 {
-	"header": {
-		"id": "PersonDepartmentRM",
-		"modelType": "relationship",
-		"modelVersion": "4.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "person",
-				"reference": "PersonDM"
-			},
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "department",
-				"reference": "PersonDepartmentDM"
-			},
-			{
-				"purpose": "Link Document model",
-				"modelType": "document",
-				"alias": "Link Model",
-				"reference": "PersonDepartment_AdditionalLinkFields_DM"
-			}
-		]
-	},
-	"content": {
-		"duplicatesAllowed": false,
-		"labels": [
-			{
-				"locale": "en"
-			},
-			{
-				"locale": "de"
-			}
-		],
-		"entityCharacteristics": [
-			{
-				"documentModel": "PersonDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en"
-					},
-					{
-						"locale": "de"
-					}
-				],
-				"role": "person",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": true,
-						"upperLimit": null
-					}
-				}
-			},
-			{
-				"documentModel": "PersonDepartmentDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en"
-					},
-					{
-						"locale": "de"
-					}
-				],
-				"role": "department",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				}
-			}
-		],
-		"linkDocumentModel": "PersonDepartment_AdditionalLinkFields_DM"
-	}
+  "header": {
+    "id": "PersonDepartmentRM",
+    "modelType": "relationship",
+    "modelVersion": "4.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "person",
+        "reference": "PersonDM"
+      },
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "department",
+        "reference": "PersonDepartmentDM"
+      },
+      {
+        "purpose": "Link Document model",
+        "modelType": "document",
+        "alias": "Link Model",
+        "reference": "PersonDepartment_AdditionalLinkFields_DM"
+      }
+    ]
+  },
+  "content": {
+    "duplicatesAllowed": false,
+    "labels": [
+      {
+        "locale": "en"
+      },
+      {
+        "locale": "de"
+      }
+    ],
+    "entityCharacteristics": [
+      {
+        "documentModel": "PersonDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en"
+          },
+          {
+            "locale": "de"
+          }
+        ],
+        "role": "person",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": true,
+            "upperLimit": null
+          }
+        }
+      },
+      {
+        "documentModel": "PersonDepartmentDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en"
+          },
+          {
+            "locale": "de"
+          }
+        ],
+        "role": "department",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": false,
+            "upperLimit": 1
+          }
+        }
+      }
+    ],
+    "linkDocumentModel": "PersonDepartment_AdditionalLinkFields_DM"
+  }
 }

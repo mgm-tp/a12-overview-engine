@@ -33,8 +33,8 @@
 import { it, expect, describe } from "vitest";
 
 import { OverviewModel } from "../../../../main/overview-model.js";
-import type { UiState } from "../../../../main/store/internal/store.js";
 import { UiStateSelector } from "../../../../main/store/internal/selectors/ui-state.js";
+import type { UiState } from "../../../../main/store/internal/store.js";
 
 function makeMultiSelection(
 	collapseOption: OverviewModel.MultiSelection.CollapseOption,

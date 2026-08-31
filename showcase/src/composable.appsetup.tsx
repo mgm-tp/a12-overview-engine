@@ -31,22 +31,18 @@
  */
 
 // These imports must stay at the top because they define globals
-import "./config/wdyr.js";
-import "./config/reselect.js";
 import "./config/logging.js";
+import "./config/reselect.js";
 import "./config/server-connector.js";
+import "./config/wdyr.js";
+import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
 
 import * as React from "react";
-import type { Store } from "redux";
 import { Provider } from "react-redux";
-import ReactDOM from "react-dom/client";
 
-import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
-import { withDirtyHandling } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import { addDeepLinkingSagas } from "@com.mgmtp.a12.client/client-core/deepLinking";
-import { withOverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { withPlatformModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
-import { withDataServicesConfiguration } from "@com.mgmtp.a12.client/client-core/dataServicesAdapter";
+import ReactDOM from "react-dom/client";
+import type { Store } from "redux";
+
 import {
 	withModel,
 	ModelActions,
@@ -60,17 +56,22 @@ import {
 	createA12ApplicationSetup,
 	APPLICATION_MODEL_PLACEHOLDER
 } from "@com.mgmtp.a12.client/client-core";
+import { withDataServicesConfiguration } from "@com.mgmtp.a12.client/client-core/dataServicesAdapter";
+import { addDeepLinkingSagas } from "@com.mgmtp.a12.client/client-core/deepLinking";
+import { withDirtyHandling } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
+import { withPlatformModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
+import { withOverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { Modules } from "./modules/index.js";
-import { withTheme } from "./config/themes.js";
-import { handleErrorSaga } from "./modules/common/saga.js";
 import { initializationMiddleware } from "./config/init.js";
+import { LOCALES, withLocalizationProvider } from "./config/localization.js";
 import { withNotification } from "./config/notification.js";
-import { withSizeDetector } from "./config/size-detector.js";
-import { SimpleFormFactories } from "./modules/simple-form/index.js";
 import { fetchModelGraph, withReduxDevtool } from "./config/redux.js";
 import { customRequestSelectorMap } from "./config/request-selector-map.js";
-import { LOCALES, withLocalizationProvider } from "./config/localization.js";
+import { withSizeDetector } from "./config/size-detector.js";
+import { withTheme } from "./config/themes.js";
+import { handleErrorSaga } from "./modules/common/saga.js";
+import { Modules } from "./modules/index.js";
+import { SimpleFormFactories } from "./modules/simple-form/index.js";
 
 Modules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));
 

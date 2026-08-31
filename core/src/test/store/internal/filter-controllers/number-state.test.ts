@@ -35,9 +35,8 @@ import { it, expect, describe } from "vitest";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import { NumberFilterState } from "../../../../main/store/internal/filter-state.js";
 import { NumberFilterController } from "../../../../main/store/internal/filter-controllers/number-controller.js";
-
+import { NumberFilterState } from "../../../../main/store/internal/filter-state.js";
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 const { DefaultInputState, DefaultCriteria } = NumberFilterState;

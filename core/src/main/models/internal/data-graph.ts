@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Links } from "./links.js";
-import type { JSONLinkRef } from "./json-link.js";
 import type { JSONDocument } from "./json-document.js";
+import type { JSONLinkRef } from "./json-link.js";
+import { Links } from "./links.js";
 
 /**
  * Combined data-graph shape used by OE data holders:

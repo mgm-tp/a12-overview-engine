@@ -32,8 +32,8 @@
 
 import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import type { UiState } from "../../store.js";
 import type { Commands } from "../../actions.js";
+import type { UiState } from "../../store.js";
 
 /** @internal */
 export function handleSetFilterState(state: UiState, action: Action<Commands.SetFilterStatePayload>): UiState {

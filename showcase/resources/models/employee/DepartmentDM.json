@@ -1,169 +1,169 @@
 {
-	"header": {
-		"id": "DepartmentDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"modelType": "document",
-				"purpose": "include",
-				"reference": "EmployeeDM"
-			},
-			{
-				"modelType": "document",
-				"purpose": "include",
-				"reference": "DocumentModelWithAllDataTypes"
-			}
-		]
-	},
-	"content": {
-		"modelInfo": {
-			"name": "DepartmentDM",
-			"immutable": false
-		},
-		"modelConfig": {
-			"timeZone": "Europe/Berlin",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "include_6e386",
-					"name": "Group",
-					"Group": {
-						"repeatability": 1,
-						"includeConfig": {
-							"reference": "EmployeeDM"
-						}
-					}
-				},
-				{
-					"type": "Group",
-					"id": "group_b7f45",
-					"name": "Department",
-					"Group": {
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_671d9",
-								"name": "Name",
-								"annotations": [
-									{
-										"name": "enable_approximate_match_search",
-										"value": "true"
-									}
-								],
-								"Field": {
-									"fieldType": {
-										"type": "EnumerationType",
-										"EnumerationType": {
-											"values": [
-												{
-													"value": "it",
-													"label": [
-														{
-															"locale": "en",
-															"text": "IT"
-														},
-														{
-															"locale": "de",
-															"text": "IT"
-														}
-													]
-												},
-												{
-													"value": "hr",
-													"label": [
-														{
-															"locale": "en",
-															"text": "HR"
-														},
-														{
-															"locale": "de",
-															"text": "HR"
-														}
-													]
-												}
-											]
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Department Name"
-										},
-										{
-											"locale": "de",
-											"text": "Abteilungsname"
-										}
-									]
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_bb08e",
-								"name": "Code",
-								"annotations": [
-									{
-										"name": "enable_approximate_match_search",
-										"value": "true"
-									}
-								],
-								"Field": {
-									"fieldType": {
-										"type": "StringType"
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Department Code"
-										},
-										{
-											"locale": "de",
-											"text": "Abteilungscode"
-										}
-									],
-									"requirednessConfig": {
-										"mode": "absoluteOrRelativeToNextRepAncestor"
-									}
-								}
-							},
-							{
-								"type": "Group",
-								"id": "include_507f4",
-								"name": "AllDataTypes",
-								"Group": {
-									"label": [
-										{
-											"locale": "en",
-											"text": "All Data Types"
-										}
-									],
-									"repeatability": 1,
-									"includeConfig": {
-										"reference": "DocumentModelWithAllDataTypes"
-									}
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "DepartmentDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "modelType": "document",
+        "purpose": "include",
+        "reference": "EmployeeDM"
+      },
+      {
+        "modelType": "document",
+        "purpose": "include",
+        "reference": "DocumentModelWithAllDataTypes"
+      }
+    ]
+  },
+  "content": {
+    "modelInfo": {
+      "name": "DepartmentDM",
+      "immutable": false
+    },
+    "modelConfig": {
+      "timeZone": "Europe/Berlin",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "include_6e386",
+          "name": "Group",
+          "Group": {
+            "repeatability": 1,
+            "includeConfig": {
+              "reference": "EmployeeDM"
+            }
+          }
+        },
+        {
+          "type": "Group",
+          "id": "group_b7f45",
+          "name": "Department",
+          "Group": {
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_671d9",
+                "name": "Name",
+                "annotations": [
+                  {
+                    "name": "enable_approximate_match_search",
+                    "value": "true"
+                  }
+                ],
+                "Field": {
+                  "fieldType": {
+                    "type": "EnumerationType",
+                    "EnumerationType": {
+                      "values": [
+                        {
+                          "value": "it",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "IT"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "IT"
+                            }
+                          ]
+                        },
+                        {
+                          "value": "hr",
+                          "label": [
+                            {
+                              "locale": "en",
+                              "text": "HR"
+                            },
+                            {
+                              "locale": "de",
+                              "text": "HR"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Department Name"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Abteilungsname"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_bb08e",
+                "name": "Code",
+                "annotations": [
+                  {
+                    "name": "enable_approximate_match_search",
+                    "value": "true"
+                  }
+                ],
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType"
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Department Code"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Abteilungscode"
+                    }
+                  ],
+                  "requirednessConfig": {
+                    "mode": "absoluteOrRelativeToNextRepAncestor"
+                  }
+                }
+              },
+              {
+                "type": "Group",
+                "id": "include_507f4",
+                "name": "AllDataTypes",
+                "Group": {
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "All Data Types"
+                    }
+                  ],
+                  "repeatability": 1,
+                  "includeConfig": {
+                    "reference": "DocumentModelWithAllDataTypes"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

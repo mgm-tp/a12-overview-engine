@@ -31,7 +31,6 @@
  */
 
 import type { OverviewModel } from "../../../../../main/overview-model.js";
-
 import { renderFilter, type FilterRenderResult } from "../setup.js";
 
 import { DateFilterPage } from "./date-filter-page.js";

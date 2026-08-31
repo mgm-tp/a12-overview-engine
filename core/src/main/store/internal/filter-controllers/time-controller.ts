@@ -30,20 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import * as KernelUtils from "@com.mgmtp.a12.kernel/kernel-md-facade/a12internal";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 
+import { isTimeFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 import type { OverviewModel } from "../../../overview-model.js";
 import { formatRange } from "../../../services/filter-format-utils.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
 import { TimeFilterState, type SelectedRangeCriteriaEntry } from "../filter-state.js";
-import { isTimeFilterModelItem, ListOptionConfigurationUtils } from "../../../models/filter-model-utils.js";
 
 import { RangeCriteria, PeriodCriteria } from "./criteria.js";
-import { standaloneTimeResolver } from "./resolvers/time-resolver.js";
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
+import { standaloneTimeResolver } from "./resolvers/time-resolver.js";
 
 /** @internal */
 export class TimeFilterController implements FilterController<

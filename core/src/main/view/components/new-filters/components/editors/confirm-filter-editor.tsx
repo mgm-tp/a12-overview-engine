@@ -32,12 +32,12 @@
 
 import { memo, type FC } from "react";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import type { ConfirmFilterState } from "../../../../../store/index.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import type { ConfirmFilterState } from "../../../../../store/index.js";
 import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
 
 const t = RESOURCE_KEYS.overviewEngine.newFilter.setting;
 

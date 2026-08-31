@@ -33,13 +33,12 @@
 import { it, expect, describe } from "vitest";
 
 import { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { TableBodyCell } from "../../../../../main/view/components/table/sub-components/table-body-cell.js";
-
-import { createComponentMap } from "../../../../utils.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
-import { render, type QueriableElement } from "../../../../test-utils.js";
 import { getDocumentModel, getOverviewModel } from "../../../../setup/models.js";
+import { render, type QueriableElement } from "../../../../test-utils.js";
+import { createComponentMap } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.table-body-cell", async () => {
 	const expressionCellDataRole = "expression-cell-test";

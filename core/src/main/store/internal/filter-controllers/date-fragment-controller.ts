@@ -30,24 +30,24 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
-import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { OverviewModel } from "../../../overview-model.js";
-import type { DateFragmentFilterState } from "../filter-state.js";
-import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import { ListOptionConfigurationUtils, isDateFragmentFilterModelItem } from "../../../models/filter-model-utils.js";
 import type { DocumentModelTypedField } from "../../../models/index.js";
 import type { FormatTypedDateFragmentType } from "../../../models/internal/shared.js";
-import { ListOptionConfigurationUtils, isDateFragmentFilterModelItem } from "../../../models/filter-model-utils.js";
+import type { OverviewModel } from "../../../overview-model.js";
+import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import type { DateFragmentFilterState } from "../filter-state.js";
 
 import { RangeCriteria, PeriodCriteria } from "./criteria.js";
-import { fragmentYearResolver } from "./resolvers/fragment-year-resolver.js";
-import { fragmentMonthResolver } from "./resolvers/fragment-month-resolver.js";
-import { fragmentMonthDayResolver } from "./resolvers/fragment-month-day-resolver.js";
-import { type Resolver, selectResolver, isInvalidRange } from "./resolvers/resolver.js";
-import { fragmentYearMonthResolver } from "./resolvers/fragment-year-month-resolver.js";
 import type { FilterController, FilterLabelContext, FilterControllerContext } from "./filter-controller.js";
+import { fragmentMonthDayResolver } from "./resolvers/fragment-month-day-resolver.js";
+import { fragmentMonthResolver } from "./resolvers/fragment-month-resolver.js";
+import { fragmentYearMonthResolver } from "./resolvers/fragment-year-month-resolver.js";
+import { fragmentYearResolver } from "./resolvers/fragment-year-resolver.js";
+import { type Resolver, isInvalidRange, selectResolver } from "./resolvers/resolver.js";
 
 const resolvers: readonly Resolver<unknown, OverviewModel.NewFilter.DateFragment.PeriodOption, string>[] = [
 	fragmentYearResolver,

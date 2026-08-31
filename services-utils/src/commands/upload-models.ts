@@ -35,8 +35,8 @@ import Path from "node:path";
 import Process from "node:process";
 import { inspect } from "node:util";
 
-import JSZip from "jszip";
 import { sync as globSync } from "glob";
+import JSZip from "jszip";
 import type { CommandModule } from "yargs";
 
 import { type Model, isModelInstance } from "@com.mgmtp.a12.base/base-model-api";

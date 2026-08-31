@@ -34,12 +34,12 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
-import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { RESOURCE_KEYS } from "../../services/localization/index.js";
-import { useOverviewEngineInternalContext } from "../context/overview-engine-internal-context.js";
 import { OverviewEngineInternalConstants, ENABLE_APPROXIMATE_MATCH_SEARCH_ANNOTATION } from "../../shared/constants.js";
+import { useOverviewEngineInternalContext } from "../context/overview-engine-internal-context.js";
 
 /**
  * Whether the field uses Data Services simple search (`enable_approximate_match_search`).

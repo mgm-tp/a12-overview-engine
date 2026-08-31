@@ -32,9 +32,9 @@
 
 import * as React from "react";
 
-import { useShouldAllowSearch } from "../../utils.js";
-import { useHeadingMetadata } from "../../hooks/use-heading-metadata.js";
 import { useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { useHeadingMetadata } from "../../hooks/use-heading-metadata.js";
+import { useShouldAllowSearch } from "../../utils.js";
 
 import { useFilterTriggerPlacement } from "./hooks/use-filter-trigger-placement.js";
 

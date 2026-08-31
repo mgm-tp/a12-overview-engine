@@ -32,18 +32,18 @@
 
 import { isEqual } from "lodash-es";
 
-import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
-import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 
-import type { FilterItemState } from "../filter-state.js";
 import type { OverviewModel } from "../../../overview-model.js";
-import type { FilterLabelContext } from "../filter-controllers/filter-controller.js";
 import {
 	requireController,
 	type ControllerResolver,
 	DefaultControllerResolver
 } from "../filter-controllers/controller-map.js";
+import type { FilterLabelContext } from "../filter-controllers/filter-controller.js";
+import type { FilterItemState } from "../filter-state.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface FilterStateSelectors {

@@ -31,23 +31,24 @@
  */
 
 import * as React from "react";
-import type { Dispatch } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import type { List, InfiniteLoader } from "react-virtualized";
+
+import type { Dispatch } from "redux";
 
 import type { Activity } from "@com.mgmtp.a12.client/client-core";
 import type { RowStyleGetter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { assertObject } from "../../utils/assertion.js";
+import type { JSONDocument } from "../../../../models/index.js";
+import { DocumentModelUtils } from "../../../../models/internal/shared.js";
+import { OverviewModel } from "../../../../overview-model.js";
+import { SortingOrder, type UiState, type Sorting, type PaginationState } from "../../../../store/index.js";
+import type { OverviewEngineApi } from "../../../../view/api.js";
+import { defaultMapDispatchToEventHandlers } from "../../../../view/configuration/event-handlers-dispatch-map.js";
 import { OverviewEngineActions } from "../../actions.js";
 import { OverviewEngineSelectors } from "../../selectors.js";
-import { OverviewModel } from "../../../../overview-model.js";
-import type { JSONDocument } from "../../../../models/index.js";
-import type { OverviewEngineApi } from "../../../../view/api.js";
-import { DocumentModelUtils } from "../../../../models/internal/shared.js";
+import { assertObject } from "../../utils/assertion.js";
 import { buildRelationshipField, relationshipFieldEquals } from "../../utils/relationship-sort-utils.js";
-import { defaultMapDispatchToEventHandlers } from "../../../../view/configuration/event-handlers-dispatch-map.js";
-import { Events, SortingOrder, type UiState, type Sorting, type PaginationState } from "../../../../store/index.js";
 
 import { useModels } from "./use-models.js";
 
@@ -142,6 +143,12 @@ export function useEventHandlers(params: {
 		[engineDispatch, eventHandlerProps]
 	);
 
+	const uiStateWithoutDefaultSelector = React.useMemo(
+		() => OverviewEngineSelectors.uiStateWithoutDefaults(activityId, dataHolderDescriptor),
+		[activityId, dataHolderDescriptor]
+	);
+	const uiStateWithoutDefault = useSelector(uiStateWithoutDefaultSelector);
+
 	const [
 		onSearch,
 		onFilterChange,
@@ -155,8 +162,15 @@ export function useEventHandlers(params: {
 		useOnSearch({ loaderRef, listRef, mergeEngineHandlers }),
 		useOnFilterChange({ loaderRef, listRef, mergeEngineHandlers }),
 		useOnPageChange({ pagination, mergeEngineHandlers }),
-		useOnColumnClick({ activityId, loaderRef, listRef, mergeEngineHandlers, overviewModelName }),
-		useOnEventButtonClick({ activityId, mergeEngineHandlers }),
+		useOnColumnClick({
+			activityId,
+			loaderRef,
+			listRef,
+			mergeEngineHandlers,
+			uiStateWithoutDefault,
+			overviewModelName
+		}),
+		useOnEventButtonClick({ mergeEngineHandlers }),
 		useOnRowClick({ data, mergeEngineHandlers, rowStyling }),
 		useOnRowButtonClick({ mergeEngineHandlers }),
 		useOnSearchEnumeratedStringField({ activityId, mergeEngineHandlers })
@@ -251,19 +265,15 @@ function useOnColumnClick(params: {
 	loaderRef: React.MutableRefObject<InfiniteLoader | null>;
 	listRef: React.MutableRefObject<List | null>;
 	mergeEngineHandlers: OverviewEngineApi.EventHandlers;
+	uiStateWithoutDefault: UiState | undefined;
 	overviewModelName?: string;
 }): Required<OverviewEngineApi.EventHandlers>["onColumnClick"] | undefined {
-	const { activityId, loaderRef, listRef, mergeEngineHandlers, overviewModelName } = params;
+	const { activityId, loaderRef, listRef, mergeEngineHandlers, uiStateWithoutDefault, overviewModelName } = params;
 	const { documentModel, overviewModel, modelGraph, subDocumentModels, queryModel } = useModels({
 		activityId,
 		overviewModelName
 	});
 	const isExcludeMode = !!queryModel?.content.exclude;
-
-	const uiStateWithoutDefaultSelector = React.useMemo(() => {
-		return OverviewEngineSelectors.uiStateWithoutDefaults(activityId);
-	}, [activityId]);
-	const uiStateWithoutDefault = useSelector(uiStateWithoutDefaultSelector);
 
 	const resolveSortDescriptor = React.useCallback(
 		(column: OverviewModel.Column): SortDescriptor | undefined => {
@@ -323,36 +333,26 @@ function useOnColumnClick(params: {
 
 			mergeEngineHandlers.onSort?.({ sorting: next ? [next] : [] });
 		},
-		[
-			listRef,
-			loaderRef,
-			mergeEngineHandlers,
-			overviewModel?.content,
-			resolveSortDescriptor,
-			uiStateWithoutDefault?.sorting
-		]
+		[listRef, loaderRef, mergeEngineHandlers, overviewModel, resolveSortDescriptor, uiStateWithoutDefault]
 	);
 
 	return isExcludeMode ? undefined : onColumnClick;
 }
 
 function useOnEventButtonClick(params: {
-	activityId: string;
 	mergeEngineHandlers: OverviewEngineApi.EventHandlers;
 }): Required<OverviewEngineApi.EventHandlers>["onEventButtonClick"] {
-	const { activityId, mergeEngineHandlers } = params;
-	const bapDispatch = useDispatch();
+	const { mergeEngineHandlers } = params;
 
 	return React.useCallback(
 		(event, button) => {
 			if (event === "export_excel") {
-				const engineAction = Events.onExport({});
-				bapDispatch(OverviewEngineActions.event({ activityId, engineAction }));
+				mergeEngineHandlers.onExport?.();
 			} else {
 				mergeEngineHandlers.onEventButtonClick?.(event, button);
 			}
 		},
-		[activityId, bapDispatch, mergeEngineHandlers]
+		[mergeEngineHandlers]
 	);
 }
 

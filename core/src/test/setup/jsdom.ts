@@ -76,7 +76,7 @@ Object.defineProperties(
 		.reduce((map, prop) => ({ ...map, [prop]: Object.getOwnPropertyDescriptor(window, prop) }), {})
 );
 
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable typescript/no-empty-function */
 window.ResizeObserver = class ResizeObserver {
 	observe() {}
 	unobserve() {}

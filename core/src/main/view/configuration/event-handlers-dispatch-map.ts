@@ -32,9 +32,9 @@
 
 import type { Dispatch } from "redux";
 
+import type { OverviewModel } from "../../overview-model.js";
 import { Events } from "../../store/index.js";
 import type { OverviewEngineApi } from "../api.js";
-import type { OverviewModel } from "../../overview-model.js";
 
 export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewEngineApi.EventHandlers {
 	return {
@@ -61,6 +61,9 @@ export function defaultMapDispatchToEventHandlers(dispatch: Dispatch): OverviewE
 		},
 		onEventButtonClick(event: string, button?: OverviewModel.Button) {
 			dispatch(Events.onEventButtonClicked({ event, button }));
+		},
+		onExport() {
+			dispatch(Events.onExport({}));
 		},
 		onRowButtonClickRequest(params) {
 			dispatch(Events.onRowButtonClickedRequest(params));

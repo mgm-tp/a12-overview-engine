@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+		"oxc.oxc-vscode",
+		"asciidoctor.asciidoctor-vscode",
+		"ms-playwright.playwright",
+		"vitest.explorer",
+		"antfu.pnpm-catalog-lens"
+	],
+	"unwantedRecommendations": []
+}

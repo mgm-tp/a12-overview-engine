@@ -32,8 +32,8 @@
 
 import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { Activity, ActivitySagas, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { Events, OverviewActivity, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { assert } from "../../utils.js";

@@ -30,27 +30,26 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { de, en } from "../../../../main/services/localization/internal/shared.js";
-import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
-import { DefaultSelectorMap } from "../../../../main/view/configuration/selector-map.js";
+import { OverviewButtonConfirmDialog } from "../../../../main/view/components/dialogs/sub-components/overview-button-confirm-dialog.js";
 import { DefaultComponentMap } from "../../../../main/view/configuration/component-map.js";
+import { DefaultSelectorMap } from "../../../../main/view/configuration/selector-map.js";
+import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
 import {
 	OverviewEngineContext,
 	type OverviewEngineContextType
 } from "../../../../main/view/context/overview-engine-context.js";
-import { OverviewButtonConfirmDialog } from "../../../../main/view/components/dialogs/sub-components/overview-button-confirm-dialog.js";
-
+import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
+import { deLocale, defaultEngineProps } from "../../../basic.spec.js";
 import { render } from "../../../test-utils.js";
 import { createLocalizedModelText } from "../../../utils.js";
-import { deLocale, defaultEngineProps } from "../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.dialog.overview-button-confirm-dialog", () => {
 	const onEventButtonClick = vi.fn();

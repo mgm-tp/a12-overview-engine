@@ -35,18 +35,18 @@ import { memo, type FC, useMemo, useContext, useCallback } from "react";
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { useTargetModelId } from "../filter-label-resolvers.js";
 import { TimeFilterState } from "../../../../../store/index.js";
 import type { SegmentOption } from "../../../../../store/index.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import { TimePickerAdapter } from "../adapters/time-picker-adapter.js";
-import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
-import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
-import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
 import { PeriodCriteria } from "../../../../../store/internal/filter-controllers/criteria.js";
 import { useOverviewEngineInternalContext } from "../../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { DateTimeUtils } from "../../../filters/options-views/date-time-utils.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useFilterSelectors } from "../../hooks/use-filter-selectors.js";
+import { TimePickerAdapter } from "../adapters/time-picker-adapter.js";
+import { useTargetModelId } from "../filter-label-resolvers.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { RangeFilterEditorTemplate } from "../utilities/range-filter-editor-template.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface TimeFilterEditorProps {

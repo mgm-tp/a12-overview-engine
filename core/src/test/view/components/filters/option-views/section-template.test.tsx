@@ -35,13 +35,12 @@ import { it, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { en } from "../../../../../main/services/localization/internal/shared.js";
 import {
 	SectionType,
 	SectionTemplate
 } from "../../../../../main/view/components/filters/options-views/section-template.js";
-
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
 import { render, type QueriableList } from "../../../../test-utils.js";
 

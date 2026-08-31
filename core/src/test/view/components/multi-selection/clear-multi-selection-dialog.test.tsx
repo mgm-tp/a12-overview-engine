@@ -32,17 +32,16 @@
 
 import "../../../setup/jsdom.js";
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
-
-import { noop } from "../../../utils.js";
 import { deLocale, enLocale } from "../../../basic.spec.js";
 import type { QueriableElement } from "../../../test-utils.js";
+import { noop } from "../../../utils.js";
 
 import {
 	setupMultiSelection,

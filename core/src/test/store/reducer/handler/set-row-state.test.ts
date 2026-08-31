@@ -33,8 +33,8 @@
 import { it, expect, describe } from "vitest";
 
 import { Commands } from "../../../../main/store/internal/actions.js";
-import type { UiState } from "../../../../main/store/internal/store.js";
 import { setRowState } from "../../../../main/store/internal/reducer/handler/set-row-state.js";
+import type { UiState } from "../../../../main/store/internal/store.js";
 
 function makeAction(payload: Commands.SetRowStatePayload) {
 	return Commands.setRowState(payload);

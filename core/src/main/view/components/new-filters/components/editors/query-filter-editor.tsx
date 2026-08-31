@@ -32,11 +32,12 @@
 
 import { memo, type FC } from "react";
 
-import type { QueryFilterState } from "../../../../../store/index.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import type { QueryFilterState } from "../../../../../store/index.js";
 import { useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { useQueryFilterDescriptionResolver } from "../filter-label-resolvers.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */
 export interface QueryFilterEditorProps {
@@ -48,9 +49,11 @@ export const QueryFilterEditor: FC<QueryFilterEditorProps> = memo(function Query
 	const Checkbox = useOverviewEngineContext((c) => c.widgetMap.Checkbox);
 	const onValueChange = useDispatchFilterOptions<QueryFilterState>(state.model.id);
 	const localizedResource = LocalizerHooks.useLocalizedResource();
+	const resolveDescription = useQueryFilterDescriptionResolver();
 
 	const { enabled } = state.options;
 	const isEnabled = enabled.enabled && enabled.value;
+	const description = resolveDescription(state.model);
 
 	return (
 		<Checkbox
@@ -61,6 +64,7 @@ export const QueryFilterEditor: FC<QueryFilterEditorProps> = memo(function Query
 				})
 			}
 			label={localizedResource(RESOURCE_KEYS.overviewEngine.newFilter.queryEnable)}
+			helperText={description || undefined}
 		/>
 	);
 });

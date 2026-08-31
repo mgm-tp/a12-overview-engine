@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import * as ChildProcess from "node:child_process";
 import * as Fs from "node:fs";
 import * as Path from "node:path";
-import * as ChildProcess from "node:child_process";
 
 import { test, expect, describe } from "vitest";
 

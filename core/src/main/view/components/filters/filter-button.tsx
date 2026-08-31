@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { UiStateSelector } from "../../../store/index.js";
-import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../services/localization/index.js";
+import { UiStateSelector } from "../../../store/index.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../hooks/localizer-hooks.js";
 
 export const FilterButton: React.ComponentType<FilterButton.PropsType> = React.memo(function FilterButton(props) {
 	const disabled = useOverviewEngineState(UiStateSelector.disabled());

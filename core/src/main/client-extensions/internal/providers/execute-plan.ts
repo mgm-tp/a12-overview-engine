@@ -41,10 +41,10 @@ import {
 	type QueryJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
+import { RESOURCE_KEYS, LocalizableFactory } from "../../../services/index.js";
+import { getMaxRequests } from "../data-loader/default-data-loader.js";
 import { RequestBuilder } from "../utils/request-builder.js";
 import { RequestValidator } from "../utils/request-validator.js";
-import { getMaxRequests } from "../data-loader/default-data-loader.js";
-import { RESOURCE_KEYS, LocalizableFactory } from "../../../services/index.js";
 
 import type { PlanApplyContext, UpdatedDataHolder, QueryExecutionPlan } from "./query-execution-plan.js";
 

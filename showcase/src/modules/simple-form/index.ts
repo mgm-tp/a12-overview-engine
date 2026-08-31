@@ -32,8 +32,8 @@
 
 import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import { SimpleFormSagas } from "./sagas.js";
 import { SimpleFormDataLoader } from "./data-loader.js";
+import { SimpleFormSagas } from "./sagas.js";
 
 export * from "./inputs/index.js";
 export { SimpleForm } from "./simple-form.js";

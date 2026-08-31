@@ -33,7 +33,6 @@
 import { it, expect, describe } from "vitest";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
-
 import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
 import { renderConfirmFilter } from "./pages/confirm-filter-page.js";

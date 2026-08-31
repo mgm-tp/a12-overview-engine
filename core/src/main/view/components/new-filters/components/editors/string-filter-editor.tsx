@@ -34,19 +34,19 @@ import { memo, type FC, useMemo, useState, useEffect, useCallback } from "react"
 
 import { TextField, BufferedInput, HTMLInputAdapter } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { EmptyFilter } from "../utilities/empty-filter.js";
-import { MultiSelectList } from "../utilities/multi-select-list.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
-import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
 import { UiStateSelector, type StringFilterState } from "../../../../../store/index.js";
-import { useLocalizedLabels } from "../../../filters/options-views/date-time-common-hooks.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import {
 	useMinSearchTokenSize,
 	minSearchTokenSizeHint,
 	useMinSearchTokenSizeValidator
 } from "../../../../hooks/use-search-token-validation.js";
+import { useLocalizedLabels } from "../../../filters/options-views/date-time-common-hooks.js";
+import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { EmptyFilter } from "../utilities/empty-filter.js";
+import { MultiSelectList } from "../utilities/multi-select-list.js";
 
 import { buildVisibleOptions, mergeHiddenSelections } from "./string-filter-editor-list-utils.js";
 

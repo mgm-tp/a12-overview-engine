@@ -36,10 +36,9 @@ import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { OverviewModel } from "../../main/overview-model.js";
 import { OverviewEngine } from "../../main/view/overview-engine.js";
-
-import { noop } from "../utils.js";
-import { render, ClassNames } from "../test-utils.js";
 import { enLocale, defaultEngineProps } from "../basic.spec.js";
+import { render, ClassNames } from "../test-utils.js";
+import { noop } from "../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.footer", () => {
 	const basicEngineProps: OverviewEngine.Props = defaultEngineProps;

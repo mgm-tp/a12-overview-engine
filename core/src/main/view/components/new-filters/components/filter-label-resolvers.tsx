@@ -30,22 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { styled } from "styled-components";
 import { useMemo, useContext, useCallback, type ReactNode } from "react";
+
+import { styled } from "styled-components";
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { DateTimeContext } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { FilterItemState } from "../../../../store/index.js";
+import { isFieldBasedFilterModelItem } from "../../../../models/filter-model-utils.js";
 import type { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 import { defaultDateRangeConversionTransformer } from "../../../../services/index.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
-import { useDateTimeFormatString } from "../../filters/use-date-time-format-string.js";
 import { RESOURCE_KEYS, OverviewModelKeys } from "../../../../services/localization/index.js";
+import type { FilterItemState } from "../../../../store/index.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
-import { isQueryFilterModelItem, isFieldBasedFilterModelItem } from "../../../../models/filter-model-utils.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useDateTimeFormatString } from "../../filters/use-date-time-format-string.js";
+import { useFilterSelectors } from "../hooks/use-filter-selectors.js";
 
 export function useFilterLabelResolver() {
 	const localizedOverviewElement = LocalizerHooks.useLocalizedOverviewElement();
@@ -63,15 +64,6 @@ export function useFilterLabelResolver() {
 				return explicitLabel;
 			}
 
-			if (isQueryFilterModelItem(filterItem)) {
-				return (
-					localizedOverviewElement(
-						[OverviewModelKeys.FILTER_SELECTOR, OverviewModelKeys.TITLE],
-						filterItem.description
-					) || ""
-				);
-			}
-
 			if (isFieldBasedFilterModelItem(filterItem)) {
 				const path = documentModelService.getPathById(filterItem.options.fieldId, filterItem.options.subModel);
 
@@ -81,6 +73,22 @@ export function useFilterLabelResolver() {
 			return "";
 		},
 		[documentModelService, localizedFieldLabel, localizedOverviewElement]
+	);
+}
+
+export function useQueryFilterDescriptionResolver() {
+	const localizedOverviewElement = LocalizerHooks.useLocalizedOverviewElement();
+
+	return useCallback(
+		(filterItem: OverviewModel.NewFilter.Query.Item) => {
+			return (
+				localizedOverviewElement(
+					[OverviewModelKeys.FILTER_SELECTOR, OverviewModelKeys.TITLE],
+					filterItem.description
+				) || ""
+			);
+		},
+		[localizedOverviewElement]
 	);
 }
 

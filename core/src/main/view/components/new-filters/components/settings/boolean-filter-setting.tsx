@@ -32,11 +32,11 @@
 
 import { memo, type FC } from "react";
 
-import { BooleanToggleSetting } from "../utilities/typed-toggle.js";
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
-import type { BooleanFilterState } from "../../../../../store/index.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import type { BooleanFilterState } from "../../../../../store/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { useDispatchFilterOptions } from "../../hooks/use-filter-callbacks.js";
+import { BooleanToggleSetting } from "../utilities/typed-toggle.js";
 
 import { FilterSettingSection } from "./filter-setting-section.js";
 

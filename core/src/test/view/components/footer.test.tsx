@@ -31,15 +31,15 @@
  */
 
 import * as React from "react";
+
 import { it, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { Footer } from "../../../main/view/components/footer.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
-
-import { render } from "../../test-utils.js";
 import { defaultEngineProps } from "../../basic.spec.js";
+import { render } from "../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.footer", () => {
 	function setupTest(props?: Partial<Footer.PropsType>) {

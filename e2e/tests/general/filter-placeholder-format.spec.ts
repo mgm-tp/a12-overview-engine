@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase, setLocale, inputByLabel } from "../utils.js";
+import { Selector, Showcase, navigate, setLocale, inputByLabel } from "../utils.js";
 
 test.describe("Filter Placeholder Format", () => {
 	test.describe("When locale is set to en_US", () => {

@@ -32,8 +32,8 @@
 
 import { format } from "date-fns";
 
-import { RangeCriteria } from "../criteria.js";
 import { isDefined, formatRange } from "../../../../services/filter-format-utils.js";
+import { RangeCriteria } from "../criteria.js";
 
 import type { Resolver } from "./resolver.js";
 

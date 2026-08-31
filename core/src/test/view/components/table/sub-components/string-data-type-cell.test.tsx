@@ -33,7 +33,6 @@
 import { it, expect, describe } from "vitest";
 
 import { StringTypeCell } from "../../../../../main/view/components/table/sub-components/string-type-cell.js";
-
 import { render } from "../../../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.string-type-cell", () => {

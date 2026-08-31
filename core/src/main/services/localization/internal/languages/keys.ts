@@ -32,7 +32,7 @@
 
 import { initializeKeys } from "@com.mgmtp.a12.utils/utils-localization";
 
-// prettier-ignore
+// oxfmt-ignore
 export const RESOURCE_KEYS = {
 	"overviewEngine": {
 		"button": {
@@ -71,6 +71,10 @@ export const RESOURCE_KEYS = {
 			"selector": {
 				"closeButtonTitle": "",
 				"searchPlaceholder": ""
+			},
+			"section": {
+				"appliedTitle": "",
+				"errorTitle": ""
 			},
 			"selectorOptions": {
 				"viewHeader": "",
@@ -210,7 +214,8 @@ export const RESOURCE_KEYS = {
 		},
 		"filterButton": {
 			"openFilter": "",
-			"closeFilter": ""
+			"closeFilter": "",
+			"filtersAppliedTitle": ""
 		},
 		"searchBar": {
 			"searchButtonTitle": "",

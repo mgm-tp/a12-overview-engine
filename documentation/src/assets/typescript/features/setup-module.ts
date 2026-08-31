@@ -31,10 +31,9 @@
  */
 
 // tag::main[]
-
+import { ApplicationFactories, type ApplicationSetup, ModuleRegistryProvider } from "@com.mgmtp.a12.client/client-core";
 import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { ApplicationFactories, type ApplicationSetup, ModuleRegistryProvider } from "@com.mgmtp.a12.client/client-core";
 
 export function setup(): ApplicationSetup {
 	ModuleRegistryProvider.getInstance().addModule(OverviewEngineFactories.createModule());

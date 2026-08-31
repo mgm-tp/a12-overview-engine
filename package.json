@@ -2,8 +2,8 @@
 	"name": "root",
 	"private": true,
 	"author": "mgm technology partners",
-	"version": "39.0.1",
-	"a12Version": "2026.06-ext0",
+	"version": "39.0.2",
+	"a12Version": "2026.06-ext1",
 	"type": "module",
 	"scripts": {
 		"clean": "rimraf */lib/** */dist/** */target/** *.tsbuildinfo */*.tsbuildinfo",
@@ -13,41 +13,29 @@
 		"start:typescript": "tsc -b tsconfig.build.json --watch",
 		"start:client": "pnpm --filter ./showcase start",
 		"start:server": "pnpm --filter ./server start",
-		"test": "pnpm -r test",
+		"test": "pnpm -r --sequential test",
 		"testE2E": "pnpm run --filter ./e2e testE2E",
 		"dist": "pnpm -r dist",
 		"lint": "pnpm \"/lint:/\"",
-		"lint:detect-cycle": "devtools detect-cycles --ignore-type-imports \"./core/src/**/*.@(ts|tsx)\"",
-		"lint:eslint": "eslint --quiet",
-		"lint:prettier": "prettier . --check",
+		"lint:oxlint": "oxlint --quiet .",
+		"lint:oxfmt": "oxfmt --check .",
 		"lint:headers": "node scripts/check-headers.js",
 		"format": "pnpm \"/format:/\"",
-		"format:eslint": "eslint --quiet --fix",
-		"format:prettier": "prettier . --write"
+		"format:oxlint": "oxlint --fix --quiet .",
+		"format:oxfmt": "oxfmt ."
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.devtools/build-tools": "catalog:devLibs",
-		"@com.mgmtp.a12.devtools/eslint-config": "catalog:devLibs",
-		"@com.mgmtp.a12.devtools/prettier-config": "catalog:devLibs",
 		"@com.mgmtp.a12.devtools/tsconfig": "catalog:devLibs",
-		"@eslint/compat": "^2.1.0",
 		"@jambit/eslint-plugin-typed-redux-saga": "^0.4.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
-		"eslint": "^10.4.1",
-		"eslint-plugin-filename-rules": "^1.3.1",
-		"eslint-plugin-notice": "^1.0.0",
-		"eslint-plugin-perfectionist": "^5.9.0",
-		"eslint-plugin-unused-imports": "^4.3.0",
-		"prettier": "^3.7.1",
+		"@tony.ganchev/eslint-plugin-header": "^3.4.4",
+		"eslint-plugin-check-file": "^3.3.2",
+		"oxfmt": "^0.59.0",
+		"oxlint": "^1.74.0",
 		"redux-saga": "catalog:libs",
 		"rimraf": "catalog:devLibs",
 		"typed-redux-saga": "catalog:libs",
 		"typescript": "catalog:libs"
 	},
-	"packageManager": "pnpm@10.18.2+sha512.9fb969fa749b3ade6035e0f109f0b8a60b5d08a1a87fdf72e337da90dcc93336e2280ca4e44f2358a649b83c17959e9993e777c2080879f3801e6f0d999ad3dd",
-	"pnpm": {
-		"patchedDependencies": {
-			"react-dnd@16.0.1": "patches/react-dnd@16.0.1.patch"
-		}
-	}
+	"packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }

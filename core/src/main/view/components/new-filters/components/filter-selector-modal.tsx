@@ -30,8 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { css, styled } from "styled-components";
 import { memo, type FC, useCallback } from "react";
+
+import { css, styled } from "styled-components";
 
 import { useWindowSize } from "@com.mgmtp.a12.widgets/widgets-core";
 

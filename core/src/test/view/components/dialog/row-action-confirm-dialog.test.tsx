@@ -30,28 +30,27 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../../../main/models/index.js";
 import type { OverviewModel } from "../../../../main/overview-model.js";
-import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { de } from "../../../../main/services/localization/internal/languages/de.js";
 import { en } from "../../../../main/services/localization/internal/languages/en.js";
-import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
-import { DefaultSelectorMap } from "../../../../main/view/configuration/selector-map.js";
-import { DefaultComponentMap } from "../../../../main/view/configuration/component-map.js";
 import { RowActionConfirmDialog } from "../../../../main/view/components/dialogs/sub-components/row-action-confirm-dialog.js";
+import { DefaultComponentMap } from "../../../../main/view/configuration/component-map.js";
+import { DefaultSelectorMap } from "../../../../main/view/configuration/selector-map.js";
+import { DefaultWidgetMap } from "../../../../main/view/configuration/widget-map.js";
 import {
 	OverviewEngineContext,
 	type OverviewEngineContextType
 } from "../../../../main/view/context/overview-engine-context.js";
-
-import { render } from "../../../test-utils.js";
+import type { OverviewEngine } from "../../../../main/view/overview-engine.js";
 import { deLocale, defaultEngineProps } from "../../../basic.spec.js";
+import { render } from "../../../test-utils.js";
 import { mockType, createLocalizedModelText } from "../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.dialog.row-action-confirm-dialog", () => {

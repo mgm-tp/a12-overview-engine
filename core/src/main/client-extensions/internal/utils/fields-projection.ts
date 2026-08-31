@@ -31,19 +31,19 @@
  */
 
 import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { Query, Attachment, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { Expression, ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
-import { Expression, ExpressionBuilder } from "@com.mgmtp.a12.expression/expression-core";
-import type { Query, Attachment, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { OverviewModel } from "../../../overview-model.js";
-import { getModelIdFromColumn, getTargetDocumentModelIdByLink } from "../../../services/relationship/index.js";
 import {
 	DocumentModelUtils,
 	MultiSelectModelUtils,
 	type DocumentModelService,
 	createDocumentModelService
 } from "../../../models/internal/shared.js";
+import { OverviewModel } from "../../../overview-model.js";
+import { getModelIdFromColumn, getTargetDocumentModelIdByLink } from "../../../services/relationship/index.js";
 
 /** @experimental */
 export function getProjectedFields(

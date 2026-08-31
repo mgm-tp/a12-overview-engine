@@ -30,8 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import { memo, useRef, type FC, useState, useEffect, useCallback, type ReactNode, type RefObject } from "react";
+
 import { css, styled } from "styled-components";
-import { memo, useRef, type FC, useState, useEffect, useCallback, type RefObject, type ReactNode } from "react";
 
 export interface SlidingLayoutOptions {
 	readonly focusRef?: RefObject<HTMLElement | null>;

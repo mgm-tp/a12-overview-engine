@@ -35,7 +35,6 @@ import { expect } from "vitest";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
 import { getByDataRole, queryAllByDataRole } from "../setup.js";
 
 export class SettingPortalPage {

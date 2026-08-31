@@ -31,28 +31,28 @@
  */
 
 import { Provider } from "react-redux";
-import { it, expect, describe } from "vitest";
-import { renderHook } from "@testing-library/react";
 
-import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { renderHook } from "@testing-library/react";
+import { it, expect, describe } from "vitest";
+
 import {
 	type Locale,
 	defaultDataFormats,
-	defaultValueConversion,
 	type TranslationFinder,
-	defaultLocalizerFactory,
+	defaultValueConversion,
 	type LocalizedModelText,
+	defaultLocalizerFactory,
 	type LocalizationTreeMap
 } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { RESOURCE_KEYS } from "../../../main/services/localization/index.js";
 import { LocalizerHooks } from "../../../main/view/hooks/localizer-hooks.js";
-
-import { PATHS } from "../shared.js";
-import { createTestStore } from "../../test-utils.js";
+import { OverviewEngine } from "../../../main/view/overview-engine.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../basic.spec.js";
+import { createTestStore } from "../../test-utils.js";
+import { PATHS } from "../shared.js";
 
 describe("com.mgmtp.a12.overview-engine.services.localization.internal.localizer-hooks", () => {
 	const basicEngineProps = defaultEngineProps;

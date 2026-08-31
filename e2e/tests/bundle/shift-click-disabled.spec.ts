@@ -31,7 +31,7 @@
  */
 
 import { test, expect } from "../commands.js";
-import { navigate, Selector, Showcase } from "../utils.js";
+import { Selector, Showcase, navigate } from "../utils.js";
 
 test.describe("Multi-Selection Feature - Shift+click range selection disabled for infinite scroll", () => {
 	test.beforeAll(async ({ seed }) => {

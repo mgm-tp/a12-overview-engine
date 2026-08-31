@@ -32,22 +32,22 @@
 
 import * as React from "react";
 
-import { useIdGenerator } from "../../../utils.js";
-import type { FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useIdGenerator } from "../../../utils.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 
-import { DateTimeUtils } from "./date-time-utils.js";
-import { TimePickerAdapter } from "./time-picker-adapter.js";
-import type { DateTimeViewValue } from "./date-time-filter-view.api.js";
-import { SectionTemplate, type SectionType } from "./section-template.js";
 import {
 	useRangeErrorMessage,
 	useClearHandlerRegistry,
 	useDateTimeSubActionBar,
 	useDateTimeCommonParameters
 } from "./date-time-common-hooks.js";
+import type { DateTimeViewValue } from "./date-time-filter-view.api.js";
+import { DateTimeUtils } from "./date-time-utils.js";
+import { SectionTemplate, type SectionType } from "./section-template.js";
+import { TimePickerAdapter } from "./time-picker-adapter.js";
 
 export namespace TimeFilterOptionsView {
 	export interface Props extends FilterOptionsView.PropsType {

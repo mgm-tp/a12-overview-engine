@@ -32,8 +32,8 @@
 
 import Path from "node:path";
 
-import Fse from "fs-extra";
 import highlightJsExt from "asciidoctor-highlight.js";
+import Fse from "fs-extra";
 
 import PackageJson from "../package.json" with { type: "json" };
 

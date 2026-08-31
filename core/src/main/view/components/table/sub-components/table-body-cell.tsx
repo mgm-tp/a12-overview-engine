@@ -35,11 +35,11 @@ import * as React from "react";
 import { Message, addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { Links } from "../../../../models/index.js";
-import { OverviewModel } from "../../../../overview-model.js";
 import type { JSONDocument } from "../../../../models/index.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { OverviewModel } from "../../../../overview-model.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 export namespace TableBodyCell {
 	export interface Props {

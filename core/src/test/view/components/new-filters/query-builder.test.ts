@@ -31,7 +31,6 @@
  */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- test assertions use ! for concise access to known-present values */
-
 import { it, expect, describe } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";

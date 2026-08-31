@@ -32,8 +32,8 @@
 
 import { useDispatch } from "react-redux";
 
-import { Button } from "@com.mgmtp.a12.widgets/widgets-core";
 import { Events, OverviewEngineActions } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { Button } from "@com.mgmtp.a12.widgets/widgets-core";
 
 export const ScrollToTopButton = (props: { activityId: string }) => {
 	const { activityId } = props;

@@ -32,10 +32,10 @@
 
 import type { ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
-import { uiStateDataReducer } from "./ui-state.js";
-import { setEnumeratedStringCandidatesReducer } from "./set-enumerated-string-candidates.js";
 import { createEnumeratedStringDataHolderReducer } from "./create-enumerated-string-data-holder.js";
 import { enumeratedStringQueryParametersChangedReducer } from "./enumerated-string-query-parameters-changed.js";
+import { setEnumeratedStringCandidatesReducer } from "./set-enumerated-string-candidates.js";
+import { uiStateDataReducer } from "./ui-state.js";
 
 /** @internal */
 export function createOverviewEngineDataReducers(): ActivityReducers.DataReducer[] {

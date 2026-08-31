@@ -32,17 +32,16 @@
 
 import "../../../../setup/jsdom.js";
 
-import { vi, it, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { OverviewEngineApi } from "../../../../../main/view/api.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { CustomFieldFilterOptionsView } from "../../../../../main/view/components/filters/options-views/custom-field-filter-options-view.js";
-
-import { render } from "../../../../test-utils.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { defaultEngineProps } from "../../../../basic.spec.js";
+import { render } from "../../../../test-utils.js";
 
 import { getClearAllButton } from "./shared.js";
 

@@ -31,6 +31,7 @@
  */
 
 import * as React from "react";
+
 import { Lens } from "monocle-ts";
 import { it, expect, describe } from "vitest";
 
@@ -41,11 +42,10 @@ import {
 	useFilterLabelResolver,
 	useFilterGroupLabelResolver
 } from "../../../../main/view/components/new-filters/components/filter-label-resolvers.js";
-
-import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 import { getDocumentModel, getOverviewModel } from "../../../setup/models.js";
+import { ProductFieldIds } from "../../../setup/product-field-ids.js";
 
-import { renderWithStore, baseFilterGroup, baseFilterConfiguration } from "./setup.js";
+import { baseFilterGroup, renderWithStore, baseFilterConfiguration } from "./setup.js";
 
 const filterConfigurationLens = Lens.fromPath<OverviewModel>()(["content", "configuration", "newFilterConfiguration"]);
 
@@ -121,11 +121,11 @@ describe("useFilterLabelResolver", () => {
 		expect(label.textContent).not.toBe("");
 	});
 
-	it("uses description for Query filter when label missing", async () => {
+	it("does not fall back to description for Query filter when label missing", async () => {
 		const { findByTestId } = await setup({ filterItem: queryFilterItem }, [queryFilterItem]);
 		const label = await findByTestId("item-label");
 
-		expect(label.textContent).toBe("Custom Query Description");
+		expect(label.textContent).toBe("");
 	});
 
 	it("returns explicit label for Query filter when label set", async () => {

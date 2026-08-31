@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel, DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { Activity, type DataLoader, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 import {
 	Dispatcher,
 	AddDocumentJsonRpc2Response,
 	GetDocumentJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { type DocumentModel, DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { assert } from "../../utils.js";
 

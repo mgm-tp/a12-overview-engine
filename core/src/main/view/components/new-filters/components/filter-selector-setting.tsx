@@ -34,10 +34,10 @@ import { memo, type FC } from "react";
 
 import { useWindowSize } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useFilterState } from "../hooks/use-filter-state.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
 import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useFilterState } from "../hooks/use-filter-state.js";
 
 const t = RESOURCE_KEYS.overviewEngine.newFilter.selectorOptions;
 

@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { useRowCount } from "../utils.js";
 import { OverviewModel } from "../../overview-model.js";
 import { OverviewModelKeys } from "../../services/localization/index.js";
 import { useOverviewEngineContext } from "../context/overview-engine-context.js";
+import { useRowCount } from "../utils.js";
 
 import { LocalizerHooks } from "./localizer-hooks.js";
 

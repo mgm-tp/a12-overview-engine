@@ -1,1635 +1,1645 @@
 {
-	"header": {
-		"id": "ProductNewFilterOM",
-		"modelType": "overview",
-		"modelVersion": "39.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [
-			{
-				"locale": "en",
-				"text": "List of all products"
-			},
-			{
-				"locale": "de",
-				"text": "Liste aller Produkte"
-			}
-		],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "document-model-for-overview",
-				"modelType": "document",
-				"alias": "DM",
-				"reference": "ProductDM"
-			}
-		]
-	},
-	"content": {
-		"subHeaderBox": {
-			"rightSlot": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "First Right Header Button"
-						},
-						{
-							"locale": "de",
-							"text": "First Right Kopfzeile Button"
-						}
-					],
-					"event": "first_right_header_event",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Warning"
-							},
-							{
-								"locale": "de",
-								"text": "Warnung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Do you want to continue?"
-							},
-							{
-								"locale": "de",
-								"text": "Wollen Sie fortfahren?"
-							}
-						]
-					},
-					"styles": ["s1"],
-					"destructive": false,
-					"primary": false
-				},
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"leftSlot": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "First header button"
-						},
-						{
-							"locale": "de",
-							"text": "First header button [DE]"
-						}
-					],
-					"event": "first_header_event",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Warning"
-							},
-							{
-								"locale": "de",
-								"text": "Warnung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Do you want to continue?"
-							},
-							{
-								"locale": "de",
-								"text": "Wollen Sie fortfahren?"
-							}
-						]
-					},
-					"labelHidden": true,
-					"icon": {
-						"name": "star",
-						"theme": "filled"
-					},
-					"destructive": false,
-					"primary": true
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Second header button"
-						},
-						{
-							"locale": "de",
-							"text": "Second header button [DE]"
-						}
-					],
-					"event": "second_header_event",
-					"destructive": true,
-					"primary": false
-				}
-			]
-		},
-		"footerBox": {
-			"rightSlot": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Export"
-						},
-						{
-							"locale": "de",
-							"text": "Export [DE]"
-						}
-					],
-					"event": "export_excel",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Warning"
-							},
-							{
-								"locale": "de",
-								"text": "Warnung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "This button won't do anything because this is not a CDM overview model. Do you want to continue?"
-							},
-							{
-								"locale": "de",
-								"text": "This button won't do anything because this is not a CDM overview model. Do you want to continue?"
-							}
-						]
-					},
-					"destructive": false,
-					"primary": false
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "First Right Button"
-						},
-						{
-							"locale": "de",
-							"text": "First Rechts Button"
-						}
-					],
-					"event": "first_right_footer_event",
-					"destructive": false,
-					"primary": false
-				}
-			],
-			"leftSlot": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "First Footer Button"
-						},
-						{
-							"locale": "de",
-							"text": "First Fußzeile Button"
-						}
-					],
-					"event": "first_footer_event",
-					"icon": {
-						"name": "pets"
-					},
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Warning"
-							},
-							{
-								"locale": "de",
-								"text": "Warnung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Do you want to continue?"
-							},
-							{
-								"locale": "de",
-								"text": "Wollen Sie fortfahren?"
-							}
-						]
-					},
-					"labelHidden": true,
-					"destructive": false,
-					"primary": false
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Second Footer Button"
-						},
-						{
-							"locale": "de",
-							"text": "Zweiter Fußzeilen Button"
-						}
-					],
-					"event": "second_footer_event",
-					"icon": {
-						"name": "pets"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"columns": [
-			{
-				"id": "column-06f19",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Image"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Bild"
-					}
-				],
-				"icon": {
-					"name": "photo_camera"
-				},
-				"labelHidden": true,
-				"width": 0.6,
-				"alignment": {
-					"header": {
-						"horizontal": "center"
-					},
-					"content": {
-						"horizontal": "center"
-					}
-				},
-				"elementRef": "G53",
-				"sortable": false,
-				"attachmentDisplayMode": "preview"
-			},
-			{
-				"id": "column-752d10",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Date"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Datum"
-					}
-				],
-				"width": 1,
-				"elementRef": "F50",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-cff6a",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Custom Expression"
-					},
-					{
-						"locale": "de",
-						"text": "Benutzerdefinierter Ausdruck"
-					}
-				],
-				"width": 1,
-				"name": "Custom Expression",
-				"expression": "kontext(product) {[dateField]}"
-			},
-			{
-				"id": "column-752d19",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Expression"
-					},
-					{
-						"locale": "de",
-						"text": "Expression"
-					}
-				],
-				"width": 1,
-				"name": "Expression",
-				"expression": "kontext(product) { case [targetGroup] = \"women\" { \"**girl**\" } case [targetGroup] = \"children\" { \"**child**\" } \" \" [inStock] }"
-			},
-			{
-				"id": "column-752d11",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Date Time"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Datum Zeit"
-					}
-				],
-				"width": 1,
-				"elementRef": "F51",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d9",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Time"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Zeit"
-					}
-				],
-				"width": 1,
-				"elementRef": "F52",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d8",
-				"width": 2.2,
-				"elementRef": "F7",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-72323",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[D] Description"
-					},
-					{
-						"locale": "de",
-						"text": "[D] Description"
-					}
-				],
-				"width": 2.5,
-				"styles": {
-					"header": ["s1111", "s2222"],
-					"content": ["s3333", "s4444"]
-				},
-				"elementRef": "F8",
-				"sortable": false
-			},
-			{
-				"id": "column-72348",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[M] Meta"
-					},
-					{
-						"locale": "de",
-						"text": "[M] Meta"
-					}
-				],
-				"labelHidden": true,
-				"width": 1,
-				"elementRef": "F9",
-				"sortable": false
-			},
-			{
-				"id": "column-4d36s",
-				"width": 1,
-				"elementRef": "F67",
-				"sortable": true,
-				"preferredSorting": "ASC"
-			},
-			{
-				"id": "column-5ds2d8",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[D] Weight"
-					},
-					{
-						"locale": "de",
-						"text": "[D] Gewicht"
-					}
-				],
-				"icon": {
-					"name": "scale"
-				},
-				"labelHidden": true,
-				"width": 1,
-				"alignment": {
-					"header": {
-						"horizontal": "center"
-					},
-					"content": {
-						"horizontal": "right"
-					}
-				},
-				"elementRef": "F15",
-				"sortable": true,
-				"preferredSorting": "ASC"
-			},
-			{
-				"id": "column-8rfd8",
-				"width": 1,
-				"elementRef": "F16",
-				"sortable": false
-			},
-			{
-				"id": "column-ee6a9",
-				"label": [
-					{
-						"locale": "en",
-						"text": "In Stock"
-					},
-					{
-						"locale": "de",
-						"text": "Auf Lager"
-					}
-				],
-				"labelHidden": true,
-				"width": 1,
-				"elementRef": "F53",
-				"sortable": true,
-				"preferredSorting": "ASC"
-			},
-			{
-				"id": "column-c8ee1",
-				"width": 1,
-				"elementRef": "F54",
-				"sortable": false
-			},
-			{
-				"id": "column-c8ee7",
-				"width": 1,
-				"elementRef": "F66",
-				"sortable": false
-			},
-			{
-				"id": "column-254dd8",
-				"label": [
-					{
-						"locale": "en",
-						"text": "[O] Number (pinned)"
-					},
-					{
-						"locale": "de",
-						"text": "[O] Zahl (angepinnt)"
-					}
-				],
-				"width": 1,
-				"pinDirection": "RIGHT",
-				"elementRef": "F3",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d12",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Release Month & Year"
-					},
-					{
-						"locale": "de",
-						"text": "Erscheinungsmonat & Jahr"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_d4c4b",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d123213",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Release Year"
-					},
-					{
-						"locale": "de",
-						"text": "Erscheinungsjahr"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_d4c4c",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d123214",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Release Month"
-					},
-					{
-						"locale": "de",
-						"text": "Erscheinungsmonat"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_d4c4d",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-752d13xas",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Release Month & Day"
-					},
-					{
-						"locale": "de",
-						"text": "Erscheinungsmonat & Tag"
-					}
-				],
-				"width": 1,
-				"elementRef": "field_d4c4e",
-				"sortable": true,
-				"preferredSorting": "DESC"
-			},
-			{
-				"id": "column-saleYearRange",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Sale Year Range"
-					}
-				],
-				"width": 1,
-				"elementRef": "F100",
-				"sortable": true
-			},
-			{
-				"id": "column-saleMonthRange",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Sale Month Range"
-					}
-				],
-				"width": 1,
-				"elementRef": "F101",
-				"sortable": true
-			},
-			{
-				"id": "column-saleYearMonthRange",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Sale YearMonth Range"
-					}
-				],
-				"width": 1.2,
-				"elementRef": "F102",
-				"sortable": true
-			},
-			{
-				"id": "column-saleDateRange",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Sale Date Range"
-					}
-				],
-				"width": 1.4,
-				"elementRef": "F103",
-				"sortable": true
-			},
-			{
-				"id": "column-saleMonthDayRange",
-				"label": [
-					{
-						"locale": "en",
-						"text": "Sale MonthDay Range"
-					}
-				],
-				"width": 1.2,
-				"elementRef": "F104",
-				"sortable": true
-			}
-		],
-		"rowActionGroup": {
-			"actions": [
-				{
-					"event": "bug",
-					"icon": {
-						"name": "bug_report"
-					},
-					"label": [
-						{
-							"locale": "en",
-							"text": "Report"
-						},
-						{
-							"locale": "de",
-							"text": "Dieses"
-						}
-					],
-					"labelHidden": true,
-					"description": [
-						{
-							"locale": "en",
-							"text": "Report"
-						},
-						{
-							"locale": "de",
-							"text": "Dieses"
-						}
-					],
-					"styles": ["s3"],
-					"destructive": false,
-					"primary": false
-				},
-				{
-					"event": "delete",
-					"confirmation": {
-						"title": [
-							{
-								"locale": "en",
-								"text": "Row Deletion"
-							},
-							{
-								"locale": "de",
-								"text": "Zeilenlöschung"
-							}
-						],
-						"message": [
-							{
-								"locale": "en",
-								"text": "Really delete row?"
-							},
-							{
-								"locale": "de",
-								"text": "Zeile wirklich löschen?"
-							}
-						]
-					},
-					"icon": {
-						"name": "delete"
-					},
-					"description": [
-						{
-							"locale": "en",
-							"text": "Delete this product"
-						},
-						{
-							"locale": "de",
-							"text": "Dieses Produkt löschen"
-						}
-					],
-					"styles": ["s4"],
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"contextMenu": {
-			"groups": [
-				{
-					"name": "testgroup",
-					"actions": [
-						{
-							"event": "edit",
-							"icon": {
-								"name": "edit"
-							},
-							"label": [
-								{
-									"locale": "en",
-									"text": "Edit Row"
-								},
-								{
-									"locale": "de",
-									"text": "Bearbeiten"
-								}
-							]
-						},
-						{
-							"event": "copy",
-							"label": [
-								{
-									"locale": "en",
-									"text": "Copy Row"
-								},
-								{
-									"locale": "de",
-									"text": "Kopieren"
-								}
-							],
-							"icon": {
-								"name": "content_copy"
-							},
-							"styles": ["s4"]
-						}
-					]
-				},
-				{
-					"name": "testgroup2",
-					"actions": [
-						{
-							"event": "print",
-							"icon": {
-								"name": "print"
-							},
-							"confirmation": {
-								"title": [
-									{
-										"locale": "en",
-										"text": "Print"
-									},
-									{
-										"locale": "de",
-										"text": "Drucken"
-									}
-								],
-								"message": [
-									{
-										"locale": "en",
-										"text": "Really print row?"
-									},
-									{
-										"locale": "de",
-										"text": "Zeile wirklich drucken?"
-									}
-								]
-							},
-							"description": [
-								{
-									"locale": "en",
-									"text": "Print"
-								},
-								{
-									"locale": "de",
-									"text": "Drucken"
-								}
-							]
-						}
-					]
-				}
-			]
-		},
-		"styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Add to cart"
-							},
-							{
-								"locale": "de",
-								"text": "In den Warenkorb legen"
-							}
-						],
-						"icon": {
-							"name": "shopping_cart"
-						},
-						"event": "add_to_cart_event",
-						"destructive": false,
-						"primary": true
-					},
-					{
-						"label": [
-							{
-								"locale": "en",
-								"text": "Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Favorit"
-							}
-						],
-						"icon": {
-							"name": "grade"
-						},
-						"event": "mark_as_favorite_event",
-						"description": [
-							{
-								"locale": "en",
-								"text": "Mark as Favorite"
-							},
-							{
-								"locale": "de",
-								"text": "Als Favorit markieren"
-							}
-						],
-						"destructive": false,
-						"primary": false
-					},
-					{
-						"icon": {
-							"name": "delete",
-							"theme": "filled"
-						},
-						"label": [
-							{
-								"locale": "en",
-								"text": "Delete"
-							},
-							{
-								"locale": "de",
-								"text": "Loschen"
-							}
-						],
-						"event": "delete_selected",
-						"destructive": false,
-						"confirmation": {
-							"title": [
-								{
-									"locale": "en",
-									"text": "Warning"
-								},
-								{
-									"locale": "de",
-									"text": "Warnung"
-								}
-							],
-							"message": [
-								{
-									"locale": "en",
-									"text": "Do you want to continue?"
-								},
-								{
-									"locale": "de",
-									"text": "Wollen Sie fortfahren?"
-								}
-							]
-						},
-						"primary": true
-					}
-				]
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"subtitle": [
-				{
-					"locale": "en",
-					"text": "Sports accessories"
-				},
-				{
-					"locale": "de",
-					"text": "Sportzubehör"
-				}
-			],
-			"rowTitle": [
-				{
-					"locale": "en",
-					"text": "Click to select this product"
-				},
-				{
-					"locale": "de",
-					"text": "Klicken Sie, um dieses Produkt auszuwählen"
-				}
-			],
-			"initialSorting": [
-				{
-					"idref": "column-752d8"
-				},
-				{
-					"idref": "column-254dd8"
-				}
-			],
-			"screenReaderColumn": {
-				"idref": "column-752d8"
-			},
-			"showRowCount": true,
-			"enableColumnsResize": true,
-			"actionColumnWidth": 1,
-			"rowHeight": 50,
-			"newFilterConfiguration": {
-				"filterSelector": {
-					"viewMode": "docked",
-					"initialVisibility": "show",
-					"trigger": {
-						"enabled": true,
-						"value": {
-							"icon": {
-								"name": "tune",
-								"theme": "outlined"
-							},
-							"labelHidden": true
-						}
-					},
-					"searchBar": {
-						"enabled": true,
-						"value": false
-					},
-					"showSetFiltersOnly": {
-						"enabled": true,
-						"value": false
-					}
-				},
-				"invert": {
-					"enabled": false
-				},
-				"joinOperator": {
-					"enabled": true,
-					"value": "and"
-				},
-				"filterGroups": [
-					{
-						"id": "common",
-						"name": "common",
-						"label": [
-							{
-								"locale": "en",
-								"text": "Common"
-							}
-						],
-						"filterItems": [
-							{
-								"id": "lightweight-sports",
-								"type": "query",
-								"description": [
-									{
-										"locale": "en",
-										"text": "Lightweight sports"
-									},
-									{
-										"locale": "de",
-										"text": "Lightweight sports"
-									}
-								],
-								"options": {
-									"operator": {
-										"operator": "and",
-										"operands": [
-											{
-												"fields": ["/product/name"],
-												"value": "Sport",
-												"operator": "simple_search"
-											},
-											{
-												"field": "/product/logistics/weight/weightValue",
-												"to": 1,
-												"operator": "double_range"
-											}
-										]
-									},
-									"enabled": {
-										"enabled": true,
-										"value": false
-									}
-								},
-								"preferFilterBar": true
-							},
-							{
-								"id": "releaseMonthDay",
-								"type": "dateFragment",
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "field_d4c4e",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "saleYearRange",
-								"type": "dateRange",
-								"options": {
-									"fieldId": "F100",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "saleMonthRange",
-								"type": "dateRange",
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F101",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "saleYearMonthRange",
-								"type": "dateRange",
-								"options": {
-									"fieldId": "F102",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "saleDateRange",
-								"type": "dateRange",
-								"options": {
-									"fieldId": "F103",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "saleMonthDayRange",
-								"type": "dateRange",
-								"options": {
-									"fieldId": "F104",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "releaseMonth",
-								"type": "dateFragment",
-								"options": {
-									"fieldId": "field_d4c4d",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								},
-								"preferFilterBar": true
-							},
-							{
-								"id": "releaseYear",
-								"type": "dateFragment",
-								"options": {
-									"fieldId": "field_d4c4c",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "releaseMonthYear",
-								"type": "dateFragment",
-								"options": {
-									"fieldId": "field_d4c4b",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"periods": [
-										{
-											"option": "year",
-											"enabled": true
-										},
-										{
-											"option": "month",
-											"enabled": true
-										},
-										{
-											"option": "yearMonth",
-											"default": true,
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "number",
-								"type": "number",
-								"icon": {
-									"name": "attach_money",
-									"theme": "filled"
-								},
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F3",
-									"ranges": [
-										{
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"default": true,
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "limitedOffer",
-								"type": "confirm",
-								"options": {
-									"fieldId": "F66",
-									"empty": {
-										"enabled": false
-									}
-								}
-							},
-							{
-								"id": "timeField",
-								"type": "time",
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F52",
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									},
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									]
-								}
-							},
-							{
-								"id": "dateField",
-								"type": "date",
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F50",
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"periods": [
-										{
-											"option": "date",
-											"default": true,
-											"enabled": true
-										},
-										{
-											"option": "year",
-											"enabled": true
-										},
-										{
-											"option": "yearMonth",
-											"enabled": true
-										},
-										{
-											"option": "month",
-											"enabled": true
-										}
-									],
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "dateTimeField",
-								"type": "dateTime",
-								"options": {
-									"fieldId": "F51",
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									},
-									"ranges": [
-										{
-											"default": true,
-											"option": "fromTo",
-											"enabled": true
-										},
-										{
-											"option": "fromOnly",
-											"enabled": true
-										},
-										{
-											"option": "toOnly",
-											"enabled": true
-										},
-										{
-											"option": "exact",
-											"enabled": true
-										}
-									],
-									"periods": [
-										{
-											"option": "dateTime",
-											"default": true,
-											"enabled": true
-										},
-										{
-											"option": "date",
-											"enabled": true
-										},
-										{
-											"option": "time",
-											"enabled": true
-										},
-										{
-											"option": "year",
-											"enabled": true
-										},
-										{
-											"option": "yearMonth",
-											"enabled": true
-										},
-										{
-											"option": "month",
-											"enabled": true
-										}
-									]
-								}
-							},
-							{
-								"id": "targetGroup",
-								"type": "enumeration",
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F54",
-									"viewMode": "list",
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									},
-									"criteria": []
-								}
-							},
-							{
-								"id": "name",
-								"type": "string",
-								"label": [
-									{
-										"locale": "en",
-										"text": "Name"
-									}
-								],
-								"preferFilterBar": true,
-								"options": {
-									"fieldId": "F7",
-									"viewMode": "list",
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"caseSensitive": {
-										"enabled": true,
-										"value": false
-									},
-									"exactMatch": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							}
-						]
-					},
-					{
-						"id": "other",
-						"name": "other",
-						"label": [
-							{
-								"locale": "en",
-								"text": "Other"
-							}
-						],
-						"filterItems": [
-							{
-								"id": "inStock",
-								"preferFilterBar": true,
-								"type": "boolean",
-								"label": [
-									{
-										"locale": "en",
-										"text": "Available in stock"
-									}
-								],
-								"options": {
-									"fieldId": "F53",
-									"empty": {
-										"enabled": true,
-										"value": false
-									}
-								}
-							},
-							{
-								"id": "meta",
-								"type": "multi-select",
-								"options": {
-									"fieldId": "F9",
-									"viewMode": "list",
-									"empty": {
-										"enabled": true,
-										"value": false
-									},
-									"invert": {
-										"enabled": true,
-										"value": false
-									},
-									"matchOperator": {
-										"enabled": true,
-										"value": "or"
-									}
-								}
-							}
-						]
-					}
-				]
-			}
-		}
-	}
+  "header": {
+    "id": "ProductNewFilterOM",
+    "modelType": "overview",
+    "modelVersion": "39.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [
+      {
+        "locale": "en",
+        "text": "List of all products"
+      },
+      {
+        "locale": "de",
+        "text": "Liste aller Produkte"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "document-model-for-overview",
+        "modelType": "document",
+        "alias": "DM",
+        "reference": "ProductDM"
+      }
+    ]
+  },
+  "content": {
+    "subHeaderBox": {
+      "rightSlot": [
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "First Right Header Button"
+            },
+            {
+              "locale": "de",
+              "text": "First Right Kopfzeile Button"
+            }
+          ],
+          "event": "first_right_header_event",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Warning"
+              },
+              {
+                "locale": "de",
+                "text": "Warnung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Do you want to continue?"
+              },
+              {
+                "locale": "de",
+                "text": "Wollen Sie fortfahren?"
+              }
+            ]
+          },
+          "styles": ["s1"],
+          "destructive": false,
+          "primary": false
+        },
+        {
+          "type": "search"
+        },
+        {
+          "type": "filter"
+        }
+      ],
+      "leftSlot": [
+        {
+          "type": "multi_selection"
+        },
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "First header button"
+            },
+            {
+              "locale": "de",
+              "text": "First header button [DE]"
+            }
+          ],
+          "event": "first_header_event",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Warning"
+              },
+              {
+                "locale": "de",
+                "text": "Warnung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Do you want to continue?"
+              },
+              {
+                "locale": "de",
+                "text": "Wollen Sie fortfahren?"
+              }
+            ]
+          },
+          "labelHidden": true,
+          "icon": {
+            "name": "star",
+            "theme": "filled"
+          },
+          "destructive": false,
+          "primary": true
+        },
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "Second header button"
+            },
+            {
+              "locale": "de",
+              "text": "Second header button [DE]"
+            }
+          ],
+          "event": "second_header_event",
+          "destructive": true,
+          "primary": false
+        }
+      ]
+    },
+    "footerBox": {
+      "rightSlot": [
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "Export"
+            },
+            {
+              "locale": "de",
+              "text": "Export [DE]"
+            }
+          ],
+          "event": "export_excel",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Warning"
+              },
+              {
+                "locale": "de",
+                "text": "Warnung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "This button won't do anything because this is not a CDM overview model. Do you want to continue?"
+              },
+              {
+                "locale": "de",
+                "text": "This button won't do anything because this is not a CDM overview model. Do you want to continue?"
+              }
+            ]
+          },
+          "destructive": false,
+          "primary": false
+        },
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "First Right Button"
+            },
+            {
+              "locale": "de",
+              "text": "First Rechts Button"
+            }
+          ],
+          "event": "first_right_footer_event",
+          "destructive": false,
+          "primary": false
+        }
+      ],
+      "leftSlot": [
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "First Footer Button"
+            },
+            {
+              "locale": "de",
+              "text": "First Fußzeile Button"
+            }
+          ],
+          "event": "first_footer_event",
+          "icon": {
+            "name": "pets"
+          },
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Warning"
+              },
+              {
+                "locale": "de",
+                "text": "Warnung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Do you want to continue?"
+              },
+              {
+                "locale": "de",
+                "text": "Wollen Sie fortfahren?"
+              }
+            ]
+          },
+          "labelHidden": true,
+          "destructive": false,
+          "primary": false
+        },
+        {
+          "type": "button",
+          "label": [
+            {
+              "locale": "en",
+              "text": "Second Footer Button"
+            },
+            {
+              "locale": "de",
+              "text": "Zweiter Fußzeilen Button"
+            }
+          ],
+          "event": "second_footer_event",
+          "icon": {
+            "name": "pets"
+          },
+          "destructive": false,
+          "primary": false
+        }
+      ]
+    },
+    "columns": [
+      {
+        "id": "column-06f19",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Image"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Bild"
+          }
+        ],
+        "icon": {
+          "name": "photo_camera"
+        },
+        "labelHidden": true,
+        "width": 0.6,
+        "alignment": {
+          "header": {
+            "horizontal": "center"
+          },
+          "content": {
+            "horizontal": "center"
+          }
+        },
+        "elementRef": "G53",
+        "sortable": false,
+        "attachmentDisplayMode": "preview"
+      },
+      {
+        "id": "column-752d10",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Date"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Datum"
+          }
+        ],
+        "width": 1,
+        "elementRef": "F50",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-cff6a",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Custom Expression"
+          },
+          {
+            "locale": "de",
+            "text": "Benutzerdefinierter Ausdruck"
+          }
+        ],
+        "width": 1,
+        "name": "Custom Expression",
+        "expression": "kontext(product) {[dateField]}"
+      },
+      {
+        "id": "column-752d19",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Expression"
+          },
+          {
+            "locale": "de",
+            "text": "Expression"
+          }
+        ],
+        "width": 1,
+        "name": "Expression",
+        "expression": "kontext(product) { case [targetGroup] = \"women\" { \"**girl**\" } case [targetGroup] = \"children\" { \"**child**\" } \" \" [inStock] }"
+      },
+      {
+        "id": "column-752d11",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Date Time"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Datum Zeit"
+          }
+        ],
+        "width": 1,
+        "elementRef": "F51",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d9",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Time"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Zeit"
+          }
+        ],
+        "width": 1,
+        "elementRef": "F52",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d8",
+        "width": 2.2,
+        "elementRef": "F7",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-72323",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[D] Description"
+          },
+          {
+            "locale": "de",
+            "text": "[D] Description"
+          }
+        ],
+        "width": 2.5,
+        "styles": {
+          "header": ["s1111", "s2222"],
+          "content": ["s3333", "s4444"]
+        },
+        "elementRef": "F8",
+        "sortable": false
+      },
+      {
+        "id": "column-72348",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[M] Meta"
+          },
+          {
+            "locale": "de",
+            "text": "[M] Meta"
+          }
+        ],
+        "labelHidden": true,
+        "width": 1,
+        "elementRef": "F9",
+        "sortable": false
+      },
+      {
+        "id": "column-4d36s",
+        "width": 1,
+        "elementRef": "F67",
+        "sortable": true,
+        "preferredSorting": "ASC"
+      },
+      {
+        "id": "column-5ds2d8",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[D] Weight"
+          },
+          {
+            "locale": "de",
+            "text": "[D] Gewicht"
+          }
+        ],
+        "icon": {
+          "name": "scale"
+        },
+        "labelHidden": true,
+        "width": 1,
+        "alignment": {
+          "header": {
+            "horizontal": "center"
+          },
+          "content": {
+            "horizontal": "right"
+          }
+        },
+        "elementRef": "F15",
+        "sortable": true,
+        "preferredSorting": "ASC"
+      },
+      {
+        "id": "column-8rfd8",
+        "width": 1,
+        "elementRef": "F16",
+        "sortable": false
+      },
+      {
+        "id": "column-ee6a9",
+        "label": [
+          {
+            "locale": "en",
+            "text": "In Stock"
+          },
+          {
+            "locale": "de",
+            "text": "Auf Lager"
+          }
+        ],
+        "labelHidden": true,
+        "width": 1,
+        "elementRef": "F53",
+        "sortable": true,
+        "preferredSorting": "ASC"
+      },
+      {
+        "id": "column-c8ee1",
+        "width": 1,
+        "elementRef": "F54",
+        "sortable": false
+      },
+      {
+        "id": "column-c8ee7",
+        "width": 1,
+        "elementRef": "F66",
+        "sortable": false
+      },
+      {
+        "id": "column-254dd8",
+        "label": [
+          {
+            "locale": "en",
+            "text": "[O] Number (pinned)"
+          },
+          {
+            "locale": "de",
+            "text": "[O] Zahl (angepinnt)"
+          }
+        ],
+        "width": 1,
+        "pinDirection": "RIGHT",
+        "elementRef": "F3",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d12",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Release Month & Year"
+          },
+          {
+            "locale": "de",
+            "text": "Erscheinungsmonat & Jahr"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_d4c4b",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d123213",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Release Year"
+          },
+          {
+            "locale": "de",
+            "text": "Erscheinungsjahr"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_d4c4c",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d123214",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Release Month"
+          },
+          {
+            "locale": "de",
+            "text": "Erscheinungsmonat"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_d4c4d",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-752d13xas",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Release Month & Day"
+          },
+          {
+            "locale": "de",
+            "text": "Erscheinungsmonat & Tag"
+          }
+        ],
+        "width": 1,
+        "elementRef": "field_d4c4e",
+        "sortable": true,
+        "preferredSorting": "DESC"
+      },
+      {
+        "id": "column-saleYearRange",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Sale Year Range"
+          }
+        ],
+        "width": 1,
+        "elementRef": "F100",
+        "sortable": true
+      },
+      {
+        "id": "column-saleMonthRange",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Sale Month Range"
+          }
+        ],
+        "width": 1,
+        "elementRef": "F101",
+        "sortable": true
+      },
+      {
+        "id": "column-saleYearMonthRange",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Sale YearMonth Range"
+          }
+        ],
+        "width": 1.2,
+        "elementRef": "F102",
+        "sortable": true
+      },
+      {
+        "id": "column-saleDateRange",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Sale Date Range"
+          }
+        ],
+        "width": 1.4,
+        "elementRef": "F103",
+        "sortable": true
+      },
+      {
+        "id": "column-saleMonthDayRange",
+        "label": [
+          {
+            "locale": "en",
+            "text": "Sale MonthDay Range"
+          }
+        ],
+        "width": 1.2,
+        "elementRef": "F104",
+        "sortable": true
+      }
+    ],
+    "rowActionGroup": {
+      "actions": [
+        {
+          "event": "bug",
+          "icon": {
+            "name": "bug_report"
+          },
+          "label": [
+            {
+              "locale": "en",
+              "text": "Report"
+            },
+            {
+              "locale": "de",
+              "text": "Dieses"
+            }
+          ],
+          "labelHidden": true,
+          "description": [
+            {
+              "locale": "en",
+              "text": "Report"
+            },
+            {
+              "locale": "de",
+              "text": "Dieses"
+            }
+          ],
+          "styles": ["s3"],
+          "destructive": false,
+          "primary": false
+        },
+        {
+          "event": "delete",
+          "confirmation": {
+            "title": [
+              {
+                "locale": "en",
+                "text": "Row Deletion"
+              },
+              {
+                "locale": "de",
+                "text": "Zeilenlöschung"
+              }
+            ],
+            "message": [
+              {
+                "locale": "en",
+                "text": "Really delete row?"
+              },
+              {
+                "locale": "de",
+                "text": "Zeile wirklich löschen?"
+              }
+            ]
+          },
+          "icon": {
+            "name": "delete"
+          },
+          "description": [
+            {
+              "locale": "en",
+              "text": "Delete this product"
+            },
+            {
+              "locale": "de",
+              "text": "Dieses Produkt löschen"
+            }
+          ],
+          "styles": ["s4"],
+          "destructive": false,
+          "primary": false
+        }
+      ]
+    },
+    "contextMenu": {
+      "groups": [
+        {
+          "name": "testgroup",
+          "actions": [
+            {
+              "event": "edit",
+              "icon": {
+                "name": "edit"
+              },
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Edit Row"
+                },
+                {
+                  "locale": "de",
+                  "text": "Bearbeiten"
+                }
+              ]
+            },
+            {
+              "event": "copy",
+              "label": [
+                {
+                  "locale": "en",
+                  "text": "Copy Row"
+                },
+                {
+                  "locale": "de",
+                  "text": "Kopieren"
+                }
+              ],
+              "icon": {
+                "name": "content_copy"
+              },
+              "styles": ["s4"]
+            }
+          ]
+        },
+        {
+          "name": "testgroup2",
+          "actions": [
+            {
+              "event": "print",
+              "icon": {
+                "name": "print"
+              },
+              "confirmation": {
+                "title": [
+                  {
+                    "locale": "en",
+                    "text": "Print"
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Drucken"
+                  }
+                ],
+                "message": [
+                  {
+                    "locale": "en",
+                    "text": "Really print row?"
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Zeile wirklich drucken?"
+                  }
+                ]
+              },
+              "description": [
+                {
+                  "locale": "en",
+                  "text": "Print"
+                },
+                {
+                  "locale": "de",
+                  "text": "Drucken"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "styles": ["s1", "s2", "s3", "s4", "s1111", "s2222", "s3333", "s4444"],
+    "configuration": {
+      "enableFilter": true,
+      "multiSelection": {
+        "collapseOption": "collapsible_collapsed",
+        "counterOption": "simple",
+        "buttons": [
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Add to cart"
+              },
+              {
+                "locale": "de",
+                "text": "In den Warenkorb legen"
+              }
+            ],
+            "icon": {
+              "name": "shopping_cart"
+            },
+            "event": "add_to_cart_event",
+            "destructive": false,
+            "primary": true
+          },
+          {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Favorite"
+              },
+              {
+                "locale": "de",
+                "text": "Favorit"
+              }
+            ],
+            "icon": {
+              "name": "grade"
+            },
+            "event": "mark_as_favorite_event",
+            "description": [
+              {
+                "locale": "en",
+                "text": "Mark as Favorite"
+              },
+              {
+                "locale": "de",
+                "text": "Als Favorit markieren"
+              }
+            ],
+            "destructive": false,
+            "primary": false
+          },
+          {
+            "icon": {
+              "name": "delete",
+              "theme": "filled"
+            },
+            "label": [
+              {
+                "locale": "en",
+                "text": "Delete"
+              },
+              {
+                "locale": "de",
+                "text": "Loschen"
+              }
+            ],
+            "event": "delete_selected",
+            "destructive": false,
+            "confirmation": {
+              "title": [
+                {
+                  "locale": "en",
+                  "text": "Warning"
+                },
+                {
+                  "locale": "de",
+                  "text": "Warnung"
+                }
+              ],
+              "message": [
+                {
+                  "locale": "en",
+                  "text": "Do you want to continue?"
+                },
+                {
+                  "locale": "de",
+                  "text": "Wollen Sie fortfahren?"
+                }
+              ]
+            },
+            "primary": true
+          }
+        ]
+      },
+      "showFullTextSearch": true,
+      "pagingSize": 10,
+      "subtitle": [
+        {
+          "locale": "en",
+          "text": "Sports accessories"
+        },
+        {
+          "locale": "de",
+          "text": "Sportzubehör"
+        }
+      ],
+      "rowTitle": [
+        {
+          "locale": "en",
+          "text": "Click to select this product"
+        },
+        {
+          "locale": "de",
+          "text": "Klicken Sie, um dieses Produkt auszuwählen"
+        }
+      ],
+      "initialSorting": [
+        {
+          "idref": "column-752d8"
+        },
+        {
+          "idref": "column-254dd8"
+        }
+      ],
+      "screenReaderColumn": {
+        "idref": "column-752d8"
+      },
+      "showRowCount": true,
+      "enableColumnsResize": true,
+      "actionColumnWidth": 1,
+      "rowHeight": 50,
+      "newFilterConfiguration": {
+        "filterSelector": {
+          "viewMode": "docked",
+          "initialVisibility": "show",
+          "trigger": {
+            "enabled": true,
+            "value": {
+              "icon": {
+                "name": "tune",
+                "theme": "outlined"
+              },
+              "labelHidden": true
+            }
+          },
+          "searchBar": {
+            "enabled": true,
+            "value": false
+          },
+          "showSetFiltersOnly": {
+            "enabled": true,
+            "value": false
+          }
+        },
+        "invert": {
+          "enabled": false
+        },
+        "joinOperator": {
+          "enabled": true,
+          "value": "and"
+        },
+        "filterGroups": [
+          {
+            "id": "common",
+            "name": "common",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Common"
+              }
+            ],
+            "filterItems": [
+              {
+                "id": "lightweight-sports",
+                "type": "query",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Lightweight sports"
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Leichte Sportartikel"
+                  }
+                ],
+                "description": [
+                  {
+                    "locale": "en",
+                    "text": "Products matching \"Sport\" by name and weighing up to 1 kg."
+                  },
+                  {
+                    "locale": "de",
+                    "text": "Produkte mit \"Sport\" im Namen und einem Gewicht bis 1 kg."
+                  }
+                ],
+                "options": {
+                  "operator": {
+                    "operator": "and",
+                    "operands": [
+                      {
+                        "fields": ["/product/name"],
+                        "value": "Sport",
+                        "operator": "simple_search"
+                      },
+                      {
+                        "field": "/product/logistics/weight/weightValue",
+                        "to": 1,
+                        "operator": "double_range"
+                      }
+                    ]
+                  },
+                  "enabled": {
+                    "enabled": true,
+                    "value": false
+                  }
+                },
+                "preferFilterBar": true
+              },
+              {
+                "id": "releaseMonthDay",
+                "type": "dateFragment",
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "field_d4c4e",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "saleYearRange",
+                "type": "dateRange",
+                "options": {
+                  "fieldId": "F100",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "saleMonthRange",
+                "type": "dateRange",
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F101",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "saleYearMonthRange",
+                "type": "dateRange",
+                "options": {
+                  "fieldId": "F102",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "saleDateRange",
+                "type": "dateRange",
+                "options": {
+                  "fieldId": "F103",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "saleMonthDayRange",
+                "type": "dateRange",
+                "options": {
+                  "fieldId": "F104",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "releaseMonth",
+                "type": "dateFragment",
+                "options": {
+                  "fieldId": "field_d4c4d",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                },
+                "preferFilterBar": true
+              },
+              {
+                "id": "releaseYear",
+                "type": "dateFragment",
+                "options": {
+                  "fieldId": "field_d4c4c",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "releaseMonthYear",
+                "type": "dateFragment",
+                "options": {
+                  "fieldId": "field_d4c4b",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "periods": [
+                    {
+                      "option": "year",
+                      "enabled": true
+                    },
+                    {
+                      "option": "month",
+                      "enabled": true
+                    },
+                    {
+                      "option": "yearMonth",
+                      "default": true,
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "number",
+                "type": "number",
+                "icon": {
+                  "name": "attach_money",
+                  "theme": "filled"
+                },
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F3",
+                  "ranges": [
+                    {
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "default": true,
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "limitedOffer",
+                "type": "confirm",
+                "options": {
+                  "fieldId": "F66",
+                  "empty": {
+                    "enabled": false
+                  }
+                }
+              },
+              {
+                "id": "timeField",
+                "type": "time",
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F52",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "dateField",
+                "type": "date",
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F50",
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "periods": [
+                    {
+                      "option": "date",
+                      "default": true,
+                      "enabled": true
+                    },
+                    {
+                      "option": "year",
+                      "enabled": true
+                    },
+                    {
+                      "option": "yearMonth",
+                      "enabled": true
+                    },
+                    {
+                      "option": "month",
+                      "enabled": true
+                    }
+                  ],
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "dateTimeField",
+                "type": "dateTime",
+                "options": {
+                  "fieldId": "F51",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "ranges": [
+                    {
+                      "default": true,
+                      "option": "fromTo",
+                      "enabled": true
+                    },
+                    {
+                      "option": "fromOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "toOnly",
+                      "enabled": true
+                    },
+                    {
+                      "option": "exact",
+                      "enabled": true
+                    }
+                  ],
+                  "periods": [
+                    {
+                      "option": "dateTime",
+                      "default": true,
+                      "enabled": true
+                    },
+                    {
+                      "option": "date",
+                      "enabled": true
+                    },
+                    {
+                      "option": "time",
+                      "enabled": true
+                    },
+                    {
+                      "option": "year",
+                      "enabled": true
+                    },
+                    {
+                      "option": "yearMonth",
+                      "enabled": true
+                    },
+                    {
+                      "option": "month",
+                      "enabled": true
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "targetGroup",
+                "type": "enumeration",
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F54",
+                  "viewMode": "list",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "criteria": []
+                }
+              },
+              {
+                "id": "name",
+                "type": "string",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Name"
+                  }
+                ],
+                "preferFilterBar": true,
+                "options": {
+                  "fieldId": "F7",
+                  "viewMode": "list",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "caseSensitive": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "exactMatch": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "name": "other",
+            "label": [
+              {
+                "locale": "en",
+                "text": "Other"
+              }
+            ],
+            "filterItems": [
+              {
+                "id": "inStock",
+                "preferFilterBar": true,
+                "type": "boolean",
+                "label": [
+                  {
+                    "locale": "en",
+                    "text": "Available in stock"
+                  }
+                ],
+                "options": {
+                  "fieldId": "F53",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  }
+                }
+              },
+              {
+                "id": "meta",
+                "type": "multi-select",
+                "options": {
+                  "fieldId": "F9",
+                  "viewMode": "list",
+                  "empty": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "invert": {
+                    "enabled": true,
+                    "value": false
+                  },
+                  "matchOperator": {
+                    "enabled": true,
+                    "value": "or"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
 }

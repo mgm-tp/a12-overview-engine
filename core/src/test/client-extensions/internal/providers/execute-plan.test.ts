@@ -38,11 +38,11 @@ import { NotificationActions } from "@com.mgmtp.a12.client/client-core";
 import { Dispatcher } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { executeQueryPlan } from "../../../../main/client-extensions/internal/providers/execute-plan.js";
-import { RequestValidator } from "../../../../main/client-extensions/internal/utils/request-validator.js";
 import type { QueryExecutionPlan } from "../../../../main/client-extensions/internal/providers/query-execution-plan.js";
+import { RequestValidator } from "../../../../main/client-extensions/internal/utils/request-validator.js";
 
 vi.mock("@com.mgmtp.a12.dataservices/dataservices-access", async (importOriginal) => {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+	// eslint-disable-next-line typescript/consistent-type-imports
 	const original = await importOriginal<typeof import("@com.mgmtp.a12.dataservices/dataservices-access")>();
 
 	return {

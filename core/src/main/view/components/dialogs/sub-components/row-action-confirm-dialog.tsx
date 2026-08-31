@@ -34,9 +34,9 @@ import * as React from "react";
 
 import type { JSONDocument } from "../../../../models/index.js";
 import type { OverviewModel } from "../../../../overview-model.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
 import { RESOURCE_KEYS, OverviewModelKeys } from "../../../../services/localization/index.js";
+import { useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
 
 export namespace RowActionConfirmDialog {
 	export interface Props {

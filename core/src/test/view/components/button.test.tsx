@@ -30,20 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { Icon } from "@com.mgmtp.a12.widgets/widgets-core";
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { Button } from "../../../main/view/components/button.js";
 import { OverviewEngine } from "../../../main/view/overview-engine.js";
-
-import { render } from "../../test-utils.js";
 import { defaultEngineProps } from "../../basic.spec.js";
+import { render } from "../../test-utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.button", () => {
-	const spyFunction = vi.fn();
+	const spyFunction = vi.fn<() => void>();
 	const basicEngineProps = defaultEngineProps;
 
 	function setupTest(props?: Partial<Button.PropsType>) {

@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 import type { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { QueryBuilder } from "@com.mgmtp.a12.querymodel/querymodel-core";
 
-import type { FilterState } from "../../../store/index.js";
 import { isFieldBasedFilterModelItem } from "../../../models/filter-model-utils.js";
+import type { FilterState } from "../../../store/index.js";
 import type { ModelsState, FilterItemState, FilterStateSelectors } from "../../../store/index.js";
 
 /** @experimental until 40.0.0 - API may change without semver guarantees. */

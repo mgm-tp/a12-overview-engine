@@ -32,8 +32,8 @@
 
 import type { Attachment } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import type { Selector } from "../../store/index.js";
 import { createSelector } from "../../client-extensions/internal/shared.js";
+import type { Selector } from "../../store/index.js";
 import type { OverviewEngineContextType } from "../context/overview-engine-context.js";
 
 /**

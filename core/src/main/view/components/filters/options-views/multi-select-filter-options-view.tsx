@@ -32,21 +32,21 @@
 
 import * as React from "react";
 
-import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { UiStateSelector } from "../../../../store/index.js";
-import type { FilterOptionsView } from "../filter-options-view.js";
-import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
-import { FilterOperation, type OverviewEngineApi } from "../../../api.js";
-import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
-import { useIdGenerator, nullFistComparator, toConditionalArray } from "../../../utils.js";
 import { DocumentModelUtils, MultiSelectModelUtils } from "../../../../models/internal/shared.js";
-import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { RESOURCE_KEYS } from "../../../../services/localization/index.js";
+import { UiStateSelector } from "../../../../store/index.js";
+import { FilterOperation, type OverviewEngineApi } from "../../../api.js";
 import { useOverviewEngineState, useOverviewEngineContext } from "../../../context/overview-engine-context.js";
+import { useOverviewEngineInternalContext } from "../../../context/overview-engine-internal-context.js";
+import { LocalizerHooks } from "../../../hooks/localizer-hooks.js";
+import { useIdGenerator, nullFistComparator, toConditionalArray } from "../../../utils.js";
+import type { FilterOptionsView } from "../filter-options-view.js";
 
-import { EmptyLabel } from "./empty-label.js";
 import { useHeadingElements } from "./date-time-common-hooks.js";
+import { EmptyLabel } from "./empty-label.js";
 import { useSearchInput } from "./enumeration-filter-options-view.js";
 
 export namespace MultiSelectFilterOptionsView {

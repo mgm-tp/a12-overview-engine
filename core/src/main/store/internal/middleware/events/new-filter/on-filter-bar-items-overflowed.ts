@@ -33,11 +33,11 @@
 import { mapValues } from "lodash-es";
 import type { Middleware } from "redux";
 
-import type { UiState } from "../../../store.js";
 import { Events, Commands } from "../../../actions.js";
-import { UiStateSelector } from "../../../selectors/ui-state.js";
 import { FilterStateLens, type FilterItemState } from "../../../filter-state.js";
 import type { FilterStateSelectors } from "../../../selectors/filter-selectors.js";
+import { UiStateSelector } from "../../../selectors/ui-state.js";
+import type { UiState } from "../../../store.js";
 
 interface Options {
 	readonly filterStateSelectors: FilterStateSelectors;

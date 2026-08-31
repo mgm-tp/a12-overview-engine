@@ -31,18 +31,18 @@
  */
 
 // tag::custom-reference-cell-example[]
-
 import * as React from "react";
+
 import { format } from "date-fns/format";
 
-import { convertMomentToDateFnsFormat } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
 	OverviewEngine,
 	useFieldFormatter,
-	type ExpressionCell,
 	DefaultComponentMap,
+	type ExpressionCell,
 	type FieldFormatterParams
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { convertMomentToDateFnsFormat } from "@com.mgmtp.a12.widgets/widgets-core";
 
 export const CustomExpressionCell: React.FC<ExpressionCell.Props> = (props) => {
 	const formatField = useFieldFormatter();

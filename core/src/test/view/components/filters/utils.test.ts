@@ -31,15 +31,15 @@
  */
 
 import * as React from "react";
-import { it, expect, describe } from "vitest";
-import { renderHook } from "@testing-library/react";
 
-import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
-import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { renderHook } from "@testing-library/react";
+import { it, expect, describe } from "vitest";
+
 import { type Locale, type DataFormats, defaultDataFormats } from "@com.mgmtp.a12.utils/utils-localization";
+import { DefaultLocalizerContextProvider } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { useDateTimeFormatString } from "../../../../main/view/components/filters/use-date-time-format-string.js";
-
 import { deLocale, enLocale } from "../../../basic.spec.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.filters.utils", () => {

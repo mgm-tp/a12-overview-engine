@@ -34,8 +34,8 @@ import { memo, type FC, useMemo, useCallback } from "react";
 
 import { Multiselect, type MultiselectProps } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 import { RESOURCE_KEYS } from "../../../../../services/localization/index.js";
+import { LocalizerHooks } from "../../../../hooks/localizer-hooks.js";
 
 import type { MultiSelectListProps } from "./multi-select-list.js";
 

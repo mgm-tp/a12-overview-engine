@@ -37,7 +37,6 @@ import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { OverviewModel } from "../../../../main/overview-model.js";
 import type { OverviewEngineApi } from "../../../../main/view/api.js";
 import { OverviewEngine } from "../../../../main/view/overview-engine.js";
-
 import { defaultEngineProps } from "../../../basic.spec.js";
 import { render, type TestReduxState } from "../../../test-utils.js";
 import { noop, type PartialOEInfiniteScrollProps } from "../../../utils.js";

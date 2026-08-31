@@ -1,82 +1,82 @@
 {
-	"header": {
-		"id": "EmployeeProjectRM",
-		"modelType": "relationship",
-		"modelVersion": "4.0.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "employee",
-				"reference": "EmployeeDM"
-			},
-			{
-				"purpose": "Document model",
-				"modelType": "document",
-				"alias": "project",
-				"reference": "ProjectDM"
-			}
-		]
-	},
-	"content": {
-		"duplicatesAllowed": false,
-		"labels": [
-			{
-				"locale": "en"
-			},
-			{
-				"locale": "de"
-			}
-		],
-		"entityCharacteristics": [
-			{
-				"documentModel": "EmployeeDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en"
-					},
-					{
-						"locale": "de"
-					}
-				],
-				"role": "employee",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": true,
-						"upperLimit": null
-					}
-				}
-			},
-			{
-				"documentModel": "ProjectDM",
-				"ordered": false,
-				"labels": [
-					{
-						"locale": "en"
-					},
-					{
-						"locale": "de"
-					}
-				],
-				"role": "project",
-				"linkConstraints": {
-					"multiplicity": {
-						"unbounded": true,
-						"upperLimit": null
-					}
-				}
-			}
-		]
-	}
+  "header": {
+    "id": "EmployeeProjectRM",
+    "modelType": "relationship",
+    "modelVersion": "4.0.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "employee",
+        "reference": "EmployeeDM"
+      },
+      {
+        "purpose": "Document model",
+        "modelType": "document",
+        "alias": "project",
+        "reference": "ProjectDM"
+      }
+    ]
+  },
+  "content": {
+    "duplicatesAllowed": false,
+    "labels": [
+      {
+        "locale": "en"
+      },
+      {
+        "locale": "de"
+      }
+    ],
+    "entityCharacteristics": [
+      {
+        "documentModel": "EmployeeDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en"
+          },
+          {
+            "locale": "de"
+          }
+        ],
+        "role": "employee",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": true,
+            "upperLimit": null
+          }
+        }
+      },
+      {
+        "documentModel": "ProjectDM",
+        "ordered": false,
+        "labels": [
+          {
+            "locale": "en"
+          },
+          {
+            "locale": "de"
+          }
+        ],
+        "role": "project",
+        "linkConstraints": {
+          "multiplicity": {
+            "unbounded": true,
+            "upperLimit": null
+          }
+        }
+      }
+    ]
+  }
 }

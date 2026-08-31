@@ -32,11 +32,11 @@
 
 import { format } from "date-fns";
 
-import { RangeCriteria } from "../criteria.js";
-import type { DateRangeFilterState } from "../../filter-state.js";
 import type { OverviewModel } from "../../../../overview-model.js";
-import { padYear, padMonthYear, padYearMonthTime } from "../date-period-utils.js";
 import { isDefined, formatRange, createDateFormatter } from "../../../../services/filter-format-utils.js";
+import type { DateRangeFilterState } from "../../filter-state.js";
+import { RangeCriteria } from "../criteria.js";
+import { padYear, padMonthYear, padYearMonthTime } from "../date-period-utils.js";
 
 import type { Resolver } from "./resolver.js";
 

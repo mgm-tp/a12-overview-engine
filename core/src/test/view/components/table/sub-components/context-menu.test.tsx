@@ -30,20 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe } from "vitest";
 import { fireEvent } from "@testing-library/react";
+import { it, vi, expect, describe } from "vitest";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import type { JSONDocument } from "../../../../../main/models/index.js";
 import type { OverviewModel } from "../../../../../main/overview-model.js";
-import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
-import hooks from "../../../../../main/view/components/table/sub-components/hooks.js";
 import { ContextMenu } from "../../../../../main/view/components/table/sub-components/context-menu.js";
-
-import { mockType } from "../../../../utils.js";
-import { render } from "../../../../test-utils.js";
+import hooks from "../../../../../main/view/components/table/sub-components/hooks.js";
+import { OverviewEngine } from "../../../../../main/view/overview-engine.js";
 import { deLocale, enLocale, defaultEngineProps } from "../../../../basic.spec.js";
+import { render } from "../../../../test-utils.js";
+import { mockType } from "../../../../utils.js";
 
 describe("com.mgmtp.a12.overview-engine.view.components.table.sub-components.context-menu", () => {
 	const basicEngineProps = defaultEngineProps;

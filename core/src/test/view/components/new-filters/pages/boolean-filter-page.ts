@@ -34,9 +34,8 @@ import { fireEvent, queryByText } from "@testing-library/react";
 
 import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { assertCondition } from "../../../../../main/client-extensions/internal/utils/assertion.js";
-
+import type { OverviewModel } from "../../../../../main/overview-model.js";
 import { assertCheckboxes } from "../assertions.js";
 import { renderFilter, getByDataRole, queryAllByDataRole, type FilterRenderResult } from "../setup.js";
 

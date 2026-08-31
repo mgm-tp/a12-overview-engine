@@ -32,7 +32,7 @@
 
 import type { RESOURCE_KEYS } from "./keys.js";
 
-// prettier-ignore
+// oxfmt-ignore
 /** @internal */
 export const de: typeof RESOURCE_KEYS = {
 	overviewEngine: {
@@ -72,6 +72,10 @@ export const de: typeof RESOURCE_KEYS = {
 			selector: {
 				closeButtonTitle: "Schließen",
 				searchPlaceholder: "Suchen"
+			},
+			section: {
+				appliedTitle: "Filter ist angewendet",
+				errorTitle: "Filter enthält Fehler"
 			},
 			selectorOptions: {
 				viewHeader: "Ansicht",
@@ -211,7 +215,8 @@ export const de: typeof RESOURCE_KEYS = {
 		},
 		filterButton: {
 			openFilter: "Filter öffnen",
-			closeFilter: "Filter schließen"
+			closeFilter: "Filter schließen",
+			filtersAppliedTitle: "Filter sind angewendet"
 		},
 		"searchBar": {
 			"searchButtonTitle": "Suche",

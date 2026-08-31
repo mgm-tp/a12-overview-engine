@@ -30,16 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { it, vi, expect, describe, beforeAll, afterEach, beforeEach } from "vitest";
+import { it, vi, expect, describe, afterEach, beforeAll, beforeEach } from "vitest";
 
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import type { OverviewModel } from "../../../../main/overview-model.js";
 import { RangeCriteria } from "../../../../main/store/internal/filter-controllers/criteria.js";
-import { DateFilterState, DateTimeFilterState } from "../../../../main/store/internal/filter-state.js";
 import { DateTimeFilterController } from "../../../../main/store/internal/filter-controllers/date-time-controller.js";
-
+import { DateFilterState, DateTimeFilterState } from "../../../../main/store/internal/filter-state.js";
 import { getDocumentModel } from "../../../setup/models.js";
 
 const controller = new DateTimeFilterController();

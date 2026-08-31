@@ -1,139 +1,139 @@
 {
-	"header": {
-		"id": "ContractDM",
-		"modelType": "document",
-		"modelVersion": "29.4.0",
-		"locales": [
-			{
-				"code": "en"
-			},
-			{
-				"code": "de"
-			}
-		],
-		"labels": [
-			{
-				"locale": "en",
-				"text": "Contract"
-			},
-			{
-				"locale": "de",
-				"text": "Contract"
-			}
-		],
-		"annotations": [],
-		"modelReferences": [
-			{
-				"modelType": "document",
-				"purpose": "include",
-				"reference": "DomainTest"
-			}
-		]
-	},
-	"content": {
-		"modelInfo": {
-			"name": "ContractDM"
-		},
-		"modelConfig": {
-			"timeZone": "UTC",
-			"decimalSeparator": ".",
-			"conditionLanguage": {
-				"code": "en_US"
-			}
-		},
-		"modelRoot": {
-			"rootGroups": [
-				{
-					"type": "Group",
-					"id": "group_c9234",
-					"name": "Contract",
-					"Group": {
-						"label": [
-							{
-								"locale": "en",
-								"text": "Contract"
-							},
-							{
-								"locale": "de",
-								"text": "Contract"
-							}
-						],
-						"repeatability": 1,
-						"elements": [
-							{
-								"type": "Field",
-								"id": "field_5d4bf",
-								"name": "Weekly_Work_Hours",
-								"Field": {
-									"fieldType": {
-										"type": "NumberType",
-										"NumberType": {
-											"minValue": 0,
-											"maxValue": 84,
-											"trait": "amount"
-										}
-									},
-									"label": [
-										{
-											"locale": "en",
-											"text": "Weekly Work Hours"
-										},
-										{
-											"locale": "de",
-											"text": "Weekly Work Hours"
-										}
-									]
-								}
-							},
-							{
-								"type": "Group",
-								"id": "include_182b8",
-								"name": "domainTest",
-								"Group": {
-									"repeatability": 1,
-									"includeConfig": {
-										"reference": "DomainTest"
-									}
-								}
-							},
-							{
-								"type": "Field",
-								"id": "field_bb4cc",
-								"name": "computationTarget",
-								"Field": {
-									"fieldType": {
-										"type": "StringType"
-									}
-								}
-							},
-							{
-								"type": "Computation",
-								"id": "computation_e784d",
-								"name": "computationRule",
-								"Computation": {
-									"computedFieldRelPath": "../computationTarget",
-									"computationAlternatives": [
-										{
-											"precondition": "FieldFilled(Weekly_Work_Hours)",
-											"operation": "FieldValueAsString(Weekly_Work_Hours) + \",\" + \"computed\""
-										}
-									],
-									"errorMessage": [
-										{
-											"locale": "en",
-											"text": "error text for computation of computationRule"
-										},
-										{
-											"locale": "de",
-											"text": "error text for computation of computationRule"
-										}
-									]
-								}
-							}
-						]
-					}
-				}
-			]
-		}
-	}
+  "header": {
+    "id": "ContractDM",
+    "modelType": "document",
+    "modelVersion": "29.4.0",
+    "locales": [
+      {
+        "code": "en"
+      },
+      {
+        "code": "de"
+      }
+    ],
+    "labels": [
+      {
+        "locale": "en",
+        "text": "Contract"
+      },
+      {
+        "locale": "de",
+        "text": "Contract"
+      }
+    ],
+    "annotations": [],
+    "modelReferences": [
+      {
+        "modelType": "document",
+        "purpose": "include",
+        "reference": "DomainTest"
+      }
+    ]
+  },
+  "content": {
+    "modelInfo": {
+      "name": "ContractDM"
+    },
+    "modelConfig": {
+      "timeZone": "UTC",
+      "decimalSeparator": ".",
+      "conditionLanguage": {
+        "code": "en_US"
+      }
+    },
+    "modelRoot": {
+      "rootGroups": [
+        {
+          "type": "Group",
+          "id": "group_c9234",
+          "name": "Contract",
+          "Group": {
+            "label": [
+              {
+                "locale": "en",
+                "text": "Contract"
+              },
+              {
+                "locale": "de",
+                "text": "Contract"
+              }
+            ],
+            "repeatability": 1,
+            "elements": [
+              {
+                "type": "Field",
+                "id": "field_5d4bf",
+                "name": "Weekly_Work_Hours",
+                "Field": {
+                  "fieldType": {
+                    "type": "NumberType",
+                    "NumberType": {
+                      "minValue": 0,
+                      "maxValue": 84,
+                      "trait": "amount"
+                    }
+                  },
+                  "label": [
+                    {
+                      "locale": "en",
+                      "text": "Weekly Work Hours"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "Weekly Work Hours"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Group",
+                "id": "include_182b8",
+                "name": "domainTest",
+                "Group": {
+                  "repeatability": 1,
+                  "includeConfig": {
+                    "reference": "DomainTest"
+                  }
+                }
+              },
+              {
+                "type": "Field",
+                "id": "field_bb4cc",
+                "name": "computationTarget",
+                "Field": {
+                  "fieldType": {
+                    "type": "StringType"
+                  }
+                }
+              },
+              {
+                "type": "Computation",
+                "id": "computation_e784d",
+                "name": "computationRule",
+                "Computation": {
+                  "computedFieldRelPath": "../computationTarget",
+                  "computationAlternatives": [
+                    {
+                      "precondition": "FieldFilled(Weekly_Work_Hours)",
+                      "operation": "FieldValueAsString(Weekly_Work_Hours) + \",\" + \"computed\""
+                    }
+                  ],
+                  "errorMessage": [
+                    {
+                      "locale": "en",
+                      "text": "error text for computation of computationRule"
+                    },
+                    {
+                      "locale": "de",
+                      "text": "error text for computation of computationRule"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

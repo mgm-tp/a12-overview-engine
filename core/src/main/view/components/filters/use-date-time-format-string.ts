@@ -32,8 +32,8 @@
 
 import * as React from "react";
 
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { type Locale, type DataFormats, defaultDataFormats } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 
 import type { DateTimeViewSelection } from "./options-views/date-time-filter-view.api.js";
 
